@@ -739,7 +739,7 @@ namespace Senga
 
                 consultaLocalizaCamion(dtCamiontmp);
                 enviarWsdlLocalizaCamion(dtCamiontmp);
-
+                 
                 consultaRepartoCorral(dtRepartotmp);
                 enviarWsdlRepartoCorral(dtRepartotmp);
 
@@ -2615,6 +2615,9 @@ namespace Senga
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
+
+            string cadena = "";
+            cadena = "test";
 
             if (!redConectado())
             {
