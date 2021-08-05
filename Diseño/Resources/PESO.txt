@@ -1,0 +1,20 @@
+“SERIAL PORT COMM”
+
+NET/GROSS  +  ON (oprimir juntos)
+
+NET/GROSS (muestra siguientes opciones)
+..
+MENU 2 + ON
+..
+NET/GROSS (muestra siguientes opciones)
+..
+..
+1 LINEA -> Select (ENCENDIDO)
+SCOREM  -> 24 (10/SEG)    23 (3/SEG)
+COM IN	-> EZ2CMD (9600)   EZ CMD (1200) BaudRate
+WT ONLY
+PRNT-2  (ENCENDIDO)
+7E1
+..
+..
+ON GUARDAR (Finaliza)

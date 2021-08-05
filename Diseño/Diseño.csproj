@@ -1,0 +1,286 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5EA8CC34-802C-4381-BF35-6FBE98C9BA22}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Senga</RootNamespace>
+    <AssemblyName>Senga</AssemblyName>
+    <ApplicationIcon>icon-truck.ico</ApplicationIcon>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>http://localhost/Senga/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GMap.NET.Core, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.5.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <HintPath>..\packages\GMap.NET.WindowsForms.1.7.5\lib\net40\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.interop.access.dao, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Comm.cs" />
+    <Compile Include="Comun.cs" />
+    <Compile Include="Configurar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Configurar.Designer.cs">
+      <DependentUpon>Configurar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectedWs.cs" />
+    <Compile Include="ConnectWs.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Datos.cs" />
+    <Compile Include="Captura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Captura.Designer.cs">
+      <DependentUpon>Captura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ITimer.cs" />
+    <Compile Include="Jornadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Jornadas.Designer.cs">
+      <DependentUpon>Jornadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mensaje01.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mensaje01.Designer.cs">
+      <DependentUpon>Mensaje01.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mensaje02.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mensaje02.Designer.cs">
+      <DependentUpon>Mensaje02.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mensaje03.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mensaje03.Designer.cs">
+      <DependentUpon>Mensaje03.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\getSAPData\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Configurar.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Configurar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Captura.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Captura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Jornadas.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Jornadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mensaje01.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Mensaje01.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mensaje02.resx">
+      <DependentUpon>Mensaje02.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mensaje03.resx">
+      <DependentUpon>Mensaje03.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Racion.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Racion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Raciones.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Raciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Servidas.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Servidas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Servir.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>Servir.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Racion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Racion.Designer.cs">
+      <DependentUpon>Racion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Raciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Raciones.Designer.cs">
+      <DependentUpon>Raciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Servidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Servidas.Designer.cs">
+      <DependentUpon>Servidas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Servir.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Servir.Designer.cs">
+      <DependentUpon>Servir.cs</DependentUpon>
+    </Compile>
+    <None Include="Web References\getSAPData\document.wsdl" />
+    <None Include="Web References\getSAPData\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\getSAPData\ZWsGpsResponse.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="icon-truck.ico" />
+    <Content Include="icono.ico" />
+    <None Include="Resources\veinte.wav" />
+    <None Include="Resources\treinta.wav" />
+    <None Include="Resources\ochenta.wav" />
+    <None Include="Resources\setenta.wav" />
+    <None Include="Resources\sesenta.wav" />
+    <None Include="Resources\noventa.wav" />
+    <None Include="Resources\diez.wav" />
+    <None Include="Resources\cuarenta.wav" />
+    <None Include="Resources\cincuenta.wav" />
+    <None Include="Resources\cien.wav" />
+    <None Include="Resources\porciento.wav" />
+    <None Include="Resources\PESO.txt" />
+    <None Include="Resources\SQL.txt" />
+    <None Include="Images\barrafull.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://tamggsapdev.grupogusi.com.mx:8000/sap/bc/srt/wsdl/bndg_EB7BAD5E83E4E5F1811D00155D00896A/wsdl11/allinone/ws_policy/document%3fsap-client=200">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\getSAPData\</RelPath>
+      <UpdateFromURL>http://tamggsapdev.grupogusi.com.mx:8000/sap/bc/srt/wsdl/bndg_EB7BAD5E83E4E5F1811D00155D00896A/wsdl11/allinone/ws_policy/document%3fsap-client=200</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>Senga_getSAPData_zwsdl_gps</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
