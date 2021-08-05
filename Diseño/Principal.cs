@@ -2619,10 +2619,6 @@ namespace Senga
             string cadena = "";
             cadena = "test";
 
-
-            string cadena2 = "";
-            cadena2 = "test2";
-
             if (!redConectado())
             {
                 //MessageBox.Show("Sin red disponible.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
