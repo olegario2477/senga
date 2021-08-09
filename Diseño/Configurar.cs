@@ -43,6 +43,7 @@ namespace Senga
 
             //inicializa();
             propiedadesGrid();
+            propiedadesGrid2();
             mostrar();
             tablaUbicTemp();
             posicionbotones();
@@ -1299,22 +1300,47 @@ namespace Senga
 
                     datos.p_sql = linea;
 
-                    if (!datos.consultaSQL(ref dt, false))
+                    if (linea.Substring(0, 6).ToLower().Equals("select"))
                     {
-                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                        verror = true;
-                        break;
+                        if (!datos.consultaSQL(ref dt, true))
+                        {
+                            //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                            verror = true;
+                            break;
+                        }
+                        else 
+                        {
+                            dataGridSQLResultados.DataSource = dt;
+                            
+                            lblSQLStatus.Text = "Correcto"+" Total "+dt.Rows.Count.ToString() +" Reg.";
+                        }
+                    }
+                    else
+                    {
+
+                        if (!datos.consultaSQL(ref dt, false))
+                        {
+                            //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                            verror = true;
+                            break;
+                        }
+                        else 
+                        {
+                            lblSQLStatus.Text = "Correcto";
+                        }
+                    
                     }
 
                 }
 
             }
 
-            if (!verror)
-            {
-                Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-            }
+            //if (!verror)
+            //{
+            //    Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+            //}
 
             //-----------------------------------------------------
 
@@ -1664,6 +1690,26 @@ namespace Senga
 
         }
 
+        private void propiedadesGrid2()
+        {
+
+            dataGridSQLResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridSQLResultados.ReadOnly = true;
+            dataGridSQLResultados.AllowUserToAddRows = false;
+            dataGridSQLResultados.AllowUserToDeleteRows = false;
+            dataGridSQLResultados.AllowUserToOrderColumns = false;
+            dataGridSQLResultados.AllowUserToResizeColumns = true;
+            dataGridSQLResultados.AllowUserToResizeRows = false;
+            dataGridSQLResultados.MultiSelect = false;
+            //DGRaciones.ColumnHeadersVisible = false;
+            dataGridSQLResultados.RowHeadersVisible = false;
+            dataGridSQLResultados.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridSQLResultados.DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
+            //DGRaciones.RowTemplate.Height = 50;
+
+
+        }
+
         private void btnBasic_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabControl1.TabPages["basic"];
@@ -1699,7 +1745,19 @@ namespace Senga
             tabControl1.SelectedTab = tabControl1.TabPages["mtto"];
         }
 
+        private void btnTablas_Click(object sender, EventArgs e) 
+        {
+            Datos datos = new Datos();
 
+            List<string> tablas = new List<string>();
+            tablas = datos.ObtenerTablas();
+
+            foreach (string value in tablas)
+            {
+                txtSQL.Text += value + '\r' + '\n';
+            }
+
+        }
     }
 
 }

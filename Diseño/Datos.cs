@@ -156,6 +156,30 @@ namespace Senga
 
         }
 
+        public List<string> ObtenerTablas()
+        {
+
+            DataTable userTables = null;
+            using (OleDbConnection con = new OleDbConnection(coneccion()))
+            {
+
+                string[] restrictions = new string[4];
+                restrictions[3] = "Table";
+
+                con.Open();
+
+                userTables = con.GetSchema("Tables", restrictions);
+
+            }
+
+            List<string> tableNames = new List<string>();
+            for (int i = 0; i < userTables.Rows.Count; i++)
+                tableNames.Add(userTables.Rows[i][2].ToString());
+
+            return tableNames;
+
+        }
+
         public bool compact() 
         {
                        
