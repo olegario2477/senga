@@ -73,54 +73,9 @@ namespace Senga.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
         /// </summary>
-        internal static System.IO.UnmanagedMemoryStream cien {
+        internal static System.IO.UnmanagedMemoryStream beep_50p {
             get {
-                return ResourceManager.GetStream("cien", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream cincuenta {
-            get {
-                return ResourceManager.GetStream("cincuenta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream cuarenta {
-            get {
-                return ResourceManager.GetStream("cuarenta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream diez {
-            get {
-                return ResourceManager.GetStream("diez", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream noventa {
-            get {
-                return ResourceManager.GetStream("noventa", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream ochenta {
-            get {
-                return ResourceManager.GetStream("ochenta", resourceCulture);
+                return ResourceManager.GetStream("beep_50p", resourceCulture);
             }
         }
         
@@ -153,33 +108,6 @@ namespace Senga.Properties {
         }
         
         /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream porciento {
-            get {
-                return ResourceManager.GetStream("porciento", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream sesenta {
-            get {
-                return ResourceManager.GetStream("sesenta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream setenta {
-            get {
-                return ResourceManager.GetStream("setenta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a alter table configuracion alter column BaudRateGps long;
         ///alter table servidas add column CorralGPS text(10);
         ///alter table servidas add column LatitudI double;
@@ -191,24 +119,6 @@ namespace Senga.Properties {
         internal static string SQL {
             get {
                 return ResourceManager.GetString("SQL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream treinta {
-            get {
-                return ResourceManager.GetStream("treinta", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
-        /// </summary>
-        internal static System.IO.UnmanagedMemoryStream veinte {
-            get {
-                return ResourceManager.GetStream("veinte", resourceCulture);
             }
         }
     }

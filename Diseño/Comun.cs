@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Media;
+using System.Drawing;
 
 namespace Senga
 {
@@ -71,46 +72,78 @@ namespace Senga
 
         }
 
+        public static void sonidoPorc(TextBox color, double porc) 
+        {
 
+            if (porc > 0 && porc <= 60)
+            {
+                colorCampo(color, Color.White, Color.Black);
+            }
+            else if (porc > 60 && porc <= 90)
+            {
+                // Beep at 5000 Hz for 1 second
+                Console.Beep((int)porc * 10, 50);
+                colorCampo(color, Color.Yellow, Color.Black);
+            }
+            else if (porc > 90 && porc < 100)
+            {
+                Console.Beep(2000, 100);
+                colorCampo(color, Color.Orange, Color.White);
+            }
+            else if (porc >= 100)
+            {
+                Console.Beep(3000, 100);
+                colorCampo(color, Color.Red, Color.White);
+            }
+
+        }
+
+        private static void colorCampo(TextBox campo, Color fondo, Color letra)
+        {
+
+            campo.BackColor = fondo;
+            campo.ForeColor = letra;
+
+        }
 
         public static void reproducirRecursoWav(int opc)
         {
-            switch (opc)
-            {
+            //switch (opc)
+            //{
 
-                case 0:
-                    break;
-                case 10:
-                    new SoundPlayer(Properties.Resources.diez).Play();
-                    break;
-                case 20:
-                    new SoundPlayer(Properties.Resources.veinte).Play();
-                    break;
-                case 30:
-                    new SoundPlayer(Properties.Resources.treinta).Play();
-                    break;
-                case 40:
-                    new SoundPlayer(Properties.Resources.cuarenta).Play();
-                    break;
-                case 50:
-                    new SoundPlayer(Properties.Resources.cincuenta).Play();
-                    break;
-                case 60:
-                    new SoundPlayer(Properties.Resources.sesenta).Play();
-                    break;
-                case 70:
-                    new SoundPlayer(Properties.Resources.setenta).Play();
-                    break;
-                case 80:
-                    new SoundPlayer(Properties.Resources.ochenta).Play();
-                    break;
-                case 90:
-                    new SoundPlayer(Properties.Resources.noventa).Play();
-                    break;
-                case 100:
-                    new SoundPlayer(Properties.Resources.cien).Play();
-                    break;
-            }
+            //    case 0:
+            //        break;
+            //    case 10:
+            //        new SoundPlayer(Properties.Resources.diez).Play();
+            //        break;
+            //    case 20:
+            //        new SoundPlayer(Properties.Resources.veinte).Play();
+            //        break;
+            //    case 30:
+            //        new SoundPlayer(Properties.Resources.treinta).Play();
+            //        break;
+            //    case 40:
+            //        new SoundPlayer(Properties.Resources.cuarenta).Play();
+            //        break;
+            //    case 50:
+            //        new SoundPlayer(Properties.Resources.cincuenta).Play();
+            //        break;
+            //    case 60:
+            //        new SoundPlayer(Properties.Resources.sesenta).Play();
+            //        break;
+            //    case 70:
+            //        new SoundPlayer(Properties.Resources.setenta).Play();
+            //        break;
+            //    case 80:
+            //        new SoundPlayer(Properties.Resources.ochenta).Play();
+            //        break;
+            //    case 90:
+            //        new SoundPlayer(Properties.Resources.noventa).Play();
+            //        break;
+            //    case 100:
+            //        new SoundPlayer(Properties.Resources.cien).Play();
+            //        break;
+            //}
 
 
 

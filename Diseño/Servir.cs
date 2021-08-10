@@ -20,7 +20,7 @@ namespace Senga
         private Comm comm = new Comm();
         private SerialPort serialPort1 = new SerialPort();
         
-        SoundPlayer player = new SoundPlayer(Properties.Resources.diez);
+        //SoundPlayer player = new SoundPlayer(Properties.Resources.beep_50p);
 
         string vidd;
         string viddr;
@@ -671,8 +671,6 @@ namespace Senga
                 pic10.Visible = true;
             }
 
-
-
         }
         
         private void barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox color)
@@ -697,31 +695,33 @@ namespace Senga
 
             double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
+            Comun.sonidoPorc(color, porc);
+
             //------------------------------------------------------------------------------
-            if (porc > 0 && porc <= 60)
-            {
-                swithSonido(false);
-                colorCampo(color, Color.White, Color.Black);
-            }
-            else if (porc > 60 && porc <= 90)
-            {
-                // Beep at 5000 Hz for 1 second
-                //Console.Beep((int)porc * 10, 50);
-                Console.Beep(2000, 100);
-                //SystemSounds.Beep.Play();
-                //player.LoadAsync();
-                colorCampo(color, Color.Yellow, Color.Black);
-            }
-            else if (porc > 90 && porc < 100)
-            {
-                Console.Beep(2100, 100);
-                colorCampo(color, Color.Orange, Color.Black);
-            }
-            else if (porc >= 100)
-            {
-                Console.Beep(3000, 100);
-                colorCampo(color, Color.Red, Color.White);
-            }
+            //if (porc > 0 && porc <= 60)
+            //{
+            //    //swithSonido(false);
+            //    colorCampo(color, Color.White, Color.Black);
+            //} 
+            //else if (porc > 60 && porc <= 90)
+            //{
+            //    // Beep at 5000 Hz for 1 second
+            //    Console.Beep((int)porc * 10, 50);
+            //    //SystemSounds.Beep.Play();
+            //    //player.LoadAsync();
+            //    //Console.Beep(2000, 80);
+            //    colorCampo(color, Color.Yellow, Color.Black);
+            //}
+            //else if (porc > 90 && porc < 100)
+            //{
+            //    Console.Beep(2000, 100);
+            //    colorCampo(color, Color.Orange, Color.White);
+            //}
+            //else if (porc >= 100)
+            //{
+            //    Console.Beep(3000, 100);
+            //    colorCampo(color, Color.Red, Color.White);
+            //}
             //------------------------------------------------------------------------------
 
             //if (porc > 0 && porc <= 10)
@@ -749,18 +749,16 @@ namespace Senga
 
         }
 
-        private void colorCampo(TextBox campo, Color fondo, Color letra)
-        {
+        //private void colorCampo(TextBox campo, Color fondo, Color letra)
+        //{
 
-            campo.BackColor = fondo;
-            campo.ForeColor = letra;
+        //    campo.BackColor = fondo;
+        //    campo.ForeColor = letra;
 
-        }
+        //}
 
         private void btnHecho_Click(object sender, EventArgs e)
-        {
-
-           
+        {           
 
             btnHecho.Text = "HECHO";
 
@@ -845,7 +843,6 @@ namespace Senga
                     }
 
                 }
-
 
                 if (guardar)
                 {
@@ -1622,56 +1619,54 @@ namespace Senga
                 Servidas.instance.timerGPS.Stop();
             }
 
-
-
         }
 
         private void timerBeep_Tick(object sender, EventArgs e)
         {
             barra(pbServido, txtPlan, txtServir, txtVariacion);
                       
-        }
-
-        private void InitializeSound()
-        {
-            player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
-            {
-                playSound(true);
-            };
-            player.LoadAsync();
 
         }
 
-        private void swithSonido(Boolean valor)
-        {
+        //private void InitializeSound()
+        //{
+        //    player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+        //    {
+        //        playSound(true);
+        //    };
+        //    player.LoadAsync();
 
-            if (valor)
-            {
-                playSound(true);
-            }
-            else
-            {
-                if (player != null)
-                {    
-                    player.Stop();
-                }
-            }
+        //}
+
+        //private void swithSonido(Boolean valor)
+        //{
+
+        //    if (valor)
+        //    {
+        //        playSound(true);
+        //    }
+        //    else
+        //    {
+        //        if (player != null)
+        //        {    
+        //            player.Stop();
+        //        }
+        //    }
     
-        }
+        //}
 
+        //public void playSound(bool looping)
+        //{
 
-        public void playSound(bool looping)
-        {
-
-            if (looping)
-            {
-                player.PlayLooping();
-            }
-            else
-            {
-                player.Play();
-            }
-        }
+        //    if (looping)
+        //    {
+        //        player.PlayLooping();
+        //    }
+        //    else
+        //    {
+        //        player.Play();
+        //    }
+        //}
 
 
 

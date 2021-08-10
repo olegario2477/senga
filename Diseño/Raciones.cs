@@ -314,7 +314,9 @@ namespace Senga
             table.Columns.Add("Hora", typeof(string));
             table.Columns.Add("Tolva", typeof(long));
             table.Columns.Add("Solicito", typeof(long));
-            table.Columns.Add("Carga", typeof(long));
+            table.Columns.Add("Cargo", typeof(long));
+            table.Columns.Add("Servido", typeof(long));
+            table.Columns.Add("Dif", typeof(long));
  
 
             DGCargas.DataSource = table;
@@ -331,10 +333,13 @@ namespace Senga
             //DGCargas.Columns["IdD"].Width = 0;
             //DGRaciones.Columns["Bruto"].Width = 0;
 
+
             DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Solicito"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Cargo"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Dif"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
 
@@ -396,6 +401,7 @@ namespace Senga
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
             DataTable table = (DataTable)(DGCargas.DataSource);
 
             table.Rows.Clear();
@@ -403,6 +409,12 @@ namespace Senga
             string idd = "0";
             bool primero = true;
 
+           datos.p_sql = "SELECT NumCarga,Sum(Realidad) as Realidad FROM Servidas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' group by NumCarga";
+
+            if (!datos.consultaSQL(ref dt2, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
 
             datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
 
@@ -416,8 +428,24 @@ namespace Senga
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), row["Tolva"].ToString(), row["Solicito"].ToString(), row["Carga"].ToString());
+                    
+                    string realidad = "0";
+
+                    foreach (DataRow row2 in dt2.Rows)
+                    {
+                        if (row2["NumCarga"].ToString().Equals(row["IdD"].ToString())) 
+                        { 
+                            realidad = row2["Realidad"].ToString();
+                            break;
+                        }                        
+                        
+                    }
+
+                    long dif = Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(cadenaCero(realidad)); 
+                
+
+                //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
+                table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), row["Tolva"].ToString(), row["Solicito"].ToString(), row["Carga"].ToString(), realidad.ToString(), dif.ToString());
 
                     //if (row["Cargado"].ToString() == "0" && primero)
                     ////if (primero)
@@ -2799,6 +2827,17 @@ namespace Senga
 
         //}
 
+        private string cadenaCero(string valor)
+        {
+
+            if (valor.Equals(""))
+            {
+                valor = "0";
+            }
+
+            return valor;
+
+        }
 
     }
        

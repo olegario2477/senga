@@ -121,43 +121,13 @@
   <data name="barrafull" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\barrafull.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="cien" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cien.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cincuenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cincuenta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="cuarenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\cuarenta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="diez" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\diez.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="noventa" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\noventa.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ochenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ochenta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="beep_50p" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beep-50p.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="PESO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PESO.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="porciento" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\porciento.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="sesenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sesenta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="setenta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\setenta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="SQL" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SQL.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="treinta" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\treinta.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="veinte" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\veinte.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

@@ -872,28 +872,30 @@ namespace Senga
                 barra.Value = vvalor;
 
                 double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
+                
+                Comun.sonidoPorc(campo, porc);
 
                 //------------------------------------------------------------------------------
-                if (porc > 0 && porc <= 60)
-                {
-                    colorCampo(campo, Color.White, Color.Black);
-                }
-                else if (porc > 60 && porc <= 90)
-                {
-                    // Beep at 5000 Hz for 1 second
-                    Console.Beep((int)porc * 10, 50);
-                    colorCampo(campo, Color.Yellow, Color.Black);
-                }
-                else if (porc > 90 && porc < 100)
-                {
-                    Console.Beep(2000, 200);
-                    colorCampo(campo, Color.Orange, Color.Black);
-                }
-                else if (porc >= 100)
-                {
-                    Console.Beep(3000, 200);
-                    colorCampo(campo, Color.Red, Color.White);
-                }
+                //if (porc > 0 && porc <= 60)
+                //{
+                //    colorCampo(campo, Color.White, Color.Black);
+                //}
+                //else if (porc > 60 && porc <= 90)
+                //{
+                //    // Beep at 5000 Hz for 1 second
+                //    Console.Beep((int)porc * 10, 50);
+                //    colorCampo(campo, Color.Yellow, Color.Black);
+                //}
+                //else if (porc > 90 && porc < 100)
+                //{
+                //    Console.Beep(2000, 100);
+                //    colorCampo(campo, Color.Orange, Color.Black);
+                //}
+                //else if (porc >= 100)
+                //{
+                //    Console.Beep(3000, 200);
+                //    colorCampo(campo, Color.Red, Color.White);
+                //}
                 //------------------------------------------------------------------------------
 
                 //if (porc < 60)
@@ -925,13 +927,13 @@ namespace Senga
 
         }
 
-        private void colorCampo(TextBox campo, Color fondo, Color letra)
-        {
+        //private void colorCampo(TextBox campo, Color fondo, Color letra)
+        //{
 
-            campo.BackColor = fondo;
-            campo.ForeColor = letra;
+        //    campo.BackColor = fondo;
+        //    campo.ForeColor = letra;
 
-        }
+        //}
 
         private void btnTolva_Click(object sender, EventArgs e)
         {

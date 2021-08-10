@@ -106,10 +106,15 @@
             this.button1 = new System.Windows.Forms.Button();
             this.dataGridUbicaciones = new System.Windows.Forms.DataGridView();
             this.sql = new System.Windows.Forms.TabPage();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.txtSQL = new System.Windows.Forms.TextBox();
+            this.dataGridSQLResultados = new System.Windows.Forms.DataGridView();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.lblSQLStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.btnTablas = new System.Windows.Forms.Button();
             this.btnLimpia = new System.Windows.Forms.Button();
             this.btnRecursos = new System.Windows.Forms.Button();
             this.btnEjecutar = new System.Windows.Forms.Button();
-            this.txtSQL = new System.Windows.Forms.TextBox();
             this.manual = new System.Windows.Forms.TabPage();
             this.btnConfigPeso = new System.Windows.Forms.Button();
             this.listBoxConfigDisplay = new System.Windows.Forms.ListBox();
@@ -129,11 +134,6 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
-            this.btnTablas = new System.Windows.Forms.Button();
-            this.dataGridSQLResultados = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.lblSQLStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -145,15 +145,15 @@
             this.zone.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUbicaciones)).BeginInit();
             this.sql.SuspendLayout();
-            this.manual.SuspendLayout();
-            this.mtto.SuspendLayout();
-            this.tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.manual.SuspendLayout();
+            this.mtto.SuspendLayout();
+            this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -1033,6 +1033,80 @@
             this.sql.UseVisualStyleBackColor = true;
             this.sql.Click += new System.EventHandler(this.tabPage8_Click);
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.txtSQL);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.dataGridSQLResultados);
+            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
+            this.splitContainer1.Size = new System.Drawing.Size(851, 537);
+            this.splitContainer1.SplitterDistance = 300;
+            this.splitContainer1.TabIndex = 81;
+            // 
+            // txtSQL
+            // 
+            this.txtSQL.AllowDrop = true;
+            this.txtSQL.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSQL.Location = new System.Drawing.Point(0, 0);
+            this.txtSQL.Multiline = true;
+            this.txtSQL.Name = "txtSQL";
+            this.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtSQL.Size = new System.Drawing.Size(851, 300);
+            this.txtSQL.TabIndex = 0;
+            this.txtSQL.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtSQL_DragDrop);
+            this.txtSQL.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtSQL_DragEnter);
+            // 
+            // dataGridSQLResultados
+            // 
+            this.dataGridSQLResultados.AllowDrop = true;
+            this.dataGridSQLResultados.AllowUserToAddRows = false;
+            this.dataGridSQLResultados.AllowUserToDeleteRows = false;
+            this.dataGridSQLResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSQLResultados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridSQLResultados.Location = new System.Drawing.Point(0, 0);
+            this.dataGridSQLResultados.Name = "dataGridSQLResultados";
+            this.dataGridSQLResultados.ReadOnly = true;
+            this.dataGridSQLResultados.RowHeadersWidth = 70;
+            this.dataGridSQLResultados.RowTemplate.Height = 35;
+            this.dataGridSQLResultados.Size = new System.Drawing.Size(851, 191);
+            this.dataGridSQLResultados.TabIndex = 80;
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblSQLStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 191);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(851, 42);
+            this.statusStrip1.TabIndex = 81;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // lblSQLStatus
+            // 
+            this.lblSQLStatus.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblSQLStatus.Name = "lblSQLStatus";
+            this.lblSQLStatus.Size = new System.Drawing.Size(35, 37);
+            this.lblSQLStatus.Text = "...";
+            // 
+            // btnTablas
+            // 
+            this.btnTablas.Location = new System.Drawing.Point(1026, 327);
+            this.btnTablas.Name = "btnTablas";
+            this.btnTablas.Size = new System.Drawing.Size(147, 132);
+            this.btnTablas.TabIndex = 4;
+            this.btnTablas.Text = "Tablas";
+            this.btnTablas.UseVisualStyleBackColor = true;
+            this.btnTablas.Click += new System.EventHandler(this.btnTablas_Click);
+            // 
             // btnLimpia
             // 
             this.btnLimpia.Location = new System.Drawing.Point(857, 175);
@@ -1062,19 +1136,6 @@
             this.btnEjecutar.Text = "Ejecutar";
             this.btnEjecutar.UseVisualStyleBackColor = true;
             this.btnEjecutar.Click += new System.EventHandler(this.btnEjecutar_Click);
-            // 
-            // txtSQL
-            // 
-            this.txtSQL.AllowDrop = true;
-            this.txtSQL.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSQL.Location = new System.Drawing.Point(0, 0);
-            this.txtSQL.Multiline = true;
-            this.txtSQL.Name = "txtSQL";
-            this.txtSQL.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtSQL.Size = new System.Drawing.Size(851, 350);
-            this.txtSQL.TabIndex = 0;
-            this.txtSQL.DragDrop += new System.Windows.Forms.DragEventHandler(this.txtSQL_DragDrop);
-            this.txtSQL.DragEnter += new System.Windows.Forms.DragEventHandler(this.txtSQL_DragEnter);
             // 
             // manual
             // 
@@ -1328,67 +1389,6 @@
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
             // 
-            // btnTablas
-            // 
-            this.btnTablas.Location = new System.Drawing.Point(1026, 327);
-            this.btnTablas.Name = "btnTablas";
-            this.btnTablas.Size = new System.Drawing.Size(147, 132);
-            this.btnTablas.TabIndex = 4;
-            this.btnTablas.Text = "Tablas";
-            this.btnTablas.UseVisualStyleBackColor = true;
-            this.btnTablas.Click += new System.EventHandler(this.btnTablas_Click);
-            // 
-            // dataGridSQLResultados
-            // 
-            this.dataGridSQLResultados.AllowDrop = true;
-            this.dataGridSQLResultados.AllowUserToAddRows = false;
-            this.dataGridSQLResultados.AllowUserToDeleteRows = false;
-            this.dataGridSQLResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridSQLResultados.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridSQLResultados.Location = new System.Drawing.Point(0, 0);
-            this.dataGridSQLResultados.Name = "dataGridSQLResultados";
-            this.dataGridSQLResultados.ReadOnly = true;
-            this.dataGridSQLResultados.RowHeadersWidth = 70;
-            this.dataGridSQLResultados.RowTemplate.Height = 35;
-            this.dataGridSQLResultados.Size = new System.Drawing.Size(851, 141);
-            this.dataGridSQLResultados.TabIndex = 80;
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.txtSQL);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.dataGridSQLResultados);
-            this.splitContainer1.Panel2.Controls.Add(this.statusStrip1);
-            this.splitContainer1.Size = new System.Drawing.Size(851, 537);
-            this.splitContainer1.SplitterDistance = 350;
-            this.splitContainer1.TabIndex = 81;
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lblSQLStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 141);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(851, 42);
-            this.statusStrip1.TabIndex = 81;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // lblSQLStatus
-            // 
-            this.lblSQLStatus.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.lblSQLStatus.Name = "lblSQLStatus";
-            this.lblSQLStatus.Size = new System.Drawing.Size(35, 37);
-            this.lblSQLStatus.Text = "...";
-            // 
             // Configurar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1428,19 +1428,19 @@
             this.zone.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUbicaciones)).EndInit();
             this.sql.ResumeLayout(false);
-            this.manual.ResumeLayout(false);
-            this.mtto.ResumeLayout(false);
-            this.tableLayoutPanel.ResumeLayout(false);
-            this.tableLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.manual.ResumeLayout(false);
+            this.mtto.ResumeLayout(false);
+            this.tableLayoutPanel.ResumeLayout(false);
+            this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
