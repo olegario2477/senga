@@ -37,6 +37,7 @@
             this.btnNuevo = new System.Windows.Forms.Button();
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnAbrir = new System.Windows.Forms.Button();
+            this.btnReportes = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGJornadas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.SuspendLayout();
@@ -140,6 +141,19 @@
             this.btnAbrir.UseVisualStyleBackColor = true;
             this.btnAbrir.Click += new System.EventHandler(this.btnAbrir_Click);
             // 
+            // btnReportes
+            // 
+            this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
+            this.btnReportes.Location = new System.Drawing.Point(476, 0);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(149, 149);
+            this.btnReportes.TabIndex = 70;
+            this.btnReportes.Text = "Reportes";
+            this.btnReportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnReportes.UseVisualStyleBackColor = true;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            // 
             // Jornadas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -149,6 +163,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1264, 625);
             this.ControlBox = false;
+            this.Controls.Add(this.btnReportes);
             this.Controls.Add(this.btnAbrir);
             this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.btnNuevo);
@@ -183,5 +198,6 @@
         private System.Windows.Forms.Button btnNuevo;
         private System.Windows.Forms.Button btnEliminar;
         private System.Windows.Forms.Button btnAbrir;
+        private System.Windows.Forms.Button btnReportes;
     }
 }

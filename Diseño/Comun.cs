@@ -92,7 +92,7 @@ namespace Senga
             }
             else if (porc >= 100)
             {
-                Console.Beep(3000, 100);
+                //Console.Beep(3000, 100);
                 colorCampo(color, Color.Red, Color.White);
             }
 

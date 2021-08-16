@@ -130,6 +130,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Web References\getSAPData\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -173,6 +179,9 @@
     <EmbeddedResource Include="Raciones.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Raciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Servidas.resx">
       <SubType>Designer</SubType>
@@ -229,6 +238,7 @@
   <ItemGroup>
     <Content Include="icon-truck.ico" />
     <Content Include="icono.ico" />
+    <None Include="Resources\beep-censor.wav" />
     <None Include="Resources\beep-50p.wav" />
     <None Include="Resources\PESO.txt" />
     <None Include="Resources\SQL.txt" />

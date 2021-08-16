@@ -124,6 +124,9 @@
   <data name="beep_50p" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\beep-50p.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="beep_censor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\beep-censor.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="PESO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PESO.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>

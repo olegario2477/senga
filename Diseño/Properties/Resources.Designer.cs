@@ -80,6 +80,15 @@ namespace Senga.Properties {
         }
         
         /// <summary>
+        ///   Busca un recurso adaptado de tipo System.IO.UnmanagedMemoryStream similar a System.IO.MemoryStream.
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream beep_censor {
+            get {
+                return ResourceManager.GetStream("beep_censor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a “SERIAL PORT COMM”
         ///
         ///NET/GROSS  +  ON (oprimir juntos)

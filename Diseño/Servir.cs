@@ -20,7 +20,7 @@ namespace Senga
         private Comm comm = new Comm();
         private SerialPort serialPort1 = new SerialPort();
         
-        //SoundPlayer player = new SoundPlayer(Properties.Resources.beep_50p);
+        SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
 
         string vidd;
         string viddr;
@@ -41,6 +41,7 @@ namespace Senga
         double vlng;
         string vnumcarga;
         bool RecibirPeso = false;
+        bool beepOn = true;
 
         //private string RxString;
 
@@ -71,6 +72,7 @@ namespace Senga
 
             //iniciaPesoOpc1();
             iniciaPesoOpc2();
+            colorPantalla();
 
 
             txtCarga.Text = vnumcarga;
@@ -243,7 +245,7 @@ namespace Senga
             serialPort1.Close();
             serialPort1.Dispose();
 
-            //swithSonido(false);
+            swithSonido(false);
 
         }
 
@@ -673,7 +675,7 @@ namespace Senga
 
         }
         
-        private void barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox color)
+        private double barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox color)
         {
 
             int vmaximo = Convert.ToInt32(maximo.Text);
@@ -696,6 +698,8 @@ namespace Senga
             double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
             Comun.sonidoPorc(color, porc);
+
+            return porc;
 
             //------------------------------------------------------------------------------
             //if (porc > 0 && porc <= 60)
@@ -1160,11 +1164,11 @@ namespace Senga
                     porc1 = 100 - porc1;
                 }
 
-                lblPorc.Text = Math.Round(porc1, 0).ToString() + " %";
+                txtPorc.Text = Math.Round(porc1, 0).ToString(); //+ " %";
             }
             else
             {
-                lblPorc.Text = "0 %";
+                txtPorc.Text = "0"; //"0 %";
             }
 
             fomatoCampos();
@@ -1264,8 +1268,8 @@ namespace Senga
             btnServirIniV.Text = txtServirIniV.Text;
             txtServirFinV.Text = string.Format("{0:#,##0}", long.Parse(txtServirFin.Text));
 
-            txtVariacionV.ForeColor = txtVariacion.ForeColor;
-            txtVariacionV.BackColor = txtVariacion.BackColor;
+            //txtVariacionV.ForeColor = txtVariacion.ForeColor;
+            //txtVariacionV.BackColor = txtVariacion.BackColor;
         }
                      
         private string stopConfig()
@@ -1371,7 +1375,7 @@ namespace Senga
 
                         //btnHecho.BackColor = SystemColors.Control;
                         //btnHecho.ForeColor = Color.Black;
-                        txtServirIniV.BackColor = Color.White;
+                        txtServirIniV.BackColor = Color.Black;
                     }
 
                     //Console.Beep(900, 100);
@@ -1382,7 +1386,7 @@ namespace Senga
                 {
                     //btnHecho.BackColor = SystemColors.Control;
                     //btnHecho.ForeColor = Color.Black;
-                    txtServirIniV.BackColor = Color.White;
+                    txtServirIniV.BackColor = Color.Black;
                 }
 
             }
@@ -1623,52 +1627,127 @@ namespace Senga
 
         private void timerBeep_Tick(object sender, EventArgs e)
         {
-            barra(pbServido, txtPlan, txtServir, txtVariacion);
-                      
+
+            double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
+            
+            if (porc>=100) 
+            {
+                if (beepOn)
+                {
+                    InitializeSound();
+                    beepOn = false;
+                }
+            }         
 
         }
 
-        //private void InitializeSound()
-        //{
-        //    player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
-        //    {
-        //        playSound(true);
-        //    };
-        //    player.LoadAsync();
+        private void InitializeSound()
+        {
+            player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+            {
+                playSound(false);
+            };
+            player.LoadAsync();
 
-        //}
+        }
 
-        //private void swithSonido(Boolean valor)
-        //{
+        private void swithSonido(Boolean valor)
+        {
+            if (valor)
+            {
+                playSound(true);
+            }
+            else
+            {
+                if (player != null)
+                {
+                    player.Stop();
+                }
+            }
+        }
 
-        //    if (valor)
-        //    {
-        //        playSound(true);
-        //    }
-        //    else
-        //    {
-        //        if (player != null)
-        //        {    
-        //            player.Stop();
-        //        }
-        //    }
-    
-        //}
+        public void playSound(bool looping)
+        {
+            if (looping)
+            {
+                player.PlayLooping();
+            }
+            else
+            {
+                player.Play();
+            }
+        }
 
-        //public void playSound(bool looping)
-        //{
+        private void colorPantalla() 
+        {
 
-        //    if (looping)
-        //    {
-        //        player.PlayLooping();
-        //    }
-        //    else
-        //    {
-        //        player.Play();
-        //    }
-        //}
+            Color colorFondo = Color.Black;
+            Color colorFondoW = Color.White;
+            Color colorFondoP = Color.Blue;
+            Color colorLetra = Color.Lime;
+            Color colorLetraH = Color.Yellow;
+            Color colorLetraT = Color.White;
+
+            this.BackColor = colorFondoW;
+
+            txtCorral.BackColor = colorFondo;
+            txtCorral.ForeColor = colorLetraH;
+
+            txtRacion.BackColor = colorFondo;
+            txtRacion.ForeColor = colorLetraH;
+
+            txtCarga.BackColor = colorFondo;
+            txtCarga.ForeColor = colorLetraH;
 
 
+            txtVariacionV.BackColor = colorFondo;
+            txtVariacionV.ForeColor = colorLetra;
+
+            txtPlanV.BackColor = colorFondo;
+            txtPlanV.ForeColor = colorLetra;
+
+            txtServirV.BackColor = colorFondo;
+            txtServirV.ForeColor = colorLetra;
+
+            txtVarCab.BackColor = colorFondo;
+            txtVarCab.ForeColor = colorLetra;
+
+            txtServirIniV.BackColor = colorFondo;
+            txtServirIniV.ForeColor = colorLetra;
+
+            txtServirFinV.BackColor = colorFondo;
+            txtServirFinV.ForeColor = colorLetra;
+
+            txtPorc.BackColor = colorFondo;
+            txtPorc.ForeColor = colorLetra;
+
+            panelBarra.BackColor = colorFondo;
+
+
+            panelCorral.BackColor = colorFondoP;
+            panelRacion.BackColor = colorFondoP;
+            panelNumCarga.BackColor = colorFondoP;
+
+            panelPlan.BackColor = colorFondoP;
+            panelVarCab.BackColor = colorFondoP;
+            panelCargaIni.BackColor = colorFondoP;
+            panelServido.BackColor = colorFondoP;
+            panelServP.BackColor = colorFondoP;
+            panelBascula.BackColor = colorFondoP;
+
+            lblCorral.ForeColor = colorLetraT;
+            lblRacion.ForeColor = colorLetraT;
+            lblNumCarga.ForeColor = colorLetraT;
+
+            lblPlan.ForeColor = colorLetraT;
+            lblVarCab.ForeColor = colorLetraT;
+            lblCargaIni.ForeColor = colorLetraT;
+            lblServido.ForeColor = colorLetraT;
+            lblServP.ForeColor = colorLetraT;
+            lblBascula.ForeColor = colorLetraT;
+
+
+        }
 
 
     }

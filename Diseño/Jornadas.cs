@@ -76,11 +76,13 @@ namespace Senga
             btnAbrir.Top = 0;
             btnEliminar.Top = 0;
             btnNuevo.Top = 0;
+            btnReportes.Top = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnAbrir.Left = btnCerrar.Left - btnAbrir.Width;
             btnEliminar.Left = btnAbrir.Left - btnEliminar.Width;
             btnNuevo.Left = btnEliminar.Left - btnNuevo.Width;
+            btnReportes.Left = btnNuevo.Left - btnReportes.Width;
 
 
             DGJornadas.Left = 0;
@@ -579,9 +581,13 @@ namespace Senga
 
         }
 
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            string vid;
+            vid = txtId.Text;
 
-
-
-
+            Reportes frm = new Reportes(vid);
+            frm.Show();
+        }
     }
 }
