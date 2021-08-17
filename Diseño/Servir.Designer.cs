@@ -831,7 +831,7 @@
             // 
             // panelPlan
             // 
-            this.panelPlan.BackColor = System.Drawing.Color.Blue;
+            this.panelPlan.BackColor = System.Drawing.SystemColors.Control;
             this.panelPlan.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelPlan.Controls.Add(this.lblPlan);
             this.panelPlan.Location = new System.Drawing.Point(14, 447);

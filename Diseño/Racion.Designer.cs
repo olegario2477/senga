@@ -78,21 +78,55 @@
             this.txtStopV = new System.Windows.Forms.TextBox();
             this.txtPlanta = new System.Windows.Forms.TextBox();
             this.timerBeep = new System.Windows.Forms.Timer(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelBarra = new System.Windows.Forms.Panel();
+            this.pic10 = new System.Windows.Forms.PictureBox();
+            this.pic9 = new System.Windows.Forms.PictureBox();
+            this.pic8 = new System.Windows.Forms.PictureBox();
+            this.pic7 = new System.Windows.Forms.PictureBox();
+            this.pic6 = new System.Windows.Forms.PictureBox();
+            this.pic5 = new System.Windows.Forms.PictureBox();
+            this.pic4 = new System.Windows.Forms.PictureBox();
+            this.pic3 = new System.Windows.Forms.PictureBox();
+            this.pic2 = new System.Windows.Forms.PictureBox();
+            this.pic1 = new System.Windows.Forms.PictureBox();
+            this.panelSolicitar = new System.Windows.Forms.Panel();
+            this.panelVariacion = new System.Windows.Forms.Panel();
+            this.panelBascula = new System.Windows.Forms.Panel();
+            this.panelTolva = new System.Windows.Forms.Panel();
+            this.panelRacion = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picFisico)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFisicoF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panelAnimacion.SuspendLayout();
             this.panelValores.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panelBarra.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pic10)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic8)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic7)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic1)).BeginInit();
+            this.panelSolicitar.SuspendLayout();
+            this.panelVariacion.SuspendLayout();
+            this.panelBascula.SuspendLayout();
+            this.panelTolva.SuspendLayout();
+            this.panelRacion.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(590, 95);
+            this.btnCancelar.Location = new System.Drawing.Point(548, 461);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(286, 62);
+            this.btnCancelar.Size = new System.Drawing.Size(350, 263);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -103,9 +137,9 @@
             // 
             this.btnHecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHecho.Image = ((System.Drawing.Image)(resources.GetObject("btnHecho.Image")));
-            this.btnHecho.Location = new System.Drawing.Point(586, 12);
+            this.btnHecho.Location = new System.Drawing.Point(904, 461);
             this.btnHecho.Name = "btnHecho";
-            this.btnHecho.Size = new System.Drawing.Size(290, 77);
+            this.btnHecho.Size = new System.Drawing.Size(350, 263);
             this.btnHecho.TabIndex = 9;
             this.btnHecho.Text = "HECHO";
             this.btnHecho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -117,7 +151,7 @@
             this.txtTamano.BackColor = System.Drawing.Color.White;
             this.txtTamano.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTamano.ForeColor = System.Drawing.Color.Black;
-            this.txtTamano.Location = new System.Drawing.Point(954, 101);
+            this.txtTamano.Location = new System.Drawing.Point(330, 9);
             this.txtTamano.Name = "txtTamano";
             this.txtTamano.ReadOnly = true;
             this.txtTamano.Size = new System.Drawing.Size(17, 83);
@@ -128,10 +162,10 @@
             // lblTamaño
             // 
             this.lblTamaño.AutoSize = true;
-            this.lblTamaño.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTamaño.Location = new System.Drawing.Point(204, 229);
+            this.lblTamaño.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTamaño.Location = new System.Drawing.Point(3, 17);
             this.lblTamaño.Name = "lblTamaño";
-            this.lblTamaño.Size = new System.Drawing.Size(81, 25);
+            this.lblTamaño.Size = new System.Drawing.Size(164, 46);
             this.lblTamaño.TabIndex = 45;
             this.lblTamaño.Text = "Solicitar";
             // 
@@ -140,7 +174,7 @@
             this.txtCargado.BackColor = System.Drawing.Color.White;
             this.txtCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargado.ForeColor = System.Drawing.Color.Black;
-            this.txtCargado.Location = new System.Drawing.Point(923, 101);
+            this.txtCargado.Location = new System.Drawing.Point(299, 9);
             this.txtCargado.Name = "txtCargado";
             this.txtCargado.ReadOnly = true;
             this.txtCargado.Size = new System.Drawing.Size(25, 83);
@@ -151,10 +185,10 @@
             // lblCargado
             // 
             this.lblCargado.AutoSize = true;
-            this.lblCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCargado.Location = new System.Drawing.Point(204, 340);
+            this.lblCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCargado.Location = new System.Drawing.Point(3, 31);
             this.lblCargado.Name = "lblCargado";
-            this.lblCargado.Size = new System.Drawing.Size(66, 25);
+            this.lblCargado.Size = new System.Drawing.Size(128, 46);
             this.lblCargado.TabIndex = 47;
             this.lblCargado.Text = "Carga";
             // 
@@ -162,9 +196,9 @@
             // 
             this.btnTara.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTara.Image = ((System.Drawing.Image)(resources.GetObject("btnTara.Image")));
-            this.btnTara.Location = new System.Drawing.Point(593, 163);
+            this.btnTara.Location = new System.Drawing.Point(171, 98);
             this.btnTara.Name = "btnTara";
-            this.btnTara.Size = new System.Drawing.Size(227, 55);
+            this.btnTara.Size = new System.Drawing.Size(109, 25);
             this.btnTara.TabIndex = 49;
             this.btnTara.Text = "TARA";
             this.btnTara.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -176,9 +210,9 @@
             this.txtBruto.BackColor = System.Drawing.Color.Black;
             this.txtBruto.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBruto.ForeColor = System.Drawing.Color.Lime;
-            this.txtBruto.Location = new System.Drawing.Point(882, 13);
+            this.txtBruto.Location = new System.Drawing.Point(311, 123);
             this.txtBruto.Name = "txtBruto";
-            this.txtBruto.Size = new System.Drawing.Size(37, 113);
+            this.txtBruto.Size = new System.Drawing.Size(16, 113);
             this.txtBruto.TabIndex = 51;
             this.txtBruto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBruto.Visible = false;
@@ -186,20 +220,20 @@
             // lblBruto
             // 
             this.lblBruto.AutoSize = true;
-            this.lblBruto.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBruto.Location = new System.Drawing.Point(204, 570);
+            this.lblBruto.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBruto.Location = new System.Drawing.Point(3, 19);
             this.lblBruto.Name = "lblBruto";
-            this.lblBruto.Size = new System.Drawing.Size(82, 25);
+            this.lblBruto.Size = new System.Drawing.Size(163, 46);
             this.lblBruto.TabIndex = 50;
             this.lblBruto.Text = "Bascula";
             // 
             // lblRacion
             // 
             this.lblRacion.AutoSize = true;
-            this.lblRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRacion.Location = new System.Drawing.Point(204, 119);
+            this.lblRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRacion.Location = new System.Drawing.Point(-1, 40);
             this.lblRacion.Name = "lblRacion";
-            this.lblRacion.Size = new System.Drawing.Size(72, 25);
+            this.lblRacion.Size = new System.Drawing.Size(146, 46);
             this.lblRacion.TabIndex = 52;
             this.lblRacion.Text = "Racion";
             // 
@@ -214,7 +248,7 @@
             this.lblEstable.BackColor = System.Drawing.Color.Black;
             this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstable.ForeColor = System.Drawing.Color.Lime;
-            this.lblEstable.Location = new System.Drawing.Point(30, 608);
+            this.lblEstable.Location = new System.Drawing.Point(210, 651);
             this.lblEstable.Name = "lblEstable";
             this.lblEstable.Size = new System.Drawing.Size(33, 31);
             this.lblEstable.TabIndex = 62;
@@ -226,9 +260,9 @@
             this.btnRacion.BackColor = System.Drawing.SystemColors.Control;
             this.btnRacion.Enabled = false;
             this.btnRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRacion.Location = new System.Drawing.Point(21, 144);
+            this.btnRacion.Location = new System.Drawing.Point(157, 12);
             this.btnRacion.Name = "btnRacion";
-            this.btnRacion.Size = new System.Drawing.Size(513, 83);
+            this.btnRacion.Size = new System.Drawing.Size(274, 128);
             this.btnRacion.TabIndex = 63;
             this.btnRacion.Text = "R4";
             this.btnRacion.UseVisualStyleBackColor = false;
@@ -239,7 +273,7 @@
             this.txtServida.BackColor = System.Drawing.Color.White;
             this.txtServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServida.ForeColor = System.Drawing.Color.Black;
-            this.txtServida.Location = new System.Drawing.Point(1002, 102);
+            this.txtServida.Location = new System.Drawing.Point(378, 10);
             this.txtServida.Name = "txtServida";
             this.txtServida.ReadOnly = true;
             this.txtServida.Size = new System.Drawing.Size(24, 38);
@@ -252,7 +286,7 @@
             this.txtCapacidad.BackColor = System.Drawing.Color.White;
             this.txtCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCapacidad.ForeColor = System.Drawing.Color.Black;
-            this.txtCapacidad.Location = new System.Drawing.Point(1029, 102);
+            this.txtCapacidad.Location = new System.Drawing.Point(405, 10);
             this.txtCapacidad.Name = "txtCapacidad";
             this.txtCapacidad.ReadOnly = true;
             this.txtCapacidad.Size = new System.Drawing.Size(24, 38);
@@ -265,7 +299,7 @@
             this.txtCargadoIni.BackColor = System.Drawing.Color.White;
             this.txtCargadoIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargadoIni.ForeColor = System.Drawing.Color.Black;
-            this.txtCargadoIni.Location = new System.Drawing.Point(1002, 146);
+            this.txtCargadoIni.Location = new System.Drawing.Point(378, 54);
             this.txtCargadoIni.Name = "txtCargadoIni";
             this.txtCargadoIni.ReadOnly = true;
             this.txtCargadoIni.Size = new System.Drawing.Size(24, 38);
@@ -278,9 +312,9 @@
             this.txtBrutoV.BackColor = System.Drawing.Color.Black;
             this.txtBrutoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBrutoV.ForeColor = System.Drawing.Color.Lime;
-            this.txtBrutoV.Location = new System.Drawing.Point(21, 598);
+            this.txtBrutoV.Location = new System.Drawing.Point(207, 641);
             this.txtBrutoV.Name = "txtBrutoV";
-            this.txtBrutoV.Size = new System.Drawing.Size(513, 83);
+            this.txtBrutoV.Size = new System.Drawing.Size(335, 83);
             this.txtBrutoV.TabIndex = 67;
             this.txtBrutoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBrutoV.TextChanged += new System.EventHandler(this.txtBrutoV_TextChanged);
@@ -288,12 +322,12 @@
             // txtCargadoV
             // 
             this.txtCargadoV.BackColor = System.Drawing.Color.White;
-            this.txtCargadoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargadoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 200F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargadoV.ForeColor = System.Drawing.Color.Black;
-            this.txtCargadoV.Location = new System.Drawing.Point(21, 368);
+            this.txtCargadoV.Location = new System.Drawing.Point(6, 146);
             this.txtCargadoV.Name = "txtCargadoV";
             this.txtCargadoV.ReadOnly = true;
-            this.txtCargadoV.Size = new System.Drawing.Size(513, 83);
+            this.txtCargadoV.Size = new System.Drawing.Size(1106, 309);
             this.txtCargadoV.TabIndex = 68;
             this.txtCargadoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -302,10 +336,10 @@
             this.txtTamanoV.BackColor = System.Drawing.Color.White;
             this.txtTamanoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTamanoV.ForeColor = System.Drawing.Color.Black;
-            this.txtTamanoV.Location = new System.Drawing.Point(21, 255);
+            this.txtTamanoV.Location = new System.Drawing.Point(207, 461);
             this.txtTamanoV.Name = "txtTamanoV";
             this.txtTamanoV.ReadOnly = true;
-            this.txtTamanoV.Size = new System.Drawing.Size(513, 83);
+            this.txtTamanoV.Size = new System.Drawing.Size(335, 83);
             this.txtTamanoV.TabIndex = 69;
             this.txtTamanoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -314,7 +348,7 @@
             this.txtFisicoV.BackColor = System.Drawing.Color.White;
             this.txtFisicoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFisicoV.ForeColor = System.Drawing.Color.Black;
-            this.txtFisicoV.Location = new System.Drawing.Point(978, 12);
+            this.txtFisicoV.Location = new System.Drawing.Point(209, 6);
             this.txtFisicoV.Name = "txtFisicoV";
             this.txtFisicoV.ReadOnly = true;
             this.txtFisicoV.Size = new System.Drawing.Size(24, 83);
@@ -325,10 +359,10 @@
             // lblFisico
             // 
             this.lblFisico.AutoSize = true;
-            this.lblFisico.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFisico.Location = new System.Drawing.Point(204, 457);
+            this.lblFisico.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFisico.Location = new System.Drawing.Point(2, 19);
             this.lblFisico.Name = "lblFisico";
-            this.lblFisico.Size = new System.Drawing.Size(94, 25);
+            this.lblFisico.Size = new System.Drawing.Size(188, 46);
             this.lblFisico.TabIndex = 71;
             this.lblFisico.Text = "Variacion";
             // 
@@ -337,7 +371,7 @@
             this.txtFisico.BackColor = System.Drawing.Color.White;
             this.txtFisico.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFisico.ForeColor = System.Drawing.Color.Black;
-            this.txtFisico.Location = new System.Drawing.Point(931, 13);
+            this.txtFisico.Location = new System.Drawing.Point(163, 9);
             this.txtFisico.Name = "txtFisico";
             this.txtFisico.ReadOnly = true;
             this.txtFisico.Size = new System.Drawing.Size(40, 83);
@@ -350,7 +384,7 @@
             this.txtFisicoIni.BackColor = System.Drawing.Color.White;
             this.txtFisicoIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFisicoIni.ForeColor = System.Drawing.Color.Black;
-            this.txtFisicoIni.Location = new System.Drawing.Point(1029, 146);
+            this.txtFisicoIni.Location = new System.Drawing.Point(405, 54);
             this.txtFisicoIni.Name = "txtFisicoIni";
             this.txtFisicoIni.ReadOnly = true;
             this.txtFisicoIni.Size = new System.Drawing.Size(24, 38);
@@ -360,7 +394,7 @@
             // 
             // pbFisico
             // 
-            this.pbFisico.Location = new System.Drawing.Point(957, 190);
+            this.pbFisico.Location = new System.Drawing.Point(333, 98);
             this.pbFisico.Name = "pbFisico";
             this.pbFisico.Size = new System.Drawing.Size(88, 37);
             this.pbFisico.TabIndex = 74;
@@ -369,9 +403,9 @@
             // pbCargado
             // 
             this.pbCargado.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pbCargado.Location = new System.Drawing.Point(0, 98);
+            this.pbCargado.Location = new System.Drawing.Point(0, 66);
             this.pbCargado.Name = "pbCargado";
-            this.pbCargado.Size = new System.Drawing.Size(446, 45);
+            this.pbCargado.Size = new System.Drawing.Size(292, 45);
             this.pbCargado.TabIndex = 75;
             this.pbCargado.Visible = false;
             // 
@@ -408,25 +442,25 @@
             // 
             // panelAnimacion
             // 
-            this.panelAnimacion.Controls.Add(this.lblPorcentaje);
             this.panelAnimacion.Controls.Add(this.picFisicoF);
             this.panelAnimacion.Controls.Add(this.picFisico);
             this.panelAnimacion.Controls.Add(this.pictureBox1);
-            this.panelAnimacion.Location = new System.Drawing.Point(586, 287);
+            this.panelAnimacion.Location = new System.Drawing.Point(590, 728);
             this.panelAnimacion.Name = "panelAnimacion";
-            this.panelAnimacion.Size = new System.Drawing.Size(450, 245);
+            this.panelAnimacion.Size = new System.Drawing.Size(73, 16);
             this.panelAnimacion.TabIndex = 79;
             this.panelAnimacion.Visible = false;
             // 
             // lblPorcentaje
             // 
             this.lblPorcentaje.AutoSize = true;
-            this.lblPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPorcentaje.Location = new System.Drawing.Point(319, 39);
+            this.lblPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPorcentaje.Location = new System.Drawing.Point(810, 78);
             this.lblPorcentaje.Name = "lblPorcentaje";
-            this.lblPorcentaje.Size = new System.Drawing.Size(206, 107);
+            this.lblPorcentaje.Size = new System.Drawing.Size(88, 46);
             this.lblPorcentaje.TabIndex = 79;
             this.lblPorcentaje.Text = "0 %";
+            this.lblPorcentaje.Visible = false;
             // 
             // lblVueltas
             // 
@@ -444,7 +478,7 @@
             this.txtServido.BackColor = System.Drawing.Color.White;
             this.txtServido.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServido.ForeColor = System.Drawing.Color.Black;
-            this.txtServido.Location = new System.Drawing.Point(1029, 13);
+            this.txtServido.Location = new System.Drawing.Point(260, 10);
             this.txtServido.Name = "txtServido";
             this.txtServido.ReadOnly = true;
             this.txtServido.Size = new System.Drawing.Size(20, 83);
@@ -457,7 +491,7 @@
             this.txtTamanoAct.BackColor = System.Drawing.Color.White;
             this.txtTamanoAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTamanoAct.ForeColor = System.Drawing.Color.Black;
-            this.txtTamanoAct.Location = new System.Drawing.Point(977, 101);
+            this.txtTamanoAct.Location = new System.Drawing.Point(353, 9);
             this.txtTamanoAct.Name = "txtTamanoAct";
             this.txtTamanoAct.ReadOnly = true;
             this.txtTamanoAct.Size = new System.Drawing.Size(17, 83);
@@ -470,7 +504,7 @@
             this.txtFalta.BackColor = System.Drawing.Color.White;
             this.txtFalta.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFalta.ForeColor = System.Drawing.Color.Black;
-            this.txtFalta.Location = new System.Drawing.Point(1008, 13);
+            this.txtFalta.Location = new System.Drawing.Point(239, 12);
             this.txtFalta.Name = "txtFalta";
             this.txtFalta.ReadOnly = true;
             this.txtFalta.Size = new System.Drawing.Size(15, 83);
@@ -483,16 +517,16 @@
             this.txtFaltaV.BackColor = System.Drawing.Color.White;
             this.txtFaltaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFaltaV.ForeColor = System.Drawing.Color.Black;
-            this.txtFaltaV.Location = new System.Drawing.Point(21, 485);
+            this.txtFaltaV.Location = new System.Drawing.Point(207, 550);
             this.txtFaltaV.Name = "txtFaltaV";
             this.txtFaltaV.ReadOnly = true;
-            this.txtFaltaV.Size = new System.Drawing.Size(513, 83);
+            this.txtFaltaV.Size = new System.Drawing.Size(335, 83);
             this.txtFaltaV.TabIndex = 83;
             this.txtFaltaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // pbCarga
             // 
-            this.pbCarga.Location = new System.Drawing.Point(923, 187);
+            this.pbCarga.Location = new System.Drawing.Point(133, 77);
             this.pbCarga.Name = "pbCarga";
             this.pbCarga.Size = new System.Drawing.Size(24, 40);
             this.pbCarga.TabIndex = 84;
@@ -502,9 +536,9 @@
             // 
             this.panelValores.Controls.Add(this.lblVueltas);
             this.panelValores.Controls.Add(this.pbCargado);
-            this.panelValores.Location = new System.Drawing.Point(589, 538);
+            this.panelValores.Location = new System.Drawing.Point(3, 125);
             this.panelValores.Name = "panelValores";
-            this.panelValores.Size = new System.Drawing.Size(446, 143);
+            this.panelValores.Size = new System.Drawing.Size(292, 111);
             this.panelValores.TabIndex = 85;
             this.panelValores.Visible = false;
             // 
@@ -513,9 +547,9 @@
             this.btnSolicitar.Enabled = false;
             this.btnSolicitar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSolicitar.Image = ((System.Drawing.Image)(resources.GetObject("btnSolicitar.Image")));
-            this.btnSolicitar.Location = new System.Drawing.Point(590, 229);
+            this.btnSolicitar.Location = new System.Drawing.Point(871, 12);
             this.btnSolicitar.Name = "btnSolicitar";
-            this.btnSolicitar.Size = new System.Drawing.Size(308, 52);
+            this.btnSolicitar.Size = new System.Drawing.Size(383, 128);
             this.btnSolicitar.TabIndex = 88;
             this.btnSolicitar.Text = "SOLICITAR";
             this.btnSolicitar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -525,9 +559,9 @@
             // 
             this.picLogo.BackColor = System.Drawing.Color.White;
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
-            this.picLogo.Location = new System.Drawing.Point(931, 233);
+            this.picLogo.Location = new System.Drawing.Point(89, 87);
             this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(148, 32);
+            this.picLogo.Size = new System.Drawing.Size(30, 32);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 43;
             this.picLogo.TabStop = false;
@@ -537,9 +571,9 @@
             // 
             this.btnTolva.BackColor = System.Drawing.SystemColors.Control;
             this.btnTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTolva.Location = new System.Drawing.Point(21, 32);
+            this.btnTolva.Location = new System.Drawing.Point(591, 12);
             this.btnTolva.Name = "btnTolva";
-            this.btnTolva.Size = new System.Drawing.Size(513, 83);
+            this.btnTolva.Size = new System.Drawing.Size(274, 128);
             this.btnTolva.TabIndex = 86;
             this.btnTolva.Text = "1";
             this.btnTolva.UseVisualStyleBackColor = false;
@@ -548,10 +582,10 @@
             // lblTolva
             // 
             this.lblTolva.AutoSize = true;
-            this.lblTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTolva.Location = new System.Drawing.Point(213, 6);
+            this.lblTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTolva.Location = new System.Drawing.Point(13, 41);
             this.lblTolva.Name = "lblTolva";
-            this.lblTolva.Size = new System.Drawing.Size(61, 25);
+            this.lblTolva.Size = new System.Drawing.Size(117, 46);
             this.lblTolva.TabIndex = 87;
             this.lblTolva.Text = "Tolva";
             // 
@@ -561,7 +595,7 @@
             this.lblZero.BackColor = System.Drawing.Color.Black;
             this.lblZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZero.ForeColor = System.Drawing.Color.Lime;
-            this.lblZero.Location = new System.Drawing.Point(31, 639);
+            this.lblZero.Location = new System.Drawing.Point(211, 682);
             this.lblZero.Name = "lblZero";
             this.lblZero.Size = new System.Drawing.Size(32, 31);
             this.lblZero.TabIndex = 89;
@@ -570,7 +604,7 @@
             // 
             // pbVariacion
             // 
-            this.pbVariacion.Location = new System.Drawing.Point(874, 183);
+            this.pbVariacion.Location = new System.Drawing.Point(133, 10);
             this.pbVariacion.Name = "pbVariacion";
             this.pbVariacion.Size = new System.Drawing.Size(24, 40);
             this.pbVariacion.TabIndex = 90;
@@ -581,9 +615,9 @@
             this.txtBascula.BackColor = System.Drawing.Color.Black;
             this.txtBascula.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBascula.ForeColor = System.Drawing.Color.Lime;
-            this.txtBascula.Location = new System.Drawing.Point(302, 574);
+            this.txtBascula.Location = new System.Drawing.Point(15, 9);
             this.txtBascula.Name = "txtBascula";
-            this.txtBascula.Size = new System.Drawing.Size(266, 23);
+            this.txtBascula.Size = new System.Drawing.Size(23, 23);
             this.txtBascula.TabIndex = 91;
             this.txtBascula.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBascula.Visible = false;
@@ -594,9 +628,9 @@
             this.txtStop.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStop.ForeColor = System.Drawing.Color.Lime;
-            this.txtStop.Location = new System.Drawing.Point(540, 632);
+            this.txtStop.Location = new System.Drawing.Point(89, 12);
             this.txtStop.Name = "txtStop";
-            this.txtStop.Size = new System.Drawing.Size(59, 16);
+            this.txtStop.Size = new System.Drawing.Size(27, 16);
             this.txtStop.TabIndex = 92;
             this.txtStop.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStop.Visible = false;
@@ -607,9 +641,9 @@
             this.txtStopV.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtStopV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtStopV.ForeColor = System.Drawing.Color.Lime;
-            this.txtStopV.Location = new System.Drawing.Point(540, 654);
+            this.txtStopV.Location = new System.Drawing.Point(57, 12);
             this.txtStopV.Name = "txtStopV";
-            this.txtStopV.Size = new System.Drawing.Size(59, 16);
+            this.txtStopV.Size = new System.Drawing.Size(26, 16);
             this.txtStopV.TabIndex = 93;
             this.txtStopV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStopV.Visible = false;
@@ -619,7 +653,7 @@
             this.txtPlanta.BackColor = System.Drawing.Color.White;
             this.txtPlanta.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlanta.ForeColor = System.Drawing.Color.Black;
-            this.txtPlanta.Location = new System.Drawing.Point(1059, 102);
+            this.txtPlanta.Location = new System.Drawing.Point(368, 186);
             this.txtPlanta.Name = "txtPlanta";
             this.txtPlanta.ReadOnly = true;
             this.txtPlanta.Size = new System.Drawing.Size(24, 38);
@@ -633,52 +667,227 @@
             this.timerBeep.Interval = 1000;
             this.timerBeep.Tick += new System.EventHandler(this.timerBeep_Tick);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.txtStopV);
+            this.panel1.Controls.Add(this.txtPlanta);
+            this.panel1.Controls.Add(this.txtBascula);
+            this.panel1.Controls.Add(this.pbVariacion);
+            this.panel1.Controls.Add(this.txtStop);
+            this.panel1.Controls.Add(this.picLogo);
+            this.panel1.Controls.Add(this.panelValores);
+            this.panel1.Controls.Add(this.txtCargado);
+            this.panel1.Controls.Add(this.txtTamano);
+            this.panel1.Controls.Add(this.pbCarga);
+            this.panel1.Controls.Add(this.txtFalta);
+            this.panel1.Controls.Add(this.txtServida);
+            this.panel1.Controls.Add(this.txtServido);
+            this.panel1.Controls.Add(this.txtCapacidad);
+            this.panel1.Controls.Add(this.txtCargadoIni);
+            this.panel1.Controls.Add(this.btnTara);
+            this.panel1.Controls.Add(this.txtFisico);
+            this.panel1.Controls.Add(this.txtBruto);
+            this.panel1.Controls.Add(this.lblCargado);
+            this.panel1.Controls.Add(this.txtTamanoAct);
+            this.panel1.Controls.Add(this.txtFisicoV);
+            this.panel1.Controls.Add(this.txtFisicoIni);
+            this.panel1.Controls.Add(this.pbFisico);
+            this.panel1.Location = new System.Drawing.Point(670, 729);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(86, 15);
+            this.panel1.TabIndex = 95;
+            // 
+            // panelBarra
+            // 
+            this.panelBarra.BackColor = System.Drawing.SystemColors.Control;
+            this.panelBarra.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelBarra.Controls.Add(this.pic10);
+            this.panelBarra.Controls.Add(this.pic9);
+            this.panelBarra.Controls.Add(this.pic8);
+            this.panelBarra.Controls.Add(this.pic7);
+            this.panelBarra.Controls.Add(this.pic6);
+            this.panelBarra.Controls.Add(this.pic5);
+            this.panelBarra.Controls.Add(this.pic4);
+            this.panelBarra.Controls.Add(this.pic3);
+            this.panelBarra.Controls.Add(this.pic2);
+            this.panelBarra.Controls.Add(this.pic1);
+            this.panelBarra.Location = new System.Drawing.Point(1118, 146);
+            this.panelBarra.Name = "panelBarra";
+            this.panelBarra.Size = new System.Drawing.Size(138, 309);
+            this.panelBarra.TabIndex = 96;
+            // 
+            // pic10
+            // 
+            this.pic10.BackColor = System.Drawing.Color.Lime;
+            this.pic10.Location = new System.Drawing.Point(8, 5);
+            this.pic10.Name = "pic10";
+            this.pic10.Size = new System.Drawing.Size(119, 25);
+            this.pic10.TabIndex = 9;
+            this.pic10.TabStop = false;
+            this.pic10.Visible = false;
+            // 
+            // pic9
+            // 
+            this.pic9.BackColor = System.Drawing.Color.Lime;
+            this.pic9.Location = new System.Drawing.Point(8, 35);
+            this.pic9.Name = "pic9";
+            this.pic9.Size = new System.Drawing.Size(119, 25);
+            this.pic9.TabIndex = 8;
+            this.pic9.TabStop = false;
+            this.pic9.Visible = false;
+            // 
+            // pic8
+            // 
+            this.pic8.BackColor = System.Drawing.Color.Lime;
+            this.pic8.Location = new System.Drawing.Point(8, 65);
+            this.pic8.Name = "pic8";
+            this.pic8.Size = new System.Drawing.Size(119, 25);
+            this.pic8.TabIndex = 7;
+            this.pic8.TabStop = false;
+            this.pic8.Visible = false;
+            // 
+            // pic7
+            // 
+            this.pic7.BackColor = System.Drawing.Color.Lime;
+            this.pic7.Location = new System.Drawing.Point(8, 95);
+            this.pic7.Name = "pic7";
+            this.pic7.Size = new System.Drawing.Size(119, 25);
+            this.pic7.TabIndex = 6;
+            this.pic7.TabStop = false;
+            this.pic7.Visible = false;
+            // 
+            // pic6
+            // 
+            this.pic6.BackColor = System.Drawing.Color.Lime;
+            this.pic6.Location = new System.Drawing.Point(8, 125);
+            this.pic6.Name = "pic6";
+            this.pic6.Size = new System.Drawing.Size(119, 25);
+            this.pic6.TabIndex = 5;
+            this.pic6.TabStop = false;
+            this.pic6.Visible = false;
+            // 
+            // pic5
+            // 
+            this.pic5.BackColor = System.Drawing.Color.Lime;
+            this.pic5.Location = new System.Drawing.Point(8, 155);
+            this.pic5.Name = "pic5";
+            this.pic5.Size = new System.Drawing.Size(119, 25);
+            this.pic5.TabIndex = 4;
+            this.pic5.TabStop = false;
+            this.pic5.Visible = false;
+            // 
+            // pic4
+            // 
+            this.pic4.BackColor = System.Drawing.Color.Lime;
+            this.pic4.Location = new System.Drawing.Point(8, 186);
+            this.pic4.Name = "pic4";
+            this.pic4.Size = new System.Drawing.Size(119, 25);
+            this.pic4.TabIndex = 3;
+            this.pic4.TabStop = false;
+            this.pic4.Visible = false;
+            // 
+            // pic3
+            // 
+            this.pic3.BackColor = System.Drawing.Color.Lime;
+            this.pic3.Location = new System.Drawing.Point(8, 217);
+            this.pic3.Name = "pic3";
+            this.pic3.Size = new System.Drawing.Size(119, 25);
+            this.pic3.TabIndex = 2;
+            this.pic3.TabStop = false;
+            this.pic3.Visible = false;
+            // 
+            // pic2
+            // 
+            this.pic2.BackColor = System.Drawing.Color.Lime;
+            this.pic2.Location = new System.Drawing.Point(8, 247);
+            this.pic2.Name = "pic2";
+            this.pic2.Size = new System.Drawing.Size(119, 25);
+            this.pic2.TabIndex = 1;
+            this.pic2.TabStop = false;
+            this.pic2.Visible = false;
+            // 
+            // pic1
+            // 
+            this.pic1.BackColor = System.Drawing.Color.Lime;
+            this.pic1.Location = new System.Drawing.Point(8, 277);
+            this.pic1.Name = "pic1";
+            this.pic1.Size = new System.Drawing.Size(119, 25);
+            this.pic1.TabIndex = 0;
+            this.pic1.TabStop = false;
+            this.pic1.Visible = false;
+            // 
+            // panelSolicitar
+            // 
+            this.panelSolicitar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelSolicitar.Controls.Add(this.lblTamaño);
+            this.panelSolicitar.Location = new System.Drawing.Point(10, 461);
+            this.panelSolicitar.Name = "panelSolicitar";
+            this.panelSolicitar.Size = new System.Drawing.Size(190, 83);
+            this.panelSolicitar.TabIndex = 97;
+            // 
+            // panelVariacion
+            // 
+            this.panelVariacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelVariacion.Controls.Add(this.lblFisico);
+            this.panelVariacion.Location = new System.Drawing.Point(9, 550);
+            this.panelVariacion.Name = "panelVariacion";
+            this.panelVariacion.Size = new System.Drawing.Size(192, 83);
+            this.panelVariacion.TabIndex = 98;
+            // 
+            // panelBascula
+            // 
+            this.panelBascula.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelBascula.Controls.Add(this.lblBruto);
+            this.panelBascula.Location = new System.Drawing.Point(9, 641);
+            this.panelBascula.Name = "panelBascula";
+            this.panelBascula.Size = new System.Drawing.Size(191, 83);
+            this.panelBascula.TabIndex = 99;
+            // 
+            // panelTolva
+            // 
+            this.panelTolva.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelTolva.Controls.Add(this.lblTolva);
+            this.panelTolva.Location = new System.Drawing.Point(437, 12);
+            this.panelTolva.Name = "panelTolva";
+            this.panelTolva.Size = new System.Drawing.Size(148, 128);
+            this.panelTolva.TabIndex = 100;
+            // 
+            // panelRacion
+            // 
+            this.panelRacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelRacion.Controls.Add(this.lblRacion);
+            this.panelRacion.Location = new System.Drawing.Point(6, 12);
+            this.panelRacion.Name = "panelRacion";
+            this.panelRacion.Size = new System.Drawing.Size(145, 128);
+            this.panelRacion.TabIndex = 101;
+            // 
             // Racion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1115, 693);
+            this.ClientSize = new System.Drawing.Size(1268, 749);
             this.ControlBox = false;
-            this.Controls.Add(this.txtPlanta);
-            this.Controls.Add(this.txtStopV);
-            this.Controls.Add(this.txtStop);
-            this.Controls.Add(this.txtBascula);
-            this.Controls.Add(this.pbVariacion);
+            this.Controls.Add(this.panelRacion);
+            this.Controls.Add(this.panelTolva);
+            this.Controls.Add(this.panelBascula);
+            this.Controls.Add(this.panelVariacion);
+            this.Controls.Add(this.panelSolicitar);
+            this.Controls.Add(this.panelBarra);
+            this.Controls.Add(this.lblPorcentaje);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblZero);
             this.Controls.Add(this.btnSolicitar);
-            this.Controls.Add(this.lblTolva);
             this.Controls.Add(this.btnTolva);
-            this.Controls.Add(this.panelValores);
-            this.Controls.Add(this.pbCarga);
             this.Controls.Add(this.txtFaltaV);
-            this.Controls.Add(this.txtFalta);
-            this.Controls.Add(this.txtTamanoAct);
-            this.Controls.Add(this.txtServido);
             this.Controls.Add(this.panelAnimacion);
-            this.Controls.Add(this.pbFisico);
-            this.Controls.Add(this.txtFisicoIni);
-            this.Controls.Add(this.txtFisico);
-            this.Controls.Add(this.lblFisico);
-            this.Controls.Add(this.txtFisicoV);
             this.Controls.Add(this.txtTamanoV);
             this.Controls.Add(this.txtCargadoV);
             this.Controls.Add(this.lblEstable);
             this.Controls.Add(this.txtBrutoV);
-            this.Controls.Add(this.txtCargadoIni);
-            this.Controls.Add(this.txtCapacidad);
-            this.Controls.Add(this.txtServida);
             this.Controls.Add(this.btnRacion);
-            this.Controls.Add(this.lblRacion);
-            this.Controls.Add(this.txtBruto);
-            this.Controls.Add(this.lblBruto);
-            this.Controls.Add(this.btnTara);
-            this.Controls.Add(this.txtCargado);
-            this.Controls.Add(this.lblCargado);
-            this.Controls.Add(this.txtTamano);
-            this.Controls.Add(this.lblTamaño);
-            this.Controls.Add(this.picLogo);
             this.Controls.Add(this.btnHecho);
             this.Controls.Add(this.btnCancelar);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Racion";
@@ -691,10 +900,32 @@
             ((System.ComponentModel.ISupportInitialize)(this.picFisicoF)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panelAnimacion.ResumeLayout(false);
-            this.panelAnimacion.PerformLayout();
             this.panelValores.ResumeLayout(false);
             this.panelValores.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panelBarra.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pic10)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic8)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic7)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pic1)).EndInit();
+            this.panelSolicitar.ResumeLayout(false);
+            this.panelSolicitar.PerformLayout();
+            this.panelVariacion.ResumeLayout(false);
+            this.panelVariacion.PerformLayout();
+            this.panelBascula.ResumeLayout(false);
+            this.panelBascula.PerformLayout();
+            this.panelTolva.ResumeLayout(false);
+            this.panelTolva.PerformLayout();
+            this.panelRacion.ResumeLayout(false);
+            this.panelRacion.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -750,5 +981,22 @@
         private System.Windows.Forms.TextBox txtStopV;
         private System.Windows.Forms.TextBox txtPlanta;
         private System.Windows.Forms.Timer timerBeep;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelBarra;
+        private System.Windows.Forms.PictureBox pic10;
+        private System.Windows.Forms.PictureBox pic9;
+        private System.Windows.Forms.PictureBox pic8;
+        private System.Windows.Forms.PictureBox pic7;
+        private System.Windows.Forms.PictureBox pic6;
+        private System.Windows.Forms.PictureBox pic5;
+        private System.Windows.Forms.PictureBox pic4;
+        private System.Windows.Forms.PictureBox pic3;
+        private System.Windows.Forms.PictureBox pic2;
+        private System.Windows.Forms.PictureBox pic1;
+        private System.Windows.Forms.Panel panelSolicitar;
+        private System.Windows.Forms.Panel panelVariacion;
+        private System.Windows.Forms.Panel panelBascula;
+        private System.Windows.Forms.Panel panelTolva;
+        private System.Windows.Forms.Panel panelRacion;
     }
 }

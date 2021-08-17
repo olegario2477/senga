@@ -57,7 +57,8 @@ namespace Senga
 
             
 
-            posicionBotones();
+            //posicionBotones();
+            
             //datosRacion();
             //datosServida(); 
 
@@ -76,7 +77,7 @@ namespace Senga
             txtCargadoV.Text = "0";
             txtStop.Text = "0";
 
-
+            colorPantalla();
             //IniciaPesoOpc1();
             IniciaPesoOpc2();
 
@@ -108,7 +109,7 @@ namespace Senga
                     //    txtTamanoAct.Text = "0";
                     //}
 
-                    if (tamanoact > capacidad)
+                    if (tamanoact > capacidad || tamanoact < 0)
                     {
                         txtTamanoAct.Text = txtCapacidad.Text;
                     }
@@ -167,7 +168,8 @@ namespace Senga
 
 
 
-            panelAnimacion.Visible = true;
+            //panelAnimacion.Visible = true;
+            
             //this.Visible = true;
 
         }
@@ -803,6 +805,8 @@ namespace Senga
 
             }
 
+            barrar(txtCapacidad, txtCargado);
+
             //barra(pbCargado, txtTamano, txtServido, txtServido);
             ////barra2();
             ////barra(pbCarga, txtTamanoV, txtCargadoV, txtCargadoV);
@@ -1169,11 +1173,171 @@ namespace Senga
         {
 
             //barra(pbCargado, txtTamano, txtServido, txtServido);
-            barra(pbVariacion, txtTamanoV, txtCargadoV, txtFaltaV);
+            
+            //barra(pbVariacion, txtTamanoV, txtCargadoV, txtFaltaV);
 
             //fomatoCampos();
 
         }
+
+
+
+        private void colorPantalla()
+        {
+
+            Color colorFondo = Color.Black;
+            Color colorFondoW = Color.White;
+            Color colorFondoP = Color.Blue;
+            Color colorLetra = Color.Lime;
+            Color colorLetraH = Color.Yellow;
+            Color colorLetraT = Color.White;
+
+            this.BackColor = colorFondoW;
+
+            panelBarra.BackColor = colorFondo;
+
+            txtTamanoV.BackColor = colorFondo;
+            txtTamanoV.ForeColor = colorLetra;
+
+            txtCargadoV.BackColor = colorFondo;
+            txtCargadoV.ForeColor = colorLetra;
+
+            txtFaltaV.BackColor = colorFondo;
+            txtFaltaV.ForeColor = colorLetra;
+
+            panelSolicitar.BackColor = colorFondoP;
+            panelVariacion.BackColor = colorFondoP;
+            panelBascula.BackColor = colorFondoP;
+            panelRacion.BackColor = colorFondoP;
+            panelTolva.BackColor = colorFondoP;
+
+            lblTamaño.ForeColor = colorLetraT;
+            lblFisico.ForeColor = colorLetraT;
+            lblBruto.ForeColor = colorLetraT;
+            lblRacion.ForeColor = colorLetraT;
+            lblTolva.ForeColor = colorLetraT;
+
+        }
+
+        private void barrar(TextBox maximo, TextBox valor)
+        {
+
+            pic1.Visible = false;
+            pic2.Visible = false;
+            pic3.Visible = false;
+            pic4.Visible = false;
+            pic5.Visible = false;
+            pic6.Visible = false;
+            pic7.Visible = false;
+            pic8.Visible = false;
+            pic9.Visible = false;
+            pic10.Visible = false;
+
+            int vmaximo = Convert.ToInt32(maximo.Text);
+            int vvalor = Convert.ToInt32(valor.Text);
+
+            double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
+
+            if (porc > 10 && porc <= 20)
+            {
+                pic1.Visible = true;
+            }
+
+            if (porc > 20 && porc <= 30)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+            }
+
+            if (porc > 30 && porc <= 40)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+            }
+
+            if (porc > 40 && porc <= 50)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+            }
+
+            if (porc > 50 && porc <= 60)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+            }
+
+            if (porc > 60 && porc <= 70)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+                pic6.Visible = true;
+            }
+
+            if (porc > 70 && porc <= 80)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+                pic6.Visible = true;
+                pic7.Visible = true;
+            }
+
+            if (porc > 80 && porc <= 90)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+                pic6.Visible = true;
+                pic7.Visible = true;
+                pic8.Visible = true;
+            }
+
+            if (porc > 90 && porc <= 100)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+                pic6.Visible = true;
+                pic7.Visible = true;
+                pic8.Visible = true;
+                pic9.Visible = true;
+            }
+
+            if (porc > 100)
+            {
+                pic1.Visible = true;
+                pic2.Visible = true;
+                pic3.Visible = true;
+                pic4.Visible = true;
+                pic5.Visible = true;
+                pic6.Visible = true;
+                pic7.Visible = true;
+                pic8.Visible = true;
+                pic9.Visible = true;
+                pic10.Visible = true;
+            }
+
+        }
+
+
+
+
     }
 
 }

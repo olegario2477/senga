@@ -75,24 +75,17 @@ namespace Senga
         public static void sonidoPorc(TextBox color, double porc) 
         {
 
-            if (porc > 0 && porc <= 60)
+            if (porc > 0 && porc < 50)
             {
                 colorCampo(color, Color.White, Color.Black);
             }
-            else if (porc > 60 && porc <= 90)
-            {
-                // Beep at 5000 Hz for 1 second
-                Console.Beep((int)porc * 10, 50);
-                colorCampo(color, Color.Yellow, Color.Black);
-            }
-            else if (porc > 90 && porc < 100)
+            else if (porc >= 50 && porc < 100)
             {
                 Console.Beep(2000, 100);
                 colorCampo(color, Color.Orange, Color.White);
             }
             else if (porc >= 100)
             {
-                //Console.Beep(3000, 100);
                 colorCampo(color, Color.Red, Color.White);
             }
 
