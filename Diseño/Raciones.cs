@@ -34,9 +34,12 @@ namespace Senga
         bool activado = false;
         string vjornada;
 
+        public static Raciones instance = null;
+
         public Raciones(string id)
         {
             InitializeComponent();
+            instance = this;
             vjornada = id;
         }
 

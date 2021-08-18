@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Media;
 
 namespace Senga
 {
@@ -22,6 +23,8 @@ namespace Senga
         //private Comm comm = new Comm();
         private SerialPort serialPort1 = new SerialPort();
 
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
+
         string vidd;
         string vjornada;
         int pesoact = 0;
@@ -32,7 +35,7 @@ namespace Senga
         int lv_pos = 0;
         string vzeros = "";
         string vpeso = "";
-
+        bool beepOn = true;
 
         public Racion(string idd, string id)
         {
@@ -54,6 +57,7 @@ namespace Senga
 
             //this.Visible = false;
             manejoTimerDePrincipal(false);
+            manejoTimerDeRaciones(false);
 
             
 
@@ -93,6 +97,7 @@ namespace Senga
                 {
 
                     btnRacion.Text = row["Racion"].ToString();
+                    txtRacion.Text = row["Racion"].ToString();
 
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
@@ -341,10 +346,12 @@ namespace Senga
             //------------------------------------
 
             manejoTimerDePrincipal(true);
+            manejoTimerDeRaciones(true);
             
             serialPort1.Close();
             serialPort1.Dispose();
-            
+
+            swithSonido(false);
 
         }
 
@@ -781,12 +788,13 @@ namespace Senga
             if (Convert.ToDouble(txtCapacidad.Text) != 0)
             {
 
-                division = Convert.ToDouble(txtCargado.Text) / Convert.ToDouble(txtCapacidad.Text);
+                division = Convert.ToDouble(txtCargado.Text) / Convert.ToDouble(txtTamanoAct.Text);//Convert.ToDouble(txtCapacidad.Text);
                 division = division * 100;
                 resultado = 100 - Convert.ToInt32(division);
                 picFisicoF.Height = resultado;
                 resultado = 100 - resultado;
                 lblPorcentaje.Text = resultado.ToString() + " %";
+                txtCargaPorc.Text = resultado.ToString();
                 //calcularEscala();
                 //lblVueltas.Text = txtTamano.Text - txtCargadoIni.Text / txtCapacidad.Text;
                 division = Convert.ToDouble(txtTamano.Text) / Convert.ToDouble(txtCapacidad.Text);
@@ -805,7 +813,8 @@ namespace Senga
 
             }
 
-            barrar(txtCapacidad, txtCargado);
+            //barrar(txtCapacidad, txtCargado);
+            barrar(txtTamanoAct, txtCargado);
 
             //barra(pbCargado, txtTamano, txtServido, txtServido);
             ////barra2();
@@ -831,6 +840,7 @@ namespace Senga
             txtFisicoV.Text = string.Format("{0:#,##0}", long.Parse(txtFisico.Text));
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
             txtStopV.Text = string.Format("{0:#,##0}", long.Parse(txtStop.Text));
+            txtCapacidadV.Text = string.Format("{0:#,##0}", long.Parse(txtCapacidad.Text));
 
 
             //txtCargadoV.BackColor = txtCargado.BackColor;
@@ -842,7 +852,7 @@ namespace Senga
         }
 
 
-        private void barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox campo)
+        private double barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox campo)
         {
 
             if (maximo.Text != "")
@@ -876,57 +886,15 @@ namespace Senga
                 barra.Value = vvalor;
 
                 double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
-                
-                Comun.sonidoPorc(campo, porc);
 
-                //------------------------------------------------------------------------------
-                //if (porc > 0 && porc <= 60)
-                //{
-                //    colorCampo(campo, Color.White, Color.Black);
-                //}
-                //else if (porc > 60 && porc <= 90)
-                //{
-                //    // Beep at 5000 Hz for 1 second
-                //    Console.Beep((int)porc * 10, 50);
-                //    colorCampo(campo, Color.Yellow, Color.Black);
-                //}
-                //else if (porc > 90 && porc < 100)
-                //{
-                //    Console.Beep(2000, 100);
-                //    colorCampo(campo, Color.Orange, Color.Black);
-                //}
-                //else if (porc >= 100)
-                //{
-                //    Console.Beep(3000, 200);
-                //    colorCampo(campo, Color.Red, Color.White);
-                //}
-                //------------------------------------------------------------------------------
+                Comun.sonidoPorc(campo, porc, false);
 
-                //if (porc < 60)
-                //{
-                //    // Beep at 5000 Hz for 1 second
-                //    //Console.Beep(1000, 500);
-                //    colorCampo(campo, Color.White, Color.Black);
-                //}
-                //else if (porc >= 80 && porc < 90)
-                //{
-                //    // Beep at 5000 Hz for 1 second
-                //    Console.Beep(900, 100);
-                //    colorCampo(campo, Color.Yellow, Color.Black);
-                //}
-                //else if (porc >= 90 && porc < 100)
-                //{
-                //    // Beep at 5000 Hz for 1 second
-                //    Console.Beep(1000, 100);
-                //    colorCampo(campo, Color.Yellow, Color.Black);
+                return porc;
 
-                //}
-                //else if (porc >= 100)
-                //{
-                //    // Beep at 5000 Hz for 1 second
-                //    //Console.Beep(1000, 2000);
-                //    colorCampo(campo, Color.Red, Color.White);
-                //}
+            }
+            else
+            {
+                return 0;
             }
 
         }
@@ -1164,6 +1132,20 @@ namespace Senga
 
         }
 
+        private void manejoTimerDeRaciones(Boolean activar)
+        {
+
+            if (activar)
+            {
+                Raciones.instance.timerGPS.Start();
+            }
+            else
+            {
+                Raciones.instance.timerGPS.Stop();
+            }
+
+        }
+
         private void txtBrutoV_TextChanged(object sender, EventArgs e)
         {
             //procesaPeso(txtBrutoV.Text.Replace(",","").Trim());
@@ -1174,13 +1156,64 @@ namespace Senga
 
             //barra(pbCargado, txtTamano, txtServido, txtServido);
             
-            //barra(pbVariacion, txtTamanoV, txtCargadoV, txtFaltaV);
-
             //fomatoCampos();
+
+            double porc = barra(pbVariacion, txtTamanoV, txtCargadoV, txtFaltaV);
+
+            if (porc >= 100)
+            {
+
+                txtCargadoV.ForeColor = Color.Orange;
+
+                if (beepOn)
+                {
+                    //InitializeSound();
+                    beepOn = false;
+                }
+            }
+            else
+            {
+                txtCargadoV.ForeColor = Color.Lime;
+            }
 
         }
 
+        private void InitializeSound()
+        {
+            player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+            {
+                playSound(false);
+            };
+            player.LoadAsync();
 
+        }
+
+        private void swithSonido(Boolean valor)
+        {
+            if (valor)
+            {
+                playSound(true);
+            }
+            else
+            {
+                if (player != null)
+                {
+                    player.Stop();
+                }
+            }
+        }
+
+        public void playSound(bool looping)
+        {
+            if (looping)
+            {
+                player.PlayLooping();
+            }
+            else
+            {
+                player.Play();
+            }
+        }
 
         private void colorPantalla()
         {
@@ -1196,6 +1229,10 @@ namespace Senga
 
             panelBarra.BackColor = colorFondo;
 
+            txtRacion.BackColor = colorFondo;
+            txtRacion.ForeColor = colorLetraH;
+
+
             txtTamanoV.BackColor = colorFondo;
             txtTamanoV.ForeColor = colorLetra;
 
@@ -1205,17 +1242,27 @@ namespace Senga
             txtFaltaV.BackColor = colorFondo;
             txtFaltaV.ForeColor = colorLetra;
 
+            txtCargaPorc.BackColor = colorFondo;
+            txtCargaPorc.ForeColor = colorLetra;
+
+            txtCapacidadV.BackColor = colorFondo;
+            txtCapacidadV.ForeColor = colorLetra;
+
             panelSolicitar.BackColor = colorFondoP;
             panelVariacion.BackColor = colorFondoP;
             panelBascula.BackColor = colorFondoP;
             panelRacion.BackColor = colorFondoP;
             panelTolva.BackColor = colorFondoP;
+            panelCargaPorc.BackColor = colorFondoP;
+            panelCapacidad.BackColor = colorFondoP;
 
             lblTamaño.ForeColor = colorLetraT;
             lblFisico.ForeColor = colorLetraT;
             lblBruto.ForeColor = colorLetraT;
             lblRacion.ForeColor = colorLetraT;
             lblTolva.ForeColor = colorLetraT;
+            lblCargaPorc.ForeColor = colorLetraT;
+            lblCapacidad.ForeColor = colorLetraT;
 
         }
 
@@ -1335,9 +1382,10 @@ namespace Senga
 
         }
 
+        private void btnSolicitar_Click(object sender, EventArgs e)
+        {
 
-
-
+        }
     }
 
 }

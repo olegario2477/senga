@@ -72,21 +72,31 @@ namespace Senga
 
         }
 
-        public static void sonidoPorc(TextBox color, double porc) 
+        public static void sonidoPorc(TextBox color, double porc, Boolean opcColor) 
         {
 
             if (porc > 0 && porc < 50)
             {
-                colorCampo(color, Color.White, Color.Black);
+                if (opcColor) 
+                { 
+                    colorCampo(color, Color.White, Color.Black); 
+                }
             }
             else if (porc >= 50 && porc < 100)
             {
                 Console.Beep(2000, 100);
-                colorCampo(color, Color.Orange, Color.White);
+                Console.WriteLine("<<BEEP>> % " + Convert.ToInt32(porc).ToString());
+                if (opcColor)
+                {
+                    colorCampo(color, Color.Orange, Color.White);
+                }
             }
             else if (porc >= 100)
             {
-                colorCampo(color, Color.Red, Color.White);
+                if (opcColor)
+                {
+                    colorCampo(color, Color.Red, Color.White);
+                }
             }
 
         }

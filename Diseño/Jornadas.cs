@@ -583,11 +583,25 @@ namespace Senga
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
+
             string vid;
             vid = txtId.Text;
 
-            Reportes frm = new Reportes(vid);
-            frm.Show();
+            if (DGJornadas.RowCount == 0)
+            {
+                Comun.mensajeVer("No hay Jornadas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            else 
+            {
+                Reportes frm = new Reportes(vid);
+                frm.Show();            
+            }
+                    
         }
+
+
+
+
+
     }
 }

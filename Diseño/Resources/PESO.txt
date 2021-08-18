@@ -1,12 +1,12 @@
 “SERIAL PORT COMM”
-
+...
 NET/GROSS  +  ON (oprimir juntos)
-
-NET/GROSS (muestra siguientes opciones)
+...
+NET/GROSS > (elejir opcion)
+...
+ON v (siguientes opcion)
 ..
-MENU 2 + ON
-..
-NET/GROSS (muestra siguientes opciones)
+MENU 2
 ..
 ..
 1 LINEA -> Select (ENCENDIDO)

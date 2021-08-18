@@ -95,6 +95,13 @@
             this.panelBascula = new System.Windows.Forms.Panel();
             this.panelTolva = new System.Windows.Forms.Panel();
             this.panelRacion = new System.Windows.Forms.Panel();
+            this.txtRacion = new System.Windows.Forms.TextBox();
+            this.panelCargaPorc = new System.Windows.Forms.Panel();
+            this.lblCargaPorc = new System.Windows.Forms.Label();
+            this.txtCargaPorc = new System.Windows.Forms.TextBox();
+            this.panelCapacidad = new System.Windows.Forms.Panel();
+            this.lblCapacidad = new System.Windows.Forms.Label();
+            this.txtCapacidadV = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picFisico)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFisicoF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -118,15 +125,17 @@
             this.panelBascula.SuspendLayout();
             this.panelTolva.SuspendLayout();
             this.panelRacion.SuspendLayout();
+            this.panelCargaPorc.SuspendLayout();
+            this.panelCapacidad.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(548, 461);
+            this.btnCancelar.Location = new System.Drawing.Point(567, 529);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(350, 263);
+            this.btnCancelar.Size = new System.Drawing.Size(347, 263);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "CANCELAR";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -137,9 +146,9 @@
             // 
             this.btnHecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHecho.Image = ((System.Drawing.Image)(resources.GetObject("btnHecho.Image")));
-            this.btnHecho.Location = new System.Drawing.Point(904, 461);
+            this.btnHecho.Location = new System.Drawing.Point(920, 529);
             this.btnHecho.Name = "btnHecho";
-            this.btnHecho.Size = new System.Drawing.Size(350, 263);
+            this.btnHecho.Size = new System.Drawing.Size(336, 263);
             this.btnHecho.TabIndex = 9;
             this.btnHecho.Text = "HECHO";
             this.btnHecho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -231,7 +240,7 @@
             // 
             this.lblRacion.AutoSize = true;
             this.lblRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRacion.Location = new System.Drawing.Point(-1, 40);
+            this.lblRacion.Location = new System.Drawing.Point(-1, 33);
             this.lblRacion.Name = "lblRacion";
             this.lblRacion.Size = new System.Drawing.Size(146, 46);
             this.lblRacion.TabIndex = 52;
@@ -248,7 +257,7 @@
             this.lblEstable.BackColor = System.Drawing.Color.Black;
             this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstable.ForeColor = System.Drawing.Color.Lime;
-            this.lblEstable.Location = new System.Drawing.Point(210, 651);
+            this.lblEstable.Location = new System.Drawing.Point(246, 630);
             this.lblEstable.Name = "lblEstable";
             this.lblEstable.Size = new System.Drawing.Size(33, 31);
             this.lblEstable.TabIndex = 62;
@@ -260,9 +269,9 @@
             this.btnRacion.BackColor = System.Drawing.SystemColors.Control;
             this.btnRacion.Enabled = false;
             this.btnRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRacion.Location = new System.Drawing.Point(157, 12);
+            this.btnRacion.Location = new System.Drawing.Point(458, -1);
             this.btnRacion.Name = "btnRacion";
-            this.btnRacion.Size = new System.Drawing.Size(274, 128);
+            this.btnRacion.Size = new System.Drawing.Size(44, 16);
             this.btnRacion.TabIndex = 63;
             this.btnRacion.Text = "R4";
             this.btnRacion.UseVisualStyleBackColor = false;
@@ -284,12 +293,12 @@
             // txtCapacidad
             // 
             this.txtCapacidad.BackColor = System.Drawing.Color.White;
-            this.txtCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCapacidad.ForeColor = System.Drawing.Color.Black;
-            this.txtCapacidad.Location = new System.Drawing.Point(405, 10);
+            this.txtCapacidad.Location = new System.Drawing.Point(184, 12);
             this.txtCapacidad.Name = "txtCapacidad";
             this.txtCapacidad.ReadOnly = true;
-            this.txtCapacidad.Size = new System.Drawing.Size(24, 38);
+            this.txtCapacidad.Size = new System.Drawing.Size(11, 83);
             this.txtCapacidad.TabIndex = 65;
             this.txtCapacidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCapacidad.Visible = false;
@@ -312,9 +321,9 @@
             this.txtBrutoV.BackColor = System.Drawing.Color.Black;
             this.txtBrutoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBrutoV.ForeColor = System.Drawing.Color.Lime;
-            this.txtBrutoV.Location = new System.Drawing.Point(207, 641);
+            this.txtBrutoV.Location = new System.Drawing.Point(243, 620);
             this.txtBrutoV.Name = "txtBrutoV";
-            this.txtBrutoV.Size = new System.Drawing.Size(335, 83);
+            this.txtBrutoV.Size = new System.Drawing.Size(318, 83);
             this.txtBrutoV.TabIndex = 67;
             this.txtBrutoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBrutoV.TextChanged += new System.EventHandler(this.txtBrutoV_TextChanged);
@@ -324,7 +333,7 @@
             this.txtCargadoV.BackColor = System.Drawing.Color.White;
             this.txtCargadoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 200F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargadoV.ForeColor = System.Drawing.Color.Black;
-            this.txtCargadoV.Location = new System.Drawing.Point(6, 146);
+            this.txtCargadoV.Location = new System.Drawing.Point(9, 125);
             this.txtCargadoV.Name = "txtCargadoV";
             this.txtCargadoV.ReadOnly = true;
             this.txtCargadoV.Size = new System.Drawing.Size(1106, 309);
@@ -336,10 +345,10 @@
             this.txtTamanoV.BackColor = System.Drawing.Color.White;
             this.txtTamanoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTamanoV.ForeColor = System.Drawing.Color.Black;
-            this.txtTamanoV.Location = new System.Drawing.Point(207, 461);
+            this.txtTamanoV.Location = new System.Drawing.Point(243, 440);
             this.txtTamanoV.Name = "txtTamanoV";
             this.txtTamanoV.ReadOnly = true;
-            this.txtTamanoV.Size = new System.Drawing.Size(335, 83);
+            this.txtTamanoV.Size = new System.Drawing.Size(318, 83);
             this.txtTamanoV.TabIndex = 69;
             this.txtTamanoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -374,7 +383,7 @@
             this.txtFisico.Location = new System.Drawing.Point(163, 9);
             this.txtFisico.Name = "txtFisico";
             this.txtFisico.ReadOnly = true;
-            this.txtFisico.Size = new System.Drawing.Size(40, 83);
+            this.txtFisico.Size = new System.Drawing.Size(15, 83);
             this.txtFisico.TabIndex = 72;
             this.txtFisico.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFisico.Visible = false;
@@ -445,7 +454,7 @@
             this.panelAnimacion.Controls.Add(this.picFisicoF);
             this.panelAnimacion.Controls.Add(this.picFisico);
             this.panelAnimacion.Controls.Add(this.pictureBox1);
-            this.panelAnimacion.Location = new System.Drawing.Point(590, 728);
+            this.panelAnimacion.Location = new System.Drawing.Point(1164, 581);
             this.panelAnimacion.Name = "panelAnimacion";
             this.panelAnimacion.Size = new System.Drawing.Size(73, 16);
             this.panelAnimacion.TabIndex = 79;
@@ -455,7 +464,7 @@
             // 
             this.lblPorcentaje.AutoSize = true;
             this.lblPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPorcentaje.Location = new System.Drawing.Point(810, 78);
+            this.lblPorcentaje.Location = new System.Drawing.Point(435, 18);
             this.lblPorcentaje.Name = "lblPorcentaje";
             this.lblPorcentaje.Size = new System.Drawing.Size(88, 46);
             this.lblPorcentaje.TabIndex = 79;
@@ -517,10 +526,10 @@
             this.txtFaltaV.BackColor = System.Drawing.Color.White;
             this.txtFaltaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFaltaV.ForeColor = System.Drawing.Color.Black;
-            this.txtFaltaV.Location = new System.Drawing.Point(207, 550);
+            this.txtFaltaV.Location = new System.Drawing.Point(243, 529);
             this.txtFaltaV.Name = "txtFaltaV";
             this.txtFaltaV.ReadOnly = true;
-            this.txtFaltaV.Size = new System.Drawing.Size(335, 83);
+            this.txtFaltaV.Size = new System.Drawing.Size(318, 83);
             this.txtFaltaV.TabIndex = 83;
             this.txtFaltaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -547,13 +556,14 @@
             this.btnSolicitar.Enabled = false;
             this.btnSolicitar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSolicitar.Image = ((System.Drawing.Image)(resources.GetObject("btnSolicitar.Image")));
-            this.btnSolicitar.Location = new System.Drawing.Point(871, 12);
+            this.btnSolicitar.Location = new System.Drawing.Point(869, 6);
             this.btnSolicitar.Name = "btnSolicitar";
-            this.btnSolicitar.Size = new System.Drawing.Size(383, 128);
+            this.btnSolicitar.Size = new System.Drawing.Size(387, 113);
             this.btnSolicitar.TabIndex = 88;
             this.btnSolicitar.Text = "SOLICITAR";
             this.btnSolicitar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnSolicitar.UseVisualStyleBackColor = true;
+            this.btnSolicitar.Click += new System.EventHandler(this.btnSolicitar_Click);
             // 
             // picLogo
             // 
@@ -570,10 +580,10 @@
             // btnTolva
             // 
             this.btnTolva.BackColor = System.Drawing.SystemColors.Control;
-            this.btnTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTolva.Location = new System.Drawing.Point(591, 12);
+            this.btnTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTolva.Location = new System.Drawing.Point(591, 6);
             this.btnTolva.Name = "btnTolva";
-            this.btnTolva.Size = new System.Drawing.Size(274, 128);
+            this.btnTolva.Size = new System.Drawing.Size(274, 113);
             this.btnTolva.TabIndex = 86;
             this.btnTolva.Text = "1";
             this.btnTolva.UseVisualStyleBackColor = false;
@@ -583,7 +593,7 @@
             // 
             this.lblTolva.AutoSize = true;
             this.lblTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTolva.Location = new System.Drawing.Point(13, 41);
+            this.lblTolva.Location = new System.Drawing.Point(9, 35);
             this.lblTolva.Name = "lblTolva";
             this.lblTolva.Size = new System.Drawing.Size(117, 46);
             this.lblTolva.TabIndex = 87;
@@ -595,7 +605,7 @@
             this.lblZero.BackColor = System.Drawing.Color.Black;
             this.lblZero.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblZero.ForeColor = System.Drawing.Color.Lime;
-            this.lblZero.Location = new System.Drawing.Point(211, 682);
+            this.lblZero.Location = new System.Drawing.Point(247, 661);
             this.lblZero.Name = "lblZero";
             this.lblZero.Size = new System.Drawing.Size(32, 31);
             this.lblZero.TabIndex = 89;
@@ -678,6 +688,7 @@
             this.panel1.Controls.Add(this.panelValores);
             this.panel1.Controls.Add(this.txtCargado);
             this.panel1.Controls.Add(this.txtTamano);
+            this.panel1.Controls.Add(this.lblPorcentaje);
             this.panel1.Controls.Add(this.pbCarga);
             this.panel1.Controls.Add(this.txtFalta);
             this.panel1.Controls.Add(this.txtServida);
@@ -687,14 +698,15 @@
             this.panel1.Controls.Add(this.btnTara);
             this.panel1.Controls.Add(this.txtFisico);
             this.panel1.Controls.Add(this.txtBruto);
+            this.panel1.Controls.Add(this.btnRacion);
             this.panel1.Controls.Add(this.lblCargado);
             this.panel1.Controls.Add(this.txtTamanoAct);
             this.panel1.Controls.Add(this.txtFisicoV);
             this.panel1.Controls.Add(this.txtFisicoIni);
             this.panel1.Controls.Add(this.pbFisico);
-            this.panel1.Location = new System.Drawing.Point(670, 729);
+            this.panel1.Location = new System.Drawing.Point(1080, 575);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(86, 15);
+            this.panel1.Size = new System.Drawing.Size(72, 21);
             this.panel1.TabIndex = 95;
             // 
             // panelBarra
@@ -711,7 +723,7 @@
             this.panelBarra.Controls.Add(this.pic3);
             this.panelBarra.Controls.Add(this.pic2);
             this.panelBarra.Controls.Add(this.pic1);
-            this.panelBarra.Location = new System.Drawing.Point(1118, 146);
+            this.panelBarra.Location = new System.Drawing.Point(1118, 125);
             this.panelBarra.Name = "panelBarra";
             this.panelBarra.Size = new System.Drawing.Size(138, 309);
             this.panelBarra.TabIndex = 96;
@@ -820,60 +832,139 @@
             // 
             this.panelSolicitar.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelSolicitar.Controls.Add(this.lblTamaño);
-            this.panelSolicitar.Location = new System.Drawing.Point(10, 461);
+            this.panelSolicitar.Location = new System.Drawing.Point(9, 440);
             this.panelSolicitar.Name = "panelSolicitar";
-            this.panelSolicitar.Size = new System.Drawing.Size(190, 83);
+            this.panelSolicitar.Size = new System.Drawing.Size(227, 83);
             this.panelSolicitar.TabIndex = 97;
             // 
             // panelVariacion
             // 
             this.panelVariacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelVariacion.Controls.Add(this.lblFisico);
-            this.panelVariacion.Location = new System.Drawing.Point(9, 550);
+            this.panelVariacion.Location = new System.Drawing.Point(8, 529);
             this.panelVariacion.Name = "panelVariacion";
-            this.panelVariacion.Size = new System.Drawing.Size(192, 83);
+            this.panelVariacion.Size = new System.Drawing.Size(229, 83);
             this.panelVariacion.TabIndex = 98;
             // 
             // panelBascula
             // 
             this.panelBascula.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelBascula.Controls.Add(this.lblBruto);
-            this.panelBascula.Location = new System.Drawing.Point(9, 641);
+            this.panelBascula.Location = new System.Drawing.Point(9, 620);
             this.panelBascula.Name = "panelBascula";
-            this.panelBascula.Size = new System.Drawing.Size(191, 83);
+            this.panelBascula.Size = new System.Drawing.Size(228, 83);
             this.panelBascula.TabIndex = 99;
             // 
             // panelTolva
             // 
             this.panelTolva.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelTolva.Controls.Add(this.lblTolva);
-            this.panelTolva.Location = new System.Drawing.Point(437, 12);
+            this.panelTolva.Location = new System.Drawing.Point(437, 6);
             this.panelTolva.Name = "panelTolva";
-            this.panelTolva.Size = new System.Drawing.Size(148, 128);
+            this.panelTolva.Size = new System.Drawing.Size(148, 113);
             this.panelTolva.TabIndex = 100;
             // 
             // panelRacion
             // 
             this.panelRacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelRacion.Controls.Add(this.lblRacion);
-            this.panelRacion.Location = new System.Drawing.Point(6, 12);
+            this.panelRacion.Location = new System.Drawing.Point(6, 6);
             this.panelRacion.Name = "panelRacion";
-            this.panelRacion.Size = new System.Drawing.Size(145, 128);
+            this.panelRacion.Size = new System.Drawing.Size(145, 113);
             this.panelRacion.TabIndex = 101;
+            // 
+            // txtRacion
+            // 
+            this.txtRacion.BackColor = System.Drawing.Color.White;
+            this.txtRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRacion.ForeColor = System.Drawing.Color.Black;
+            this.txtRacion.Location = new System.Drawing.Point(159, 6);
+            this.txtRacion.Name = "txtRacion";
+            this.txtRacion.ReadOnly = true;
+            this.txtRacion.Size = new System.Drawing.Size(272, 113);
+            this.txtRacion.TabIndex = 102;
+            this.txtRacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panelCargaPorc
+            // 
+            this.panelCargaPorc.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelCargaPorc.Controls.Add(this.lblCargaPorc);
+            this.panelCargaPorc.Location = new System.Drawing.Point(8, 709);
+            this.panelCargaPorc.Name = "panelCargaPorc";
+            this.panelCargaPorc.Size = new System.Drawing.Size(228, 83);
+            this.panelCargaPorc.TabIndex = 103;
+            // 
+            // lblCargaPorc
+            // 
+            this.lblCargaPorc.AutoSize = true;
+            this.lblCargaPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCargaPorc.Location = new System.Drawing.Point(3, 19);
+            this.lblCargaPorc.Name = "lblCargaPorc";
+            this.lblCargaPorc.Size = new System.Drawing.Size(174, 46);
+            this.lblCargaPorc.TabIndex = 50;
+            this.lblCargaPorc.Text = "Carga %";
+            // 
+            // txtCargaPorc
+            // 
+            this.txtCargaPorc.BackColor = System.Drawing.Color.White;
+            this.txtCargaPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargaPorc.ForeColor = System.Drawing.Color.Black;
+            this.txtCargaPorc.Location = new System.Drawing.Point(242, 709);
+            this.txtCargaPorc.Name = "txtCargaPorc";
+            this.txtCargaPorc.ReadOnly = true;
+            this.txtCargaPorc.Size = new System.Drawing.Size(319, 83);
+            this.txtCargaPorc.TabIndex = 104;
+            this.txtCargaPorc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panelCapacidad
+            // 
+            this.panelCapacidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelCapacidad.Controls.Add(this.lblCapacidad);
+            this.panelCapacidad.Location = new System.Drawing.Point(567, 440);
+            this.panelCapacidad.Name = "panelCapacidad";
+            this.panelCapacidad.Size = new System.Drawing.Size(265, 83);
+            this.panelCapacidad.TabIndex = 105;
+            // 
+            // lblCapacidad
+            // 
+            this.lblCapacidad.AutoSize = true;
+            this.lblCapacidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCapacidad.Location = new System.Drawing.Point(-3, 17);
+            this.lblCapacidad.Name = "lblCapacidad";
+            this.lblCapacidad.Size = new System.Drawing.Size(211, 46);
+            this.lblCapacidad.TabIndex = 45;
+            this.lblCapacidad.Text = "Capacidad";
+            // 
+            // txtCapacidadV
+            // 
+            this.txtCapacidadV.BackColor = System.Drawing.Color.White;
+            this.txtCapacidadV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCapacidadV.ForeColor = System.Drawing.Color.Black;
+            this.txtCapacidadV.Location = new System.Drawing.Point(838, 440);
+            this.txtCapacidadV.Name = "txtCapacidadV";
+            this.txtCapacidadV.ReadOnly = true;
+            this.txtCapacidadV.Size = new System.Drawing.Size(420, 83);
+            this.txtCapacidadV.TabIndex = 106;
+            this.txtCapacidadV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Racion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1268, 749);
+            this.ClientSize = new System.Drawing.Size(1268, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.btnHecho);
+            this.Controls.Add(this.txtCapacidadV);
+            this.Controls.Add(this.panelCapacidad);
+            this.Controls.Add(this.txtCargaPorc);
+            this.Controls.Add(this.panelCargaPorc);
+            this.Controls.Add(this.txtRacion);
             this.Controls.Add(this.panelRacion);
             this.Controls.Add(this.panelTolva);
             this.Controls.Add(this.panelBascula);
             this.Controls.Add(this.panelVariacion);
             this.Controls.Add(this.panelSolicitar);
             this.Controls.Add(this.panelBarra);
-            this.Controls.Add(this.lblPorcentaje);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblZero);
             this.Controls.Add(this.btnSolicitar);
@@ -884,8 +975,6 @@
             this.Controls.Add(this.txtCargadoV);
             this.Controls.Add(this.lblEstable);
             this.Controls.Add(this.txtBrutoV);
-            this.Controls.Add(this.btnRacion);
-            this.Controls.Add(this.btnHecho);
             this.Controls.Add(this.btnCancelar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -926,6 +1015,10 @@
             this.panelTolva.PerformLayout();
             this.panelRacion.ResumeLayout(false);
             this.panelRacion.PerformLayout();
+            this.panelCargaPorc.ResumeLayout(false);
+            this.panelCargaPorc.PerformLayout();
+            this.panelCapacidad.ResumeLayout(false);
+            this.panelCapacidad.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -998,5 +1091,12 @@
         private System.Windows.Forms.Panel panelBascula;
         private System.Windows.Forms.Panel panelTolva;
         private System.Windows.Forms.Panel panelRacion;
+        private System.Windows.Forms.TextBox txtRacion;
+        private System.Windows.Forms.Panel panelCargaPorc;
+        private System.Windows.Forms.Label lblCargaPorc;
+        private System.Windows.Forms.TextBox txtCargaPorc;
+        private System.Windows.Forms.Panel panelCapacidad;
+        private System.Windows.Forms.Label lblCapacidad;
+        private System.Windows.Forms.TextBox txtCapacidadV;
     }
 }

@@ -20,7 +20,7 @@ namespace Senga
         private Comm comm = new Comm();
         private SerialPort serialPort1 = new SerialPort();
         
-        SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
+        private SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
 
         string vidd;
         string viddr;
@@ -35,6 +35,7 @@ namespace Senga
         int estr = 0;
         bool vestable = false;
         int pesoact = 0;
+        int pesoant = 0;
         string vzeros = "";
         double minvariacion = 0;
         double vlat;
@@ -42,6 +43,7 @@ namespace Senga
         string vnumcarga;
         bool RecibirPeso = false;
         bool beepOn = true;
+        int cantAjustes = 1;
 
         //private string RxString;
 
@@ -697,7 +699,7 @@ namespace Senga
 
             double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
-            Comun.sonidoPorc(color, porc);
+            Comun.sonidoPorc(color, porc, false);
 
             return porc;
 
@@ -1019,34 +1021,37 @@ namespace Senga
 
             int resultado = 0;
             //int pesoant;
+            int difpeso;
             string dator = "";
             //int maxzeros = 10;
 
-
-
-            //pesoant = pesoact;
-
             dator = dato; //comm.p_dato;
+            pesoact = Int32.Parse(dator);
 
-            //if (dator.Equals("0") && pesoant == 0)
+            difpeso = pesoact - pesoant;
+
+            if (difpeso == 0)
+            {
+                Console.WriteLine(pesoact.ToString());
+            }
+            else
+            {
+                Console.WriteLine(pesoact.ToString() + " ant " + pesoant.ToString() + " dif " + difpeso.ToString());
+            }
+
+
+
+            //if (difpeso != 0 && (difpeso < -50 || difpeso > 50))
             //{
-            //    vzeros += dator;
+            //    Console.WriteLine(pesoact.ToString() + " Ignorado " + difpeso.ToString());
+            //    return;
             //}
+
+            //if (dator.Equals("0") && pesoant == 0) { vzeros += dator; }
 
             lblZero.Visible = dator.Equals("0");
 
-            //if (dator.Equals("0"))
-            //{
-            //    lblZero.Visible = true;
-            //}
-            //else
-            //{
-            //    lblZero.Visible = false;
-            //}
-
             //txtPesoT.Text = vzeros;
-
-            pesoact = Int32.Parse(dator);
 
             //if (dator.Equals("0"))
             //{
@@ -1068,7 +1073,8 @@ namespace Senga
             //    vzeros = "";
             //}
 
-            txtServirFin.Text = dator;
+            txtServirFin.Text = dator; 
+
             //---------------------------------------------------------------------------------
             //estable servirfin
 
@@ -1080,6 +1086,7 @@ namespace Senga
             }
 
             estable[lv_pos] = txtServirFin.Text; //txtServir.Text;
+            //estable[lv_pos] = dator; //txtServir.Text;
 
             if (estable[0] == estable[1] && estable[1] == estable[2])
             {
@@ -1114,6 +1121,8 @@ namespace Senga
             }
 
             //lblEstable.Visible = comm.p_estable;
+            //if (vestable) { txtServirFin.Text = dator; }       
+            
 
             //---------------------------------------------------------------------------------
 
@@ -1136,8 +1145,12 @@ namespace Senga
             {
                 if (vestable) //(resultado > -100)
                 {
-                    txtServirIni.Text = txtServirFin.Text; //AJUSTAR
-                    Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                    if (cantAjustes <= 2)
+                    {
+                        txtServirIni.Text = txtServirFin.Text; //AJUSTAR
+                        cantAjustes++;
+                        Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                    }
                 }
                 resultado = 0;
             }
@@ -1173,7 +1186,7 @@ namespace Senga
 
             fomatoCampos();
 
-
+            pesoant = pesoact;
 
 
         }
@@ -1517,7 +1530,7 @@ namespace Senga
                 txtBascula.Refresh();
                 procesaPeso(txtBascula.Text);
 
-                Console.WriteLine(accion);
+                //Console.WriteLine(accion);
                 //Console.WriteLine(txtBascula.Text);
             }
 
@@ -1629,15 +1642,22 @@ namespace Senga
         {
 
             double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
-            
-            if (porc>=100) 
+
+            if (porc >= 100)
             {
+
+                txtVariacionV.ForeColor = Color.Orange;
+
                 if (beepOn)
                 {
-                    InitializeSound();
+                    //InitializeSound();
                     beepOn = false;
                 }
-            }         
+            }
+            else 
+            {
+                txtVariacionV.ForeColor = Color.Lime;
+            }        
 
         }
 
