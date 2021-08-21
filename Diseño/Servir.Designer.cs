@@ -100,6 +100,10 @@
             this.panelCorral = new System.Windows.Forms.Panel();
             this.panelRacion = new System.Windows.Forms.Panel();
             this.panelNumCarga = new System.Windows.Forms.Panel();
+            this.txtBasculaIni = new System.Windows.Forms.TextBox();
+            this.panelBasculaIni = new System.Windows.Forms.Panel();
+            this.lblBasculaIni = new System.Windows.Forms.Label();
+            this.txtBasculaIniV = new System.Windows.Forms.TextBox();
             this.panelBarra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic9)).BeginInit();
@@ -121,6 +125,7 @@
             this.panelCorral.SuspendLayout();
             this.panelRacion.SuspendLayout();
             this.panelNumCarga.SuspendLayout();
+            this.panelBasculaIni.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnHecho
@@ -534,7 +539,7 @@
             this.txtServirIniV.BackColor = System.Drawing.Color.White;
             this.txtServirIniV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServirIniV.ForeColor = System.Drawing.Color.Black;
-            this.txtServirIniV.Location = new System.Drawing.Point(196, 625);
+            this.txtServirIniV.Location = new System.Drawing.Point(196, 715);
             this.txtServirIniV.Name = "txtServirIniV";
             this.txtServirIniV.Size = new System.Drawing.Size(294, 83);
             this.txtServirIniV.TabIndex = 72;
@@ -852,7 +857,7 @@
             // 
             this.panelCargaIni.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCargaIni.Controls.Add(this.lblCargaIni);
-            this.panelCargaIni.Location = new System.Drawing.Point(14, 625);
+            this.panelCargaIni.Location = new System.Drawing.Point(14, 715);
             this.panelCargaIni.Name = "panelCargaIni";
             this.panelCargaIni.Size = new System.Drawing.Size(176, 83);
             this.panelCargaIni.TabIndex = 100;
@@ -911,12 +916,60 @@
             this.panelNumCarga.Size = new System.Drawing.Size(145, 111);
             this.panelNumCarga.TabIndex = 105;
             // 
+            // txtBasculaIni
+            // 
+            this.txtBasculaIni.BackColor = System.Drawing.Color.White;
+            this.txtBasculaIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBasculaIni.ForeColor = System.Drawing.Color.Black;
+            this.txtBasculaIni.Location = new System.Drawing.Point(603, 709);
+            this.txtBasculaIni.Name = "txtBasculaIni";
+            this.txtBasculaIni.Size = new System.Drawing.Size(33, 83);
+            this.txtBasculaIni.TabIndex = 106;
+            this.txtBasculaIni.Text = "88,888";
+            this.txtBasculaIni.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBasculaIni.Visible = false;
+            // 
+            // panelBasculaIni
+            // 
+            this.panelBasculaIni.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelBasculaIni.Controls.Add(this.lblBasculaIni);
+            this.panelBasculaIni.Location = new System.Drawing.Point(14, 625);
+            this.panelBasculaIni.Name = "panelBasculaIni";
+            this.panelBasculaIni.Size = new System.Drawing.Size(176, 83);
+            this.panelBasculaIni.TabIndex = 107;
+            // 
+            // lblBasculaIni
+            // 
+            this.lblBasculaIni.AutoSize = true;
+            this.lblBasculaIni.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBasculaIni.Location = new System.Drawing.Point(-3, 17);
+            this.lblBasculaIni.Name = "lblBasculaIni";
+            this.lblBasculaIni.Size = new System.Drawing.Size(184, 46);
+            this.lblBasculaIni.TabIndex = 75;
+            this.lblBasculaIni.Text = "Bascu Ini";
+            // 
+            // txtBasculaIniV
+            // 
+            this.txtBasculaIniV.BackColor = System.Drawing.Color.White;
+            this.txtBasculaIniV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBasculaIniV.ForeColor = System.Drawing.Color.Black;
+            this.txtBasculaIniV.Location = new System.Drawing.Point(196, 625);
+            this.txtBasculaIniV.Name = "txtBasculaIniV";
+            this.txtBasculaIniV.Size = new System.Drawing.Size(294, 83);
+            this.txtBasculaIniV.TabIndex = 108;
+            this.txtBasculaIniV.Text = "88,888";
+            this.txtBasculaIniV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Servir
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1284, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.txtBasculaIniV);
+            this.Controls.Add(this.txtServirIniV);
+            this.Controls.Add(this.panelBasculaIni);
+            this.Controls.Add(this.txtBasculaIni);
             this.Controls.Add(this.panelNumCarga);
             this.Controls.Add(this.panelRacion);
             this.Controls.Add(this.panelCorral);
@@ -929,7 +982,6 @@
             this.Controls.Add(this.panelCargaIni);
             this.Controls.Add(this.panelVarCab);
             this.Controls.Add(this.panelPlan);
-            this.Controls.Add(this.txtServirIniV);
             this.Controls.Add(this.txtPorc);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelBarra);
@@ -982,6 +1034,8 @@
             this.panelRacion.PerformLayout();
             this.panelNumCarga.ResumeLayout(false);
             this.panelNumCarga.PerformLayout();
+            this.panelBasculaIni.ResumeLayout(false);
+            this.panelBasculaIni.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1059,5 +1113,9 @@
         private System.Windows.Forms.Panel panelCorral;
         private System.Windows.Forms.Panel panelRacion;
         private System.Windows.Forms.Panel panelNumCarga;
+        private System.Windows.Forms.TextBox txtBasculaIni;
+        private System.Windows.Forms.Panel panelBasculaIni;
+        private System.Windows.Forms.Label lblBasculaIni;
+        private System.Windows.Forms.TextBox txtBasculaIniV;
     }
 }

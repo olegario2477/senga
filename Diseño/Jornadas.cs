@@ -11,6 +11,7 @@ namespace Senga
     public partial class Jornadas : Form
     {
         bool activado = false;
+        private int rowIndex = 0;
 
         public Jornadas()
         {
@@ -37,6 +38,7 @@ namespace Senga
 
         private void Jornadas_Activated(object sender, EventArgs e) 
         {
+
             activar();
          
         }
@@ -63,7 +65,7 @@ namespace Senga
 
                 }
 
-                seleccionarFila();
+                //seleccionarFila();
                 //barra();
             
             }
@@ -179,6 +181,14 @@ namespace Senga
         {
             //formatoGrid();
             datosGrid();
+
+            if (DGJornadas.RowCount > 0)
+            {
+                DGJornadas.CurrentCell = DGJornadas.Rows[rowIndex].Cells[0];
+                DGJornadas.Rows[rowIndex].Selected = true;
+            }
+
+            refreshJornadas();
 
         }
 
@@ -527,23 +537,31 @@ namespace Senga
 
         private void DGJornadas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (DGJornadas.CurrentRow != null)
-            {
-                txtId.Text = (string)DGJornadas.CurrentRow.Cells["Jornada"].Value;
+            //if (DGJornadas.CurrentRow != null)
+            //{
+            //    txtId.Text = (string)DGJornadas.CurrentRow.Cells["Jornada"].Value;
 
-                filaDatos(txtId.Text);
-            }
+            //    filaDatos(txtId.Text);
+            //}
         }
 
         private void DGJornadas_SelectionChanged(object sender, EventArgs e)
         {
 
+            refreshJornadas();
+
+        }
+
+        void refreshJornadas() 
+        { 
+
             if (DGJornadas.CurrentRow != null)
             {
                 txtId.Text = (string)DGJornadas.CurrentRow.Cells["Jornada"].Value;
 
                 filaDatos(txtId.Text);
-            }
+            }        
+        
         }
 
         private void btnAbrir_Click(object sender, EventArgs e)
@@ -585,7 +603,7 @@ namespace Senga
         {
 
             string vid;
-            vid = txtId.Text;
+
 
             if (DGJornadas.RowCount == 0)
             {
@@ -593,6 +611,10 @@ namespace Senga
             }
             else 
             {
+                rowIndex = DGJornadas.CurrentRow.Index;
+
+                vid = txtId.Text;
+                
                 Reportes frm = new Reportes(vid);
                 frm.Show();            
             }

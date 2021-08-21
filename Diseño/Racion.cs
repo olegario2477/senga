@@ -103,7 +103,10 @@ namespace Senga
                     txtServido.Text = row["Servido"].ToString();
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
-                    txtTamanoAct.Text = row["Falta"].ToString();
+
+                    long falta = -1*long.Parse(row["Falta"].ToString());
+
+                    txtTamanoAct.Text = falta.ToString();
 
                     tamanoact = Convert.ToInt32(txtTamanoAct.Text);
                     capacidad = Convert.ToInt32(txtCapacidad.Text);
@@ -584,6 +587,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
+            long cargado = 0;
+
             datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtTamanoV.Text + "'," + txtPlanta.Text + ")";
             
             if (!datos.consultaSQL(ref dt, false))
@@ -606,7 +611,25 @@ namespace Senga
             //}
             //else
             //{
-                datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+            datos.p_sql = "SELECT SUM(Carga) as Carga FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else 
+            {
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    cargado = long.Parse(row["Carga"].ToString());
+                }
+            
+            }
+
+            datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+                //datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
             //}
 
             if (!datos.consultaSQL(ref dt, false))

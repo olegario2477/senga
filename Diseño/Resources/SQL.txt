@@ -5,3 +5,7 @@ alter table servidas add column LongitudI double;
 CREATE TABLE Cargas ( Id LONG, Fecha DATE , Hora TEXT(8), Planta LONG, Racion TEXT(10), Num LONG, Tolva LONG, Letra TEXT(10), Solicito LONG, Carga LONG, IdD AUTOINCREMENT(1,1) PRIMARY KEY );
 alter table servidas add column NumCarga long;
 alter table raciones add column NumCarga long;
+alter table raciones add column Carga long;
+alter table servidas add column BasculaIni long;
+alter table servidas add column BasculaFin long;
+alter table servidas add column CargaIni long;

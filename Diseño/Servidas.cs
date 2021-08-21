@@ -186,7 +186,7 @@ namespace Senga
 
             txtCorrales.Text = string.Format("{0:#,##0}", long.Parse(txtCorrales.Text));
             txtPlan.Text = string.Format("{0:#,##0}", long.Parse(txtPlan.Text));
-            txtCargadoV.Text = string.Format("{0:#,##0}", long.Parse(txtCargado.Text));
+            txtCargadoV.Text = string.Format("{0:#,##0}", long.Parse(cadenaCero(txtCargado.Text)));
             txtServido.Text = string.Format("{0:#,##0}", long.Parse(txtServido.Text));
             txtFisicoV.Text = string.Format("{0:#,##0}", long.Parse(txtFisico.Text));
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
@@ -1007,6 +1007,10 @@ namespace Senga
                     txtRacion.Text = row["Racion"].ToString();
                     txtCabezas.Text = row["Cabezas"].ToString();
                     txtPlanC.Text = row["Planeado"].ToString();
+                    txtRealidadC.Text = row["Realidad"].ToString();
+
+                    long variacionC = long.Parse(row["Realidad"].ToString()) - long.Parse(row["Planeado"].ToString()) ;
+                    txtVariacionC.Text = variacionC.ToString();
                 }
 
                 //datos.p_sql = "UPDATE operacion SET idd =" + idd.ToString();
@@ -1030,7 +1034,7 @@ namespace Senga
                     txtCargadoV.Text = "0";
                 }
 
-                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Cargado,Servido,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Carga,Servido,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -1044,11 +1048,11 @@ namespace Senga
                     {
                         //txtCorrales.Text = row["Cantidad"].ToString();
                         txtPlan.Text = row["Planeado"].ToString();
-                        txtCargado.Text = row["Cargado"].ToString();
+                        txtCargado.Text = row["Carga"].ToString();
                         txtServido.Text = row["Servido"].ToString();
                         txtIdDr.Text = row["IdD"].ToString();
 
-                        resultado = Convert.ToInt32(row["Cargado"].ToString()) - Convert.ToInt32(row["Servido"].ToString());
+                        resultado = Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(row["Servido"].ToString());
                         txtFisico.Text = resultado.ToString();
 
                         //resultado = Convert.ToInt32(row["Planeado"].ToString()) - Convert.ToInt32(row["Servido"].ToString());
@@ -1066,14 +1070,17 @@ namespace Senga
         
         private void btnServir_Click(object sender, EventArgs e)
         {
+    
+            if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
+            {
+                //MessageBox.Show("Insuficiente Alimento Para Servir", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
 
-            //if (Convert.ToInt32(txtPlanC.Text) > Convert.ToInt32(txtCargado.Text))
-            //{
-            //    MessageBox.Show("Insuficiente Alimento Para Servir", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
-            //}
-            //else
-            //{ 
+
+            }
+            else
+            { 
 
             //txtcorral  y  lblcorral
 
@@ -1086,7 +1093,7 @@ namespace Senga
                     frm.Show();
                 }
                 
-            //}
+            }
 
             //guardarOperacion();
 
@@ -1466,7 +1473,7 @@ namespace Senga
                             cantidadTotal();
                             cantidadt = Convert.ToInt32(txtCantidadT.Text);
 
-                            int falta = 0;
+                            long falta = 0;
 
                             datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
@@ -1480,7 +1487,7 @@ namespace Senga
                                 {
                                     if (dt.Rows.Count != 0)
                                     {
-                                        falta = Convert.ToInt32(cadenaCero(row["Planeado"].ToString())) - Convert.ToInt32(cadenaCero(row["Realidad"].ToString()));
+                                        falta = long.Parse(cadenaCero(row["Realidad"].ToString())) - long.Parse(cadenaCero(row["Planeado"].ToString()));
                                     }
                                 }
                             }
@@ -1572,7 +1579,7 @@ namespace Senga
 
 
 
-                            int falta = 0;
+                            long falta = 0;
 
                             datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
@@ -1586,7 +1593,7 @@ namespace Senga
                                 {
                                     if (dt.Rows.Count != 0)
                                     {
-                                        falta = Convert.ToInt32(cadenaCero(row["Planeado"].ToString())) - Convert.ToInt32(cadenaCero(row["Realidad"].ToString()));
+                                        falta = long.Parse(cadenaCero(row["Realidad"].ToString())) - long.Parse(cadenaCero(row["Planeado"].ToString()));
                                     }
                                 }
                             }

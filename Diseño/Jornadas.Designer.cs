@@ -71,7 +71,7 @@
             // 
             this.txtId.BackColor = System.Drawing.Color.White;
             this.txtId.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtId.Location = new System.Drawing.Point(395, 52);
+            this.txtId.Location = new System.Drawing.Point(262, 44);
             this.txtId.Name = "txtId";
             this.txtId.ReadOnly = true;
             this.txtId.Size = new System.Drawing.Size(58, 38);
@@ -83,10 +83,10 @@
             // 
             this.txtFecha.BackColor = System.Drawing.Color.White;
             this.txtFecha.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFecha.Location = new System.Drawing.Point(388, 96);
+            this.txtFecha.Location = new System.Drawing.Point(262, 88);
             this.txtFecha.Name = "txtFecha";
             this.txtFecha.ReadOnly = true;
-            this.txtFecha.Size = new System.Drawing.Size(65, 38);
+            this.txtFecha.Size = new System.Drawing.Size(58, 38);
             this.txtFecha.TabIndex = 68;
             this.txtFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFecha.Visible = false;
@@ -145,7 +145,7 @@
             // 
             this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
-            this.btnReportes.Location = new System.Drawing.Point(476, 0);
+            this.btnReportes.Location = new System.Drawing.Point(505, 0);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(149, 149);
             this.btnReportes.TabIndex = 70;

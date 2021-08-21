@@ -33,6 +33,7 @@ namespace Senga
 
         bool activado = false;
         string vjornada;
+        private int rowIndex = 0;
 
         public static Raciones instance = null;
 
@@ -117,6 +118,7 @@ namespace Senga
                 refrescaGrid();
 
 
+
                 //var th = new Thread(refrescaGrid);
                 //th.Start();
 
@@ -133,6 +135,12 @@ namespace Senga
                 }
 
                 //seleccionarFila();
+
+                //DGRaciones.Rows.IndexOf
+
+                //DGRaciones.FirstDisplayedScrollingRowIndex = rowIndex;
+                //DGRaciones.Rows[rowIndex].Selected = true;
+
 
 
                 //barra();
@@ -262,7 +270,14 @@ namespace Senga
             //formatoGrid();
 
             datosGrid();
-            datosGrid2();
+
+            if (DGRaciones.RowCount > 0)
+            {
+                DGRaciones.CurrentCell = DGRaciones.Rows[rowIndex].Cells[0];
+                DGRaciones.Rows[rowIndex].Selected = true;
+            }
+
+            refreshCargas();
 
         }
 
@@ -275,9 +290,9 @@ namespace Senga
             table.Columns.Add("Corrales", typeof(long));
             table.Columns.Add("Hechos", typeof(long));
             table.Columns.Add("Plan", typeof(long));            
-            //table.Columns.Add("Variacion", typeof(string));           
-            table.Columns.Add("Servido", typeof(long));            
-            table.Columns.Add("Carga", typeof(long));
+            //table.Columns.Add("Variacion", typeof(string));
+            table.Columns.Add("Cargas", typeof(long));
+            table.Columns.Add("Servido", typeof(long));
             table.Columns.Add("Falta", typeof(long));
             table.Columns.Add("IdD", typeof(string));
 
@@ -300,7 +315,7 @@ namespace Senga
             DGRaciones.Columns["Corrales"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Hechos"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Plan"].DefaultCellStyle.Format = "#,0.###";
-            DGRaciones.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
+            DGRaciones.Columns["Cargas"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Falta"].DefaultCellStyle.Format = "#,0.###";
 
@@ -315,11 +330,11 @@ namespace Senga
 
             table.Columns.Add("IdD", typeof(string));
             table.Columns.Add("Hora", typeof(string));
-            table.Columns.Add("Tolva", typeof(long));
+            table.Columns.Add("Anterior", typeof(long));
             table.Columns.Add("Solicito", typeof(long));
-            table.Columns.Add("Cargo", typeof(long));
+            table.Columns.Add("Recibio", typeof(long));
             table.Columns.Add("Servido", typeof(long));
-            table.Columns.Add("Dif", typeof(long));
+            table.Columns.Add("Carga", typeof(long));
  
 
             DGCargas.DataSource = table;
@@ -338,11 +353,11 @@ namespace Senga
 
 
             DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Solicito"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Cargo"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Recibio"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Dif"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
 
@@ -363,7 +378,7 @@ namespace Senga
             bool primero = true;
 
 
-            datos.p_sql = "SELECT Racion,Cantidad,Planeado,Cargado,Servido,HechoC,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+            datos.p_sql = "SELECT Racion,Cantidad,HechoC,Planeado,Cargado,Servido,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -376,7 +391,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["Racion"].ToString(), row["Cantidad"].ToString(), row["HechoC"].ToString(), row["Planeado"].ToString(),  row["Servido"].ToString(), row["Cargado"].ToString(), Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
+                    table.Rows.Add(row["Racion"].ToString(), row["Cantidad"].ToString(), row["HechoC"].ToString(), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -444,11 +459,11 @@ namespace Senga
                         
                     }
 
-                    long dif = Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(cadenaCero(realidad)); 
-                
+                    long dif = Convert.ToInt32(cadenaCero(realidad)) - Convert.ToInt32(cadenaCero(row["Carga"].ToString()));
+                    long anterior = 0;
 
                 //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), row["Tolva"].ToString(), row["Solicito"].ToString(), row["Carga"].ToString(), realidad.ToString(), dif.ToString());
+                    table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), anterior.ToString(), row["Solicito"].ToString(), row["Carga"].ToString(), realidad.ToString(), dif.ToString());
 
                     //if (row["Cargado"].ToString() == "0" && primero)
                     ////if (primero)
@@ -473,12 +488,12 @@ namespace Senga
 
         private void DGRaciones_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (DGRaciones.CurrentRow != null)
-            {
-                txtIdDr.Text = (string)DGRaciones.CurrentRow.Cells["IdD"].Value;
+            //if (DGRaciones.CurrentRow != null)
+            //{
+            //    txtIdDr.Text = (string)DGRaciones.CurrentRow.Cells["IdD"].Value;
 
-                filaDatos(txtIdDr.Text);
-            }         
+            //    filaDatos(txtIdDr.Text);
+            //}         
 
         }
 
@@ -507,6 +522,14 @@ namespace Senga
 
         private void DGRaciones_SelectionChanged(object sender, EventArgs e)
         {
+
+            refreshCargas();
+
+        }
+
+        void refreshCargas() 
+        { 
+
             if (DGRaciones.CurrentRow != null)
             {
                 txtIdDr.Text = (string)DGRaciones.CurrentRow.Cells["IdD"].Value;                 
@@ -514,8 +537,7 @@ namespace Senga
                 filaDatos(txtIdDr.Text);
             }
 
-            datosGrid2();
-
+            datosGrid2();       
         }
 
         private void btnServida_Click(object sender, EventArgs e)
@@ -526,10 +548,12 @@ namespace Senga
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
+                        
 
-
-            if(DGRaciones.RowCount != 0)
+            if (DGRaciones.RowCount != 0)
             {
+
+                rowIndex = DGRaciones.CurrentRow.Index;
 
                 if (txtCorrales.Text == txtHechos.Text)
                 {
@@ -687,6 +711,7 @@ namespace Senga
                     txtServida.Text = row["Servida"].ToString();
                     txtPlanta.Text = row["Planta"].ToString();
                     txtTolva.Text = row["Tolva"].ToString();
+                    //txtRacion.Text = row["Racion"].ToString();
                 }
             }
 
@@ -1138,11 +1163,13 @@ namespace Senga
 
                                             if (dt2.Rows.Count == 0)
                                             {
-                                                datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + row["Planeado"].ToString() + ",0,0,0,'00:00:00')";
+                                                long falta =  -1*long.Parse(row["Planeado"].ToString());
+                                                datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,'00:00:00')";
                                             }
                                             else
                                             {
-                                                datos.p_sql = "UPDATE raciones SET cantidad = " + row["Corrales"].ToString() + " , planeado = " + row["Planeado"].ToString() + " , falta = " + row["Planeado"].ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+                                                long falta = -1 * long.Parse(row["Planeado"].ToString());
+                                                datos.p_sql = "UPDATE raciones SET cantidad = " + row["Corrales"].ToString() + " , planeado = " + row["Planeado"].ToString() + " , falta = " + falta.ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
                                             }
 
                                             if (!datos.consultaSQL(ref dt2, false))

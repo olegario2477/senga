@@ -75,14 +75,17 @@ namespace Senga
         public static void sonidoPorc(TextBox color, double porc, Boolean opcColor) 
         {
 
-            if (porc > 0 && porc < 50)
+            int pesoAlarma = 80;
+            int pesoLleno = 100;
+
+            if (porc < pesoAlarma)
             {
                 if (opcColor) 
                 { 
                     colorCampo(color, Color.White, Color.Black); 
                 }
             }
-            else if (porc >= 50 && porc < 100)
+            else if (porc >= pesoAlarma && porc < pesoLleno)
             {
                 Console.Beep(2000, 100);
                 Console.WriteLine("<<BEEP>> % " + Convert.ToInt32(porc).ToString());
@@ -91,8 +94,20 @@ namespace Senga
                     colorCampo(color, Color.Orange, Color.White);
                 }
             }
-            else if (porc >= 100)
+            else if (porc >= pesoLleno)
             {
+
+                //Console.Beep(5000, 100);
+
+                Console.Beep(1420, 25);
+                Console.Beep(1400, 25);
+
+                //Console.Beep(1000, 25);
+                //Console.Beep(1300, 25);
+                //Console.Beep(1600, 25);
+                //Console.Beep(1900, 25);
+
+                Console.WriteLine("<<BEEP>> % " + Convert.ToInt32(porc).ToString());
                 if (opcColor)
                 {
                     colorCampo(color, Color.Red, Color.White);

@@ -110,7 +110,7 @@
             this.DGRaciones.Name = "DGRaciones";
             this.DGRaciones.RowTemplate.Height = 50;
             this.DGRaciones.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DGRaciones.Size = new System.Drawing.Size(924, 289);
+            this.DGRaciones.Size = new System.Drawing.Size(924, 254);
             this.DGRaciones.TabIndex = 55;
             this.DGRaciones.Visible = false;
             this.DGRaciones.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGRaciones_CellContentClick);
@@ -771,11 +771,11 @@
             // 
             this.DGCargas.BackgroundColor = System.Drawing.Color.White;
             this.DGCargas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGCargas.Location = new System.Drawing.Point(325, 452);
+            this.DGCargas.Location = new System.Drawing.Point(325, 409);
             this.DGCargas.Name = "DGCargas";
             this.DGCargas.RowTemplate.Height = 50;
             this.DGCargas.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.DGCargas.Size = new System.Drawing.Size(924, 227);
+            this.DGCargas.Size = new System.Drawing.Size(924, 270);
             this.DGCargas.TabIndex = 88;
             this.DGCargas.Visible = false;
             // 

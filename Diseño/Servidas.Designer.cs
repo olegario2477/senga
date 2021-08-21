@@ -118,6 +118,8 @@
             this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
+            this.txtRealidadC = new System.Windows.Forms.TextBox();
+            this.txtVariacionC = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -1035,6 +1037,30 @@
             this.toolStripButton4.Text = "     GIRAR     ";
             this.toolStripButton4.Click += new System.EventHandler(this.toolStripButton4_Click);
             // 
+            // txtRealidadC
+            // 
+            this.txtRealidadC.BackColor = System.Drawing.Color.White;
+            this.txtRealidadC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRealidadC.ForeColor = System.Drawing.Color.Black;
+            this.txtRealidadC.Location = new System.Drawing.Point(680, 715);
+            this.txtRealidadC.Name = "txtRealidadC";
+            this.txtRealidadC.ReadOnly = true;
+            this.txtRealidadC.Size = new System.Drawing.Size(44, 30);
+            this.txtRealidadC.TabIndex = 94;
+            this.txtRealidadC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // txtVariacionC
+            // 
+            this.txtVariacionC.BackColor = System.Drawing.Color.White;
+            this.txtVariacionC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVariacionC.ForeColor = System.Drawing.Color.Black;
+            this.txtVariacionC.Location = new System.Drawing.Point(730, 715);
+            this.txtVariacionC.Name = "txtVariacionC";
+            this.txtVariacionC.ReadOnly = true;
+            this.txtVariacionC.Size = new System.Drawing.Size(44, 30);
+            this.txtVariacionC.TabIndex = 95;
+            this.txtVariacionC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Servidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1044,6 +1070,8 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1281, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.txtVariacionC);
+            this.Controls.Add(this.txtRealidadC);
             this.Controls.Add(this.panelMapa);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.txtSirviendo);
@@ -1188,5 +1216,7 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel6;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         public System.Windows.Forms.Timer timerGPS;
+        private System.Windows.Forms.TextBox txtRealidadC;
+        private System.Windows.Forms.TextBox txtVariacionC;
     }
 }
