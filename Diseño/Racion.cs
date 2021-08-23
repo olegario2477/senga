@@ -49,7 +49,11 @@ namespace Senga
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            Close();
+
+            if (Comun.mensajeVer("¿ Desea Cancelar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+            {
+                Close();
+            }
         }
 
         private void Raciones_Load(object sender, EventArgs e)
@@ -58,8 +62,7 @@ namespace Senga
             //this.Visible = false;
             manejoTimerDePrincipal(false);
             manejoTimerDeRaciones(false);
-
-            
+                       
 
             //posicionBotones();
             
@@ -72,20 +75,25 @@ namespace Senga
             int fisico = 0;
             int tamanoact = 0;
             int capacidad = 0;
+            int resultado = 0;
 
             txtBruto.Text = "0";
             txtTamano.Text = "0";
             txtFalta.Text = "0";
             txtFaltaV.Text = "0";
             txtCargado.Text = "0";
+            txtCarga.Text = "0";
             txtCargadoV.Text = "0";
             txtStop.Text = "0";
+            txtBasculaIni.Text = "0";
+            txtCargaIni.Text = "0";
+            txtSolicitar.Text = "0";
 
-            colorPantalla();
             //IniciaPesoOpc1();
             IniciaPesoOpc2();
+            colorPantalla();
 
-            datos.p_sql = "SELECT racion, planeado, cargado, servido, falta FROM raciones WHERE idd = " + vidd;
+            datos.p_sql = "SELECT racion, planeado, cargado, servido, falta, carga FROM raciones WHERE idd = " + vidd;
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -101,16 +109,16 @@ namespace Senga
 
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
+                    txtCargaIni.Text = row["Carga"].ToString();
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
 
                     long falta = -1*long.Parse(row["Falta"].ToString());
 
                     txtTamanoAct.Text = falta.ToString();
-
+                 
                     tamanoact = Convert.ToInt32(txtTamanoAct.Text);
                     capacidad = Convert.ToInt32(txtCapacidad.Text);
-
 
                     //if (tamanoact < 0)
                     //{
@@ -122,8 +130,13 @@ namespace Senga
                         txtTamanoAct.Text = txtCapacidad.Text;
                     }
 
+                    //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                    //txtSolicitar.Text = resultado.ToString();
+
+
+
                     txtCargadoIni.Text = "0"; //row["Cargado"].ToString();
-                    txtCargado.Text = row["Cargado"].ToString();
+                    //txtCargado.Text = row["Cargado"].ToString();
 
                     fisico = Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Servido"]);
                     txtFisico.Text = fisico.ToString();
@@ -589,7 +602,7 @@ namespace Senga
 
             long cargado = 0;
 
-            datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtTamanoV.Text + "'," + txtPlanta.Text + ")";
+            datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta,basculaini,basculafin,cargaini) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtSolicitarV.Text + "'," + txtPlanta.Text + "," + txtBasculaIni.Text + "," + txtBruto.Text + "," + txtCargaIni.Text + ")";
             
             if (!datos.consultaSQL(ref dt, false))
             {
@@ -612,7 +625,7 @@ namespace Senga
             //else
             //{
 
-            datos.p_sql = "SELECT SUM(Carga) as Carga FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
+            datos.p_sql = "SELECT SUM(Carga) as Carga, SUM(BasculaIni) as BasculaIni FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -623,12 +636,12 @@ namespace Senga
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    cargado = long.Parse(row["Carga"].ToString());
+                    cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["BasculaIni"].ToString());
                 }
             
             }
 
-            datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+            datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + txtCarga.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
                 //datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
             //}
 
@@ -693,6 +706,7 @@ namespace Senga
             int falta = 0;
             int tamano = 0;
             int tamanoact = 0;
+            int basculaini = 0;
             int resultado = 0;
             int entero = 0;
             double decimales = 0;
@@ -753,11 +767,15 @@ namespace Senga
             if (txtFisicoIni.Text != "")  { fisico = Convert.ToInt32(txtFisicoIni.Text); }
             if (txtCapacidad.Text != "")  { capacidad = Convert.ToInt32(txtCapacidad.Text); }
             if (txtTamano.Text != "")     { tamano = Convert.ToInt32(txtTamano.Text); }
-            if (txtTamanoAct.Text != "")  { tamanoact = Convert.ToInt32(txtTamanoAct.Text); }            
+            if (txtTamanoAct.Text != "")  { tamanoact = Convert.ToInt32(txtTamanoAct.Text); }
+            if (txtBasculaIni.Text != "")  { basculaini = Convert.ToInt32(txtBasculaIni.Text); }
 
 
-            resultado = cargado + bruto;
+            resultado = ( cargado + bruto ) - basculaini;
             txtCargado.Text = resultado.ToString();
+
+            resultado = resultado + basculaini;
+            txtCarga.Text = resultado.ToString();
 
             resultado = fisico + bruto;
             txtFisico.Text = resultado.ToString();
@@ -771,6 +789,18 @@ namespace Senga
             {
                 txtFalta.Text = resultado.ToString(); //"0";
             }
+
+            long variacion = long.Parse(txtFalta.Text);
+
+            if (variacion > 0)
+            {
+                txtCargadoV.ForeColor = Color.Orange;
+            }
+            else
+            {
+                txtCargadoV.ForeColor = Color.Lime;
+            }
+
 
             fomatoCampos();
 
@@ -804,6 +834,15 @@ namespace Senga
             }
 
 
+            if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
+            {
+                txtBasculaIni.Text = txtBruto.Text;
+
+                resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                txtSolicitar.Text = resultado.ToString();
+
+            }
+
             //calcularPeso();
             //barra(pbFisico, txtCapacidad, txtFisico, txtFisico);
 
@@ -811,13 +850,19 @@ namespace Senga
             if (Convert.ToDouble(txtCapacidad.Text) != 0)
             {
 
-                division = Convert.ToDouble(txtCargado.Text) / Convert.ToDouble(txtTamanoAct.Text);//Convert.ToDouble(txtCapacidad.Text);
+                //division = Convert.ToDouble(txtCargado.Text) / Convert.ToDouble(txtTamanoAct.Text);//Convert.ToDouble(txtCapacidad.Text);
+                division = Convert.ToDouble(txtCarga.Text) / Convert.ToDouble(txtTamanoAct.Text);//Convert.ToDouble(txtCapacidad.Text);
                 division = division * 100;
                 resultado = 100 - Convert.ToInt32(division);
                 picFisicoF.Height = resultado;
                 resultado = 100 - resultado;
+
+                barrar(resultado);
+
                 lblPorcentaje.Text = resultado.ToString() + " %";
                 txtCargaPorc.Text = resultado.ToString();
+
+
                 //calcularEscala();
                 //lblVueltas.Text = txtTamano.Text - txtCargadoIni.Text / txtCapacidad.Text;
                 division = Convert.ToDouble(txtTamano.Text) / Convert.ToDouble(txtCapacidad.Text);
@@ -837,7 +882,8 @@ namespace Senga
             }
 
             //barrar(txtCapacidad, txtCargado);
-            barrar(txtTamanoAct, txtCargado);
+            //barrar(txtTamanoAct, txtCarga);
+
 
             //barra(pbCargado, txtTamano, txtServido, txtServido);
             ////barra2();
@@ -864,6 +910,10 @@ namespace Senga
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
             txtStopV.Text = string.Format("{0:#,##0}", long.Parse(txtStop.Text));
             txtCapacidadV.Text = string.Format("{0:#,##0}", long.Parse(txtCapacidad.Text));
+            txtBasculaIniV.Text = string.Format("{0:#,##0}", long.Parse(txtBasculaIni.Text));
+            txtCargaIniV.Text = string.Format("{0:#,##0}", long.Parse(txtCargaIni.Text));
+            txtCargaV.Text = string.Format("{0:#,##0}", long.Parse(txtCarga.Text));
+            txtSolicitarV.Text = string.Format("{0:#,##0}", long.Parse(txtSolicitar.Text));
 
 
             //txtCargadoV.BackColor = txtCargado.BackColor;
@@ -1181,12 +1231,13 @@ namespace Senga
             
             //fomatoCampos();
 
-            double porc = barra(pbVariacion, txtTamanoV, txtCargadoV, txtFaltaV);
+            //double porc = barra(pbVariacion, txtTamanoV, txtCargaV, txtFaltaV);
+            long variacion = long.Parse(txtFalta.Text);
 
-            if (porc >= 100)
+            if (variacion > 0)
             {
 
-                txtCargadoV.ForeColor = Color.Orange;
+                txtCargaV.ForeColor = Color.Orange;
 
                 if (beepOn)
                 {
@@ -1196,7 +1247,7 @@ namespace Senga
             }
             else
             {
-                txtCargadoV.ForeColor = Color.Lime;
+                txtCargaV.ForeColor = Color.Lime;
             }
 
         }
@@ -1255,7 +1306,6 @@ namespace Senga
             txtRacion.BackColor = colorFondo;
             txtRacion.ForeColor = colorLetraH;
 
-
             txtTamanoV.BackColor = colorFondo;
             txtTamanoV.ForeColor = colorLetra;
 
@@ -1271,6 +1321,18 @@ namespace Senga
             txtCapacidadV.BackColor = colorFondo;
             txtCapacidadV.ForeColor = colorLetra;
 
+            txtBasculaIniV.BackColor = colorFondo;
+            txtBasculaIniV.ForeColor = colorLetra;
+
+            txtCargaIniV.BackColor = colorFondo;
+            txtCargaIniV.ForeColor = colorLetra;
+
+            txtCargaV.BackColor = colorFondo;
+            txtCargaV.ForeColor = colorLetra;
+
+            txtSolicitarV.BackColor = colorFondo;
+            txtSolicitarV.ForeColor = colorLetra;
+
             panelSolicitar.BackColor = colorFondoP;
             panelVariacion.BackColor = colorFondoP;
             panelBascula.BackColor = colorFondoP;
@@ -1278,6 +1340,9 @@ namespace Senga
             panelTolva.BackColor = colorFondoP;
             panelCargaPorc.BackColor = colorFondoP;
             panelCapacidad.BackColor = colorFondoP;
+            panelBasculaIni.BackColor = colorFondoP;
+            panelCargaIni.BackColor = colorFondoP;
+            panelRecibio.BackColor = colorFondoP;
 
             lblTamaño.ForeColor = colorLetraT;
             lblFisico.ForeColor = colorLetraT;
@@ -1286,10 +1351,14 @@ namespace Senga
             lblTolva.ForeColor = colorLetraT;
             lblCargaPorc.ForeColor = colorLetraT;
             lblCapacidad.ForeColor = colorLetraT;
+            lblBasculaIni.ForeColor = colorLetraT;
+            lblCargaIni.ForeColor = colorLetraT;
+            lblRecibio.ForeColor = colorLetraT;
 
         }
 
-        private void barrar(TextBox maximo, TextBox valor)
+        //private void barrar(TextBox maximo, TextBox valor)
+        private void barrar(int porc)
         {
 
             pic1.Visible = false;
@@ -1303,30 +1372,32 @@ namespace Senga
             pic9.Visible = false;
             pic10.Visible = false;
 
-            int vmaximo = Convert.ToInt32(maximo.Text);
-            int vvalor = Convert.ToInt32(valor.Text);
+            //int vmaximo = Convert.ToInt32(maximo.Text);
+            //int vvalor = Convert.ToInt32(valor.Text);
 
-            double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
+            //double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
-            if (porc > 10 && porc <= 20)
+            //porc = Math.Round(porc,0);
+
+            if (porc >= 10 && porc < 20)
             {
                 pic1.Visible = true;
             }
 
-            if (porc > 20 && porc <= 30)
+            if (porc >= 20 && porc < 30)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
             }
 
-            if (porc > 30 && porc <= 40)
+            if (porc >= 30 && porc < 40)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
                 pic3.Visible = true;
             }
 
-            if (porc > 40 && porc <= 50)
+            if (porc >= 40 && porc < 50)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1334,7 +1405,7 @@ namespace Senga
                 pic4.Visible = true;
             }
 
-            if (porc > 50 && porc <= 60)
+            if (porc >= 50 && porc < 60)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1343,7 +1414,7 @@ namespace Senga
                 pic5.Visible = true;
             }
 
-            if (porc > 60 && porc <= 70)
+            if (porc >= 60 && porc < 70)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1353,7 +1424,7 @@ namespace Senga
                 pic6.Visible = true;
             }
 
-            if (porc > 70 && porc <= 80)
+            if (porc >= 70 && porc < 80)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1364,7 +1435,7 @@ namespace Senga
                 pic7.Visible = true;
             }
 
-            if (porc > 80 && porc <= 90)
+            if (porc >= 80 && porc < 90)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1376,7 +1447,7 @@ namespace Senga
                 pic8.Visible = true;
             }
 
-            if (porc > 90 && porc <= 100)
+            if (porc >= 90 && porc < 100)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -1389,7 +1460,7 @@ namespace Senga
                 pic9.Visible = true;
             }
 
-            if (porc > 100)
+            if (porc >= 100)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;

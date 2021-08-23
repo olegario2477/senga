@@ -378,7 +378,7 @@ namespace Senga
             bool primero = true;
 
 
-            datos.p_sql = "SELECT Racion,Cantidad,HechoC,Planeado,Cargado,Servido,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+            datos.p_sql = "SELECT Racion,Cantidad,HechoC,Planeado,Cargado,Servido,Falta,Carga,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -434,7 +434,7 @@ namespace Senga
                 //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
+            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -459,8 +459,9 @@ namespace Senga
                         
                     }
 
-                    long dif = Convert.ToInt32(cadenaCero(realidad)) - Convert.ToInt32(cadenaCero(row["Carga"].ToString()));
-                    long anterior = 0;
+                    long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
+                    long dif = (Convert.ToInt32(cadenaCero(realidad)) - Convert.ToInt32(cadenaCero(row["Carga"].ToString()))) - anterior;
+                
 
                 //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
                     table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), anterior.ToString(), row["Solicito"].ToString(), row["Carga"].ToString(), realidad.ToString(), dif.ToString());
@@ -1164,7 +1165,7 @@ namespace Senga
                                             if (dt2.Rows.Count == 0)
                                             {
                                                 long falta =  -1*long.Parse(row["Planeado"].ToString());
-                                                datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,'00:00:00')";
+                                                datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,carga,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,0,'00:00:00')";
                                             }
                                             else
                                             {

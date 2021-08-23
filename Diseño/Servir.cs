@@ -563,7 +563,8 @@ namespace Senga
         //}
 
 
-        private void barrar(TextBox maximo, TextBox valor)
+        //private void barrar(TextBox maximo, TextBox valor)
+        private void barrar(int porc)
         {
             
             pic1.Visible = false;
@@ -577,30 +578,32 @@ namespace Senga
             pic9.Visible = false;
             pic10.Visible = false;
 
-            int vmaximo = Convert.ToInt32(maximo.Text);
-            int vvalor = Convert.ToInt32(valor.Text);
+            //int vmaximo = Convert.ToInt32(maximo.Text);
+            //int vvalor = Convert.ToInt32(valor.Text);
 
-            double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
+            //double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
-            if (porc > 10 && porc <= 20)
+            //porc = Math.Round(porc, 0);
+
+            if (porc >= 10 && porc < 20)
             {                
                 pic1.Visible = true;
             }
             
-            if (porc > 20 && porc <= 30) 
+            if (porc >= 20 && porc < 30) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
             }
 
-            if (porc > 30 && porc <= 40) 
+            if (porc >= 30 && porc < 40) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
                 pic3.Visible = true;
             }
 
-            if (porc > 40 && porc <= 50)
+            if (porc >= 40 && porc < 50)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -608,7 +611,7 @@ namespace Senga
                 pic4.Visible = true;
             }
 
-            if (porc > 50 && porc <= 60) 
+            if (porc >= 50 && porc < 60) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -617,7 +620,7 @@ namespace Senga
                 pic5.Visible = true;
             }
 
-            if (porc > 60 && porc <= 70) 
+            if (porc >= 60 && porc < 70) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -627,7 +630,7 @@ namespace Senga
                 pic6.Visible = true;
             }
 
-            if (porc > 70 && porc <= 80) 
+            if (porc >= 70 && porc < 80) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -638,7 +641,7 @@ namespace Senga
                 pic7.Visible = true;
             }
 
-            if (porc > 80 && porc <= 90) 
+            if (porc >= 80 && porc < 90) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -650,7 +653,7 @@ namespace Senga
                 pic8.Visible = true;
             }
 
-            if (porc > 90 && porc <= 100) 
+            if (porc >= 90 && porc < 100) 
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -663,7 +666,7 @@ namespace Senga
                 pic9.Visible = true;
             }
 
-            if (porc > 100)
+            if (porc >= 100)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
@@ -930,7 +933,6 @@ namespace Senga
                     cantidadTotal();
                     cantidadt = Convert.ToInt32(txtCantidadT.Text);
 
-
                     long falta = 0;
 
                     datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
@@ -950,7 +952,6 @@ namespace Senga
                         }
                     }
 
-
                     long carga = long.Parse(txtServirIni.Text) - long.Parse(servido.ToString());
 
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", cargado = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
@@ -962,11 +963,88 @@ namespace Senga
                         MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
 
-                    Close();
+                    nuevoCorral();
+
+                    //Close();
 
                 }
 
             }
+
+        }
+
+        private void nuevoCorral() 
+        {
+
+
+            DataRow row = sigCorral();
+
+            string corral = row["Corral"].ToString();
+            string plan = row["Planeado"].ToString();
+            string servirdo = row["Realidad"].ToString();
+            
+            txtCabezas.Text = row["Cabezas"].ToString();
+            vidd = row["IdD"].ToString();
+
+            txtCorral.Text = corral;
+            txtBasculaIni.Text = txtServirFin.Text;
+            txtPlan.Text = plan;
+            txtServir.Text = "0";
+            RecibirPeso = true;
+
+            DataRow rowr = regRacion(viddr);              
+            txtServirIni.Text = rowr["Carga"].ToString();
+       
+            fomatoCampos();
+
+
+        }
+
+        private DataRow sigCorral() 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 corral,Planeado,Realidad,Cabezas,IdD FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada + " and  corral <> '" + txtCorral.Text + "' ORDER BY IdD"; 
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    return row;
+                }
+            }
+
+            return null;
+
+        }
+
+        private DataRow regRacion(string idd)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT cargado as Cargado, Carga FROM raciones WHERE idd = " + idd;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    return row;
+                }
+            }
+
+            return null;
 
         }
 
@@ -1176,7 +1254,7 @@ namespace Senga
             calcularPeso();
             //barra(pbServido, txtPlan, txtServir, txtVariacion);
 
-            barrar(txtPlan, txtServir);
+            //barrar(txtPlan, txtServir);
 
             //calcularEscala();
             //barra(pbServido2, txtEscalaIni, txtServir);
@@ -1186,12 +1264,17 @@ namespace Senga
             {
                 double porc1 = Convert.ToDouble(txtServir.Text) / Convert.ToDouble(txtPlan.Text) * 100;
 
-                if (porc1 > 100)
-                {
-                    porc1 = 100 - porc1;
-                }
+                resultado = Convert.ToInt32(Math.Round(porc1));
+                barrar(resultado);
+
+                //if (porc1 > 100)
+                //{
+                //    porc1 = 100 - porc1;
+                //}
 
                 txtPorc.Text = Math.Round(porc1, 0).ToString(); //+ " %";
+
+           
             }
             else
             {
@@ -1244,9 +1327,18 @@ namespace Senga
 
             double varcab = Convert.ToDouble(txtVariacion.Text) / Convert.ToDouble(txtCabezas.Text);
             txtVarCab.Text = Math.Round(varcab, 1).ToString();
-            
+
             //colorCampo(1);
-            
+
+            if (variacion > 0)
+            {
+                txtVariacionV.ForeColor = Color.Orange;
+            }
+            else
+            {
+                txtVariacionV.ForeColor = Color.Lime;
+            }
+
         }
 
         private void calcularEscala() 
@@ -1431,7 +1523,7 @@ namespace Senga
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("¿ Desea Cerrar, No Se Guardaran Los Datos ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            if (Comun.mensajeVer("¿ Desea Cerrar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
             {
                 Close();
             }
@@ -1662,9 +1754,11 @@ namespace Senga
         private void timerBeep_Tick(object sender, EventArgs e)
         {
 
-            double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
+            //double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
 
-            if (porc >= 100)
+            long variacion = long.Parse(txtVariacion.Text);
+
+            if (variacion > 0)
             {
 
                 txtVariacionV.ForeColor = Color.Orange;

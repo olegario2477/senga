@@ -45,6 +45,7 @@ namespace Senga
             comboBoxOpciones.Items.Add("Servidas Resumen Cargas");
             comboBoxOpciones.Items.Add("Servidas Resumen Racion");
             comboBoxOpciones.Items.Add("Servidas Detalle Cargas");
+            comboBoxOpciones.Items.Add("Cargas Detalle");
             comboBoxOpciones.SelectedIndex = 0;
 
         }
@@ -202,6 +203,36 @@ namespace Senga
 
         }
 
+        private void consulta5()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+
+            datos.p_sql = "SELECT * FROM Cargas WHERE Id = " + vjornada;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "Carga" + '\t' + "Racion" + '\t' + "Solicito" + '\t' + "Carga" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "Carga" + '\t' + "BasFCarg" + '\r' + '\n'; ;
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    int difvalor = Int32.Parse(row["Carga"].ToString()) - Int32.Parse(row["Solicito"].ToString());
+                    int difvalor2 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
+                    int difvalor3 = Int32.Parse(cadenaCero(row["CargaIni"].ToString())) - difvalor2;
+                    int difvalor4 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - difvalor3;
+                    txtReporte.Text += row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["IdD"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Solicito"].ToString() + '\t' + row["Carga"].ToString() + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() + '\t' + difvalor2.ToString() + '\t' + row["CargaIni"].ToString() + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\r' + '\n';
+                }
+            }
+
+        }
+
         void linea() 
         { 
             txtReporte.Text += "------------------------------------------------------------------------------------------------------------" + '\r' + '\n';
@@ -270,6 +301,9 @@ namespace Senga
                     break;
                 case 3:
                     consulta4();
+                    break;
+                case 4:
+                    consulta5();
                     break;
 
             }
