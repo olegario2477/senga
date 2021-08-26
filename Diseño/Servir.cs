@@ -20,7 +20,7 @@ namespace Senga
         private Comm comm = new Comm();
         private SerialPort serialPort1 = new SerialPort();
         
-        private SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
+        //private SoundPlayer player = new SoundPlayer(Properties.Resources.beep_censor);
 
         string vidd;
         string viddr;
@@ -44,13 +44,14 @@ namespace Senga
         bool RecibirPeso = false;
         bool beepOn = true;
         int cantAjustes = 1;
+        string vcorrales = "";
 
         //private string RxString;
 
         //public delegate void AddDataDelegate(String myString);
         //public AddDataDelegate myDelegate;
 
-        public Servir(string idd, string iddr, string id, string corralgps, double lat, double lng, string numcarga)
+        public Servir(string idd, string iddr, string id, string corralgps, double lat, double lng, string numcarga, string corrales)
         {
             InitializeComponent();
             vidd = idd;
@@ -60,6 +61,7 @@ namespace Senga
             vlat = lat;
             vlng = lng;
             vnumcarga = numcarga;
+            vcorrales = corrales;
         }
 
         private void Servir_Load(object sender, EventArgs e)
@@ -77,7 +79,7 @@ namespace Senga
             colorPantalla();
 
 
-            txtCarga.Text = vnumcarga;
+            txtNumCarga.Text = vnumcarga;
             
             datos.p_sql = "SELECT Id,Num,Corral,Racion,Planeado,Realidad,Cabezas FROM servidas WHERE idd = " + vidd;
 
@@ -111,6 +113,11 @@ namespace Senga
                     //barra(pbServido,txtPlan,txtServir);
 
                 }
+
+                llenaSigCorral();
+
+                long resultado = long.Parse(vcorrales); //- 1;
+                txtFaltaCorral.Text = resultado.ToString();
 
                 //abrirPuerto();
                 //string portname = "";
@@ -214,7 +221,7 @@ namespace Senga
 
                         //txtEscala.Text = row["Cargado"].ToString();
                         txtEscalaIni.Text = row["Cargado"].ToString();
-                        txtServirIni.Text = row["Carga"].ToString();
+                        txtServirIni.Text = cadenaCero(row["Carga"].ToString());
 
                         calcularEscala();
                         //barra2();
@@ -249,7 +256,7 @@ namespace Senga
             serialPort1.Close();
             serialPort1.Dispose();
 
-            swithSonido(false);
+            //swithSonido(false);
 
         }
 
@@ -778,7 +785,7 @@ namespace Senga
             //if (!txtServirIni.Text.Equals("") && !txtServirFin.Text.Equals(""))
             if (!txtBasculaIni.Text.Equals("") && !txtServirFin.Text.Equals(""))
             {
-                                                          
+
                 //if (!lblEst.Visible)
                 //{
                 //if (!txtServir.Text.Equals("0"))
@@ -789,23 +796,36 @@ namespace Senga
                 //    }
                 //}
                 //}
- 
+
+
+                if (Convert.ToInt32(txtBasculaIni.Text) == Convert.ToInt32(txtServirFin.Text))
+                {
+                    Close();
+                    return;
+                }
+
                 //ajustar
                 //if (Convert.ToInt32(txtServirIni.Text) < Convert.ToInt32(txtServirFin.Text))
                 if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
                 {
-
                     //txtServirIni.Text = txtServirFin.Text;
                     txtBasculaIni.Text = txtServirFin.Text;
                     guardar = false;
+                    
 
                 }
 
                 calcularPeso();
 
+                //-------------------------------------------------------------------------------------------------
                 double porc1 = Convert.ToDouble(txtServir.Text) / Convert.ToDouble(txtPlan.Text) * 100;
 
-                if (porc1 > 100)
+                if (porc1 == 0) 
+                {                    
+                    guardar = false;
+                    
+                }
+                else if (porc1 > 100)
                 {
                     //timerS.Enabled = false;
                     timerBeep.Enabled = false;
@@ -830,8 +850,7 @@ namespace Senga
                     }
 
                 }
-
-                if (porc1 > 0 && porc1 <= 100)
+                else if (porc1 > 0 && porc1 <= 100)
                 {
                     //timerS.Enabled = false;
                     timerBeep.Enabled = false;
@@ -857,6 +876,10 @@ namespace Senga
                     }
 
                 }
+                //-------------------------------------------------------------------------------------------------
+
+
+
 
                 if (guardar)
                 {
@@ -912,7 +935,7 @@ namespace Senga
                     //    hecho = "M";
                     //}
 
-                    datos.p_sql = "UPDATE servidas SET corralgps = '" + vcorralgps + "', latitudi = "+ vlat + ", longitudi = " + vlng + ", realidad = '" + servido.ToString() + "', hecho = '" + hecho.ToString() + "', fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', numcarga = " + txtCarga.Text + " , BasculaIni = " + txtBasculaIni.Text + " , BasculaFin = " + txtServirFin.Text + " , CargaIni = " + txtServirIni.Text + " WHERE idd = " + vidd;
+                    datos.p_sql = "UPDATE servidas SET corralgps = '" + vcorralgps + "', latitudi = "+ vlat + ", longitudi = " + vlng + ", realidad = '" + servido.ToString() + "', hecho = '" + hecho.ToString() + "', fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', numcarga = " + txtNumCarga.Text + " , BasculaIni = " + txtBasculaIni.Text + " , BasculaFin = " + txtServirFin.Text + " , CargaIni = " + txtServirIni.Text + " WHERE idd = " + vidd;
 
                     if (!datos.consultaSQL(ref dt, false))
                     {
@@ -947,12 +970,13 @@ namespace Senga
                         {
                             if (dt.Rows.Count != 0)
                             {
-                                falta = long.Parse(cadenaCero(row["Realidad"].ToString())) - long.Parse(cadenaCero(row["Planeado"].ToString()));
+                                falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
                             }
                         }
                     }
 
-                    long carga = long.Parse(txtServirIni.Text) - long.Parse(servido.ToString());
+                    long carga = long.Parse(txtServirIni.Text) - long.Parse(txtServir.Text);// long.Parse(servido.ToString());
+                    txtCarga.Text = carga.ToString();
 
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", cargado = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", carga = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
@@ -963,9 +987,8 @@ namespace Senga
                         MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
 
-                    nuevoCorral();
-
-                    //Close();
+                    //nuevoCorral();
+                    Close();
 
                 }
 
@@ -977,36 +1000,70 @@ namespace Senga
         {
 
 
-            DataRow row = sigCorral();
+            DataRow row = sigCorral(txtCorral.Text);
 
-            string corral = row["Corral"].ToString();
-            string plan = row["Planeado"].ToString();
-            string servirdo = row["Realidad"].ToString();
-            
-            txtCabezas.Text = row["Cabezas"].ToString();
-            vidd = row["IdD"].ToString();
+            if (row != null) 
+            {
 
-            txtCorral.Text = corral;
-            txtBasculaIni.Text = txtServirFin.Text;
-            txtPlan.Text = plan;
-            txtServir.Text = "0";
+                string corral = row["Corral"].ToString();
+                string plan = row["Planeado"].ToString();
+     
+                long vcarga = long.Parse(txtCarga.Text);
+                long vplan = long.Parse(plan);                            
+
+                txtCabezas.Text = row["Cabezas"].ToString();
+                vidd = row["IdD"].ToString();
+
+                txtCorral.Text = corral;
+                txtBasculaIni.Text = txtServirFin.Text;
+                txtPlan.Text = plan;
+                //txtPlanIni.Text
+                txtServir.Text = "0";
+
+                DataRow rowr = regRacion(viddr);
+                txtServirIni.Text = rowr["Carga"].ToString();
+
+                llenaSigCorral();
+                long resultado = long.Parse(txtFaltaCorral.Text);//-1;
+                txtFaltaCorral.Text = resultado.ToString();
+
+                fomatoCampos();
+  
+                if (vcarga < vplan) { Close(); }
+
+            }
+
+            servido = 0;
             RecibirPeso = true;
-
-            DataRow rowr = regRacion(viddr);              
-            txtServirIni.Text = rowr["Carga"].ToString();
-       
-            fomatoCampos();
+            cantAjustes = 1;
 
 
         }
 
-        private DataRow sigCorral() 
+        private void llenaSigCorral() 
+        {
+
+            DataRow row = sigCorral(txtCorral.Text);
+            if (row != null)
+            {
+                txtSigCorral.Text = row["Corral"].ToString();
+            }
+            else
+            {
+                txtSigCorral.Text = "";
+            }
+
+            
+
+        }
+
+        private DataRow sigCorral(string corral) 
         {
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT TOP 1 corral,Planeado,Realidad,Cabezas,IdD FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada + " and  corral <> '" + txtCorral.Text + "' ORDER BY IdD"; 
+            datos.p_sql = "SELECT TOP 1 corral,Planeado,Cabezas,IdD FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada + " and  corral <> '" + corral + "' and Realidad = 0 ORDER BY IdD"; 
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1754,64 +1811,64 @@ namespace Senga
         private void timerBeep_Tick(object sender, EventArgs e)
         {
 
-            //double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
+            double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
 
-            long variacion = long.Parse(txtVariacion.Text);
+            //long variacion = long.Parse(txtVariacion.Text);
 
-            if (variacion > 0)
-            {
+            //if (variacion > 0)
+            //{
 
-                txtVariacionV.ForeColor = Color.Orange;
+            //    txtVariacionV.ForeColor = Color.Orange;
 
-                if (beepOn)
-                {
-                    //InitializeSound();
-                    beepOn = false;
-                }
-            }
-            else 
-            {
-                txtVariacionV.ForeColor = Color.Lime;
-            }        
-
-        }
-
-        private void InitializeSound()
-        {
-            player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
-            {
-                playSound(false);
-            };
-            player.LoadAsync();
+            //    if (beepOn)
+            //    {
+            //        //InitializeSound();
+            //        beepOn = false;
+            //    }
+            //}
+            //else 
+            //{
+            //    txtVariacionV.ForeColor = Color.Lime;
+            //}        
 
         }
 
-        private void swithSonido(Boolean valor)
-        {
-            if (valor)
-            {
-                playSound(true);
-            }
-            else
-            {
-                if (player != null)
-                {
-                    player.Stop();
-                }
-            }
-        }
+        //private void InitializeSound()
+        //{
+        //    player.LoadCompleted += delegate (object sender, AsyncCompletedEventArgs e)
+        //    {
+        //        playSound(false);
+        //    };
+        //    player.LoadAsync();
 
-        public void playSound(bool looping)
-        {
-            if (looping)
-            {
-                player.PlayLooping();
-            }
-            else
-            {
-                player.Play();
-            }
-        }
+        //}
+
+        //private void swithSonido(Boolean valor)
+        //{
+        //    if (valor)
+        //    {
+        //        playSound(true);
+        //    }
+        //    else
+        //    {
+        //        if (player != null)
+        //        {
+        //            player.Stop();
+        //        }
+        //    }
+        //}
+
+        //public void playSound(bool looping)
+        //{
+        //    if (looping)
+        //    {
+        //        player.PlayLooping();
+        //    }
+        //    else
+        //    {
+        //        player.Play();
+        //    }
+        //}
 
         private void colorPantalla() 
         {
@@ -1831,8 +1888,8 @@ namespace Senga
             txtRacion.BackColor = colorFondo;
             txtRacion.ForeColor = colorLetraH;
 
-            txtCarga.BackColor = colorFondo;
-            txtCarga.ForeColor = colorLetraH;
+            txtNumCarga.BackColor = colorFondo;
+            txtNumCarga.ForeColor = colorLetraH;
 
 
             txtVariacionV.BackColor = colorFondo;
@@ -1859,8 +1916,13 @@ namespace Senga
             txtBasculaIniV.BackColor = colorFondo;
             txtBasculaIniV.ForeColor = colorLetra;
 
-            panelBarra.BackColor = colorFondo;
+            txtSigCorral.BackColor = colorFondo;
+            txtSigCorral.ForeColor = colorLetraH;
 
+            txtFaltaCorral.BackColor = colorFondo;
+            txtFaltaCorral.ForeColor = colorLetraH;
+
+            panelBarra.BackColor = colorFondo;
 
             panelCorral.BackColor = colorFondoP;
             panelRacion.BackColor = colorFondoP;
@@ -1873,6 +1935,8 @@ namespace Senga
             panelServP.BackColor = colorFondoP;
             panelBascula.BackColor = colorFondoP;
             panelBasculaIni.BackColor = colorFondoP;
+            panelSigCorral.BackColor = colorFondoP;
+            panelFaltaCorral.BackColor = colorFondoP;
 
             lblCorral.ForeColor = colorLetraT;
             lblRacion.ForeColor = colorLetraT;
@@ -1885,6 +1949,8 @@ namespace Senga
             lblServP.ForeColor = colorLetraT;
             lblBascula.ForeColor = colorLetraT;
             lblBasculaIni.ForeColor = colorLetraT;
+            lblSigCorral.ForeColor = colorLetraT;
+            lblFaltaCorral.ForeColor = colorLetraT;
 
 
         }

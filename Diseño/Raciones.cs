@@ -460,7 +460,7 @@ namespace Senga
                     }
 
                     long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
-                    long dif = (Convert.ToInt32(cadenaCero(realidad)) - Convert.ToInt32(cadenaCero(row["Carga"].ToString()))) - anterior;
+                    long dif = ( Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(cadenaCero(realidad)) ) + anterior;
                 
 
                 //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
@@ -793,7 +793,7 @@ namespace Senga
             {
                 valor = maximo;
             }
-            pbServido.Value = valor;
+            //pbServido.Value = valor;
 
                        
         }
@@ -1164,12 +1164,12 @@ namespace Senga
 
                                             if (dt2.Rows.Count == 0)
                                             {
-                                                long falta =  -1*long.Parse(row["Planeado"].ToString());
+                                                long falta = long.Parse(row["Planeado"].ToString());
                                                 datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,carga,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,0,'00:00:00')";
                                             }
                                             else
                                             {
-                                                long falta = -1 * long.Parse(row["Planeado"].ToString());
+                                                long falta = long.Parse(row["Planeado"].ToString());
                                                 datos.p_sql = "UPDATE raciones SET cantidad = " + row["Corrales"].ToString() + " , planeado = " + row["Planeado"].ToString() + " , falta = " + falta.ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
                                             }
 

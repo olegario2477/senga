@@ -1300,39 +1300,44 @@ namespace Senga
 
                     datos.p_sql = linea;
 
-                    if (linea.Substring(0, 6).ToLower().Equals("select"))
-                    {
-                        if (!datos.consultaSQL(ref dt, true))
-                        {
-                            //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                            verror = true;
-                            break;
-                        }
-                        else 
-                        {
-                            dataGridSQLResultados.DataSource = dt;
-                            
-                            lblSQLStatus.Text = "Correcto"+" Total "+dt.Rows.Count.ToString() +" Reg.";
-                        }
-                    }
-                    else
+                    if (!linea.Substring(0, 2).ToLower().Equals("--"))
                     {
 
-                        if (!datos.consultaSQL(ref dt, false))
+                        if (linea.ToLower().Contains("select"))
                         {
-                            //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                            verror = true;
-                            break;
-                        }
-                        else 
-                        {
-                            lblSQLStatus.Text = "Correcto";
-                        }
-                    
-                    }
+                            if (!datos.consultaSQL(ref dt, true))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                                verror = true;
+                                break;
+                            }
+                            else
+                            {
+                                dataGridSQLResultados.DataSource = dt;
 
+                                lblSQLStatus.Text = "Correcto" + " Total " + dt.Rows.Count.ToString() + " Reg.";
+                            }
+                        }
+                        else
+                        {
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                Comun.mensajeVer(datos.p_error + " Linea : " + vcont.ToString(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                                verror = true;
+                                break;
+                            }
+                            else
+                            {
+                                lblSQLStatus.Text = "Correcto";
+                            }
+
+                        }
+                
+                    }
+                
                 }
 
             }

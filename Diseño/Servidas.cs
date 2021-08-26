@@ -592,7 +592,7 @@ namespace Senga
             {
                 valor = maximo;
             }
-            pbServido.Value = valor;
+            //pbServido.Value = valor;
 
            
 
@@ -1071,29 +1071,24 @@ namespace Senga
         private void btnServir_Click(object sender, EventArgs e)
         {
     
-            if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
-            {
-                //MessageBox.Show("Insuficiente Alimento Para Servir", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-
-
-
-            }
-            else
-            { 
+            //if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
+            //{             
+            //    Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            //}
+            //else
+            //{ 
 
             //txtcorral  y  lblcorral
 
                 if (txtIdD.Text != "")
                 {
-
                     txtSirviendo.Text = txtCorral.Text;
 
-                    Senga.Servir frm = new Senga.Servir(txtIdD.Text,txtIdDr.Text,txtJornada.Text,lblCorral.Text, gLatitud, gLongitud, vnumcarga);
+                    Senga.Servir frm = new Senga.Servir(txtIdD.Text,txtIdDr.Text,txtJornada.Text,lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text);
                     frm.Show();
                 }
                 
-            }
+            //}
 
             //guardarOperacion();
 

@@ -109,11 +109,11 @@ namespace Senga
 
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
-                    txtCargaIni.Text = row["Carga"].ToString();
+                    txtCargaIni.Text = cadenaCero(row["Carga"].ToString());
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
 
-                    long falta = -1*long.Parse(row["Falta"].ToString());
+                    long falta = long.Parse(row["Falta"].ToString());
 
                     txtTamanoAct.Text = falta.ToString();
                  
@@ -794,11 +794,11 @@ namespace Senga
 
             if (variacion > 0)
             {
-                txtCargadoV.ForeColor = Color.Orange;
+                txtCargaV.ForeColor = Color.Orange;
             }
             else
             {
-                txtCargadoV.ForeColor = Color.Lime;
+                txtCargaV.ForeColor = Color.Lime;
             }
 
 
@@ -839,7 +839,12 @@ namespace Senga
                 txtBasculaIni.Text = txtBruto.Text;
 
                 resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                //if (resultado < 0)
+                //{ 
+                //    resultado = 0; 
+                //}
                 txtSolicitar.Text = resultado.ToString();
+
 
             }
 
@@ -1231,24 +1236,24 @@ namespace Senga
             
             //fomatoCampos();
 
-            //double porc = barra(pbVariacion, txtTamanoV, txtCargaV, txtFaltaV);
-            long variacion = long.Parse(txtFalta.Text);
+            double porc = barra(pbVariacion, txtTamanoV, txtCargaV, txtFaltaV);
+            //long variacion = long.Parse(txtFalta.Text);
 
-            if (variacion > 0)
-            {
+            //if (variacion > 0)
+            //{
 
-                txtCargaV.ForeColor = Color.Orange;
+            //    txtCargaV.ForeColor = Color.Orange;
 
-                if (beepOn)
-                {
-                    //InitializeSound();
-                    beepOn = false;
-                }
-            }
-            else
-            {
-                txtCargaV.ForeColor = Color.Lime;
-            }
+            //    if (beepOn)
+            //    {
+            //        //InitializeSound();
+            //        beepOn = false;
+            //    }
+            //}
+            //else
+            //{
+            //    txtCargaV.ForeColor = Color.Lime;
+            //}
 
         }
 
@@ -1473,6 +1478,18 @@ namespace Senga
                 pic9.Visible = true;
                 pic10.Visible = true;
             }
+
+        }
+
+        private string cadenaCero(string valor)
+        {
+
+            if (valor.Equals(""))
+            {
+                valor = "0";
+            }
+
+            return valor;
 
         }
 

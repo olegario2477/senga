@@ -60,7 +60,7 @@ namespace Senga
             this.txtReporte.Multiline = true;
             this.txtReporte.Name = "txtReporte";
             this.txtReporte.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtReporte.Size = new System.Drawing.Size(1158, 409);
+            this.txtReporte.Size = new System.Drawing.Size(1133, 409);
             this.txtReporte.TabIndex = 11;
             this.txtReporte.Text = "Jornada";
             // 
@@ -72,7 +72,7 @@ namespace Senga
             this.comboBoxOpciones.FormattingEnabled = true;
             this.comboBoxOpciones.Location = new System.Drawing.Point(0, 0);
             this.comboBoxOpciones.Name = "comboBoxOpciones";
-            this.comboBoxOpciones.Size = new System.Drawing.Size(1158, 54);
+            this.comboBoxOpciones.Size = new System.Drawing.Size(1133, 54);
             this.comboBoxOpciones.TabIndex = 12;
             this.comboBoxOpciones.SelectedIndexChanged += new System.EventHandler(this.comboBoxOpciones_SelectedIndexChanged);
             // 
@@ -83,7 +83,7 @@ namespace Senga
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1158, 463);
+            this.panel1.Size = new System.Drawing.Size(1133, 463);
             this.panel1.TabIndex = 13;
             // 
             // btnCalculadora

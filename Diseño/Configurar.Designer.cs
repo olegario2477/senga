@@ -1109,7 +1109,7 @@
             // 
             // btnLimpia
             // 
-            this.btnLimpia.Location = new System.Drawing.Point(857, 175);
+            this.btnLimpia.Location = new System.Drawing.Point(873, 175);
             this.btnLimpia.Name = "btnLimpia";
             this.btnLimpia.Size = new System.Drawing.Size(147, 132);
             this.btnLimpia.TabIndex = 3;
@@ -1119,7 +1119,7 @@
             // 
             // btnRecursos
             // 
-            this.btnRecursos.Location = new System.Drawing.Point(857, 327);
+            this.btnRecursos.Location = new System.Drawing.Point(873, 327);
             this.btnRecursos.Name = "btnRecursos";
             this.btnRecursos.Size = new System.Drawing.Size(147, 132);
             this.btnRecursos.TabIndex = 2;
@@ -1129,7 +1129,7 @@
             // 
             // btnEjecutar
             // 
-            this.btnEjecutar.Location = new System.Drawing.Point(857, 23);
+            this.btnEjecutar.Location = new System.Drawing.Point(873, 23);
             this.btnEjecutar.Name = "btnEjecutar";
             this.btnEjecutar.Size = new System.Drawing.Size(147, 132);
             this.btnEjecutar.TabIndex = 1;

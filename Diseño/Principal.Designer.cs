@@ -77,6 +77,7 @@
             this.btnServidas = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnActualizar = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -400,7 +401,7 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 31;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(535, 167);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(665, 177);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
             this.listBoxRecorridos.Size = new System.Drawing.Size(149, 221);
             this.listBoxRecorridos.TabIndex = 52;
@@ -410,11 +411,11 @@
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.lblVersion.Location = new System.Drawing.Point(10, 142);
+            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Black;
+            this.lblVersion.Location = new System.Drawing.Point(59, 144);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(52, 17);
+            this.lblVersion.Size = new System.Drawing.Size(35, 13);
             this.lblVersion.TabIndex = 53;
             this.lblVersion.Text = "label1";
             // 
@@ -463,7 +464,7 @@
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
             this.picLogo.Location = new System.Drawing.Point(0, 0);
             this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(238, 161);
+            this.picLogo.Size = new System.Drawing.Size(241, 161);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 45;
             this.picLogo.TabStop = false;
@@ -510,7 +511,7 @@
             // 
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
-            this.btnActualizar.Location = new System.Drawing.Point(244, 10);
+            this.btnActualizar.Location = new System.Drawing.Point(316, 12);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(149, 149);
             this.btnActualizar.TabIndex = 6;
@@ -518,6 +519,17 @@
             this.btnActualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(17, 144);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 54;
+            this.label1.Text = "SENGA";
             // 
             // Principal
             // 
@@ -528,6 +540,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.listBoxRecorridos);
@@ -617,6 +630,7 @@
         public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
         public System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Label label1;
     }
 }
 

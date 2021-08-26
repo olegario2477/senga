@@ -521,7 +521,6 @@
             // 
             // panelServida
             // 
-            this.panelServida.Controls.Add(this.chartServidas);
             this.panelServida.Controls.Add(this.txtFaltaV);
             this.panelServida.Controls.Add(this.label11);
             this.panelServida.Controls.Add(this.label1);
@@ -550,7 +549,7 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.chartServidas.ChartAreas.Add(chartArea1);
-            this.chartServidas.Location = new System.Drawing.Point(158, 135);
+            this.chartServidas.Location = new System.Drawing.Point(713, 697);
             this.chartServidas.Name = "chartServidas";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
@@ -558,7 +557,7 @@
             series1.IsVisibleInLegend = false;
             series1.Name = "Series1";
             this.chartServidas.Series.Add(series1);
-            this.chartServidas.Size = new System.Drawing.Size(53, 67);
+            this.chartServidas.Size = new System.Drawing.Size(45, 39);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
             this.chartServidas.Visible = false;
@@ -1042,24 +1041,26 @@
             this.txtRealidadC.BackColor = System.Drawing.Color.White;
             this.txtRealidadC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRealidadC.ForeColor = System.Drawing.Color.Black;
-            this.txtRealidadC.Location = new System.Drawing.Point(680, 715);
+            this.txtRealidadC.Location = new System.Drawing.Point(680, 706);
             this.txtRealidadC.Name = "txtRealidadC";
             this.txtRealidadC.ReadOnly = true;
-            this.txtRealidadC.Size = new System.Drawing.Size(44, 30);
+            this.txtRealidadC.Size = new System.Drawing.Size(10, 30);
             this.txtRealidadC.TabIndex = 94;
             this.txtRealidadC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRealidadC.Visible = false;
             // 
             // txtVariacionC
             // 
             this.txtVariacionC.BackColor = System.Drawing.Color.White;
             this.txtVariacionC.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVariacionC.ForeColor = System.Drawing.Color.Black;
-            this.txtVariacionC.Location = new System.Drawing.Point(730, 715);
+            this.txtVariacionC.Location = new System.Drawing.Point(696, 706);
             this.txtVariacionC.Name = "txtVariacionC";
             this.txtVariacionC.ReadOnly = true;
-            this.txtVariacionC.Size = new System.Drawing.Size(44, 30);
+            this.txtVariacionC.Size = new System.Drawing.Size(11, 30);
             this.txtVariacionC.TabIndex = 95;
             this.txtVariacionC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVariacionC.Visible = false;
             // 
             // Servidas
             // 
@@ -1070,6 +1071,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1281, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.chartServidas);
             this.Controls.Add(this.txtVariacionC);
             this.Controls.Add(this.txtRealidadC);
             this.Controls.Add(this.panelMapa);
