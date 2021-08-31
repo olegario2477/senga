@@ -190,6 +190,8 @@ namespace Senga
             txtServido.Text = string.Format("{0:#,##0}", long.Parse(txtServido.Text));
             txtFisicoV.Text = string.Format("{0:#,##0}", long.Parse(txtFisico.Text));
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
+            txtBasculaV.Text = string.Format("{0:#,##0}", long.Parse(txtBascula.Text));
+            txtServidoExtraV.Text = string.Format("{0:#,##0}", long.Parse(txtServidoExtra.Text));
         
         }
 
@@ -503,11 +505,13 @@ namespace Senga
             txtCorrales.Text = "";
             txtPlan.Text = "";
             txtCargado.Text = "";
+            txtBascula.Text = "";
             txtServido.Text = "";
             txtFisico.Text = "";
             txtPlanC.Text = "";
             txtFalta.Text = "";
             txtFaltaV.Text = "";
+            txtServidoExtra.Text = "";
 
             botonesHabilita(false);
         
@@ -1034,7 +1038,13 @@ namespace Senga
                     txtCargadoV.Text = "0";
                 }
 
-                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Carga,Servido,Falta,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+                if (txtBasculaV.Text == "")
+                {
+                    txtBasculaV.Text = "0";
+                }
+
+                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Carga,Servido,Falta,Bascula,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -1049,6 +1059,7 @@ namespace Senga
                         //txtCorrales.Text = row["Cantidad"].ToString();
                         txtPlan.Text = row["Planeado"].ToString();
                         txtCargado.Text = row["Carga"].ToString();
+                        txtBascula.Text = row["Bascula"].ToString();
                         txtServido.Text = row["Servido"].ToString();
                         txtIdDr.Text = row["IdD"].ToString();
 
@@ -1058,7 +1069,11 @@ namespace Senga
                         //resultado = Convert.ToInt32(row["Planeado"].ToString()) - Convert.ToInt32(row["Servido"].ToString());
                         resultado = Convert.ToInt32(row["Falta"].ToString());
                         txtFalta.Text = resultado.ToString();
-                          
+
+
+                        resultado = Convert.ToInt32(row["Falta"].ToString()) - ( Convert.ToInt32(row["Planeado"].ToString()) - Convert.ToInt32(row["Servido"].ToString()) );
+                        txtServidoExtra.Text = resultado.ToString();
+
                     }
 
                 }

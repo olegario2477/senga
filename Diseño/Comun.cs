@@ -72,7 +72,7 @@ namespace Senga
 
         }
 
-        public static void sonidoPorc(TextBox color, double porc, Boolean opcColor) 
+        public static void sonidoPorc(Label color, double porc, Boolean opcColor) 
         {
 
             int pesoAlarma = 80;
@@ -116,7 +116,7 @@ namespace Senga
 
         }
 
-        private static void colorCampo(TextBox campo, Color fondo, Color letra)
+        private static void colorCampo(Label campo, Color fondo, Color letra)
         {
 
             campo.BackColor = fondo;

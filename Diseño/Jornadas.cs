@@ -79,12 +79,14 @@ namespace Senga
             btnEliminar.Top = 0;
             btnNuevo.Top = 0;
             btnReportes.Top = 0;
+            btnLimpiar.Top = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnAbrir.Left = btnCerrar.Left - btnAbrir.Width;
             btnEliminar.Left = btnAbrir.Left - btnEliminar.Width;
             btnNuevo.Left = btnEliminar.Left - btnNuevo.Width;
             btnReportes.Left = btnNuevo.Left - btnReportes.Width;
+            btnLimpiar.Left = btnReportes.Left - btnLimpiar.Width;
 
 
             DGJornadas.Left = 0;
@@ -233,7 +235,7 @@ namespace Senga
             string id = "0";
             bool primero = true;
 
-            datos.p_sql = "SELECT Id, Fecha, Hora FROM jornadas";
+            datos.p_sql = "SELECT Id, Fecha, Hora FROM jornadas ORDER by Id desc";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -401,35 +403,35 @@ namespace Senga
                 else
                 {
                     
-                    int valor = 0;
+                    //int valor = 0;
 
-                    datos.p_sql = "SELECT count(*) as Raciones FROM raciones WHERE guardar = 'N' and id = " + txtId.Text;
+                    //datos.p_sql = "SELECT count(*) as Raciones FROM raciones WHERE guardar = 'N' and id = " + txtId.Text;
 
-                    if (!datos.consultaSQL(ref dt, true))
-                    {
-                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-                    else
-                    {
-                        foreach (DataRow row in dt.Rows)
-                        {
+                    //if (!datos.consultaSQL(ref dt, true))
+                    //{
+                    //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //}
+                    //else
+                    //{
+                    //    foreach (DataRow row in dt.Rows)
+                    //    {
 
-                            if (row["Raciones"].ToString() != "0")
-                            {
-                                valor = Convert.ToInt32(row["Raciones"].ToString());
-                            }
-                        }
-                    }
+                    //        if (row["Raciones"].ToString() != "0")
+                    //        {
+                    //            valor = Convert.ToInt32(row["Raciones"].ToString());
+                    //        }
+                    //    }
+                    //}
 
-                    if (valor != 0)
-                    {
+                    //if (valor != 0)
+                    //{
 
-                        //MessageBox.Show("Existen Movimientos Sin Guardar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        Comun.mensajeVer("Existen Movimientos Sin Guardar", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                    }
+                    //    //MessageBox.Show("Existen Movimientos Sin Guardar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //    Comun.mensajeVer("Existen Movimientos Sin Guardar", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    //}
 
-                    else
-                    {
+                    //else
+                    //{
 
                         string id = txtId.Text;
 
@@ -466,14 +468,14 @@ namespace Senga
                             }
                             else
                             {
-                                //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                               Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
                             }
 
                         }
-                    }
+                    //}
                 }
             }
+
 
         }
 
@@ -498,16 +500,19 @@ namespace Senga
                 //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 refrescaGrid();
                 
-                rowIndex = DGJornadas.RowCount - 1;
-                DGJornadas.Rows[rowIndex].Selected = true;
-                DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
+                //rowIndex = DGJornadas.RowCount - 1;
+                //DGJornadas.Rows[rowIndex].Selected = true;
+                //DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
+                //txtId.Text = DGJornadas.Rows[rowIndex].Cells["Jornada"].Value.ToString(); 
 
-                txtId.Text = DGJornadas.Rows[rowIndex].Cells["Jornada"].Value.ToString(); ;
+
                 //searchValue = DGJornadas.Rows.Cells["Jornada"].Value.ToString();
                 //txtId.Text = searchValue;
-                filaDatos(txtId.Text);
-                //searchValue ="20";
+
+                //filaDatos(txtId.Text);
                 
+                //searchValue ="20";
+
                 //if (searchValue != "0")
                 //{
 
@@ -530,7 +535,7 @@ namespace Senga
 
                 //}
 
-
+                Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
             }
         }
@@ -621,9 +626,87 @@ namespace Senga
                     
         }
 
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+            if (DGJornadas.RowCount == 0)
+            {
+                Comun.mensajeVer("No hay Jornadas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            else
+            {
+
+                if (Comun.mensajeVer("¿ Desea Eliminar Toda Informacion Jornadas Permanentemente distintas de hoy ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+                {
+
+                    Datos datos = new Datos();
+                    DataTable dt = new DataTable();
+
+                    datos.p_sql = "SELECT id as Jornada FROM jornadas WHERE not ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+                    if (!datos.consultaSQL(ref dt, true))
+                    {
+                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+                    else
+                    {
+                        
+                        this.Cursor = Cursors.WaitCursor;
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+
+                            datos.p_sql = "DELETE FROM servidas WHERE Id = " + row["Jornada"].ToString();                                                       
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            }
+
+                            datos.p_sql = "DELETE FROM cargas WHERE Id = " + row["Jornada"].ToString();                         
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            }
+
+                            datos.p_sql = "DELETE FROM raciones WHERE Id = " + row["Jornada"].ToString();
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            }
+
+                            datos.p_sql = "DELETE FROM jornadas WHERE Id = " + row["Jornada"].ToString();
+
+                            if (!datos.consultaSQL(ref dt, false))
+                            {
+                                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            }
+                     
+                        }
+
+                        this.Cursor = Cursors.Default;
+
+                        refrescaGrid();
+                        Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+
+                    }
+                
+                }            
+            
+            }
+
+        }
+
+
+
+
+
 
 
 
 
     }
+
 }

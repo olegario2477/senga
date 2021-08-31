@@ -71,13 +71,19 @@ namespace Senga
             DataTable dt = new DataTable();
                      
 
+            txtServirV.Text = "0";
+            txtVariacionV.Text = "0";
+
+
+
+
+
             manejoTimerDePrincipal(false);
             manejoTimerDeServidas(false);
 
             //iniciaPesoOpc1();
             iniciaPesoOpc2();
             colorPantalla();
-
 
             txtNumCarga.Text = vnumcarga;
             
@@ -199,7 +205,7 @@ namespace Senga
                 
                 txtEscalaIni.Text = "0";
 
-                datos.p_sql = "SELECT cargado as Cargado, Carga FROM raciones WHERE idd = " + viddr;
+                datos.p_sql = "SELECT cargado as Cargado, Carga, Bascula FROM raciones WHERE idd = " + viddr;
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -222,6 +228,9 @@ namespace Senga
                         //txtEscala.Text = row["Cargado"].ToString();
                         txtEscalaIni.Text = row["Cargado"].ToString();
                         txtServirIni.Text = cadenaCero(row["Carga"].ToString());
+                        //-----------------
+                        txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
+                        //-----------------
 
                         calcularEscala();
                         //barra2();
@@ -592,7 +601,7 @@ namespace Senga
 
             //porc = Math.Round(porc, 0);
 
-            if (porc >= 10 && porc < 20)
+            if (porc > 0 && porc < 20)
             {                
                 pic1.Visible = true;
             }
@@ -689,7 +698,7 @@ namespace Senga
 
         }
         
-        private double barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox color)
+        private double barra(ProgressBar barra, TextBox maximo, Label valor, Label color)
         {
 
             int vmaximo = Convert.ToInt32(maximo.Text);
@@ -774,9 +783,15 @@ namespace Senga
         //    campo.ForeColor = letra;
 
         //}
-
         private void btnHecho_Click(object sender, EventArgs e)
-        {           
+        {
+            //true - individual
+            //false - fast
+            btnGrabar(true);
+        }
+
+        private void btnGrabar(Boolean grabacierra) 
+        {                      
 
             btnHecho.Text = "HECHO";
 
@@ -798,22 +813,24 @@ namespace Senga
                 //}
 
 
-                if (Convert.ToInt32(txtBasculaIni.Text) == Convert.ToInt32(txtServirFin.Text))
+                if (Convert.ToInt32(txtBasculaIni.Text) <= Convert.ToInt32(txtServirFin.Text))
                 {
-                    Close();
+                    //Close();
                     return;
                 }
 
                 //ajustar
                 //if (Convert.ToInt32(txtServirIni.Text) < Convert.ToInt32(txtServirFin.Text))
-                if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
-                {
-                    //txtServirIni.Text = txtServirFin.Text;
-                    txtBasculaIni.Text = txtServirFin.Text;
-                    guardar = false;
-                    
+                //-------------------------------
+                //if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
+                //{
+                //    //txtServirIni.Text = txtServirFin.Text;
 
-                }
+                //    txtBasculaIni.Text = txtServirFin.Text;
+                    //guardar = false;                   
+
+                //}
+                //-------------------------------
 
                 calcularPeso();
 
@@ -958,7 +975,7 @@ namespace Senga
 
                     long falta = 0;
 
-                    datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                    datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                     if (!datos.consultaSQL(ref dt, true))
                     {
@@ -970,7 +987,7 @@ namespace Senga
                         {
                             if (dt.Rows.Count != 0)
                             {
-                                falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+                                falta = long.Parse(cadenaCero(row["Planeado"].ToString())); //- long.Parse(cadenaCero(row["Realidad"].ToString()));
                             }
                         }
                     }
@@ -980,15 +997,21 @@ namespace Senga
 
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", cargado = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", carga = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
-                    datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", carga = " + carga.ToString() + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                    datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", carga = " + carga.ToString() + ", bascula = "  + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                     if (!datos.consultaSQL(ref dt, true))
                     {
                         MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
 
-                    //nuevoCorral();
-                    Close();
+                    if (grabacierra)
+                    { 
+                        Close(); 
+                    }                    
+                    else 
+                    { 
+                        nuevoCorral();                        
+                    }
 
                 }
 
@@ -1009,19 +1032,21 @@ namespace Senga
                 string plan = row["Planeado"].ToString();
      
                 long vcarga = long.Parse(txtCarga.Text);
-                long vplan = long.Parse(plan);                            
+                long vplan = long.Parse(plan);
 
+                
                 txtCabezas.Text = row["Cabezas"].ToString();
                 vidd = row["IdD"].ToString();
 
                 txtCorral.Text = corral;
                 txtBasculaIni.Text = txtServirFin.Text;
                 txtPlan.Text = plan;
-                //txtPlanIni.Text
+                txtPlanIni.Text = txtPlan.Text;
                 txtServir.Text = "0";
 
                 DataRow rowr = regRacion(viddr);
                 txtServirIni.Text = rowr["Carga"].ToString();
+                txtServidoT.Text = rowr["Servido"].ToString();
 
                 llenaSigCorral();
                 long resultado = long.Parse(txtFaltaCorral.Text);//-1;
@@ -1029,7 +1054,11 @@ namespace Senga
 
                 fomatoCampos();
   
-                if (vcarga < vplan) { Close(); }
+                if (vcarga < vplan) 
+                {
+                    Close(); 
+                    Comun.mensajeVer("Insuficiente Alimento", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);                    
+                } 
 
             }
 
@@ -1063,7 +1092,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT TOP 1 corral,Planeado,Cabezas,IdD FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada + " and  corral <> '" + corral + "' and Realidad = 0 ORDER BY IdD"; 
+            datos.p_sql = "SELECT TOP 1 corral,Planeado,Realidad,Cabezas,IdD FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada + " and  corral <> '" + corral + "' and Realidad = 0 ORDER BY IdD"; 
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1087,7 +1116,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT cargado as Cargado, Carga FROM raciones WHERE idd = " + idd;
+            datos.p_sql = "SELECT cargado as Cargado, Carga, Servido FROM raciones WHERE idd = " + idd;
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1274,8 +1303,10 @@ namespace Senga
             //if (txtServirIni.Text == "" || txtServirIni.Text == "0")
             if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
             {
-                //txtServirIni.Text = txtServirFin.Text; //comm.p_dato;                
-                txtBasculaIni.Text = txtServirFin.Text;                
+                //txtServirIni.Text = txtServirFin.Text; //comm.p_dato;
+                //-----------------
+                //txtBasculaIni.Text = txtServirFin.Text;
+                //-----------------
             }
 
             //---------------------------------------------------------------------------------
@@ -1296,12 +1327,14 @@ namespace Senga
                     if (cantAjustes <= 2)
                     {
                         //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
-                        txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
-                        cantAjustes++;
-                        Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                        //--------------
+                        //txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
+                        //cantAjustes++;
+                        //Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                        //--------------
                     }
                 }
-                resultado = 0;
+                //resultado = 0;
             }
 
             txtServir.Text = resultado.ToString();
@@ -1447,6 +1480,10 @@ namespace Senga
 
             //txtVariacionV.ForeColor = txtVariacion.ForeColor;
             //txtVariacionV.BackColor = txtVariacion.BackColor;
+
+
+
+
         }
                      
         private string stopConfig()
@@ -1530,7 +1567,7 @@ namespace Senga
         {
             int resultado = 0;
 
-            btnHecho.Text = "HECHO";
+            //btnHecho.Text = "HECHO";
 
             //if (txtServirIni.Text != "" && txtServirFin.Text != "")
             if (txtBasculaIni.Text != "" && txtServirFin.Text != "")
@@ -1543,12 +1580,17 @@ namespace Senga
 
                     //btnHecho.Text = "AJUSTAR";
 
-                    if (btnHecho.BackColor == SystemColors.Control)
+                    //if (btnHecho.BackColor == SystemColors.Control)
+                    //if (btnAjustar.BackColor == SystemColors.Control)
+                    if (txtBasculaIniV.BackColor == Color.Black)
                     {
                         //btnHecho.BackColor = Color.Yellow;
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Yellow;
                         txtBasculaIniV.BackColor = Color.Yellow;
+                        //btnAjustar.BackColor = Color.Yellow;
+                        //btnAjustar.ForeColor = Color.Black;
+
                     }
                     else
                     {
@@ -1558,9 +1600,13 @@ namespace Senga
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Black;
                         txtBasculaIniV.BackColor = Color.Black;
+                        //btnAjustar.BackColor = SystemColors.Control;
+                        //btnAjustar.ForeColor = Color.Black;
+
                     }
 
                     //Console.Beep(900, 100);
+                    Console.Beep(1420, 25);
                     Console.WriteLine("CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
 
                 }
@@ -1570,6 +1616,8 @@ namespace Senga
                     //btnHecho.ForeColor = Color.Black;
                     //txtServirIniV.BackColor = Color.Black;
                     txtBasculaIniV.BackColor = Color.Black;
+                    //btnAjustar.BackColor = SystemColors.Control;
+                    //btnAjustar.ForeColor = Color.Black;
                 }
 
             }
@@ -1811,7 +1859,10 @@ namespace Senga
         private void timerBeep_Tick(object sender, EventArgs e)
         {
 
-            double porc = barra(pbServido, txtPlan, txtServir, txtVariacion);
+
+                 
+
+            double porc = barra(pbServido, txtPlan, txtServirV, txtVariacionV);
 
             //long variacion = long.Parse(txtVariacion.Text);
 
@@ -1953,9 +2004,35 @@ namespace Senga
             lblFaltaCorral.ForeColor = colorLetraT;
 
 
+
+            
+
+
+
         }
 
+        private void btnAjustar_Click(object sender, EventArgs e)
+        {
 
+            if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
+            {
+                //txtServirIni.Text = txtServirFin.Text;
+                txtBasculaIni.Text = txtServirFin.Text;
+
+            }
+
+            if (Convert.ToInt32(txtBasculaIni.Text) > Convert.ToInt32(txtServirFin.Text))
+            {
+                if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+                {
+                    //txtServirIni.Text = txtServirFin.Text;
+                    txtBasculaIni.Text = txtServirFin.Text;
+                }
+            }
+
+        }
+
+ 
     }
 
 }

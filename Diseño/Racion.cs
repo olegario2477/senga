@@ -88,12 +88,13 @@ namespace Senga
             txtBasculaIni.Text = "0";
             txtCargaIni.Text = "0";
             txtSolicitar.Text = "0";
+            txtTamanoAct.Text = "0";
 
             //IniciaPesoOpc1();
             IniciaPesoOpc2();
             colorPantalla();
 
-            datos.p_sql = "SELECT racion, planeado, cargado, servido, falta, carga FROM raciones WHERE idd = " + vidd;
+            datos.p_sql = "SELECT racion, planeado, cargado, servido, falta, carga, bascula FROM raciones WHERE idd = " + vidd;
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -110,6 +111,7 @@ namespace Senga
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
                     txtCargaIni.Text = cadenaCero(row["Carga"].ToString());
+                    txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
 
@@ -141,6 +143,10 @@ namespace Senga
                     fisico = Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Servido"]);
                     txtFisico.Text = fisico.ToString();
                     txtFisicoIni.Text = fisico.ToString();
+
+
+                    resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                    txtSolicitar.Text = resultado.ToString();
 
                 }
 
@@ -596,61 +602,82 @@ namespace Senga
 
         private void btnHecho_Click(object sender, EventArgs e)
         {
+            btnGrabar();
+        }
 
-            Datos datos = new Datos();
-            DataTable dt = new DataTable();
+        private void btnGrabar()
+        {
 
-            long cargado = 0;
+            bool guardar = true;
 
-            datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta,basculaini,basculafin,cargaini) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtSolicitarV.Text + "'," + txtPlanta.Text + "," + txtBasculaIni.Text + "," + txtBruto.Text + "," + txtCargaIni.Text + ")";
-            
-            if (!datos.consultaSQL(ref dt, false))
+            if (Convert.ToInt32(txtBasculaIni.Text) >= Convert.ToInt32(txtBruto.Text))
             {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                return;
             }
 
-            string maxid = maxId("cargas");
-
-            //datos.p_sql = "SELECT idd FROM raciones WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-
-            //if (!datos.consultaSQL(ref dt, true))
-            //{
-            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //}
-
-            //if (dt.Rows.Count == 0)
-            //{
-            //    datos.p_sql = "insert into raciones (fecha,num,racion,cargado,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "')";
-            //}
-            //else
-            //{
-
-            datos.p_sql = "SELECT SUM(Carga) as Carga, SUM(BasculaIni) as BasculaIni FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
-
-            if (!datos.consultaSQL(ref dt, true))
-            {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            else 
+            if (guardar)
             {
 
-                foreach (DataRow row in dt.Rows)
+                Datos datos = new Datos();
+                DataTable dt = new DataTable();
+
+                long cargado = 0;
+                long cargadoAct = 0;
+
+                datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta,basculaini,basculafin,cargaini) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtSolicitarV.Text + "'," + txtPlanta.Text + "," + txtBasculaIni.Text + "," + txtBruto.Text + "," + txtCargaIni.Text + ")";
+
+                if (!datos.consultaSQL(ref dt, false))
                 {
-                    cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["BasculaIni"].ToString());
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
-            
+
+                string maxid = maxId("cargas");
+
+                //datos.p_sql = "SELECT idd FROM raciones WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+                //if (!datos.consultaSQL(ref dt, true))
+                //{
+                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //}
+
+                //if (dt.Rows.Count == 0)
+                //{
+                //    datos.p_sql = "insert into raciones (fecha,num,racion,cargado,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "')";
+                //}
+                //else
+                //{
+
+                datos.p_sql = "SELECT SUM(Carga) as Carga, SUM(BasculaIni) as BasculaIni FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
+
+                if (!datos.consultaSQL(ref dt, true))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
+                {
+
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["BasculaIni"].ToString());
+                    }
+
+                }
+
+                cargadoAct = long.Parse(txtCargado.Text) + long.Parse(txtCargaIni.Text);
+
+                datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + cargadoAct.ToString() + ", Bascula = " + txtBruto.Text + " , fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //}
+
+                if (!datos.consultaSQL(ref dt, false))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+
+                Close();
+
             }
-
-            datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + txtCarga.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-                //datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-            //}
-
-            if (!datos.consultaSQL(ref dt, false))
-            {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-
-            Close();
+        
         }
 
         private string maxId(string tabla)
@@ -834,19 +861,19 @@ namespace Senga
             }
 
 
-            if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
-            {
-                txtBasculaIni.Text = txtBruto.Text;
+            //if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
+            //{
+                //txtBasculaIni.Text = txtBruto.Text;
 
-                resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
                 //if (resultado < 0)
                 //{ 
                 //    resultado = 0; 
                 //}
-                txtSolicitar.Text = resultado.ToString();
+                //txtSolicitar.Text = resultado.ToString();
 
 
-            }
+            //}
 
             //calcularPeso();
             //barra(pbFisico, txtCapacidad, txtFisico, txtFisico);
@@ -930,7 +957,7 @@ namespace Senga
         }
 
 
-        private double barra(ProgressBar barra, TextBox maximo, TextBox valor, TextBox campo)
+        private double barra(ProgressBar barra, TextBox maximo, Label valor, Label campo)
         {
 
             if (maximo.Text != "")
@@ -1338,6 +1365,9 @@ namespace Senga
             txtSolicitarV.BackColor = colorFondo;
             txtSolicitarV.ForeColor = colorLetra;
 
+            txtBrutoV.BackColor = colorFondo;
+            txtBrutoV.ForeColor = colorLetra;
+
             panelSolicitar.BackColor = colorFondoP;
             panelVariacion.BackColor = colorFondoP;
             panelBascula.BackColor = colorFondoP;
@@ -1495,6 +1525,91 @@ namespace Senga
 
         private void btnSolicitar_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void btnAjustar_Click(object sender, EventArgs e)
+        {
+
+            if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtBruto.Text))
+            {
+
+                if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+                {
+                    txtBasculaIni.Text = txtBruto.Text;
+                }
+            
+            }
+            
+            if (Convert.ToInt32(txtBasculaIni.Text) > Convert.ToInt32(txtBruto.Text))
+            {
+                //txtServirIni.Text = txtServirFin.Text;
+                txtBasculaIni.Text = txtBruto.Text;
+
+            }
+
+        }
+
+        private void timerBotonAlerta_Tick(object sender, EventArgs e)
+        {
+
+            int resultado = 0;
+
+            //btnHecho.Text = "HECHO";
+
+            //if (txtServirIni.Text != "" && txtServirFin.Text != "")
+            if (txtBasculaIni.Text != "" && txtBruto.Text != "")
+            {
+                //resultado = Convert.ToInt32(txtServirIni.Text) - Convert.ToInt32(txtServirFin.Text);
+                resultado = Convert.ToInt32(txtBasculaIni.Text) - Convert.ToInt32(txtBruto.Text);
+
+                if (resultado > 0)
+                {
+
+                    //btnHecho.Text = "AJUSTAR";
+
+                    //if (btnHecho.BackColor == SystemColors.Control)
+                    //if (btnAjustar.BackColor == SystemColors.Control)
+                    if (txtBasculaIniV.BackColor == Color.Black)
+                    {
+                        //btnHecho.BackColor = Color.Yellow;
+                        //btnHecho.ForeColor = Color.Black;
+                        //txtServirIniV.BackColor = Color.Yellow;
+                        txtBasculaIniV.BackColor = Color.Yellow;
+                        //btnAjustar.BackColor = Color.Yellow;
+                        //btnAjustar.ForeColor = Color.Black;
+
+                    }
+                    else
+                    {
+                        //btnServirIniV.BackColor = SystemColors.Control;
+
+                        //btnHecho.BackColor = SystemColors.Control;
+                        //btnHecho.ForeColor = Color.Black;
+                        //txtServirIniV.BackColor = Color.Black;
+                        txtBasculaIniV.BackColor = Color.Black;
+                        //btnAjustar.BackColor = SystemColors.Control;
+                        //btnAjustar.ForeColor = Color.Black;
+
+                    }
+
+                    //Console.Beep(900, 100);
+                    Console.Beep(1420, 25);
+                    Console.WriteLine("CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+
+                }
+                else
+                {
+                    //btnHecho.BackColor = SystemColors.Control;
+                    //btnHecho.ForeColor = Color.Black;
+                    //txtServirIniV.BackColor = Color.Black;
+                    txtBasculaIniV.BackColor = Color.Black;
+                    //btnAjustar.BackColor = SystemColors.Control;
+                    //btnAjustar.ForeColor = Color.Black;
+                }
+
+            }
+
 
         }
     }

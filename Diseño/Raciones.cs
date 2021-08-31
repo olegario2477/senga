@@ -361,7 +361,7 @@ namespace Senga
 
             //DGRaciones.DataSource = table;
 
-            DGCargas.Columns["IdD"].HeaderText = "#";
+            DGCargas.Columns["IdD"].HeaderText = "# Carga";
 
         }
 
@@ -434,7 +434,7 @@ namespace Senga
                 //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
+            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -459,7 +459,8 @@ namespace Senga
                         
                     }
 
-                    long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
+                    //long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
+                    long anterior = Convert.ToInt32(cadenaCero(row["CargaIni"].ToString()));
                     long dif = ( Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(cadenaCero(realidad)) ) + anterior;
                 
 
