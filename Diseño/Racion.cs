@@ -647,7 +647,7 @@ namespace Senga
                 //else
                 //{
 
-                datos.p_sql = "SELECT SUM(Carga) as Carga, SUM(BasculaIni) as BasculaIni FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
+                datos.p_sql = "SELECT SUM(Carga) as Carga, SUM(BasculaIni) as BasculaIni, SUM(CargaIni) as CargaIni FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "'";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -658,7 +658,7 @@ namespace Senga
 
                     foreach (DataRow row in dt.Rows)
                     {
-                        cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["BasculaIni"].ToString());
+                        cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["CargaIni"].ToString()); //+long.Parse(row["BasculaIni"].ToString());
                     }
 
                 }
@@ -1396,33 +1396,46 @@ namespace Senga
         private void barrar(int porc)
         {
 
-            pic1.Visible = false;
-            pic2.Visible = false;
-            pic3.Visible = false;
-            pic4.Visible = false;
-            pic5.Visible = false;
-            pic6.Visible = false;
-            pic7.Visible = false;
-            pic8.Visible = false;
-            pic9.Visible = false;
-            pic10.Visible = false;
+            if (porc <= 0)
+            {
+                pic1.Visible = false;
+                pic2.Visible = false;
+                pic3.Visible = false;
+                pic4.Visible = false;
+                pic5.Visible = false;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
+            }
 
-            //int vmaximo = Convert.ToInt32(maximo.Text);
-            //int vvalor = Convert.ToInt32(valor.Text);
-
-            //double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
-
-            //porc = Math.Round(porc,0);
-
-            if (porc >= 10 && porc < 20)
+            if (porc > 0 && porc < 20)
             {
                 pic1.Visible = true;
+                pic2.Visible = false;
+                pic3.Visible = false;
+                pic4.Visible = false;
+                pic5.Visible = false;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 20 && porc < 30)
             {
                 pic1.Visible = true;
                 pic2.Visible = true;
+                pic3.Visible = false;
+                pic4.Visible = false;
+                pic5.Visible = false;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 30 && porc < 40)
@@ -1430,6 +1443,13 @@ namespace Senga
                 pic1.Visible = true;
                 pic2.Visible = true;
                 pic3.Visible = true;
+                pic4.Visible = false;
+                pic5.Visible = false;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 40 && porc < 50)
@@ -1438,6 +1458,12 @@ namespace Senga
                 pic2.Visible = true;
                 pic3.Visible = true;
                 pic4.Visible = true;
+                pic5.Visible = false;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 50 && porc < 60)
@@ -1447,6 +1473,11 @@ namespace Senga
                 pic3.Visible = true;
                 pic4.Visible = true;
                 pic5.Visible = true;
+                pic6.Visible = false;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 60 && porc < 70)
@@ -1457,6 +1488,10 @@ namespace Senga
                 pic4.Visible = true;
                 pic5.Visible = true;
                 pic6.Visible = true;
+                pic7.Visible = false;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 70 && porc < 80)
@@ -1468,6 +1503,9 @@ namespace Senga
                 pic5.Visible = true;
                 pic6.Visible = true;
                 pic7.Visible = true;
+                pic8.Visible = false;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 80 && porc < 90)
@@ -1480,6 +1518,8 @@ namespace Senga
                 pic6.Visible = true;
                 pic7.Visible = true;
                 pic8.Visible = true;
+                pic9.Visible = false;
+                pic10.Visible = false;
             }
 
             if (porc >= 90 && porc < 100)
@@ -1493,6 +1533,7 @@ namespace Senga
                 pic7.Visible = true;
                 pic8.Visible = true;
                 pic9.Visible = true;
+                pic10.Visible = false;
             }
 
             if (porc >= 100)

@@ -64,13 +64,28 @@ namespace Senga
         public Principal()
         {
             //existeApp();
-            InitializeComponent();
+           
             instance = this;
+
+            //Thread t = new Thread(new ThreadStart(StartForm));
+            //t.Start();
+            //Thread.Sleep(3000);
+            
+            InitializeComponent();
+            
+            //t.Abort();
+
+            
 
         }
 
-        private void Principal_Load(object sender, EventArgs e)
+        public void StartForm()
         {
+            Application.Run(new Inicio());
+        }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {           
 
             //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -93,6 +108,21 @@ namespace Senga
             else
             {
 
+
+                DataRow row = obtieneConfig();
+
+                if (row != null)
+                {
+                    usuario = row["Usuario"].ToString();
+                    contrasena = row["Contrasena"].ToString();
+                    numcamion = row["numcamion"].ToString();
+
+                    wsactivo = row["ws"].ToString().Equals("S"); 
+
+
+                }
+
+
                 carpeta_existe_local();
 
                 tablaCamionTemp();
@@ -101,7 +131,7 @@ namespace Senga
                 inicializa();
                 inicializa2();
 
-                wsactivo = wsactivoConfigWs();
+                //wsactivo = wsactivoConfigWs();
                 if (wsactivo)
                 {
                     lblWsActivo.Text = "ON";
@@ -116,11 +146,11 @@ namespace Senga
 
                 redEstado();
 
-                numcamion = numcamionConfigWs();
-                usuarioiWs();
+                //numcamion = numcamionConfigWs();
+                //usuarioiWs();
 
                 //refrescaGPS();
-                limpiaServidas();
+                //limpiaServidas();
                 luzStatus(false);
 
                 //operacionGPS();
@@ -1657,6 +1687,29 @@ namespace Senga
         //    txtRacion.Text = (string)DGServidas.CurrentRow.Cells[1].Value;
         //}
 
+        private DataRow obtieneConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    return row;
+                }
+            }
+
+            return null;
+
+        }
 
         private string puertoConfigGps()
         {

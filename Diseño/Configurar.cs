@@ -578,7 +578,7 @@ namespace Senga
                 //}
 
 
-                datos.p_sql = "DELETE FROM recorrido"; 
+                datos.p_sql = "DELETE FROM recorrido WHERE envio = 'S'"; 
 
                 if (!datos.consultaSQL(ref dt, false))
                 {

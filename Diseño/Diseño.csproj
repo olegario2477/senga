@@ -92,6 +92,12 @@
     <Compile Include="Captura.Designer.cs">
       <DependentUpon>Captura.cs</DependentUpon>
     </Compile>
+    <Compile Include="Inicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inicio.Designer.cs">
+      <DependentUpon>Inicio.cs</DependentUpon>
+    </Compile>
     <Compile Include="ITimer.cs" />
     <Compile Include="Jornadas.cs">
       <SubType>Form</SubType>
@@ -148,6 +154,9 @@
     <EmbeddedResource Include="Captura.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Captura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inicio.resx">
+      <DependentUpon>Inicio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Jornadas.resx">
       <SubType>Designer</SubType>

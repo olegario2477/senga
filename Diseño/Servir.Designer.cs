@@ -679,7 +679,7 @@
             // pic4
             // 
             this.pic4.BackColor = System.Drawing.Color.Lime;
-            this.pic4.Location = new System.Drawing.Point(8, 186);
+            this.pic4.Location = new System.Drawing.Point(8, 185);
             this.pic4.Name = "pic4";
             this.pic4.Size = new System.Drawing.Size(119, 25);
             this.pic4.TabIndex = 3;
@@ -689,7 +689,7 @@
             // pic3
             // 
             this.pic3.BackColor = System.Drawing.Color.Lime;
-            this.pic3.Location = new System.Drawing.Point(8, 217);
+            this.pic3.Location = new System.Drawing.Point(8, 215);
             this.pic3.Name = "pic3";
             this.pic3.Size = new System.Drawing.Size(119, 25);
             this.pic3.TabIndex = 2;
@@ -699,7 +699,7 @@
             // pic2
             // 
             this.pic2.BackColor = System.Drawing.Color.Lime;
-            this.pic2.Location = new System.Drawing.Point(8, 247);
+            this.pic2.Location = new System.Drawing.Point(8, 244);
             this.pic2.Name = "pic2";
             this.pic2.Size = new System.Drawing.Size(119, 25);
             this.pic2.TabIndex = 1;
@@ -709,7 +709,7 @@
             // pic1
             // 
             this.pic1.BackColor = System.Drawing.Color.Lime;
-            this.pic1.Location = new System.Drawing.Point(8, 277);
+            this.pic1.Location = new System.Drawing.Point(8, 274);
             this.pic1.Name = "pic1";
             this.pic1.Size = new System.Drawing.Size(119, 25);
             this.pic1.TabIndex = 0;
@@ -927,7 +927,7 @@
             this.btnAjustar.Name = "btnAjustar";
             this.btnAjustar.Size = new System.Drawing.Size(451, 173);
             this.btnAjustar.TabIndex = 113;
-            this.btnAjustar.Text = "AJUSTAR";
+            this.btnAjustar.Text = "AJUSTAR BASCULA";
             this.btnAjustar.UseVisualStyleBackColor = true;
             this.btnAjustar.Click += new System.EventHandler(this.btnAjustar_Click);
             // 

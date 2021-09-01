@@ -235,7 +235,7 @@ namespace Senga
             string id = "0";
             bool primero = true;
 
-            datos.p_sql = "SELECT Id, Fecha, Hora FROM jornadas ORDER by Id desc";
+            datos.p_sql = "SELECT Id, Fecha, Hora FROM jornadas ORDER by Id asc";
 
             if (!datos.consultaSQL(ref dt, true))
             {

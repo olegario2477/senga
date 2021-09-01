@@ -170,22 +170,20 @@
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.Image = ((System.Drawing.Image)(resources.GetObject("btnCancelar.Image")));
-            this.btnCancelar.Location = new System.Drawing.Point(972, 661);
+            this.btnCancelar.Location = new System.Drawing.Point(1116, 8);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(284, 131);
+            this.btnCancelar.Size = new System.Drawing.Size(138, 111);
             this.btnCancelar.TabIndex = 8;
-            this.btnCancelar.Text = "CANCEL";
             this.btnCancelar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCancelar.UseVisualStyleBackColor = true;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // btnHecho
             // 
-            this.btnHecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHecho.Image = ((System.Drawing.Image)(resources.GetObject("btnHecho.Image")));
-            this.btnHecho.Location = new System.Drawing.Point(973, 440);
+            this.btnHecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHecho.Location = new System.Drawing.Point(972, 439);
             this.btnHecho.Name = "btnHecho";
-            this.btnHecho.Size = new System.Drawing.Size(283, 218);
+            this.btnHecho.Size = new System.Drawing.Size(284, 355);
             this.btnHecho.TabIndex = 9;
             this.btnHecho.Text = "HECHO";
             this.btnHecho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -558,9 +556,9 @@
             this.btnSolicitar.Enabled = false;
             this.btnSolicitar.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSolicitar.Image = ((System.Drawing.Image)(resources.GetObject("btnSolicitar.Image")));
-            this.btnSolicitar.Location = new System.Drawing.Point(946, 6);
+            this.btnSolicitar.Location = new System.Drawing.Point(809, 6);
             this.btnSolicitar.Name = "btnSolicitar";
-            this.btnSolicitar.Size = new System.Drawing.Size(310, 113);
+            this.btnSolicitar.Size = new System.Drawing.Size(299, 113);
             this.btnSolicitar.TabIndex = 88;
             this.btnSolicitar.Text = "SOLICITAR";
             this.btnSolicitar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -585,7 +583,7 @@
             this.btnTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTolva.Location = new System.Drawing.Point(591, 6);
             this.btnTolva.Name = "btnTolva";
-            this.btnTolva.Size = new System.Drawing.Size(349, 113);
+            this.btnTolva.Size = new System.Drawing.Size(216, 113);
             this.btnTolva.TabIndex = 86;
             this.btnTolva.Text = "1";
             this.btnTolva.UseVisualStyleBackColor = false;
@@ -840,7 +838,7 @@
             // pic5
             // 
             this.pic5.BackColor = System.Drawing.Color.Lime;
-            this.pic5.Location = new System.Drawing.Point(8, 155);
+            this.pic5.Location = new System.Drawing.Point(8, 154);
             this.pic5.Name = "pic5";
             this.pic5.Size = new System.Drawing.Size(119, 25);
             this.pic5.TabIndex = 4;
@@ -850,7 +848,7 @@
             // pic4
             // 
             this.pic4.BackColor = System.Drawing.Color.Lime;
-            this.pic4.Location = new System.Drawing.Point(8, 186);
+            this.pic4.Location = new System.Drawing.Point(8, 184);
             this.pic4.Name = "pic4";
             this.pic4.Size = new System.Drawing.Size(119, 25);
             this.pic4.TabIndex = 3;
@@ -860,7 +858,7 @@
             // pic3
             // 
             this.pic3.BackColor = System.Drawing.Color.Lime;
-            this.pic3.Location = new System.Drawing.Point(8, 217);
+            this.pic3.Location = new System.Drawing.Point(8, 214);
             this.pic3.Name = "pic3";
             this.pic3.Size = new System.Drawing.Size(119, 25);
             this.pic3.TabIndex = 2;
@@ -870,7 +868,7 @@
             // pic2
             // 
             this.pic2.BackColor = System.Drawing.Color.Lime;
-            this.pic2.Location = new System.Drawing.Point(8, 247);
+            this.pic2.Location = new System.Drawing.Point(8, 244);
             this.pic2.Name = "pic2";
             this.pic2.Size = new System.Drawing.Size(119, 25);
             this.pic2.TabIndex = 1;
@@ -880,7 +878,7 @@
             // pic1
             // 
             this.pic1.BackColor = System.Drawing.Color.Lime;
-            this.pic1.Location = new System.Drawing.Point(8, 277);
+            this.pic1.Location = new System.Drawing.Point(8, 274);
             this.pic1.Name = "pic1";
             this.pic1.Size = new System.Drawing.Size(119, 25);
             this.pic1.TabIndex = 0;
@@ -955,9 +953,9 @@
             // 
             this.panelCapacidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCapacidad.Controls.Add(this.lblCapacidad);
-            this.panelCapacidad.Location = new System.Drawing.Point(985, 459);
+            this.panelCapacidad.Location = new System.Drawing.Point(1175, 482);
             this.panelCapacidad.Name = "panelCapacidad";
-            this.panelCapacidad.Size = new System.Drawing.Size(52, 83);
+            this.panelCapacidad.Size = new System.Drawing.Size(11, 83);
             this.panelCapacidad.TabIndex = 105;
             this.panelCapacidad.Visible = false;
             // 
@@ -976,7 +974,7 @@
             this.txtCapacidadV.BackColor = System.Drawing.Color.White;
             this.txtCapacidadV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCapacidadV.ForeColor = System.Drawing.Color.Black;
-            this.txtCapacidadV.Location = new System.Drawing.Point(1023, 551);
+            this.txtCapacidadV.Location = new System.Drawing.Point(1192, 482);
             this.txtCapacidadV.Name = "txtCapacidadV";
             this.txtCapacidadV.ReadOnly = true;
             this.txtCapacidadV.Size = new System.Drawing.Size(13, 83);
@@ -1017,10 +1015,11 @@
             // 
             this.panelCargaIni.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCargaIni.Controls.Add(this.lblCargaIni);
-            this.panelCargaIni.Location = new System.Drawing.Point(11, 709);
+            this.panelCargaIni.Location = new System.Drawing.Point(103, 709);
             this.panelCargaIni.Name = "panelCargaIni";
-            this.panelCargaIni.Size = new System.Drawing.Size(176, 83);
+            this.panelCargaIni.Size = new System.Drawing.Size(25, 83);
             this.panelCargaIni.TabIndex = 111;
+            this.panelCargaIni.Visible = false;
             // 
             // panelRecibio
             // 
@@ -1046,9 +1045,9 @@
             this.btnAjustar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAjustar.Location = new System.Drawing.Point(11, 619);
             this.btnAjustar.Name = "btnAjustar";
-            this.btnAjustar.Size = new System.Drawing.Size(472, 84);
+            this.btnAjustar.Size = new System.Drawing.Size(472, 171);
             this.btnAjustar.TabIndex = 117;
-            this.btnAjustar.Text = "AJUSTAR";
+            this.btnAjustar.Text = "AJUSTAR BASCULA";
             this.btnAjustar.UseVisualStyleBackColor = true;
             this.btnAjustar.Click += new System.EventHandler(this.btnAjustar_Click);
             // 
@@ -1162,10 +1161,11 @@
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel7.Controls.Add(this.txtCargaIniV);
-            this.panel7.Location = new System.Drawing.Point(191, 709);
+            this.panel7.Location = new System.Drawing.Point(206, 709);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(294, 83);
+            this.panel7.Size = new System.Drawing.Size(28, 83);
             this.panel7.TabIndex = 123;
+            this.panel7.Visible = false;
             // 
             // txtCargaIniV
             // 
@@ -1173,7 +1173,7 @@
             this.txtCargaIniV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargaIniV.Location = new System.Drawing.Point(0, 0);
             this.txtCargaIniV.Name = "txtCargaIniV";
-            this.txtCargaIniV.Size = new System.Drawing.Size(290, 79);
+            this.txtCargaIniV.Size = new System.Drawing.Size(24, 79);
             this.txtCargaIniV.TabIndex = 75;
             this.txtCargaIniV.Text = "-88,888";
             this.txtCargaIniV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1246,6 +1246,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1268, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.btnAjustar);
+            this.Controls.Add(this.btnSolicitar);
             this.Controls.Add(this.panel10);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel8);
@@ -1255,7 +1257,6 @@
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.btnAjustar);
             this.Controls.Add(this.btnTolva);
             this.Controls.Add(this.panelRecibio);
             this.Controls.Add(this.panelCargaIni);
@@ -1271,7 +1272,6 @@
             this.Controls.Add(this.panelSolicitar);
             this.Controls.Add(this.panelBarra);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnSolicitar);
             this.Controls.Add(this.btnCancelar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;

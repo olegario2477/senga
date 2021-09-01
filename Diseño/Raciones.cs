@@ -330,10 +330,11 @@ namespace Senga
 
             table.Columns.Add("IdD", typeof(string));
             table.Columns.Add("Hora", typeof(string));
-            table.Columns.Add("Anterior", typeof(long));
+            table.Columns.Add("Tolva", typeof(string));
             table.Columns.Add("Solicito", typeof(long));
+            table.Columns.Add("Anterior", typeof(long));
             table.Columns.Add("Recibio", typeof(long));
-            table.Columns.Add("Servido", typeof(long));
+            //table.Columns.Add("Servido", typeof(long));
             table.Columns.Add("Carga", typeof(long));
  
 
@@ -353,10 +354,11 @@ namespace Senga
 
 
             DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Solicito"].DefaultCellStyle.Format = "#,0.###";
+            DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Recibio"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
+            //DGCargas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
@@ -434,7 +436,7 @@ namespace Senga
                 //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD desc"; 
+            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc"; 
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -443,6 +445,7 @@ namespace Senga
             else
             {
 
+                long difant = 0;
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -461,12 +464,19 @@ namespace Senga
 
                     //long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
                     long anterior = Convert.ToInt32(cadenaCero(row["CargaIni"].ToString()));
-                    long dif = ( Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(cadenaCero(realidad)) ) + anterior;
-                
+                    long dif = anterior + (Convert.ToInt32(cadenaCero(row["Carga"].ToString())) );//- Convert.ToInt32(cadenaCero(realidad)) );
 
-                //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), anterior.ToString(), row["Solicito"].ToString(), row["Carga"].ToString(), realidad.ToString(), dif.ToString());
+                    long carga = dif;
+                    //------------------------------------
+                    //long res = difant - anterior;
+                    //long carga = dif + res;
+                    //------------------------------------
 
+                    //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
+                    table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), row["Tolva"].ToString(), row["Solicito"].ToString(), anterior.ToString(), row["Carga"].ToString(), /*realidad.ToString(),*/ carga.ToString());
+
+                    difant = dif;
+                   
                     //if (row["Cargado"].ToString() == "0" && primero)
                     ////if (primero)
                     //{
