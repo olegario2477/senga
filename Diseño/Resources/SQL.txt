@@ -13,5 +13,5 @@ alter table Servidas add column CargaIni long;
 alter table Cargas add column BasculaIni long;
 alter table Cargas add column BasculaFin long;
 alter table Cargas add column CargaIni long;
---;
+--2021.9.1.0;
 alter table Raciones add column Bascula long DEFAULT 0;

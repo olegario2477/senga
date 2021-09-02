@@ -160,6 +160,10 @@ namespace Senga
                 //ejecutaAppGPS();        
 
 
+
+                //ServicioGPS servicioGPS = new ServicioGPS();
+                //servicioGPS.InitializeLifetimeService();
+
             }
 
         }

@@ -512,6 +512,12 @@ namespace Senga
             txtFalta.Text = "";
             txtFaltaV.Text = "";
             txtServidoExtra.Text = "";
+            txtServidoExtraV.Text = "";
+            
+            txtBasculaV.Text = "";
+            txtCargadoV.Text = "";
+            txtPlan.Text = "";
+            txtCorrales.Text = "";
 
             botonesHabilita(false);
         

@@ -1608,6 +1608,8 @@ namespace Senga
         {
             int resultado = 0;
 
+            
+
             //btnHecho.Text = "HECHO";
 
             //if (txtServirIni.Text != "" && txtServirFin.Text != "")
@@ -2054,26 +2056,51 @@ namespace Senga
 
         private void btnAjustar_Click(object sender, EventArgs e)
         {
+            funcionAjustar(1,false);
+            funcionAjustar(2,true);
+        }
 
-            if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
+        void funcionAjustar(int opc, Boolean msg) 
+        {
+
+            switch (opc) 
             {
-                //txtServirIni.Text = txtServirFin.Text;
-                txtBasculaIni.Text = txtServirFin.Text;
-
+                case 1:
+                    if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
+                    {
+                        //txtServirIni.Text = txtServirFin.Text;
+                        txtBasculaIni.Text = txtServirFin.Text;
+                    }                    
+                    break;
+                case 2:
+                    if (Convert.ToInt32(txtBasculaIni.Text) > Convert.ToInt32(txtServirFin.Text))
+                    {
+                        if (msg)
+                        {
+                            if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+                            {
+                                //txtServirIni.Text = txtServirFin.Text;
+                                txtBasculaIni.Text = txtServirFin.Text;
+                            }                            
+                        }
+                        else
+                        {
+                            txtBasculaIni.Text = txtServirFin.Text;
+                        }
+                    }
+                    break;
             }
 
-            if (Convert.ToInt32(txtBasculaIni.Text) > Convert.ToInt32(txtServirFin.Text))
-            {
-                if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
-                {
-                    //txtServirIni.Text = txtServirFin.Text;
-                    txtBasculaIni.Text = txtServirFin.Text;
-                }
-            }
-
+        
         }
 
  
+
+
+
+
+
+
     }
 
 }

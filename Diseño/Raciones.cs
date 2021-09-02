@@ -2100,31 +2100,39 @@ namespace Senga
         private void carpeta_existe_local()
         {
 
-            if (!System.IO.Directory.Exists(rutaarchivos() + nameruta))
+            try
             {
-                System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta);
-            }
 
-            if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + namea))
-            {
-                System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + namea);
-            }
+                if (!System.IO.Directory.Exists(rutaarchivos() + nameruta))
+                {
+                    System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta);
+                }
 
-            if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + namea + namec))
-            {
-                System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + namea + namec);
-            }
+                if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + namea))
+                {
+                    System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + namea);
+                }
 
-            if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + nameb))
-            {
-                System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + nameb);
-            }
+                if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + namea + namec))
+                {
+                    System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + namea + namec);
+                }
 
-            if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + nameb + namec))
-            {
-                System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + nameb + namec);
-            }
+                if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + nameb))
+                {
+                    System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + nameb);
+                }
 
+                if (!System.IO.Directory.Exists(rutaarchivos() + nameruta + nameb + namec))
+                {
+                    System.IO.Directory.CreateDirectory(rutaarchivos() + nameruta + nameb + namec);
+                }
+
+            }
+            catch (Exception e) 
+            { 
+            
+            }
             //if (!System.IO.Directory.Exists(rutaarchivosred() + nameruta))
             //{
             //    System.IO.Directory.CreateDirectory(rutaarchivosred() + nameruta);

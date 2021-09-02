@@ -41,10 +41,10 @@ namespace Senga
         void llenaCombo()
         {
             comboBoxOpciones.Items.Clear();
-            comboBoxOpciones.Items.Add("Servidas Detalle ");
-            comboBoxOpciones.Items.Add("Servidas Resumen Cargas");
-            comboBoxOpciones.Items.Add("Servidas Resumen Racion");
-            comboBoxOpciones.Items.Add("Servidas Detalle Cargas");
+            comboBoxOpciones.Items.Add("Servidas Detalle");
+            comboBoxOpciones.Items.Add("Servidas Resumen Por Cargas");
+            comboBoxOpciones.Items.Add("Servidas Resumen Por Racion");
+            comboBoxOpciones.Items.Add("Cargas y Servidas Detalle");
             comboBoxOpciones.Items.Add("Cargas Detalle");
             comboBoxOpciones.SelectedIndex = 0;
 
@@ -72,7 +72,7 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "Carga" + '\t' + "BasFCarg" + '\r' + '\n'; ;
+                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "Carga" + '\t' + "BasFCarg" + '\r' + '\n'; ;
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -102,7 +102,7 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Servida" + '\t' + "Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\r' + '\n'; ;
+                txtReporte.Text += "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\r' + '\n'; ;
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -164,7 +164,7 @@ namespace Senga
                 string antCarga = "";
 
 
-                txtReporte.Text += "Accion" + '\t' + "Hora" + '\t' + "Servida" + '\t' + "Racion" + '\t' + "Carga" + '\t' + "Corral" + '\t' + "Servido" + '\t' + "SumCarga" + '\t' + "SumRac" + '\r' + '\n';
+                txtReporte.Text += "Accion" + '\t' + "Hora" + '\t' + "Servida" + '\t' + "Racion" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Cantidad" + /*'\t' + "SumCarga" + '\t' + "SumRac" +*/ '\r' + '\n';
                 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -175,13 +175,24 @@ namespace Senga
                     acumrac = acumrac + long.Parse(row["Realidad"].ToString());
 
 
-                    if (!antCarga.Equals(row["NumCarga"].ToString()) || !antRac.Equals(row["Racion"].ToString())) { linea(); }
+                    if (!antCarga.Equals(row["NumCarga"].ToString()) || !antRac.Equals(row["Racion"].ToString())) 
+                    {
+
+                        if (!antCarga.Equals("")) 
+                        {
+                            linea();
+                            txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + acumcarga.ToString() + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
+                        }
+
+                        linea(); 
+                    }
 
                     if (!antCarga.Equals(row["NumCarga"].ToString())) 
                     { 
+
                         acumcarga = 0;
 
-                        sqlConsultaTxt(txtReporte,"Carga","SELECT Hora,Num,Racion,IdD,Carga FROM Cargas WHERE Id = " + vjornada + " AND IdD = " + row["NumCarga"].ToString());
+                        sqlConsultaTxt(txtReporte,"Carga","SELECT Hora,Num,Racion,IdD,'' as Vacio,Carga FROM Cargas WHERE Id = " + vjornada + " AND IdD = " + row["NumCarga"].ToString());
 
                         linea();
                        
@@ -189,7 +200,7 @@ namespace Senga
                   
                     acumcarga = acumcarga + long.Parse(row["Realidad"].ToString());
                   
-                    txtReporte.Text += "Serv" + '\t' + row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString()  + '\t' + row["Realidad"].ToString() + '\t' + acumcarga.ToString() + '\t' + acumrac.ToString() + '\r' + '\n';
+                    txtReporte.Text += "Serv" + '\t' + row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString()  + '\t' + row["Realidad"].ToString() + /*'\t' + acumcarga.ToString() + '\t' + acumrac.ToString() +*/ '\r' + '\n';
 
 
 
@@ -199,6 +210,13 @@ namespace Senga
                     antCarga = row["NumCarga"].ToString();
                 
                 }
+
+                linea();
+                txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + acumcarga.ToString() + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
+                linea();
+
+
+
             }
 
         }
@@ -219,15 +237,17 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "Carga" + '\t' + "Racion" + '\t' + "Solicito" + '\t' + "Carga" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "Carga" + '\t' + "BasFCarg" + '\r' + '\n'; ;
+                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Racion" + '\t' + "Solicito" + '\t' + "Anterior" + '\t' + "Recibio"  + '\t' + "Carga"+ '\t' + "SolCarg" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "BasFCarg" + '\r' + '\n'; ;
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    int difvalor = Int32.Parse(row["Carga"].ToString()) - Int32.Parse(row["Solicito"].ToString());
-                    int difvalor2 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
-                    int difvalor3 = Int32.Parse(cadenaCero(row["CargaIni"].ToString())) - difvalor2;
-                    int difvalor4 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - difvalor3;
-                    txtReporte.Text += row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["IdD"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Solicito"].ToString() + '\t' + row["Carga"].ToString() + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() + '\t' + difvalor2.ToString() + '\t' + row["CargaIni"].ToString() + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\r' + '\n';
+                    int difvalor = Int32.Parse(row["Solicito"].ToString()) - Int32.Parse(row["Carga"].ToString());
+                    int difvalor2 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - Int32.Parse(cadenaCero(row["BasculaIni"].ToString()));
+                    //int difvalor3 = difvalor2 + Int32.Parse(cadenaCero(row["CargaIni"].ToString())) ;
+                    int carga = Int32.Parse(row["CargaIni"].ToString()) + Int32.Parse(row["Carga"].ToString());
+
+                    int difvalor4 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - carga;//difvalor2;
+                    txtReporte.Text += row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["IdD"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Solicito"].ToString() + '\t' + row["CargaIni"].ToString() + '\t' + row["Carga"].ToString() + '\t' + carga.ToString()  + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() + '\t' + difvalor2.ToString() + '\t' + row["CargaIni"].ToString() + '\t' + difvalor4.ToString() + '\r' + '\n';
                 }
             }
 
