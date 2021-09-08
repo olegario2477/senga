@@ -287,12 +287,13 @@ namespace Senga
             DataTable table = new DataTable();
             
             table.Columns.Add("Racion", typeof(string));            
-            table.Columns.Add("Corrales", typeof(long));
-            table.Columns.Add("Hechos", typeof(long));
+            table.Columns.Add("Corrales", typeof(string));
+            //table.Columns.Add("Hechos", typeof(long));
             table.Columns.Add("Plan", typeof(long));            
             //table.Columns.Add("Variacion", typeof(string));
             table.Columns.Add("Cargas", typeof(long));
             table.Columns.Add("Servido", typeof(long));
+            //table.Columns.Add("Carga", typeof(long));
             table.Columns.Add("Falta", typeof(long));
             table.Columns.Add("IdD", typeof(string));
 
@@ -313,10 +314,11 @@ namespace Senga
             DGRaciones.Columns["Racion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             DGRaciones.Columns["Corrales"].DefaultCellStyle.Format = "#,0.###";
-            DGRaciones.Columns["Hechos"].DefaultCellStyle.Format = "#,0.###";
+            //DGRaciones.Columns["Hechos"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Plan"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Cargas"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
+            //DGRaciones.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Falta"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
@@ -393,7 +395,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["Racion"].ToString(), row["Cantidad"].ToString(), row["HechoC"].ToString(), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
+                    table.Rows.Add(row["Racion"].ToString(), (row["HechoC"].ToString() +"/"+ row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), /*row["Carga"].ToString(),*/ Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -623,6 +625,7 @@ namespace Senga
                     txtServido.Text = row["Servido"].ToString();
 
                     txtCargado.Text = row["Cargado"].ToString();
+                    txtCarga.Text = row["Carga"].ToString();
                     txtCorrales.Text = row["Cantidad"].ToString();
                     txtHechos.Text = row["HechoC"].ToString();
                     
@@ -755,6 +758,7 @@ namespace Senga
 
             txtServido.Text = "";
             txtCargado.Text = "";
+            txtCarga.Text = "";
             txtCorrales.Text = "";
             txtHechos.Text = "";
 
@@ -1306,7 +1310,7 @@ namespace Senga
 
             if (DGRaciones.RowCount != 0)
             {
-
+                //string a = txtCarga.Text;
                 if (txtCargado.Text == "0")
                 {
                     //MessageBox.Show("Requiere Carga Para Servidas", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);

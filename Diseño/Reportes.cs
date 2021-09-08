@@ -53,7 +53,13 @@ namespace Senga
         private void posicionbotones()
         {
             btnCerrar.Top = 0;
+            btnCalculadora.Top = 0;
             btnCerrar.Left = this.Width - btnCerrar.Width;
+
+            btnCalculadora.Left = btnCerrar.Left - btnCalculadora.Width;
+
+            panel1.Height = this.Height - btnCerrar.Height - 20;
+
         }
 
         private void consulta1() 
@@ -64,23 +70,60 @@ namespace Senga
 
             txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
 
-            datos.p_sql = "SELECT * FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " ORDER BY NumCarga, Hora";
+            datos.p_sql = "SELECT Servidas.Num, Servidas.Racion, Servidas.Corral, Servidas.NumCarga, Servidas.Planeado, Servidas.Realidad, Servidas.BasculaIni, Servidas.BasculaFin, Servidas.CargaIni, Servidas.Hora, Cargas.BasculaFin AS BasculaFinCarga FROM Servidas LEFT Join Cargas ON Servidas.NumCarga = Cargas.IdD WHERE (Servidas.Hecho = 'S' OR Servidas.Hecho = 'X') AND Servidas.Id = " + vjornada + " ORDER BY Servidas.NumCarga, Servidas.Hora";
 
             if (!datos.consultaSQL(ref dt, true))
             {
                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
             else
-            {
-                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "Carga" + '\t' + "BasFCarg" + '\r' + '\n'; ;
+            { 
+
+                int basfinAnt = 0;
+                string antCarga = "";
+                DateTime horaAnt = new DateTime(1998, 04, 30, 0, 0, 0);
+
+                TimeSpan ts;
+
+                txtReporte.Text += "Hora" + '\t' + "Tiempo" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
+                
+                int i = 0;
 
                 foreach (DataRow row in dt.Rows)
                 {
+
+                    int difvalor5 = 0;
+                    ts = DateTime.Parse(row["Hora"].ToString()) - horaAnt;
+
+                    string duracion = ts.ToString();
+
+                    if (i == 0) { duracion = "00:00:00"; }
+
+
+
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
                     int difvalor2 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
                     int difvalor3 = Int32.Parse(cadenaCero(row["CargaIni"].ToString())) - difvalor2;
                     int difvalor4 =  Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - difvalor3;
-                    txtReporte.Text += row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() + '\t' + difvalor2.ToString() + '\t' + row["CargaIni"].ToString() + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\r' + '\n';
+
+                    if (!antCarga.Equals(row["NumCarga"].ToString()))
+                    {
+                        difvalor5 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFinCarga"].ToString()));
+                        linea();
+                    }
+                    else
+                    {
+                        difvalor5 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - basfinAnt;
+                    }             
+
+
+
+                    txtReporte.Text += row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\t' + difvalor5.ToString() + '\r' + '\n';
+
+                    basfinAnt = Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
+                    horaAnt = DateTime.Parse(row["Hora"].ToString());
+                    antCarga = row["NumCarga"].ToString();
+                    i++;
                 }
             }
 

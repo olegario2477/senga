@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configurar));
             this.label1 = new System.Windows.Forms.Label();
             this.txtNumCamion = new System.Windows.Forms.TextBox();
@@ -79,7 +80,6 @@
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtMandante = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
-            this.chkWs = new System.Windows.Forms.CheckBox();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -134,6 +134,9 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
+            this.imageListCheck = new System.Windows.Forms.ImageList(this.components);
+            this.chkWs = new System.Windows.Forms.CheckBox();
+            this.label26 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -558,7 +561,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(602, 341);
+            this.pictureBox1.Location = new System.Drawing.Point(817, 243);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(127, 71);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -673,11 +676,12 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.label26);
+            this.groupBox2.Controls.Add(this.chkWs);
             this.groupBox2.Controls.Add(this.label23);
             this.groupBox2.Controls.Add(this.txtServer);
             this.groupBox2.Controls.Add(this.txtMandante);
             this.groupBox2.Controls.Add(this.label22);
-            this.groupBox2.Controls.Add(this.chkWs);
             this.groupBox2.Controls.Add(this.txtContrasena);
             this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.txtUsuario);
@@ -728,16 +732,6 @@
             this.label22.Size = new System.Drawing.Size(134, 31);
             this.label22.TabIndex = 7;
             this.label22.Text = "Mandante";
-            // 
-            // chkWs
-            // 
-            this.chkWs.AutoSize = true;
-            this.chkWs.Location = new System.Drawing.Point(987, 48);
-            this.chkWs.Name = "chkWs";
-            this.chkWs.Size = new System.Drawing.Size(117, 35);
-            this.chkWs.TabIndex = 6;
-            this.chkWs.Text = "Activar";
-            this.chkWs.UseVisualStyleBackColor = true;
             // 
             // txtContrasena
             // 
@@ -1389,6 +1383,37 @@
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
             // 
+            // imageListCheck
+            // 
+            this.imageListCheck.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListCheck.ImageStream")));
+            this.imageListCheck.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListCheck.Images.SetKeyName(0, "icons8-switch-off-96.png");
+            this.imageListCheck.Images.SetKeyName(1, "icons8-switch-on-96.png");
+            // 
+            // chkWs
+            // 
+            this.chkWs.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkWs.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkWs.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkWs.ImageIndex = 0;
+            this.chkWs.ImageList = this.imageListCheck;
+            this.chkWs.Location = new System.Drawing.Point(236, 171);
+            this.chkWs.Name = "chkWs";
+            this.chkWs.Size = new System.Drawing.Size(102, 69);
+            this.chkWs.TabIndex = 96;
+            this.chkWs.UseVisualStyleBackColor = true;
+            this.chkWs.CheckedChanged += new System.EventHandler(this.chkWs_CheckedChanged);
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(41, 190);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(98, 31);
+            this.label26.TabIndex = 97;
+            this.label26.Text = "Activar";
+            // 
             // Configurar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1520,7 +1545,6 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.ComboBox cmbPuertosGps;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.CheckBox chkWs;
         private System.Windows.Forms.TabPage sql;
         private System.Windows.Forms.Button btnEjecutar;
         private System.Windows.Forms.TextBox txtSQL;
@@ -1552,5 +1576,8 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel lblSQLStatus;
+        private System.Windows.Forms.ImageList imageListCheck;
+        private System.Windows.Forms.CheckBox chkWs;
+        private System.Windows.Forms.Label label26;
     }
 }

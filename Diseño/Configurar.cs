@@ -498,6 +498,8 @@ namespace Senga
                     
                     if (row["Ws"].ToString().Equals("S")) { chkWs.Checked = true; } else { chkWs.Checked = false; };
 
+                    checkValores(chkWs);
+
                 }
             }
         }
@@ -1157,7 +1159,7 @@ namespace Senga
 
         private void btnDefaultGps_Click(object sender, EventArgs e)
         {
-            cmbBaudGps.Text = "9600";
+            cmbBaudGps.Text = "38400";
             cmbDataGps.Text = "8";
 
             cmbParityGps.Text = "None";
@@ -1763,6 +1765,26 @@ namespace Senga
             }
 
         }
+
+        private void chkWs_CheckedChanged(object sender, EventArgs e)
+        {
+            checkValores(chkWs);
+        }
+
+
+        void checkValores(CheckBox control) 
+        {
+
+            if (control.Checked)
+            {
+                control.ImageIndex = 1;
+            }
+            else 
+            {
+                control.ImageIndex = 0;
+            }        
+        }
+
     }
 
 }

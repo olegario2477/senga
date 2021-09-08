@@ -1571,6 +1571,7 @@ namespace Senga
 
         private void btnAjustar_Click(object sender, EventArgs e)
         {
+            Console.Beep(1400, 25);
 
             if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtBruto.Text))
             {
@@ -1635,7 +1636,7 @@ namespace Senga
                     }
 
                     //Console.Beep(900, 100);
-                    Console.Beep(1420, 25);
+                    //Console.Beep(1420, 25);
                     Console.WriteLine("CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
 
                 }

@@ -124,6 +124,7 @@
             this.txtRacion = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.txtNumCarga = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelBarra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic9)).BeginInit();
@@ -1054,6 +1055,7 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel8.Controls.Add(this.label1);
             this.panel8.Controls.Add(this.lblZero);
             this.panel8.Controls.Add(this.lblEstable);
             this.panel8.Controls.Add(this.txtServirFinV);
@@ -1172,6 +1174,19 @@
             this.txtNumCarga.TabIndex = 75;
             this.txtNumCarga.Text = "88,888";
             this.txtNumCarga.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Lime;
+            this.label1.Location = new System.Drawing.Point(3, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 20);
+            this.label1.TabIndex = 83;
+            this.label1.Text = "*";
+            this.label1.Visible = false;
             // 
             // Servir
             // 
@@ -1370,5 +1385,6 @@
         private System.Windows.Forms.Label txtRacion;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label txtNumCarga;
+        private System.Windows.Forms.Label label1;
     }
 }

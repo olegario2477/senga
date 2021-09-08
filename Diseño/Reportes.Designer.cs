@@ -60,7 +60,7 @@ namespace Senga
             this.txtReporte.Multiline = true;
             this.txtReporte.Name = "txtReporte";
             this.txtReporte.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtReporte.Size = new System.Drawing.Size(1133, 409);
+            this.txtReporte.Size = new System.Drawing.Size(1386, 242);
             this.txtReporte.TabIndex = 11;
             this.txtReporte.Text = "Jornada";
             // 
@@ -72,7 +72,7 @@ namespace Senga
             this.comboBoxOpciones.FormattingEnabled = true;
             this.comboBoxOpciones.Location = new System.Drawing.Point(0, 0);
             this.comboBoxOpciones.Name = "comboBoxOpciones";
-            this.comboBoxOpciones.Size = new System.Drawing.Size(1133, 54);
+            this.comboBoxOpciones.Size = new System.Drawing.Size(1386, 54);
             this.comboBoxOpciones.TabIndex = 12;
             this.comboBoxOpciones.SelectedIndexChanged += new System.EventHandler(this.comboBoxOpciones_SelectedIndexChanged);
             // 
@@ -80,24 +80,23 @@ namespace Senga
             // 
             this.panel1.Controls.Add(this.txtReporte);
             this.panel1.Controls.Add(this.comboBoxOpciones);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 167);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1133, 463);
+            this.panel1.Size = new System.Drawing.Size(1386, 296);
             this.panel1.TabIndex = 13;
             // 
             // btnCalculadora
             // 
             this.btnCalculadora.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCalculadora.Image = ((System.Drawing.Image)(resources.GetObject("btnCalculadora.Image")));
-            this.btnCalculadora.Location = new System.Drawing.Point(1234, 275);
+            this.btnCalculadora.Location = new System.Drawing.Point(1068, 12);
             this.btnCalculadora.Name = "btnCalculadora";
             this.btnCalculadora.Size = new System.Drawing.Size(140, 149);
             this.btnCalculadora.TabIndex = 14;
-            this.btnCalculadora.Text = "Cerrar";
+            this.btnCalculadora.Text = "Calculadora";
             this.btnCalculadora.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCalculadora.UseVisualStyleBackColor = true;
-            this.btnCalculadora.Visible = false;
             this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
             // Reportes

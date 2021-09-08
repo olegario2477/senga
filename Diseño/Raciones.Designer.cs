@@ -93,6 +93,7 @@
             this.timerGPS = new System.Windows.Forms.Timer(this.components);
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
+            this.txtCarga = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -791,6 +792,18 @@
             this.txtNumCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtNumCarga.Visible = false;
             // 
+            // txtCarga
+            // 
+            this.txtCarga.BackColor = System.Drawing.Color.White;
+            this.txtCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCarga.Location = new System.Drawing.Point(541, 673);
+            this.txtCarga.Name = "txtCarga";
+            this.txtCarga.ReadOnly = true;
+            this.txtCarga.Size = new System.Drawing.Size(22, 38);
+            this.txtCarga.TabIndex = 90;
+            this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCarga.Visible = false;
+            // 
             // Raciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,6 +813,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1285, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.txtCarga);
             this.Controls.Add(this.txtNumCarga);
             this.Controls.Add(this.DGCargas);
             this.Controls.Add(this.toolStrip2);
@@ -907,5 +921,6 @@
         public System.Windows.Forms.Timer timerGPS;
         private System.Windows.Forms.DataGridView DGCargas;
         private System.Windows.Forms.TextBox txtNumCarga;
+        private System.Windows.Forms.TextBox txtCarga;
     }
 }

@@ -210,7 +210,7 @@ namespace Senga
 
             gMapControl1.MinZoom = 15;//15
             gMapControl1.MaxZoom = 17;//19
-            gMapControl1.Zoom = 17;
+            gMapControl1.Zoom = 15;
             gMapControl1.Bearing = -50;
             gMapControl1.AutoScroll = true;
 

@@ -1649,7 +1649,7 @@ namespace Senga
                     }
 
                     //Console.Beep(900, 100);
-                    Console.Beep(1420, 25);
+                    //Console.Beep(1420, 25);
                     Console.WriteLine("CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
 
                 }
@@ -2058,6 +2058,9 @@ namespace Senga
         {
             funcionAjustar(1,false);
             funcionAjustar(2,true);
+
+            Console.Beep(1400, 25);
+
         }
 
         void funcionAjustar(int opc, Boolean msg) 
