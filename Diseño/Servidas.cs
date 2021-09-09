@@ -2170,6 +2170,11 @@ namespace Senga
         private void timerH_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+
+            lblBateria.Text = Principal.instance.lblBateria.Text;
+            pbBateria.Value = Principal.instance.pbBateria.Value;
+
+
         }
         
         private void ubicServir(DataTable dt)

@@ -18,7 +18,7 @@ namespace Senga
 {
     public partial class Principal : Form//, ITimer
     {
-
+        
         Comm commGps = new Comm();
         SerialPort serialPort2 = new SerialPort();
 
@@ -60,7 +60,7 @@ namespace Senga
         //}
 
         public static Principal instance = null;
-
+        
         public Principal()
         {
             //existeApp();
@@ -75,7 +75,7 @@ namespace Senga
             
             //t.Abort();
 
-            
+         
 
         }
 
@@ -83,12 +83,22 @@ namespace Senga
         {
             Application.Run(new Inicio());
         }
-
+      
         private void Principal_Load(object sender, EventArgs e)
-        {           
-
+        {
+     
             //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+            //try
+            //{
+
+            //    //-------------------------------------------
+            //    DataRow row1 = null;
+            //    string vusuarios = row1["Usu"].ToString();
+            //    //-------------------------------------------
+            //}
+            //catch { }
 
             this.Text = "v" + Application.ProductVersion + " - " + File.GetLastWriteTime(Application.ExecutablePath) + " - " + bitModo();
                
@@ -155,10 +165,12 @@ namespace Senga
 
                 //operacionGPS();
                 iniciaGps();
+
+                ShowPowerStatus();
+
                 statusTimer(true);
-
-                //ejecutaAppGPS();        
-
+                    
+                //ejecutaAppGPS(); 
 
 
                 //ServicioGPS servicioGPS = new ServicioGPS();
@@ -460,7 +472,7 @@ namespace Senga
                 {
                     //MessageBox.Show(err.Message);
                     //ErrorLogging(err);
-                    txtError.Text = err.ToString();
+                    txtError.Text = "GPS "+err.ToString();
                 }
 
             }
@@ -2544,6 +2556,7 @@ namespace Senga
 
             timerWs.Enabled = valor;
             timerRecorrido.Enabled = timerWs.Enabled;
+            timerBateria.Enabled = timerWs.Enabled;
 
         }
 
@@ -2654,7 +2667,7 @@ namespace Senga
         //private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         //{
         //    MessageBox.Show(e.Exception.Message + " " + e.Exception.StackTrace, "Unhandled Thread Exception");
-        //    ErrorLogging(e.Exception);
+        //    //ErrorLogging(e.Exception);
         //    // here you can log the exception ...
         //}
 
@@ -2788,6 +2801,57 @@ namespace Senga
             return valor;
 
         }
+
+        private void ShowPowerStatus()
+        {
+        
+            PowerStatus status = SystemInformation.PowerStatus;
+            txtChargeStatus.Text = status.BatteryChargeStatus.ToString();
+            
+            if (status.BatteryFullLifetime == -1)
+                txtFullLifetime.Text = "Unknown";
+            else
+                txtFullLifetime.Text =
+                    status.BatteryFullLifetime.ToString();
+
+            
+            txtCharge.Text = status.BatteryLifePercent.ToString("P0");
+            pbBateria.Maximum = 100;
+            float porc = status.BatteryLifePercent;
+            porc *= 100;
+            pbBateria.Value = Convert.ToInt32(porc);
+            lblBateria.Text = pbBateria.Value.ToString() + " %";
+
+            if (status.BatteryLifeRemaining == -1)
+                txtLifeRemaining.Text = "Unknown";
+            else
+                txtLifeRemaining.Text =
+                    status.BatteryLifeRemaining.ToString();
+            txtLineStatus.Text = status.PowerLineStatus.ToString();
+
+            if (status.PowerLineStatus.ToString().ToLower().Equals("offline"))
+            {
+                lblBateriaActivoF.Value = 0;
+            }
+            else if (status.PowerLineStatus.ToString().ToLower().Equals("online"))
+            {
+                lblBateriaActivoF.Value = 1;
+            }
+
+            Console.WriteLine("Pila " + lblBateria.Text + "% " + DateTime.Now.ToString());
+
+        }
+
+        private void btnBateria_Click(object sender, EventArgs e)
+        {
+            ShowPowerStatus();
+        }
+
+        private void timerBateria_Tick(object sender, EventArgs e)
+        {
+            ShowPowerStatus();
+        }
+
 
         //private static void ShowThreadInformation(String taskName)
         //{

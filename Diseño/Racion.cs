@@ -1229,10 +1229,14 @@ namespace Senga
             if (activar)
             {
                 Principal.instance.timerWs.Start();
+                Principal.instance.timerRecorrido.Start();
+                Principal.instance.timerBateria.Start();
             }
             else
             {
                 Principal.instance.timerWs.Stop();
+                Principal.instance.timerRecorrido.Stop();
+                Principal.instance.timerBateria.Stop();
             }
 
         }

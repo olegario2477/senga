@@ -39,6 +39,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblBateria = new System.Windows.Forms.ToolStripLabel();
+            this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLatitud = new System.Windows.Forms.ToolStripLabel();
@@ -57,6 +60,8 @@
             this.lblWsActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.lblGpsActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.txtError = new System.Windows.Forms.ToolStripTextBox();
             this.lblContWs = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -78,6 +83,14 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.panelBateria = new System.Windows.Forms.Panel();
+            this.btnBateria = new System.Windows.Forms.Button();
+            this.txtLineStatus = new System.Windows.Forms.TextBox();
+            this.txtLifeRemaining = new System.Windows.Forms.TextBox();
+            this.txtCharge = new System.Windows.Forms.TextBox();
+            this.txtFullLifetime = new System.Windows.Forms.TextBox();
+            this.txtChargeStatus = new System.Windows.Forms.TextBox();
+            this.timerBateria = new System.Windows.Forms.Timer(this.components);
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -85,6 +98,7 @@
             this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelBateria.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerWs
@@ -152,6 +166,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblBateria,
+            this.pbBateria,
+            this.toolStripSeparator5,
             this.toolStripLabel1,
             this.toolStripSeparator1,
             this.lblLatitud,
@@ -161,9 +178,9 @@
             this.lblLongitud,
             this.toolStripSeparator3,
             this.btnIniciaGps});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 661);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 657);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1244, 40);
+            this.toolStrip1.Size = new System.Drawing.Size(1244, 44);
             this.toolStrip1.TabIndex = 49;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -171,61 +188,78 @@
             // 
             this.lblHora.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(75, 37);
+            this.lblHora.Size = new System.Drawing.Size(75, 41);
             this.lblHora.Text = "Hora";
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 44);
+            // 
+            // lblBateria
+            // 
+            this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateria.Name = "lblBateria";
+            this.lblBateria.Size = new System.Drawing.Size(39, 41);
+            this.lblBateria.Text = "%";
+            // 
+            // pbBateria
+            // 
+            this.pbBateria.Name = "pbBateria";
+            this.pbBateria.Size = new System.Drawing.Size(50, 41);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 44);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 37);
+            this.toolStripLabel1.Size = new System.Drawing.Size(100, 41);
             this.toolStripLabel1.Text = "Latitud";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 44);
             // 
             // lblLatitud
             // 
             this.lblLatitud.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblLatitud.Name = "lblLatitud";
-            this.lblLatitud.Size = new System.Drawing.Size(32, 37);
+            this.lblLatitud.Size = new System.Drawing.Size(32, 41);
             this.lblLatitud.Text = "0";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(124, 37);
+            this.toolStripLabel2.Size = new System.Drawing.Size(124, 41);
             this.toolStripLabel2.Text = "Longitud";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
             // 
             // lblLongitud
             // 
             this.lblLongitud.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblLongitud.Name = "lblLongitud";
-            this.lblLongitud.Size = new System.Drawing.Size(32, 37);
+            this.lblLongitud.Size = new System.Drawing.Size(32, 41);
             this.lblLongitud.Text = "0";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
             // 
             // btnIniciaGps
             // 
@@ -253,6 +287,8 @@
             this.lblWsActivoF,
             this.toolStripLabel4,
             this.lblGpsActivoF,
+            this.toolStripLabel8,
+            this.lblBateriaActivoF,
             this.txtError,
             this.lblContWs,
             this.toolStripLabel3,
@@ -260,7 +296,7 @@
             this.toolStripLabel6,
             this.lblMandante,
             this.lblSenalRed});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 627);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 623);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1244, 34);
             this.toolStrip2.TabIndex = 50;
@@ -323,6 +359,20 @@
             this.lblGpsActivoF.Maximum = 1;
             this.lblGpsActivoF.Name = "lblGpsActivoF";
             this.lblGpsActivoF.Size = new System.Drawing.Size(10, 31);
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(43, 31);
+            this.toolStripLabel8.Text = "Pila";
+            // 
+            // lblBateriaActivoF
+            // 
+            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
+            this.lblBateriaActivoF.Maximum = 1;
+            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
+            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 31);
             // 
             // txtError
             // 
@@ -401,7 +451,7 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 31;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(665, 177);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(817, 243);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
             this.listBoxRecorridos.Size = new System.Drawing.Size(149, 221);
             this.listBoxRecorridos.TabIndex = 52;
@@ -531,6 +581,70 @@
             this.label1.TabIndex = 54;
             this.label1.Text = "SENGA";
             // 
+            // panelBateria
+            // 
+            this.panelBateria.Controls.Add(this.btnBateria);
+            this.panelBateria.Controls.Add(this.txtLineStatus);
+            this.panelBateria.Controls.Add(this.txtLifeRemaining);
+            this.panelBateria.Controls.Add(this.txtCharge);
+            this.panelBateria.Controls.Add(this.txtFullLifetime);
+            this.panelBateria.Controls.Add(this.txtChargeStatus);
+            this.panelBateria.Location = new System.Drawing.Point(352, 239);
+            this.panelBateria.Name = "panelBateria";
+            this.panelBateria.Size = new System.Drawing.Size(234, 225);
+            this.panelBateria.TabIndex = 55;
+            this.panelBateria.Visible = false;
+            // 
+            // btnBateria
+            // 
+            this.btnBateria.Location = new System.Drawing.Point(104, 178);
+            this.btnBateria.Name = "btnBateria";
+            this.btnBateria.Size = new System.Drawing.Size(69, 22);
+            this.btnBateria.TabIndex = 5;
+            this.btnBateria.Text = "Bateria";
+            this.btnBateria.UseVisualStyleBackColor = true;
+            this.btnBateria.Click += new System.EventHandler(this.btnBateria_Click);
+            // 
+            // txtLineStatus
+            // 
+            this.txtLineStatus.Location = new System.Drawing.Point(21, 139);
+            this.txtLineStatus.Name = "txtLineStatus";
+            this.txtLineStatus.Size = new System.Drawing.Size(153, 20);
+            this.txtLineStatus.TabIndex = 4;
+            // 
+            // txtLifeRemaining
+            // 
+            this.txtLifeRemaining.Location = new System.Drawing.Point(21, 113);
+            this.txtLifeRemaining.Name = "txtLifeRemaining";
+            this.txtLifeRemaining.Size = new System.Drawing.Size(153, 20);
+            this.txtLifeRemaining.TabIndex = 3;
+            // 
+            // txtCharge
+            // 
+            this.txtCharge.Location = new System.Drawing.Point(21, 87);
+            this.txtCharge.Name = "txtCharge";
+            this.txtCharge.Size = new System.Drawing.Size(153, 20);
+            this.txtCharge.TabIndex = 2;
+            // 
+            // txtFullLifetime
+            // 
+            this.txtFullLifetime.Location = new System.Drawing.Point(21, 61);
+            this.txtFullLifetime.Name = "txtFullLifetime";
+            this.txtFullLifetime.Size = new System.Drawing.Size(153, 20);
+            this.txtFullLifetime.TabIndex = 1;
+            // 
+            // txtChargeStatus
+            // 
+            this.txtChargeStatus.Location = new System.Drawing.Point(21, 35);
+            this.txtChargeStatus.Name = "txtChargeStatus";
+            this.txtChargeStatus.Size = new System.Drawing.Size(153, 20);
+            this.txtChargeStatus.TabIndex = 0;
+            // 
+            // timerBateria
+            // 
+            this.timerBateria.Interval = 10000;
+            this.timerBateria.Tick += new System.EventHandler(this.timerBateria_Tick);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -540,6 +654,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.panelBateria);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.lblVersion);
@@ -576,6 +691,8 @@
             this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelBateria.ResumeLayout(false);
+            this.panelBateria.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -631,6 +748,19 @@
         public System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel panelBateria;
+        private System.Windows.Forms.TextBox txtChargeStatus;
+        private System.Windows.Forms.TextBox txtLineStatus;
+        private System.Windows.Forms.TextBox txtLifeRemaining;
+        private System.Windows.Forms.TextBox txtCharge;
+        private System.Windows.Forms.TextBox txtFullLifetime;
+        private System.Windows.Forms.Button btnBateria;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
+        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
+        public System.Windows.Forms.Timer timerBateria;
+        public System.Windows.Forms.ToolStripLabel lblBateria;
+        public System.Windows.Forms.ToolStripProgressBar pbBateria;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
 

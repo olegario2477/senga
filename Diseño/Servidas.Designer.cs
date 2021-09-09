@@ -66,6 +66,9 @@
             this.txtJornada = new System.Windows.Forms.TextBox();
             this.txtCantidadT = new System.Windows.Forms.TextBox();
             this.panelServida = new System.Windows.Forms.Panel();
+            this.txtServidoExtraV = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtServidoExtra = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtBasculaV = new System.Windows.Forms.TextBox();
             this.txtFaltaV = new System.Windows.Forms.TextBox();
@@ -123,9 +126,9 @@
             this.txtRealidadC = new System.Windows.Forms.TextBox();
             this.txtVariacionC = new System.Windows.Forms.TextBox();
             this.txtBascula = new System.Windows.Forms.TextBox();
-            this.txtServidoExtra = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtServidoExtraV = new System.Windows.Forms.TextBox();
+            this.lblBateria = new System.Windows.Forms.ToolStripLabel();
+            this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -562,6 +565,43 @@
             this.panelServida.TabIndex = 78;
             this.panelServida.Visible = false;
             // 
+            // txtServidoExtraV
+            // 
+            this.txtServidoExtraV.BackColor = System.Drawing.Color.White;
+            this.txtServidoExtraV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServidoExtraV.ForeColor = System.Drawing.Color.Black;
+            this.txtServidoExtraV.Location = new System.Drawing.Point(109, 172);
+            this.txtServidoExtraV.Name = "txtServidoExtraV";
+            this.txtServidoExtraV.ReadOnly = true;
+            this.txtServidoExtraV.Size = new System.Drawing.Size(101, 30);
+            this.txtServidoExtraV.TabIndex = 85;
+            this.txtServidoExtraV.Text = "-88,888";
+            this.txtServidoExtraV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(126, 147);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 24);
+            this.label13.TabIndex = 84;
+            this.label13.Text = "Extra";
+            // 
+            // txtServidoExtra
+            // 
+            this.txtServidoExtra.BackColor = System.Drawing.Color.White;
+            this.txtServidoExtra.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServidoExtra.ForeColor = System.Drawing.Color.Black;
+            this.txtServidoExtra.Location = new System.Drawing.Point(177, 3);
+            this.txtServidoExtra.Name = "txtServidoExtra";
+            this.txtServidoExtra.ReadOnly = true;
+            this.txtServidoExtra.Size = new System.Drawing.Size(23, 30);
+            this.txtServidoExtra.TabIndex = 83;
+            this.txtServidoExtra.Text = "-88,888";
+            this.txtServidoExtra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtServidoExtra.Visible = false;
+            // 
             // label12
             // 
             this.label12.AutoSize = true;
@@ -758,6 +798,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblBateria,
+            this.pbBateria,
+            this.toolStripSeparator9,
             this.toolStripLabel4,
             this.toolStripSeparator6,
             this.lblCorral,
@@ -1116,42 +1159,22 @@
             this.txtBascula.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBascula.Visible = false;
             // 
-            // txtServidoExtra
+            // lblBateria
             // 
-            this.txtServidoExtra.BackColor = System.Drawing.Color.White;
-            this.txtServidoExtra.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServidoExtra.ForeColor = System.Drawing.Color.Black;
-            this.txtServidoExtra.Location = new System.Drawing.Point(177, 3);
-            this.txtServidoExtra.Name = "txtServidoExtra";
-            this.txtServidoExtra.ReadOnly = true;
-            this.txtServidoExtra.Size = new System.Drawing.Size(23, 30);
-            this.txtServidoExtra.TabIndex = 83;
-            this.txtServidoExtra.Text = "-88,888";
-            this.txtServidoExtra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtServidoExtra.Visible = false;
+            this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateria.Name = "lblBateria";
+            this.lblBateria.Size = new System.Drawing.Size(39, 37);
+            this.lblBateria.Text = "%";
             // 
-            // label13
+            // pbBateria
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(126, 147);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(58, 24);
-            this.label13.TabIndex = 84;
-            this.label13.Text = "Extra";
+            this.pbBateria.Name = "pbBateria";
+            this.pbBateria.Size = new System.Drawing.Size(50, 37);
             // 
-            // txtServidoExtraV
+            // toolStripSeparator9
             // 
-            this.txtServidoExtraV.BackColor = System.Drawing.Color.White;
-            this.txtServidoExtraV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServidoExtraV.ForeColor = System.Drawing.Color.Black;
-            this.txtServidoExtraV.Location = new System.Drawing.Point(109, 172);
-            this.txtServidoExtraV.Name = "txtServidoExtraV";
-            this.txtServidoExtraV.ReadOnly = true;
-            this.txtServidoExtraV.Size = new System.Drawing.Size(101, 30);
-            this.txtServidoExtraV.TabIndex = 85;
-            this.txtServidoExtraV.Text = "-88,888";
-            this.txtServidoExtraV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 40);
             // 
             // Servidas
             // 
@@ -1318,5 +1341,8 @@
         private System.Windows.Forms.TextBox txtServidoExtra;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox txtServidoExtraV;
+        private System.Windows.Forms.ToolStripLabel lblBateria;
+        private System.Windows.Forms.ToolStripProgressBar pbBateria;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
     }
 }

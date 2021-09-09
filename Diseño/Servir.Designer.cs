@@ -113,6 +113,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.txtVariacionV = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtServirFinV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtCorral = new System.Windows.Forms.Label();
@@ -124,7 +125,6 @@
             this.txtRacion = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.txtNumCarga = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelBarra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic9)).BeginInit();
@@ -897,9 +897,9 @@
             this.lblSigCorral.ForeColor = System.Drawing.Color.Black;
             this.lblSigCorral.Location = new System.Drawing.Point(-2, 0);
             this.lblSigCorral.Name = "lblSigCorral";
-            this.lblSigCorral.Size = new System.Drawing.Size(78, 46);
+            this.lblSigCorral.Size = new System.Drawing.Size(118, 46);
             this.lblSigCorral.TabIndex = 54;
-            this.lblSigCorral.Text = "Sig";
+            this.lblSigCorral.Text = "Sig C";
             // 
             // panelFaltaCorral
             // 
@@ -917,9 +917,9 @@
             this.lblFaltaCorral.ForeColor = System.Drawing.Color.Black;
             this.lblFaltaCorral.Location = new System.Drawing.Point(-2, 0);
             this.lblFaltaCorral.Name = "lblFaltaCorral";
-            this.lblFaltaCorral.Size = new System.Drawing.Size(108, 46);
+            this.lblFaltaCorral.Size = new System.Drawing.Size(116, 46);
             this.lblFaltaCorral.TabIndex = 54;
-            this.lblFaltaCorral.Text = "Falta";
+            this.lblFaltaCorral.Text = "Sin S";
             // 
             // btnAjustar
             // 
@@ -1016,7 +1016,7 @@
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel6.Controls.Add(this.txtPorc);
-            this.panel6.Location = new System.Drawing.Point(659, 717);
+            this.panel6.Location = new System.Drawing.Point(659, 716);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(284, 83);
             this.panel6.TabIndex = 118;
@@ -1063,6 +1063,19 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(268, 83);
             this.panel8.TabIndex = 120;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Lime;
+            this.label1.Location = new System.Drawing.Point(3, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(16, 20);
+            this.label1.TabIndex = 83;
+            this.label1.Text = "*";
+            this.label1.Visible = false;
             // 
             // txtServirFinV
             // 
@@ -1174,19 +1187,6 @@
             this.txtNumCarga.TabIndex = 75;
             this.txtNumCarga.Text = "88,888";
             this.txtNumCarga.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(3, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 20);
-            this.label1.TabIndex = 83;
-            this.label1.Text = "*";
-            this.label1.Visible = false;
             // 
             // Servir
             // 

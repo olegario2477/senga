@@ -2791,6 +2791,9 @@ namespace Senga
             lblWsActivoF.Value = Principal.instance.lblWsActivoF.Value;
             lblConectadoF.Value = Principal.instance.lblConectadoF.Value;
             lblGpsActivoF.Value = Principal.instance.lblGpsActivoF.Value;
+            lblBateriaActivoF.Value = Principal.instance.lblBateriaActivoF.Value;
+            lblBateria.Text = Principal.instance.lblBateria.Text;
+            pbBateria.Value = Principal.instance.pbBateria.Value;
 
             //if (wsactivo && lblConectadoF.Value == 1)
             //{

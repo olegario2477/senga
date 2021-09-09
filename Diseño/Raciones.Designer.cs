@@ -94,6 +94,11 @@
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblBateria = new System.Windows.Forms.ToolStripLabel();
+            this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -624,6 +629,9 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblBateria,
+            this.pbBateria,
+            this.toolStripSeparator5,
             this.toolStripLabel1,
             this.toolStripSeparator1,
             this.lblLatitud,
@@ -713,7 +721,9 @@
             this.toolStripLabel5,
             this.lblWsActivoF,
             this.toolStripLabel4,
-            this.lblGpsActivoF});
+            this.lblGpsActivoF,
+            this.toolStripLabel8,
+            this.lblBateriaActivoF});
             this.toolStrip2.Location = new System.Drawing.Point(0, 714);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1285, 34);
@@ -803,6 +813,37 @@
             this.txtCarga.TabIndex = 90;
             this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCarga.Visible = false;
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(43, 31);
+            this.toolStripLabel8.Text = "Pila";
+            // 
+            // lblBateriaActivoF
+            // 
+            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
+            this.lblBateriaActivoF.Maximum = 1;
+            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
+            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 31);
+            // 
+            // lblBateria
+            // 
+            this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateria.Name = "lblBateria";
+            this.lblBateria.Size = new System.Drawing.Size(39, 37);
+            this.lblBateria.Text = "%";
+            // 
+            // pbBateria
+            // 
+            this.pbBateria.Name = "pbBateria";
+            this.pbBateria.Size = new System.Drawing.Size(50, 37);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 40);
             // 
             // Raciones
             // 
@@ -922,5 +963,10 @@
         private System.Windows.Forms.DataGridView DGCargas;
         private System.Windows.Forms.TextBox txtNumCarga;
         private System.Windows.Forms.TextBox txtCarga;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
+        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
+        private System.Windows.Forms.ToolStripLabel lblBateria;
+        private System.Windows.Forms.ToolStripProgressBar pbBateria;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
     }
 }
