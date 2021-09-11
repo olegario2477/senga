@@ -785,6 +785,9 @@ namespace Senga
 
             //if (!dator.Equals("0")) { txtBruto.Text = dator; }
             txtBruto.Text = dator;
+
+            lblRecibePeso.Visible = ! lblRecibePeso.Visible;
+
             //if (dator.Equals("0") && vzeros.Length == maxzeros) { txtBruto.Text = dator; }            
             //if (pesoant != 0 || vzeros.Length > maxzeros) { vzeros = ""; }
 

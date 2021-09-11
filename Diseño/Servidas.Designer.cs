@@ -66,13 +66,13 @@
             this.txtJornada = new System.Windows.Forms.TextBox();
             this.txtCantidadT = new System.Windows.Forms.TextBox();
             this.panelServida = new System.Windows.Forms.Panel();
-            this.txtServidoExtraV = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtServidoExtra = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtBasculaV = new System.Windows.Forms.TextBox();
             this.txtFaltaV = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.txtServidoExtraV = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.txtServidoExtra = new System.Windows.Forms.TextBox();
             this.chartServidas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.txtFisicoV = new System.Windows.Forms.TextBox();
             this.txtPlanC = new System.Windows.Forms.TextBox();
@@ -88,6 +88,9 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblBateria = new System.Windows.Forms.ToolStripLabel();
+            this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.lblCorral = new System.Windows.Forms.ToolStripLabel();
@@ -126,9 +129,7 @@
             this.txtRealidadC = new System.Windows.Forms.TextBox();
             this.txtVariacionC = new System.Windows.Forms.TextBox();
             this.txtBascula = new System.Windows.Forms.TextBox();
-            this.lblBateria = new System.Windows.Forms.ToolStripLabel();
-            this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -482,7 +483,7 @@
             this.txtServido.Location = new System.Drawing.Point(3, 172);
             this.txtServido.Name = "txtServido";
             this.txtServido.ReadOnly = true;
-            this.txtServido.Size = new System.Drawing.Size(101, 30);
+            this.txtServido.Size = new System.Drawing.Size(207, 30);
             this.txtServido.TabIndex = 72;
             this.txtServido.Text = "-88,888";
             this.txtServido.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -491,7 +492,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(13, 148);
+            this.label9.Location = new System.Drawing.Point(66, 148);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(81, 24);
             this.label9.TabIndex = 73;
@@ -536,10 +537,7 @@
             // 
             // panelServida
             // 
-            this.panelServida.Controls.Add(this.txtServidoExtraV);
             this.panelServida.Controls.Add(this.txtPlan);
-            this.panelServida.Controls.Add(this.label13);
-            this.panelServida.Controls.Add(this.txtServidoExtra);
             this.panelServida.Controls.Add(this.txtRacion);
             this.panelServida.Controls.Add(this.label12);
             this.panelServida.Controls.Add(this.txtBasculaV);
@@ -564,43 +562,6 @@
             this.panelServida.Size = new System.Drawing.Size(440, 260);
             this.panelServida.TabIndex = 78;
             this.panelServida.Visible = false;
-            // 
-            // txtServidoExtraV
-            // 
-            this.txtServidoExtraV.BackColor = System.Drawing.Color.White;
-            this.txtServidoExtraV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServidoExtraV.ForeColor = System.Drawing.Color.Black;
-            this.txtServidoExtraV.Location = new System.Drawing.Point(109, 172);
-            this.txtServidoExtraV.Name = "txtServidoExtraV";
-            this.txtServidoExtraV.ReadOnly = true;
-            this.txtServidoExtraV.Size = new System.Drawing.Size(101, 30);
-            this.txtServidoExtraV.TabIndex = 85;
-            this.txtServidoExtraV.Text = "-88,888";
-            this.txtServidoExtraV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(126, 147);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(58, 24);
-            this.label13.TabIndex = 84;
-            this.label13.Text = "Extra";
-            // 
-            // txtServidoExtra
-            // 
-            this.txtServidoExtra.BackColor = System.Drawing.Color.White;
-            this.txtServidoExtra.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtServidoExtra.ForeColor = System.Drawing.Color.Black;
-            this.txtServidoExtra.Location = new System.Drawing.Point(177, 3);
-            this.txtServidoExtra.Name = "txtServidoExtra";
-            this.txtServidoExtra.ReadOnly = true;
-            this.txtServidoExtra.Size = new System.Drawing.Size(23, 30);
-            this.txtServidoExtra.TabIndex = 83;
-            this.txtServidoExtra.Text = "-88,888";
-            this.txtServidoExtra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtServidoExtra.Visible = false;
             // 
             // label12
             // 
@@ -648,11 +609,50 @@
             this.label11.TabIndex = 77;
             this.label11.Text = "Falta";
             // 
+            // txtServidoExtraV
+            // 
+            this.txtServidoExtraV.BackColor = System.Drawing.Color.White;
+            this.txtServidoExtraV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServidoExtraV.ForeColor = System.Drawing.Color.Black;
+            this.txtServidoExtraV.Location = new System.Drawing.Point(780, 706);
+            this.txtServidoExtraV.Name = "txtServidoExtraV";
+            this.txtServidoExtraV.ReadOnly = true;
+            this.txtServidoExtraV.Size = new System.Drawing.Size(36, 30);
+            this.txtServidoExtraV.TabIndex = 85;
+            this.txtServidoExtraV.Text = "-88,888";
+            this.txtServidoExtraV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtServidoExtraV.Visible = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(822, 712);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(58, 24);
+            this.label13.TabIndex = 84;
+            this.label13.Text = "Extra";
+            this.label13.Visible = false;
+            // 
+            // txtServidoExtra
+            // 
+            this.txtServidoExtra.BackColor = System.Drawing.Color.White;
+            this.txtServidoExtra.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServidoExtra.ForeColor = System.Drawing.Color.Black;
+            this.txtServidoExtra.Location = new System.Drawing.Point(713, 706);
+            this.txtServidoExtra.Name = "txtServidoExtra";
+            this.txtServidoExtra.ReadOnly = true;
+            this.txtServidoExtra.Size = new System.Drawing.Size(10, 30);
+            this.txtServidoExtra.TabIndex = 83;
+            this.txtServidoExtra.Text = "-88,888";
+            this.txtServidoExtra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtServidoExtra.Visible = false;
+            // 
             // chartServidas
             // 
             chartArea1.Name = "ChartArea1";
             this.chartServidas.ChartAreas.Add(chartArea1);
-            this.chartServidas.Location = new System.Drawing.Point(713, 697);
+            this.chartServidas.Location = new System.Drawing.Point(729, 697);
             this.chartServidas.Name = "chartServidas";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
@@ -800,6 +800,7 @@
             this.toolStripSeparator13,
             this.lblBateria,
             this.pbBateria,
+            this.lblBateriaTiempo,
             this.toolStripSeparator9,
             this.toolStripLabel4,
             this.toolStripSeparator6,
@@ -830,6 +831,23 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(6, 40);
+            // 
+            // lblBateria
+            // 
+            this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateria.Name = "lblBateria";
+            this.lblBateria.Size = new System.Drawing.Size(39, 37);
+            this.lblBateria.Text = "%";
+            // 
+            // pbBateria
+            // 
+            this.pbBateria.Name = "pbBateria";
+            this.pbBateria.Size = new System.Drawing.Size(50, 37);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 40);
             // 
             // toolStripLabel4
             // 
@@ -1159,22 +1177,12 @@
             this.txtBascula.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBascula.Visible = false;
             // 
-            // lblBateria
+            // lblBateriaTiempo
             // 
-            this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.lblBateria.Name = "lblBateria";
-            this.lblBateria.Size = new System.Drawing.Size(39, 37);
-            this.lblBateria.Text = "%";
-            // 
-            // pbBateria
-            // 
-            this.pbBateria.Name = "pbBateria";
-            this.pbBateria.Size = new System.Drawing.Size(50, 37);
-            // 
-            // toolStripSeparator9
-            // 
-            this.toolStripSeparator9.Name = "toolStripSeparator9";
-            this.toolStripSeparator9.Size = new System.Drawing.Size(6, 40);
+            this.lblBateriaTiempo.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateriaTiempo.Name = "lblBateriaTiempo";
+            this.lblBateriaTiempo.Size = new System.Drawing.Size(28, 37);
+            this.lblBateriaTiempo.Text = "-";
             // 
             // Servidas
             // 
@@ -1185,9 +1193,12 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1281, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.txtServidoExtraV);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.txtBascula);
             this.Controls.Add(this.chartServidas);
             this.Controls.Add(this.txtVariacionC);
+            this.Controls.Add(this.txtServidoExtra);
             this.Controls.Add(this.txtRealidadC);
             this.Controls.Add(this.panelMapa);
             this.Controls.Add(this.toolStrip1);
@@ -1344,5 +1355,6 @@
         private System.Windows.Forms.ToolStripLabel lblBateria;
         private System.Windows.Forms.ToolStripProgressBar pbBateria;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        public System.Windows.Forms.ToolStripLabel lblBateriaTiempo;
     }
 }

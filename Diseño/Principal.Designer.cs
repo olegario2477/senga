@@ -41,6 +41,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -91,6 +92,7 @@
             this.txtFullLifetime = new System.Windows.Forms.TextBox();
             this.txtChargeStatus = new System.Windows.Forms.TextBox();
             this.timerBateria = new System.Windows.Forms.Timer(this.components);
+            this.lblSQL = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -113,7 +115,7 @@
             this.panelGps.Controls.Add(this.picVerde);
             this.panelGps.Controls.Add(this.picRojo);
             this.panelGps.Controls.Add(this.chkWarning);
-            this.panelGps.Location = new System.Drawing.Point(33, 517);
+            this.panelGps.Location = new System.Drawing.Point(352, 481);
             this.panelGps.Name = "panelGps";
             this.panelGps.Size = new System.Drawing.Size(307, 57);
             this.panelGps.TabIndex = 48;
@@ -168,6 +170,7 @@
             this.toolStripSeparator13,
             this.lblBateria,
             this.pbBateria,
+            this.lblBateriaTiempo,
             this.toolStripSeparator5,
             this.toolStripLabel1,
             this.toolStripSeparator1,
@@ -207,6 +210,13 @@
             // 
             this.pbBateria.Name = "pbBateria";
             this.pbBateria.Size = new System.Drawing.Size(50, 41);
+            // 
+            // lblBateriaTiempo
+            // 
+            this.lblBateriaTiempo.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateriaTiempo.Name = "lblBateriaTiempo";
+            this.lblBateriaTiempo.Size = new System.Drawing.Size(35, 41);
+            this.lblBateriaTiempo.Text = "~";
             // 
             // toolStripSeparator5
             // 
@@ -645,6 +655,13 @@
             this.timerBateria.Interval = 10000;
             this.timerBateria.Tick += new System.EventHandler(this.timerBateria_Tick);
             // 
+            // lblSQL
+            // 
+            this.lblSQL.Location = new System.Drawing.Point(17, 192);
+            this.lblSQL.Name = "lblSQL";
+            this.lblSQL.Size = new System.Drawing.Size(307, 411);
+            this.lblSQL.TabIndex = 56;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -669,6 +686,7 @@
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnServidas);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblSQL);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -761,6 +779,8 @@
         public System.Windows.Forms.ToolStripLabel lblBateria;
         public System.Windows.Forms.ToolStripProgressBar pbBateria;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        public System.Windows.Forms.ToolStripLabel lblBateriaTiempo;
+        private System.Windows.Forms.Label lblSQL;
     }
 }
 

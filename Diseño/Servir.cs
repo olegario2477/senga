@@ -71,8 +71,13 @@ namespace Senga
             DataTable dt = new DataTable();
                      
 
+            txtBasculaIniV.Text = "0";
+            txtServirFinV.Text = "0";
             txtServirV.Text = "0";
             txtVariacionV.Text = "0";
+            txtPlanV.Text = "0";
+            txtPorc.Text = "0";
+            txtVarCab.Text = "0";
 
 
 
@@ -1288,7 +1293,8 @@ namespace Senga
             //    vzeros = "";
             //}
 
-            txtServirFin.Text = dator; 
+            txtServirFin.Text = dator;
+            lblRecibePeso.Visible = !lblRecibePeso.Visible;
 
             //---------------------------------------------------------------------------------
             //estable servirfin
@@ -1687,10 +1693,11 @@ namespace Senga
                 if (this.Enabled)
                 {
 
+                    //lblRecibePeso.Visible = !lblRecibePeso.Visible;
 
                     //char v = (char)serialPort1.ReadByte();
                     //byte b = (byte)serialPort1.ReadByte();
-                               
+
 
                     string indata = serialPort1.ReadExisting();
                     Thread.Sleep(10);

@@ -122,6 +122,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.txtCargaIniV = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtBrutoV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtCargaV = new System.Windows.Forms.Label();
@@ -1181,6 +1182,7 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel8.Controls.Add(this.lblRecibePeso);
             this.panel8.Controls.Add(this.lblEstable);
             this.panel8.Controls.Add(this.lblZero);
             this.panel8.Controls.Add(this.txtBrutoV);
@@ -1188,6 +1190,19 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(294, 83);
             this.panel8.TabIndex = 124;
+            // 
+            // lblRecibePeso
+            // 
+            this.lblRecibePeso.AutoSize = true;
+            this.lblRecibePeso.BackColor = System.Drawing.Color.Black;
+            this.lblRecibePeso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecibePeso.ForeColor = System.Drawing.Color.Lime;
+            this.lblRecibePeso.Location = new System.Drawing.Point(4, 29);
+            this.lblRecibePeso.Name = "lblRecibePeso";
+            this.lblRecibePeso.Size = new System.Drawing.Size(17, 17);
+            this.lblRecibePeso.TabIndex = 90;
+            this.lblRecibePeso.Text = ">";
+            this.lblRecibePeso.Visible = false;
             // 
             // txtBrutoV
             // 
@@ -1436,5 +1451,6 @@
         private System.Windows.Forms.Label txtCargaV;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label txtRacion;
+        private System.Windows.Forms.Label lblRecibePeso;
     }
 }

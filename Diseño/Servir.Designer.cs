@@ -113,7 +113,7 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.txtVariacionV = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtServirFinV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtCorral = new System.Windows.Forms.Label();
@@ -1055,7 +1055,7 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel8.Controls.Add(this.label1);
+            this.panel8.Controls.Add(this.lblRecibePeso);
             this.panel8.Controls.Add(this.lblZero);
             this.panel8.Controls.Add(this.lblEstable);
             this.panel8.Controls.Add(this.txtServirFinV);
@@ -1064,18 +1064,18 @@
             this.panel8.Size = new System.Drawing.Size(268, 83);
             this.panel8.TabIndex = 120;
             // 
-            // label1
+            // lblRecibePeso
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(3, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(16, 20);
-            this.label1.TabIndex = 83;
-            this.label1.Text = "*";
-            this.label1.Visible = false;
+            this.lblRecibePeso.AutoSize = true;
+            this.lblRecibePeso.BackColor = System.Drawing.Color.Black;
+            this.lblRecibePeso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecibePeso.ForeColor = System.Drawing.Color.Lime;
+            this.lblRecibePeso.Location = new System.Drawing.Point(3, 30);
+            this.lblRecibePeso.Name = "lblRecibePeso";
+            this.lblRecibePeso.Size = new System.Drawing.Size(17, 17);
+            this.lblRecibePeso.TabIndex = 83;
+            this.lblRecibePeso.Text = ">";
+            this.lblRecibePeso.Visible = false;
             // 
             // txtServirFinV
             // 
@@ -1385,6 +1385,6 @@
         private System.Windows.Forms.Label txtRacion;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label txtNumCarga;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblRecibePeso;
     }
 }

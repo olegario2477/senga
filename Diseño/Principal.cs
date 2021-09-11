@@ -48,6 +48,7 @@ namespace Senga
         Boolean wsactivo = false;
         String appgps = "GpsGateXP";
         String msgError = "";
+        String versionAct = "";
 
         //public void Start()
         //{
@@ -86,7 +87,7 @@ namespace Senga
       
         private void Principal_Load(object sender, EventArgs e)
         {
-     
+
             //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
@@ -100,11 +101,19 @@ namespace Senga
             //}
             //catch { }
 
-            this.Text = "v" + Application.ProductVersion + " - " + File.GetLastWriteTime(Application.ExecutablePath) + " - " + bitModo();
-               
-            lblVersion.Text = "v" + Application.ProductVersion + " - " + bitModo();
 
-            string texto="";
+
+            this.Text = "v" + Application.ProductVersion + " - " + File.GetLastWriteTime(Application.ExecutablePath) + " - " + bitModo();
+
+            versionAct = Application.ProductVersion;
+
+            lblVersion.Text = "v" + versionAct + " - " + bitModo();
+
+
+            //cambiosSQL(Application.ProductVersion);
+
+
+            string texto ="";
 
             posicionBotones();
             btnServidas.Focus();
@@ -2736,6 +2745,8 @@ namespace Senga
                                 pictureBox1.Visible = false;
                                 this.Refresh();
 
+                                cambiosSQL(versionAct);
+
                                 File.Copy(sourcePath, targetPath, true);
                                 
                                 Rename(actualPath, "Senga_"+ vactualPath + "_" + DateTime.Now.ToString("ddMMyyHHmmss"));
@@ -2761,6 +2772,51 @@ namespace Senga
                 //}
 
             }
+
+        }
+        private void cambiosSQL(String version) 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+            
+            lblSQL.Text = "";
+            Boolean activa = false;
+
+            string resource_data = Properties.Resources.SQL;
+            string[] words = resource_data.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string lines in words)
+            {
+
+                if (lines.Contains("--v"))
+                {
+
+                    version = version.Replace("--v","").Replace(";", "").Replace(".","");
+                    string ver = lines.Replace("--v","").Replace(";", "").Replace(".","");
+
+                    long v1 = long.Parse(version);
+                    long v2 = long.Parse(ver);
+                
+                    if (v1 <= v2)
+                    {
+                        activa = true;
+                    }                    
+
+                }
+
+                if (activa)
+                {
+                    lblSQL.Text += lines + '\r' + '\n';
+                    if (!lines.Substring(0, 2).ToLower().Equals("--"))
+                    {
+                        datos.p_sql = lines;
+                        datos.consultaSQL(ref dt, false);
+                    }
+                }
+
+            }
+
+
 
         }
 
@@ -2806,27 +2862,40 @@ namespace Senga
         {
         
             PowerStatus status = SystemInformation.PowerStatus;
+            
+            //cargando
             txtChargeStatus.Text = status.BatteryChargeStatus.ToString();
             
             if (status.BatteryFullLifetime == -1)
                 txtFullLifetime.Text = "Unknown";
             else
-                txtFullLifetime.Text =
-                    status.BatteryFullLifetime.ToString();
+                txtFullLifetime.Text = status.BatteryFullLifetime.ToString();
 
-            
+            //porcentaje
             txtCharge.Text = status.BatteryLifePercent.ToString("P0");
             pbBateria.Maximum = 100;
             float porc = status.BatteryLifePercent;
             porc *= 100;
             pbBateria.Value = Convert.ToInt32(porc);
             lblBateria.Text = pbBateria.Value.ToString() + " %";
+            
+            Console.WriteLine("Pila " + lblBateria.Text + "% " + DateTime.Now.ToString());
 
+            //horas
             if (status.BatteryLifeRemaining == -1)
+            {
                 txtLifeRemaining.Text = "Unknown";
+                lblBateriaTiempo.Text = "";
+            }
             else
-                txtLifeRemaining.Text =
-                    status.BatteryLifeRemaining.ToString();
+            {
+                txtLifeRemaining.Text = status.BatteryLifeRemaining.ToString();
+                int tsegundos = Convert.ToInt32(txtLifeRemaining.Text);
+                lblBateriaTiempo.Text = CalcularTiempo(tsegundos);            
+            }
+
+
+            //status cable
             txtLineStatus.Text = status.PowerLineStatus.ToString();
 
             if (status.PowerLineStatus.ToString().ToLower().Equals("offline"))
@@ -2836,10 +2905,17 @@ namespace Senga
             else if (status.PowerLineStatus.ToString().ToLower().Equals("online"))
             {
                 lblBateriaActivoF.Value = 1;
+                lblBateriaTiempo.Text = "~";
             }
 
-            Console.WriteLine("Pila " + lblBateria.Text + "% " + DateTime.Now.ToString());
+        }
 
+        private String CalcularTiempo(Int32 tsegundos)
+        {
+            Int32 horas = (tsegundos / 3600);
+            Int32 minutos = ((tsegundos - horas * 3600) / 60);
+            Int32 segundos = tsegundos - (horas * 3600 + minutos * 60);
+            return horas.ToString() + "h " + minutos.ToString() + "m";// + segundos.ToString();
         }
 
         private void btnBateria_Click(object sender, EventArgs e)

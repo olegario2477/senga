@@ -19,6 +19,12 @@ namespace Senga
             InitializeComponent();
             lblMensaje.Text = mensaje;
             picImagen.Image = imagenLista.Images[img];
+   
+
+            this.StartPosition = FormStartPosition.Manual;
+            this.Left = 900;
+            this.Top = 200;
+
         }
 
         private void btnSi_Click(object sender, EventArgs e)

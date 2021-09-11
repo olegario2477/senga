@@ -85,7 +85,7 @@ namespace Senga
 
                 TimeSpan ts;
 
-                txtReporte.Text += "Hora" + '\t' + "Tiempo" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
+                txtReporte.Text += "Hora" + '\t' + "Tiempo" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "%" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
                 
                 int i = 0;
 
@@ -114,11 +114,12 @@ namespace Senga
                     else
                     {
                         difvalor5 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - basfinAnt;
-                    }             
+                    }
 
+                    double porc = ( Double.Parse(row["Realidad"].ToString()) / Double.Parse(row["Planeado"].ToString()) * 100 ) - 100;
+                    porc = Math.Round(porc,1);
 
-
-                    txtReporte.Text += row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\t' + difvalor5.ToString() + '\r' + '\n';
+                    txtReporte.Text += row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\t' + porc.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\t' + difvalor5.ToString() + '\r' + '\n';
 
                     basfinAnt = Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
                     horaAnt = DateTime.Parse(row["Hora"].ToString());

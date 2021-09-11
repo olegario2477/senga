@@ -472,6 +472,9 @@ namespace Senga
                         DGServidas.FirstDisplayedScrollingRowIndex = rowIndex;
 
                         filaDatos(txtIdD.Text);
+
+                        ubicaCorralMapa();
+
                     }
 
                 }
@@ -980,7 +983,8 @@ namespace Senga
 
                 filaDatos(txtIdD.Text);
 
-              
+                ubicaCorralMapa();
+
             }
         }
 
@@ -992,9 +996,29 @@ namespace Senga
                 txtIdD.Text = (string)DGServidas.CurrentRow.Cells["IdD"].Value;
 
                 filaDatos(txtIdD.Text);
+
+                ubicaCorralMapa();
+
             }
         }
-        
+
+
+        private void ubicaCorralMapa() 
+        {
+
+            if (lblLatitud.Text.Equals("0"))
+            {
+
+                DataRow row = consultaUbicacion(txtCorral.Text);
+
+                if (row != null)
+                {
+                    gMapControl1.Position = new PointLatLng(double.Parse(row["lat1"].ToString()), double.Parse(row["lng1"].ToString()));
+                }
+            }
+
+        }
+
         private void filaDatos(string idd) 
         {
                                   
@@ -1503,7 +1527,7 @@ namespace Senga
                                 {
                                     if (dt.Rows.Count != 0)
                                     {
-                                        falta = long.Parse(cadenaCero(row["Realidad"].ToString())) - long.Parse(cadenaCero(row["Planeado"].ToString()));
+                                        falta = /*long.Parse(cadenaCero(row["Realidad"].ToString())) -*/ long.Parse(cadenaCero(row["Planeado"].ToString()));
                                     }
                                 }
                             }
@@ -1609,7 +1633,7 @@ namespace Senga
                                 {
                                     if (dt.Rows.Count != 0)
                                     {
-                                        falta = long.Parse(cadenaCero(row["Realidad"].ToString())) - long.Parse(cadenaCero(row["Planeado"].ToString()));
+                                        falta = /*long.Parse(cadenaCero(row["Realidad"].ToString())) -*/ long.Parse(cadenaCero(row["Planeado"].ToString()));
                                     }
                                 }
                             }
@@ -2027,6 +2051,90 @@ namespace Senga
 
         }
 
+
+        private DataRow consultaUbicacion(String corral)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            //this.Cursor = Cursors.WaitCursor;
+
+            datos.p_sql = "SELECT TOP 1 * FROM ubicacion WHERE corral ='" + corral + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //msgErrores(datos.p_error, Constants.MSG_ERROR);
+            }
+            else
+            {
+
+                //dtUbictmp.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    DataRow newRow = dtUbictmp.NewRow();
+
+                    newRow["corral"] = row["corral"];
+                    newRow["lat"] = row["latitud"];
+                    newRow["lng"] = row["longitud"];
+                    newRow["lat1"] = row["latitud1"];
+                    newRow["lng1"] = row["longitud1"];
+                    newRow["lat2"] = row["latitud2"];
+                    newRow["lng2"] = row["longitud2"];
+                    newRow["lat3"] = row["latitud3"];
+                    newRow["lng3"] = row["longitud3"];
+                    newRow["lat4"] = row["latitud4"];
+                    newRow["lng4"] = row["longitud4"];
+
+
+                    newRow["lat1m"] = (Convert.ToDouble(row["latitud1"]) + Convert.ToDouble(row["latitud2"])) / 2;
+                    newRow["lng1m"] = (Convert.ToDouble(row["longitud1"]) + Convert.ToDouble(row["longitud2"])) / 2;
+                    newRow["lat2m"] = (Convert.ToDouble(row["latitud2"]) + Convert.ToDouble(row["latitud3"])) / 2;
+                    newRow["lng2m"] = (Convert.ToDouble(row["longitud2"]) + Convert.ToDouble(row["longitud3"])) / 2;
+                    newRow["lat3m"] = (Convert.ToDouble(row["latitud3"]) + Convert.ToDouble(row["latitud4"])) / 2;
+                    newRow["lng3m"] = (Convert.ToDouble(row["longitud3"]) + Convert.ToDouble(row["longitud4"])) / 2;
+                    newRow["lat4m"] = (Convert.ToDouble(row["latitud4"]) + Convert.ToDouble(row["latitud1"])) / 2;
+                    newRow["lng4m"] = (Convert.ToDouble(row["longitud4"]) + Convert.ToDouble(row["longitud1"])) / 2;
+
+                    newRow["lat1a"] = (Convert.ToDouble(row["latitud1"]) + Convert.ToDouble(newRow["lat1m"])) / 2;
+                    newRow["lng1a"] = (Convert.ToDouble(row["longitud1"]) + Convert.ToDouble(newRow["lng1m"])) / 2;
+                    newRow["lat1b"] = (Convert.ToDouble(newRow["lat1m"]) + Convert.ToDouble(row["latitud2"])) / 2;
+                    newRow["lng1b"] = (Convert.ToDouble(newRow["lng1m"]) + Convert.ToDouble(row["longitud2"])) / 2;
+                    newRow["lat2a"] = (Convert.ToDouble(row["latitud2"]) + Convert.ToDouble(newRow["lat2m"])) / 2;
+                    newRow["lng2a"] = (Convert.ToDouble(row["longitud2"]) + Convert.ToDouble(newRow["lng2m"])) / 2;
+                    newRow["lat2b"] = (Convert.ToDouble(newRow["lat2m"]) + Convert.ToDouble(row["latitud3"])) / 2;
+                    newRow["lng2b"] = (Convert.ToDouble(newRow["lng2m"]) + Convert.ToDouble(row["longitud3"])) / 2;
+                    newRow["lat3a"] = (Convert.ToDouble(row["latitud3"]) + Convert.ToDouble(newRow["lat3m"])) / 2;
+                    newRow["lng3a"] = (Convert.ToDouble(row["longitud3"]) + Convert.ToDouble(newRow["lng3m"])) / 2;
+                    newRow["lat3b"] = (Convert.ToDouble(newRow["lat3m"]) + Convert.ToDouble(row["latitud4"])) / 2;
+                    newRow["lng3b"] = (Convert.ToDouble(newRow["lng3m"]) + Convert.ToDouble(row["longitud4"])) / 2;
+                    newRow["lat4a"] = (Convert.ToDouble(row["latitud4"]) + Convert.ToDouble(newRow["lat4m"])) / 2;
+                    newRow["lng4a"] = (Convert.ToDouble(row["longitud4"]) + Convert.ToDouble(newRow["lng4m"])) / 2;
+                    newRow["lat4b"] = (Convert.ToDouble(newRow["lat4m"]) + Convert.ToDouble(row["latitud1"])) / 2;
+                    newRow["lng4b"] = (Convert.ToDouble(newRow["lng4m"]) + Convert.ToDouble(row["longitud1"])) / 2;
+
+
+
+                    //dtUbictmp.Rows.Add(newRow);
+                    return newRow;
+
+                }
+
+                //dataGridUbicaciones.DataSource = dtUbictmp;
+                //formatoubicacionesGrid();
+                //lblCantidad.Text = dataGridUbicaciones.RowCount.ToString();
+
+            }
+
+            //this.Cursor = Cursors.Default;
+
+            return null;
+
+        }
+
         private void consultaUbicaciones()
         {
 
@@ -2173,6 +2281,7 @@ namespace Senga
 
             lblBateria.Text = Principal.instance.lblBateria.Text;
             pbBateria.Value = Principal.instance.pbBateria.Value;
+            lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
 
 
         }

@@ -331,8 +331,8 @@ namespace Senga
             DataTable table = new DataTable();
 
             table.Columns.Add("IdD", typeof(string));
-            table.Columns.Add("Hora", typeof(string));
-            table.Columns.Add("Tolva", typeof(string));
+            //table.Columns.Add("Hora", typeof(string));
+            //table.Columns.Add("Tolva", typeof(string));
             table.Columns.Add("Solicito", typeof(long));
             table.Columns.Add("Anterior", typeof(long));
             table.Columns.Add("Recibio", typeof(long));
@@ -355,8 +355,8 @@ namespace Senga
             //DGRaciones.Columns["Bruto"].Width = 0;
 
 
-            DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
+            //DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            //DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Solicito"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Recibio"].DefaultCellStyle.Format = "#,0.###";
@@ -475,7 +475,7 @@ namespace Senga
                     //------------------------------------
 
                     //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["IdD"].ToString(), row["Hora"].ToString(), row["Tolva"].ToString(), row["Solicito"].ToString(), anterior.ToString(), row["Carga"].ToString(), /*realidad.ToString(),*/ carga.ToString());
+                    table.Rows.Add(row["IdD"].ToString(),/* row["Hora"].ToString(), row["Tolva"].ToString(),*/ row["Solicito"].ToString(), anterior.ToString(), row["Carga"].ToString(), /*realidad.ToString(),*/ carga.ToString());
 
                     difant = dif;
                    
@@ -2794,6 +2794,7 @@ namespace Senga
             lblBateriaActivoF.Value = Principal.instance.lblBateriaActivoF.Value;
             lblBateria.Text = Principal.instance.lblBateria.Text;
             pbBateria.Value = Principal.instance.pbBateria.Value;
+            lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
 
             //if (wsactivo && lblConectadoF.Value == 1)
             //{
