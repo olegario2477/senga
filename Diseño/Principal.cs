@@ -110,7 +110,8 @@ namespace Senga
             lblVersion.Text = "v" + versionAct + " - " + bitModo();
 
 
-            //cambiosSQL(Application.ProductVersion);
+        
+            //cambiosSQL(versionAct);
 
 
             string texto ="";
@@ -2745,7 +2746,7 @@ namespace Senga
                                 pictureBox1.Visible = false;
                                 this.Refresh();
 
-                                cambiosSQL(versionAct);
+                                
 
                                 File.Copy(sourcePath, targetPath, true);
                                 

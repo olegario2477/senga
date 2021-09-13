@@ -18,7 +18,6 @@ alter table Cargas add column CargaIni long;
 alter table Raciones add column Bascula long DEFAULT 0;
 --v2021.9.11.2;
 CREATE TABLE Test ( Id LONG, Fecha DATE );
-alter table Test add column NumCarga long;
---v2021.9.11.6;
 alter table Test add column NumCarga1 long;
+--v2021.9.11.6;
 alter table Test add column NumCarga2 long;

@@ -76,6 +76,9 @@
             this.lblProcesadores = new System.Windows.Forms.Label();
             this.ws = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.chkWs = new System.Windows.Forms.CheckBox();
+            this.imageListCheck = new System.Windows.Forms.ImageList(this.components);
             this.label23 = new System.Windows.Forms.Label();
             this.txtServer = new System.Windows.Forms.TextBox();
             this.txtMandante = new System.Windows.Forms.TextBox();
@@ -134,9 +137,6 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
-            this.imageListCheck = new System.Windows.Forms.ImageList(this.components);
-            this.chkWs = new System.Windows.Forms.CheckBox();
-            this.label26 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -692,6 +692,37 @@
             this.groupBox2.Size = new System.Drawing.Size(1261, 531);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(41, 190);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(98, 31);
+            this.label26.TabIndex = 97;
+            this.label26.Text = "Activar";
+            // 
+            // chkWs
+            // 
+            this.chkWs.Appearance = System.Windows.Forms.Appearance.Button;
+            this.chkWs.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkWs.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.chkWs.ImageIndex = 0;
+            this.chkWs.ImageList = this.imageListCheck;
+            this.chkWs.Location = new System.Drawing.Point(236, 171);
+            this.chkWs.Name = "chkWs";
+            this.chkWs.Size = new System.Drawing.Size(102, 69);
+            this.chkWs.TabIndex = 96;
+            this.chkWs.UseVisualStyleBackColor = true;
+            this.chkWs.CheckedChanged += new System.EventHandler(this.chkWs_CheckedChanged);
+            // 
+            // imageListCheck
+            // 
+            this.imageListCheck.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListCheck.ImageStream")));
+            this.imageListCheck.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageListCheck.Images.SetKeyName(0, "icons8-switch-off-96.png");
+            this.imageListCheck.Images.SetKeyName(1, "icons8-switch-on-96.png");
             // 
             // label23
             // 
@@ -1382,37 +1413,6 @@
             this.btnMtto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
-            // 
-            // imageListCheck
-            // 
-            this.imageListCheck.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListCheck.ImageStream")));
-            this.imageListCheck.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListCheck.Images.SetKeyName(0, "icons8-switch-off-96.png");
-            this.imageListCheck.Images.SetKeyName(1, "icons8-switch-on-96.png");
-            // 
-            // chkWs
-            // 
-            this.chkWs.Appearance = System.Windows.Forms.Appearance.Button;
-            this.chkWs.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkWs.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.chkWs.ImageIndex = 0;
-            this.chkWs.ImageList = this.imageListCheck;
-            this.chkWs.Location = new System.Drawing.Point(236, 171);
-            this.chkWs.Name = "chkWs";
-            this.chkWs.Size = new System.Drawing.Size(102, 69);
-            this.chkWs.TabIndex = 96;
-            this.chkWs.UseVisualStyleBackColor = true;
-            this.chkWs.CheckedChanged += new System.EventHandler(this.chkWs_CheckedChanged);
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(41, 190);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(98, 31);
-            this.label26.TabIndex = 97;
-            this.label26.Text = "Activar";
             // 
             // Configurar
             // 
