@@ -92,6 +92,7 @@ namespace Senga
             DGJornadas.Left = 0;
             DGJornadas.Width = this.Width;
 
+            DGJornadas.Height = this.Height - btnCerrar.Height;
 
         }
 
@@ -535,7 +536,7 @@ namespace Senga
 
                 //}
 
-                Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
             }
         }

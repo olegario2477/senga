@@ -76,6 +76,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -99,7 +100,7 @@
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
-            this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -632,6 +633,7 @@
             this.toolStripSeparator13,
             this.lblBateria,
             this.pbBateria,
+            this.toolStripLabel9,
             this.lblBateriaTiempo,
             this.toolStripSeparator5,
             this.toolStripLabel1,
@@ -642,9 +644,9 @@
             this.toolStripSeparator4,
             this.lblLongitud,
             this.toolStripSeparator3});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 748);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 744);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1285, 40);
+            this.toolStrip1.Size = new System.Drawing.Size(1285, 44);
             this.toolStrip1.TabIndex = 86;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -652,78 +654,85 @@
             // 
             this.lblHora.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblHora.Name = "lblHora";
-            this.lblHora.Size = new System.Drawing.Size(75, 37);
+            this.lblHora.Size = new System.Drawing.Size(75, 41);
             this.lblHora.Text = "Hora";
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(6, 44);
             // 
             // lblBateria
             // 
             this.lblBateria.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblBateria.Name = "lblBateria";
-            this.lblBateria.Size = new System.Drawing.Size(39, 37);
+            this.lblBateria.Size = new System.Drawing.Size(39, 41);
             this.lblBateria.Text = "%";
             // 
             // pbBateria
             // 
             this.pbBateria.Name = "pbBateria";
-            this.pbBateria.Size = new System.Drawing.Size(50, 37);
+            this.pbBateria.Size = new System.Drawing.Size(50, 41);
+            // 
+            // lblBateriaTiempo
+            // 
+            this.lblBateriaTiempo.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblBateriaTiempo.Name = "lblBateriaTiempo";
+            this.lblBateriaTiempo.Size = new System.Drawing.Size(28, 41);
+            this.lblBateriaTiempo.Text = "-";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 44);
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 37);
+            this.toolStripLabel1.Size = new System.Drawing.Size(100, 41);
             this.toolStripLabel1.Text = "Latitud";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 44);
             // 
             // lblLatitud
             // 
             this.lblLatitud.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblLatitud.Name = "lblLatitud";
-            this.lblLatitud.Size = new System.Drawing.Size(32, 37);
+            this.lblLatitud.Size = new System.Drawing.Size(32, 41);
             this.lblLatitud.Text = "0";
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(124, 37);
+            this.toolStripLabel2.Size = new System.Drawing.Size(124, 41);
             this.toolStripLabel2.Text = "Longitud";
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
             // 
             // lblLongitud
             // 
             this.lblLongitud.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblLongitud.Name = "lblLongitud";
-            this.lblLongitud.Size = new System.Drawing.Size(32, 37);
+            this.lblLongitud.Size = new System.Drawing.Size(32, 41);
             this.lblLongitud.Text = "0";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 40);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
             // 
             // timerReloj
             // 
@@ -743,7 +752,7 @@
             this.lblGpsActivoF,
             this.toolStripLabel8,
             this.lblBateriaActivoF});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 714);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 710);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1285, 34);
             this.toolStrip2.TabIndex = 87;
@@ -847,12 +856,16 @@
             this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCarga.Visible = false;
             // 
-            // lblBateriaTiempo
+            // toolStripLabel9
             // 
-            this.lblBateriaTiempo.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.lblBateriaTiempo.Name = "lblBateriaTiempo";
-            this.lblBateriaTiempo.Size = new System.Drawing.Size(28, 37);
-            this.lblBateriaTiempo.Text = "-";
+            this.toolStripLabel9.AutoSize = false;
+            this.toolStripLabel9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLabel9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripLabel9.Name = "toolStripLabel9";
+            this.toolStripLabel9.Size = new System.Drawing.Size(13, 41);
+            this.toolStripLabel9.Text = "]";
+            this.toolStripLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Raciones
             // 
@@ -978,5 +991,6 @@
         private System.Windows.Forms.ToolStripProgressBar pbBateria;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         public System.Windows.Forms.ToolStripLabel lblBateriaTiempo;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel9;
     }
 }

@@ -766,7 +766,8 @@ namespace Senga
 
             double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
-            Comun.sonidoPorc(color, porc, false);
+            //Comun.sonidoPorc(color, porc, false);
+            Comun.sonidoPeso(color, long.Parse(cadenaCero(txtVariacion.Text)), false);
 
             return porc;
 

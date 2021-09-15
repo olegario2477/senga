@@ -107,7 +107,51 @@ namespace Senga
                 //Console.Beep(1600, 25);
                 //Console.Beep(1900, 25);
 
-                Console.WriteLine("<<BEEP>> % " + Convert.ToInt32(porc).ToString());
+                Console.WriteLine("<<BEEP-BEEP>> % " + Convert.ToInt32(porc).ToString());
+                if (opcColor)
+                {
+                    colorCampo(color, Color.Red, Color.White);
+                }
+            }
+
+        }
+
+        public static void sonidoPeso(Label color, long peso, Boolean opcColor)
+        {
+
+            int pesoAlarma = -100;
+            int pesoLleno = 0;
+
+            if (peso < pesoAlarma)
+            {
+                if (opcColor)
+                {
+                    colorCampo(color, Color.White, Color.Black);
+                }
+            }
+            else if (peso >= pesoAlarma && peso < pesoLleno)
+            {
+                Console.Beep(2000, 100);
+                Console.WriteLine("<<BEEP>> % " + Convert.ToInt32(peso).ToString());
+                if (opcColor)
+                {
+                    colorCampo(color, Color.Orange, Color.White);
+                }
+            }
+            else if (peso >= pesoLleno)
+            {
+
+                //Console.Beep(5000, 100);
+
+                Console.Beep(1420, 25);
+                Console.Beep(1400, 25);
+
+                //Console.Beep(1000, 25);
+                //Console.Beep(1300, 25);
+                //Console.Beep(1600, 25);
+                //Console.Beep(1900, 25);
+
+                Console.WriteLine("<<BEEP-BEEP>> % " + Convert.ToInt32(peso).ToString());
                 if (opcColor)
                 {
                     colorCampo(color, Color.Red, Color.White);

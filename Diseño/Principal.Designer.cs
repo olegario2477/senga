@@ -41,6 +41,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -93,6 +94,7 @@
             this.txtChargeStatus = new System.Windows.Forms.TextBox();
             this.timerBateria = new System.Windows.Forms.Timer(this.components);
             this.lblSQL = new System.Windows.Forms.Label();
+            this.btnTemperatura = new System.Windows.Forms.Button();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -170,6 +172,7 @@
             this.toolStripSeparator13,
             this.lblBateria,
             this.pbBateria,
+            this.toolStripLabel9,
             this.lblBateriaTiempo,
             this.toolStripSeparator5,
             this.toolStripLabel1,
@@ -210,6 +213,17 @@
             // 
             this.pbBateria.Name = "pbBateria";
             this.pbBateria.Size = new System.Drawing.Size(50, 41);
+            // 
+            // toolStripLabel9
+            // 
+            this.toolStripLabel9.AutoSize = false;
+            this.toolStripLabel9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLabel9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripLabel9.Name = "toolStripLabel9";
+            this.toolStripLabel9.Size = new System.Drawing.Size(13, 41);
+            this.toolStripLabel9.Text = "]";
+            this.toolStripLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblBateriaTiempo
             // 
@@ -662,6 +676,17 @@
             this.lblSQL.Size = new System.Drawing.Size(307, 411);
             this.lblSQL.TabIndex = 56;
             // 
+            // btnTemperatura
+            // 
+            this.btnTemperatura.Location = new System.Drawing.Point(282, 406);
+            this.btnTemperatura.Name = "btnTemperatura";
+            this.btnTemperatura.Size = new System.Drawing.Size(64, 58);
+            this.btnTemperatura.TabIndex = 57;
+            this.btnTemperatura.Text = "Temp";
+            this.btnTemperatura.UseVisualStyleBackColor = true;
+            this.btnTemperatura.Visible = false;
+            this.btnTemperatura.Click += new System.EventHandler(this.btnTemperatura_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -671,6 +696,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.btnTemperatura);
             this.Controls.Add(this.panelBateria);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizar);
@@ -781,6 +807,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
         public System.Windows.Forms.ToolStripLabel lblBateriaTiempo;
         private System.Windows.Forms.Label lblSQL;
+        private System.Windows.Forms.Button btnTemperatura;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel9;
     }
 }
 

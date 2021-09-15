@@ -12,7 +12,7 @@ using System.Net;
 using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
-
+using System.Management;
 
 namespace Senga
 {
@@ -101,6 +101,7 @@ namespace Senga
             //}
             //catch { }
 
+            //this.toolStrip2.Padding = new Padding((int)(this.Size.Width - 300), 0, 0, 0);
 
 
             this.Text = "v" + Application.ProductVersion + " - " + File.GetLastWriteTime(Application.ExecutablePath) + " - " + bitModo();
@@ -607,7 +608,12 @@ namespace Senga
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            Close();
+        
+            if (Comun.mensajeVer("¿ Desea salir de la aplicacion ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+            { 
+                  Close();    
+            }
+              
         }
 
         private Boolean validaBD(ref string texto) 
@@ -2736,7 +2742,7 @@ namespace Senga
                         //if (sourcedt == actualdt)
                         if (vsourcePath == vactualPath)
                         {
-                            Comun.mensajeVer("No hay actualizaciones", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                            Comun.mensajeVer("No hay actualizaciones a una nueva version de la App", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
                         }
                         else
                         {
@@ -2927,6 +2933,30 @@ namespace Senga
         private void timerBateria_Tick(object sender, EventArgs e)
         {
             ShowPowerStatus();
+        }
+
+        private void btnTemperatura_Click(object sender, EventArgs e)
+        {
+
+
+            Double temperature = 0;
+            String instanceName = "";
+
+
+            // Consultar la API MSAcpi_ThermalZoneTemperature
+            // Nota: ejecute su aplicación o Visual Studio (mientras programa) o obtendrá "Acceso denegado"
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher(@"root\WMI", "SELECT * FROM MSAcpi_ThermalZoneTemperature");
+
+            foreach (ManagementObject obj in searcher.Get())
+            {
+                temperature = Convert.ToDouble(obj["CurrentTemperature"].ToString());
+                // Convierta el valor a grados celsius
+                temperature = (temperature - 2732) / 10.0;
+                instanceName = obj["InstanceName"].ToString();
+            }
+
+            //btnTemperatura.Text = temperature.ToString();
+
         }
 
 

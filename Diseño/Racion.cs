@@ -144,9 +144,9 @@ namespace Senga
                     txtFisico.Text = fisico.ToString();
                     txtFisicoIni.Text = fisico.ToString();
 
-
-                    resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
-                    txtSolicitar.Text = resultado.ToString();
+                    llenaSolicitar();
+                    //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                    //txtSolicitar.Text = resultado.ToString();
 
                 }
 
@@ -1586,6 +1586,7 @@ namespace Senga
                 if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
                 {
                     txtBasculaIni.Text = txtBruto.Text;
+                    llenaSolicitar();
                 }
             
             }
@@ -1594,8 +1595,18 @@ namespace Senga
             {
                 //txtServirIni.Text = txtServirFin.Text;
                 txtBasculaIni.Text = txtBruto.Text;
+                llenaSolicitar();
 
             }
+
+        }
+        private void llenaSolicitar() 
+        {
+
+            int resultado;
+
+            resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+            txtSolicitar.Text = resultado.ToString();
 
         }
 

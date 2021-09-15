@@ -60,10 +60,11 @@
             // 
             this.DGJornadas.BackgroundColor = System.Drawing.Color.White;
             this.DGJornadas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGJornadas.Location = new System.Drawing.Point(3, 149);
+            this.DGJornadas.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.DGJornadas.Location = new System.Drawing.Point(0, 161);
             this.DGJornadas.Name = "DGJornadas";
             this.DGJornadas.RowTemplate.Height = 50;
-            this.DGJornadas.Size = new System.Drawing.Size(1246, 464);
+            this.DGJornadas.Size = new System.Drawing.Size(1264, 464);
             this.DGJornadas.TabIndex = 58;
             this.DGJornadas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGJornadas_CellContentClick);
             this.DGJornadas.SelectionChanged += new System.EventHandler(this.DGJornadas_SelectionChanged);
