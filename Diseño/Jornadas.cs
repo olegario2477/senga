@@ -205,7 +205,9 @@ namespace Senga
 
             table.Columns.Add("Jornada", typeof(string));
             table.Columns.Add("Fecha", typeof(string));
-            table.Columns.Add("Hora", typeof(string));
+            table.Columns.Add("Raciones", typeof(string));
+            table.Columns.Add("Corrales", typeof(string));
+
 
             DGJornadas.DataSource = table;
 
@@ -236,7 +238,14 @@ namespace Senga
             string id = "0";
             bool primero = true;
 
-            datos.p_sql = "SELECT Id, Fecha, Hora FROM jornadas ORDER by Id asc";
+            datos.p_sql =
+                "SELECT Jornadas.Id, Jornadas.Fecha, COUNT( Raciones.Id ) AS Raciones, SUM( Raciones.Cantidad ) AS Corrales , SUM( Raciones.Hechoc ) AS Hechos " +
+                "FROM Jornadas " +
+                "LEFT JOIN Raciones ON Jornadas.Id = Raciones.Id " +
+                "GROUP by Jornadas.Id, Jornadas.Fecha " +
+                "ORDER by Jornadas.Id asc";
+
+
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -246,7 +255,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    table.Rows.Add(row["Id"].ToString(), row["Fecha"].ToString().Substring(0, 10), row["Hora"].ToString());
+                    table.Rows.Add(row["Id"].ToString(), row["Fecha"].ToString().Substring(0, 10), row["Raciones"].ToString(), row["Hechos"].ToString() + "/" + row["Corrales"].ToString());
 
                     if (row["Id"].ToString() == "0" && primero)
                         if (primero)

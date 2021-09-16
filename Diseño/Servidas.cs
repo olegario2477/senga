@@ -118,6 +118,7 @@ namespace Senga
             btnHecho.Top = 0;
             btnQuitar.Top = 0;
             btnBuscar.Top = 0;
+            //btnAgregar.Top = 0;
 
 
 
@@ -125,6 +126,7 @@ namespace Senga
             btnHecho.Left = btnCerrar.Left - btnHecho.Width;
             btnQuitar.Left = btnHecho.Left - btnQuitar.Width;
             btnBuscar.Left = btnQuitar.Left - btnBuscar.Width;
+            //btnAgregar.Left = btnQuitar.Left - btnAgregar.Width;
 
 
 
@@ -2701,6 +2703,12 @@ namespace Senga
         private void toolStripButton4_Click(object sender, EventArgs e)
         {
             gMapControl1.Bearing += 90;
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Senga.Captura frm = new Senga.Captura(2);
+            frm.Show();
         }
 
         //private void trackBar1_Scroll(object sender, EventArgs e)

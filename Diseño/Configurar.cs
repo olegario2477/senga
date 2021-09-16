@@ -101,10 +101,11 @@ namespace Senga
 
         }
 
+
         private void comboPuertos() 
         {
 
-            portDescripcion();
+            //portDescripcion();
 
             string[] puertos = System.IO.Ports.SerialPort.GetPortNames();
             
@@ -138,28 +139,68 @@ namespace Senga
         private void portDescripcion() 
         {
 
-            //ManagementObjectCollection ManObjReturn;
-            //ManagementObjectSearcher ManObjSearch;
-            //ManObjSearch = new ManagementObjectSearcher("Select * from Win32_SerialPort");
-            //ManObjReturn = ManObjSearch.Get();
+            Cursor = Cursors.WaitCursor;
 
-            //foreach (ManagementObject ManObj in ManObjReturn)
+            try
+            {
+                ManagementObjectCollection ManObjReturn;
+                ManagementObjectSearcher ManObjSearch;
+                ManObjSearch = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'");
+                //ManObjSearch = new ManagementObjectSearcher("Select * from Win32_SerialPort");
+                ManObjReturn = ManObjSearch.Get();
+
+                listPuertos.Items.Clear();
+
+                foreach (ManagementObject ManObj in ManObjReturn)
+                {
+                    //int s = ManObj.Properties.Count;
+                    //foreach (PropertyData d in ManObj.Properties)
+                    //{
+                    //    MessageBox.Show(d.Name);
+                    //}
+                    //Console.WriteLine(ManObj["DeviceID"].ToString());
+                    //Console.WriteLine(ManObj["PNPDeviceID"].ToString());
+                    //Console.WriteLine(ManObj["Name"].ToString());
+                    //Console.WriteLine(ManObj["Caption"].ToString());
+                    //Console.WriteLine(ManObj["Description"].ToString());
+                    //Console.WriteLine(ManObj["ProviderType"].ToString());
+                    //Console.WriteLine(ManObj["Status"].ToString());
+
+                    //listPuertos.Items.Add(ManObj["DeviceID"].ToString() + " " + ManObj["Description"].ToString());
+                    listPuertos.Items.Add(ManObj["Caption"].ToString());
+
+
+                }
+            }
+            catch (Exception e)
+            {
+                Cursor = Cursors.Default;
+                Comun.mensajeVer(e.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            finally 
+            { 
+                Cursor = Cursors.Default;            
+            }
+
+            //try
             //{
-            //    //int s = ManObj.Properties.Count;
-            //    //foreach (PropertyData d in ManObj.Properties)
-            //    //{
-            //    //    MessageBox.Show(d.Name);
-            //    //}
-            //    Console.WriteLine(ManObj["DeviceID"].ToString());
-            //    Console.WriteLine(ManObj["PNPDeviceID"].ToString());
-            //    Console.WriteLine(ManObj["Name"].ToString());
-            //    Console.WriteLine(ManObj["Caption"].ToString());
-            //    Console.WriteLine(ManObj["Description"].ToString());
-            //    Console.WriteLine(ManObj["ProviderType"].ToString());
-            //    Console.WriteLine(ManObj["Status"].ToString());
+            //    ManagementObjectSearcher searcher =
+            //        new ManagementObjectSearcher("root\\CIMV2",
+            //        "SELECT * FROM Win32_PnPEntity");
 
+            //    foreach (ManagementObject queryObj in searcher.Get())
+            //    {
+            //        if (queryObj["Caption"].ToString().Contains("(COM"))
+            //        {
+            //            Console.WriteLine("serial port : {0}", queryObj["Caption"]);
+            //        }
+
+            //    }
             //}
-
+            //catch (ManagementException e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //}
 
         }
 
@@ -1785,6 +1826,10 @@ namespace Senga
             }        
         }
 
+        private void btnListPuertos_Click(object sender, EventArgs e)
+        {
+            portDescripcion();
+        }
     }
 
 }

@@ -882,67 +882,88 @@ namespace Senga
                 calcularPeso();
 
                 //-------------------------------------------------------------------------------------------------
-                double porc1 = Convert.ToDouble(txtServir.Text) / Convert.ToDouble(txtPlan.Text) * 100;
-
-                if (porc1 == 0) 
-                {                    
-                    guardar = false;
+                //double porc1 = Convert.ToDouble(txtServir.Text) / Convert.ToDouble(txtPlan.Text) * 100;
+                                
+                //if (porc1 == 0) 
+                //{                    
+                //    guardar = false;
                     
-                }
-                else if (porc1 > 100)
+                //}
+                //else if (porc1 > 100)
+                //{
+                //    //timerS.Enabled = false;
+                //    timerBeep.Enabled = false;
+                //    RecibirPeso = false;
+
+                //    porc1 = 100 - porc1;
+
+                //    //if (Math.Abs(Math.Round(porc1, 0)) > minvariacion)
+                //    if (Math.Abs(Convert.ToDouble(cadenaCero(txtVariacion.Text))) > minvariacion)
+                //    {
+                //        //string mensaje = "Peso Servido Excedio al Planeado\r\n¿ Confirma como Hecho ?";
+                //        string mensaje = "¿ Confirma Hecho ?";
+
+                //        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
+                //        //if (MessageBox.Show("Peso Servido Excedio " + minvariacion.ToString() + " % del Planeado, ¿ Confirma como Hecho ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                //        {
+                //            guardar = false;
+                //            //timerS.Enabled = true;
+                //            timerBeep.Enabled = true;
+                //            RecibirPeso = true;
+                //        }
+
+                //    }
+
+                //}
+                //else if (porc1 > 0 && porc1 <= 100)
+                //{
+                //    //timerS.Enabled = false;
+                //    timerBeep.Enabled = false;
+                //    RecibirPeso = false;
+
+                //    porc1 = 100 - porc1;
+
+                //    //if (Math.Abs(Math.Round(porc1, 0)) > minvariacion)
+                //    if (Math.Abs(Convert.ToDouble(cadenaCero(txtVariacion.Text))) > minvariacion)
+                //    {
+                //        //string mensaje = "Peso Servido " + txtServir.Text + " Kg\r\nFaltaron " + txtVariacion.Text + " Kg\r\n es Inferior al Planeado\r\n¿ Confirma como Hecho ?";
+                //        //string mensaje = "Peso Servido Inferior al Planeado\r\n¿ Confirma como Hecho ?";
+                //        string mensaje = "¿ Confirma Hecho ?";
+
+                //        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
+                //        //if (MessageBox.Show("Peso Servido Inferior al Planeado, ¿ Confirma como Hecho ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+                //        {
+                //            guardar = false;
+                //            //timerS.Enabled = true;
+                //            timerBeep.Enabled = true;
+                //            RecibirPeso = true;
+                //        }
+
+                //    }
+
+                //}
+
+                //--------------------
+
+                double variacion = Convert.ToDouble(cadenaCero(txtVariacion.Text));
+
+                if (Math.Abs(Convert.ToDouble(cadenaCero(txtVariacion.Text))) > minvariacion) 
                 {
-                    //timerS.Enabled = false;
+
                     timerBeep.Enabled = false;
                     RecibirPeso = false;
 
-                    porc1 = 100 - porc1;
-
-                    if (Math.Abs(Math.Round(porc1, 0)) > minvariacion)
+                    string mensaje = "¿ Confirma Hecho ?";
+                    if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
                     {
-                        //string mensaje = "Peso Servido Excedio al Planeado\r\n¿ Confirma como Hecho ?";
-                        string mensaje = "¿ Confirma Hecho ?";
-
-                        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
-                        //if (MessageBox.Show("Peso Servido Excedio " + minvariacion.ToString() + " % del Planeado, ¿ Confirma como Hecho ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                        {
-                            guardar = false;
-                            //timerS.Enabled = true;
-                            timerBeep.Enabled = true;
-                            RecibirPeso = true;
-                        }
-
+                        guardar = false;
+                        timerBeep.Enabled = true;
+                        RecibirPeso = true;
                     }
 
                 }
-                else if (porc1 > 0 && porc1 <= 100)
-                {
-                    //timerS.Enabled = false;
-                    timerBeep.Enabled = false;
-                    RecibirPeso = false;
 
-                    porc1 = 100 - porc1;
-
-                    if (Math.Abs(Math.Round(porc1, 0)) > minvariacion)
-                    {
-                        //string mensaje = "Peso Servido " + txtServir.Text + " Kg\r\nFaltaron " + txtVariacion.Text + " Kg\r\n es Inferior al Planeado\r\n¿ Confirma como Hecho ?";
-                        //string mensaje = "Peso Servido Inferior al Planeado\r\n¿ Confirma como Hecho ?";
-                        string mensaje = "¿ Confirma Hecho ?";
-
-                        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
-                        //if (MessageBox.Show("Peso Servido Inferior al Planeado, ¿ Confirma como Hecho ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-                        {
-                            guardar = false;
-                            //timerS.Enabled = true;
-                            timerBeep.Enabled = true;
-                            RecibirPeso = true;
-                        }
-
-                    }
-
-                }
                 //-------------------------------------------------------------------------------------------------
-
-
 
 
                 if (guardar)
@@ -985,7 +1006,8 @@ namespace Senga
                     division = division * 100;
                     resultado = 100 - Convert.ToInt32(division);
 
-                    if (resultado <= Convert.ToInt32(minvariacion))
+                    //if (resultado <= Convert.ToInt32(minvariacion))
+                    if (Math.Abs(variacion) <= Convert.ToDouble(minvariacion))
                     {
                         hecho = "S";
                     }
