@@ -95,10 +95,6 @@
             this.panelNumCarga = new System.Windows.Forms.Panel();
             this.panelBasculaIni = new System.Windows.Forms.Panel();
             this.lblBasculaIni = new System.Windows.Forms.Label();
-            this.panelSigCorral = new System.Windows.Forms.Panel();
-            this.lblSigCorral = new System.Windows.Forms.Label();
-            this.panelFaltaCorral = new System.Windows.Forms.Panel();
-            this.lblFaltaCorral = new System.Windows.Forms.Label();
             this.btnAjustar = new System.Windows.Forms.Button();
             this.panelBasculaIniV = new System.Windows.Forms.Panel();
             this.txtBasculaIniV = new System.Windows.Forms.Label();
@@ -117,14 +113,19 @@
             this.txtServirFinV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtCorral = new System.Windows.Forms.Label();
-            this.panel10 = new System.Windows.Forms.Panel();
-            this.txtSigCorral = new System.Windows.Forms.Label();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.txtFaltaCorral = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
             this.txtRacion = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
             this.txtNumCarga = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.txtFaltaCorral = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.txtSigCorral = new System.Windows.Forms.Label();
+            this.panelFaltaCorral = new System.Windows.Forms.Panel();
+            this.lblFaltaCorral = new System.Windows.Forms.Label();
+            this.panelSigCorral = new System.Windows.Forms.Panel();
+            this.lblSigCorral = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelBarra.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pic10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pic9)).BeginInit();
@@ -147,20 +148,19 @@
             this.panelRacion.SuspendLayout();
             this.panelNumCarga.SuspendLayout();
             this.panelBasculaIni.SuspendLayout();
-            this.panelSigCorral.SuspendLayout();
-            this.panelFaltaCorral.SuspendLayout();
             this.panelBasculaIniV.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.panel11.SuspendLayout();
             this.panel12.SuspendLayout();
             this.panel13.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panelFaltaCorral.SuspendLayout();
+            this.panelSigCorral.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnHecho
@@ -260,7 +260,7 @@
             this.lblRacion.AutoSize = true;
             this.lblRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRacion.ForeColor = System.Drawing.Color.Black;
-            this.lblRacion.Location = new System.Drawing.Point(-2, 0);
+            this.lblRacion.Location = new System.Drawing.Point(3, 28);
             this.lblRacion.Name = "lblRacion";
             this.lblRacion.Size = new System.Drawing.Size(146, 46);
             this.lblRacion.TabIndex = 54;
@@ -282,7 +282,7 @@
             this.lblNumCarga.AutoSize = true;
             this.lblNumCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNumCarga.ForeColor = System.Drawing.Color.Black;
-            this.lblNumCarga.Location = new System.Drawing.Point(-1, 0);
+            this.lblNumCarga.Location = new System.Drawing.Point(-2, 27);
             this.lblNumCarga.Name = "lblNumCarga";
             this.lblNumCarga.Size = new System.Drawing.Size(161, 46);
             this.lblNumCarga.TabIndex = 56;
@@ -315,9 +315,9 @@
             // btnCerrar
             // 
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
-            this.btnCerrar.Location = new System.Drawing.Point(1134, 12);
+            this.btnCerrar.Location = new System.Drawing.Point(1134, 15);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(138, 113);
+            this.btnCerrar.Size = new System.Drawing.Size(138, 105);
             this.btnCerrar.TabIndex = 58;
             this.btnCerrar.UseVisualStyleBackColor = true;
             this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
@@ -387,11 +387,11 @@
             // 
             this.lblEstable.AutoSize = true;
             this.lblEstable.BackColor = System.Drawing.Color.Black;
-            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstable.ForeColor = System.Drawing.Color.Lime;
-            this.lblEstable.Location = new System.Drawing.Point(3, 3);
+            this.lblEstable.Location = new System.Drawing.Point(4, 4);
             this.lblEstable.Name = "lblEstable";
-            this.lblEstable.Size = new System.Drawing.Size(18, 17);
+            this.lblEstable.Size = new System.Drawing.Size(48, 46);
             this.lblEstable.TabIndex = 61;
             this.lblEstable.Text = "E";
             this.lblEstable.Visible = false;
@@ -601,7 +601,6 @@
             // panelBarra
             // 
             this.panelBarra.BackColor = System.Drawing.SystemColors.Control;
-            this.panelBarra.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelBarra.Controls.Add(this.pic10);
             this.panelBarra.Controls.Add(this.pic9);
             this.panelBarra.Controls.Add(this.pic8);
@@ -700,7 +699,7 @@
             // pic2
             // 
             this.pic2.BackColor = System.Drawing.Color.Lime;
-            this.pic2.Location = new System.Drawing.Point(8, 244);
+            this.pic2.Location = new System.Drawing.Point(8, 245);
             this.pic2.Name = "pic2";
             this.pic2.Size = new System.Drawing.Size(119, 25);
             this.pic2.TabIndex = 1;
@@ -710,7 +709,7 @@
             // pic1
             // 
             this.pic1.BackColor = System.Drawing.Color.Lime;
-            this.pic1.Location = new System.Drawing.Point(8, 274);
+            this.pic1.Location = new System.Drawing.Point(8, 275);
             this.pic1.Name = "pic1";
             this.pic1.Size = new System.Drawing.Size(119, 25);
             this.pic1.TabIndex = 0;
@@ -816,6 +815,7 @@
             this.panelServP.Name = "panelServP";
             this.panelServP.Size = new System.Drawing.Size(185, 83);
             this.panelServP.TabIndex = 102;
+            this.panelServP.Visible = false;
             // 
             // panelServido
             // 
@@ -841,25 +841,25 @@
             this.panelCorral.Controls.Add(this.lblCorral);
             this.panelCorral.Location = new System.Drawing.Point(12, 13);
             this.panelCorral.Name = "panelCorral";
-            this.panelCorral.Size = new System.Drawing.Size(176, 113);
+            this.panelCorral.Size = new System.Drawing.Size(135, 113);
             this.panelCorral.TabIndex = 104;
             // 
             // panelRacion
             // 
             this.panelRacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelRacion.Controls.Add(this.lblRacion);
-            this.panelRacion.Location = new System.Drawing.Point(766, 10);
+            this.panelRacion.Location = new System.Drawing.Point(351, 15);
             this.panelRacion.Name = "panelRacion";
-            this.panelRacion.Size = new System.Drawing.Size(169, 53);
+            this.panelRacion.Size = new System.Drawing.Size(152, 109);
             this.panelRacion.TabIndex = 105;
             // 
             // panelNumCarga
             // 
             this.panelNumCarga.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelNumCarga.Controls.Add(this.lblNumCarga);
-            this.panelNumCarga.Location = new System.Drawing.Point(767, 71);
+            this.panelNumCarga.Location = new System.Drawing.Point(717, 18);
             this.panelNumCarga.Name = "panelNumCarga";
-            this.panelNumCarga.Size = new System.Drawing.Size(168, 52);
+            this.panelNumCarga.Size = new System.Drawing.Size(154, 105);
             this.panelNumCarga.TabIndex = 105;
             // 
             // panelBasculaIni
@@ -881,54 +881,16 @@
             this.lblBasculaIni.TabIndex = 75;
             this.lblBasculaIni.Text = "Bascu Ini";
             // 
-            // panelSigCorral
-            // 
-            this.panelSigCorral.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelSigCorral.Controls.Add(this.lblSigCorral);
-            this.panelSigCorral.Location = new System.Drawing.Point(468, 12);
-            this.panelSigCorral.Name = "panelSigCorral";
-            this.panelSigCorral.Size = new System.Drawing.Size(105, 53);
-            this.panelSigCorral.TabIndex = 109;
-            // 
-            // lblSigCorral
-            // 
-            this.lblSigCorral.AutoSize = true;
-            this.lblSigCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSigCorral.ForeColor = System.Drawing.Color.Black;
-            this.lblSigCorral.Location = new System.Drawing.Point(-2, 0);
-            this.lblSigCorral.Name = "lblSigCorral";
-            this.lblSigCorral.Size = new System.Drawing.Size(118, 46);
-            this.lblSigCorral.TabIndex = 54;
-            this.lblSigCorral.Text = "Sig C";
-            // 
-            // panelFaltaCorral
-            // 
-            this.panelFaltaCorral.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelFaltaCorral.Controls.Add(this.lblFaltaCorral);
-            this.panelFaltaCorral.Location = new System.Drawing.Point(468, 71);
-            this.panelFaltaCorral.Name = "panelFaltaCorral";
-            this.panelFaltaCorral.Size = new System.Drawing.Size(105, 53);
-            this.panelFaltaCorral.TabIndex = 110;
-            // 
-            // lblFaltaCorral
-            // 
-            this.lblFaltaCorral.AutoSize = true;
-            this.lblFaltaCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFaltaCorral.ForeColor = System.Drawing.Color.Black;
-            this.lblFaltaCorral.Location = new System.Drawing.Point(-2, 0);
-            this.lblFaltaCorral.Name = "lblFaltaCorral";
-            this.lblFaltaCorral.Size = new System.Drawing.Size(116, 46);
-            this.lblFaltaCorral.TabIndex = 54;
-            this.lblFaltaCorral.Text = "Sin S";
-            // 
             // btnAjustar
             // 
             this.btnAjustar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAjustar.Image = ((System.Drawing.Image)(resources.GetObject("btnAjustar.Image")));
             this.btnAjustar.Location = new System.Drawing.Point(9, 625);
             this.btnAjustar.Name = "btnAjustar";
             this.btnAjustar.Size = new System.Drawing.Size(451, 173);
             this.btnAjustar.TabIndex = 113;
             this.btnAjustar.Text = "AJUSTAR BASCULA";
+            this.btnAjustar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAjustar.UseVisualStyleBackColor = true;
             this.btnAjustar.Click += new System.EventHandler(this.btnAjustar_Click);
             // 
@@ -1015,30 +977,33 @@
             // panel6
             // 
             this.panel6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel6.Controls.Add(this.txtPorc);
             this.panel6.Location = new System.Drawing.Point(659, 716);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(284, 83);
             this.panel6.TabIndex = 118;
+            this.panel6.Visible = false;
             // 
             // txtPorc
             // 
-            this.txtPorc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPorc.Location = new System.Drawing.Point(0, 0);
+            this.txtPorc.BackColor = System.Drawing.Color.Black;
+            this.txtPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorc.ForeColor = System.Drawing.Color.Lime;
+            this.txtPorc.Location = new System.Drawing.Point(977, 254);
             this.txtPorc.Name = "txtPorc";
-            this.txtPorc.Size = new System.Drawing.Size(280, 79);
+            this.txtPorc.Size = new System.Drawing.Size(100, 45);
             this.txtPorc.TabIndex = 75;
-            this.txtPorc.Text = "-88,888";
-            this.txtPorc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtPorc.Text = "-888";
+            this.txtPorc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel7
             // 
-            this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel7.Controls.Add(this.label1);
+            this.panel7.Controls.Add(this.txtPorc);
+            this.panel7.Controls.Add(this.lblEstable);
             this.panel7.Controls.Add(this.txtVariacionV);
             this.panel7.Location = new System.Drawing.Point(12, 132);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(1116, 309);
+            this.panel7.Size = new System.Drawing.Size(1123, 309);
             this.panel7.TabIndex = 119;
             // 
             // txtVariacionV
@@ -1047,7 +1012,7 @@
             this.txtVariacionV.Font = new System.Drawing.Font("Microsoft Sans Serif", 200F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVariacionV.Location = new System.Drawing.Point(0, 0);
             this.txtVariacionV.Name = "txtVariacionV";
-            this.txtVariacionV.Size = new System.Drawing.Size(1112, 305);
+            this.txtVariacionV.Size = new System.Drawing.Size(1123, 309);
             this.txtVariacionV.TabIndex = 75;
             this.txtVariacionV.Text = "-88,888";
             this.txtVariacionV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1057,7 +1022,6 @@
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel8.Controls.Add(this.lblRecibePeso);
             this.panel8.Controls.Add(this.lblZero);
-            this.panel8.Controls.Add(this.lblEstable);
             this.panel8.Controls.Add(this.txtServirFinV);
             this.panel8.Location = new System.Drawing.Point(194, 536);
             this.panel8.Name = "panel8";
@@ -1092,78 +1056,38 @@
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel9.Controls.Add(this.txtCorral);
-            this.panel9.Location = new System.Drawing.Point(194, 13);
+            this.panel9.Location = new System.Drawing.Point(153, 14);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(268, 111);
+            this.panel9.Size = new System.Drawing.Size(192, 111);
             this.panel9.TabIndex = 121;
             // 
             // txtCorral
             // 
             this.txtCorral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCorral.Location = new System.Drawing.Point(0, 0);
             this.txtCorral.Name = "txtCorral";
-            this.txtCorral.Size = new System.Drawing.Size(264, 107);
+            this.txtCorral.Size = new System.Drawing.Size(188, 107);
             this.txtCorral.TabIndex = 75;
             this.txtCorral.Text = "8888";
             this.txtCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel10
-            // 
-            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel10.Controls.Add(this.txtSigCorral);
-            this.panel10.Location = new System.Drawing.Point(579, 12);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(181, 51);
-            this.panel10.TabIndex = 122;
-            // 
-            // txtSigCorral
-            // 
-            this.txtSigCorral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSigCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSigCorral.Location = new System.Drawing.Point(0, 0);
-            this.txtSigCorral.Name = "txtSigCorral";
-            this.txtSigCorral.Size = new System.Drawing.Size(177, 47);
-            this.txtSigCorral.TabIndex = 75;
-            this.txtSigCorral.Text = "8888";
-            this.txtSigCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel11
-            // 
-            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel11.Controls.Add(this.txtFaltaCorral);
-            this.panel11.Location = new System.Drawing.Point(579, 71);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(181, 51);
-            this.panel11.TabIndex = 123;
-            // 
-            // txtFaltaCorral
-            // 
-            this.txtFaltaCorral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtFaltaCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFaltaCorral.Location = new System.Drawing.Point(0, 0);
-            this.txtFaltaCorral.Name = "txtFaltaCorral";
-            this.txtFaltaCorral.Size = new System.Drawing.Size(177, 47);
-            this.txtFaltaCorral.TabIndex = 75;
-            this.txtFaltaCorral.Text = "8888";
-            this.txtFaltaCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel12
             // 
             this.panel12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel12.Controls.Add(this.txtRacion);
-            this.panel12.Location = new System.Drawing.Point(941, 12);
+            this.panel12.Location = new System.Drawing.Point(509, 17);
             this.panel12.Name = "panel12";
-            this.panel12.Size = new System.Drawing.Size(181, 51);
+            this.panel12.Size = new System.Drawing.Size(202, 106);
             this.panel12.TabIndex = 124;
             // 
             // txtRacion
             // 
             this.txtRacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRacion.Location = new System.Drawing.Point(0, 0);
             this.txtRacion.Name = "txtRacion";
-            this.txtRacion.Size = new System.Drawing.Size(177, 47);
+            this.txtRacion.Size = new System.Drawing.Size(198, 102);
             this.txtRacion.TabIndex = 75;
             this.txtRacion.Text = "8888";
             this.txtRacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1172,21 +1096,117 @@
             // 
             this.panel13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel13.Controls.Add(this.txtNumCarga);
-            this.panel13.Location = new System.Drawing.Point(941, 72);
+            this.panel13.Location = new System.Drawing.Point(877, 18);
             this.panel13.Name = "panel13";
-            this.panel13.Size = new System.Drawing.Size(181, 51);
+            this.panel13.Size = new System.Drawing.Size(251, 104);
             this.panel13.TabIndex = 125;
             // 
             // txtNumCarga
             // 
             this.txtNumCarga.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNumCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtNumCarga.Location = new System.Drawing.Point(0, 0);
             this.txtNumCarga.Name = "txtNumCarga";
-            this.txtNumCarga.Size = new System.Drawing.Size(177, 47);
+            this.txtNumCarga.Size = new System.Drawing.Size(247, 100);
             this.txtNumCarga.TabIndex = 75;
             this.txtNumCarga.Text = "88,888";
             this.txtNumCarga.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel11
+            // 
+            this.panel11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel11.Controls.Add(this.txtFaltaCorral);
+            this.panel11.Location = new System.Drawing.Point(1184, 645);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(26, 51);
+            this.panel11.TabIndex = 129;
+            this.panel11.Visible = false;
+            // 
+            // txtFaltaCorral
+            // 
+            this.txtFaltaCorral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtFaltaCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFaltaCorral.Location = new System.Drawing.Point(0, 0);
+            this.txtFaltaCorral.Name = "txtFaltaCorral";
+            this.txtFaltaCorral.Size = new System.Drawing.Size(22, 47);
+            this.txtFaltaCorral.TabIndex = 75;
+            this.txtFaltaCorral.Text = "8888";
+            this.txtFaltaCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel10
+            // 
+            this.panel10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel10.Controls.Add(this.txtSigCorral);
+            this.panel10.Location = new System.Drawing.Point(1184, 586);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(28, 51);
+            this.panel10.TabIndex = 128;
+            this.panel10.Visible = false;
+            // 
+            // txtSigCorral
+            // 
+            this.txtSigCorral.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtSigCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSigCorral.Location = new System.Drawing.Point(0, 0);
+            this.txtSigCorral.Name = "txtSigCorral";
+            this.txtSigCorral.Size = new System.Drawing.Size(24, 47);
+            this.txtSigCorral.TabIndex = 75;
+            this.txtSigCorral.Text = "8888";
+            this.txtSigCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelFaltaCorral
+            // 
+            this.panelFaltaCorral.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelFaltaCorral.Controls.Add(this.lblFaltaCorral);
+            this.panelFaltaCorral.Location = new System.Drawing.Point(1158, 644);
+            this.panelFaltaCorral.Name = "panelFaltaCorral";
+            this.panelFaltaCorral.Size = new System.Drawing.Size(20, 53);
+            this.panelFaltaCorral.TabIndex = 127;
+            this.panelFaltaCorral.Visible = false;
+            // 
+            // lblFaltaCorral
+            // 
+            this.lblFaltaCorral.AutoSize = true;
+            this.lblFaltaCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFaltaCorral.ForeColor = System.Drawing.Color.Black;
+            this.lblFaltaCorral.Location = new System.Drawing.Point(-2, 0);
+            this.lblFaltaCorral.Name = "lblFaltaCorral";
+            this.lblFaltaCorral.Size = new System.Drawing.Size(116, 46);
+            this.lblFaltaCorral.TabIndex = 54;
+            this.lblFaltaCorral.Text = "Sin S";
+            // 
+            // panelSigCorral
+            // 
+            this.panelSigCorral.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelSigCorral.Controls.Add(this.lblSigCorral);
+            this.panelSigCorral.Location = new System.Drawing.Point(1158, 585);
+            this.panelSigCorral.Name = "panelSigCorral";
+            this.panelSigCorral.Size = new System.Drawing.Size(20, 53);
+            this.panelSigCorral.TabIndex = 126;
+            this.panelSigCorral.Visible = false;
+            // 
+            // lblSigCorral
+            // 
+            this.lblSigCorral.AutoSize = true;
+            this.lblSigCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSigCorral.ForeColor = System.Drawing.Color.Black;
+            this.lblSigCorral.Location = new System.Drawing.Point(-2, 0);
+            this.lblSigCorral.Name = "lblSigCorral";
+            this.lblSigCorral.Size = new System.Drawing.Size(118, 46);
+            this.lblSigCorral.TabIndex = 54;
+            this.lblSigCorral.Text = "Sig C";
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Lime;
+            this.label1.Location = new System.Drawing.Point(1077, 254);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(29, 45);
+            this.label1.TabIndex = 76;
+            this.label1.Text = "%";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Servir
             // 
@@ -1196,8 +1216,6 @@
             this.ControlBox = false;
             this.Controls.Add(this.panel13);
             this.Controls.Add(this.panel12);
-            this.Controls.Add(this.panel11);
-            this.Controls.Add(this.panel10);
             this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel7);
@@ -1208,8 +1226,6 @@
             this.Controls.Add(this.panelBasculaIniV);
             this.Controls.Add(this.btnAjustar);
             this.Controls.Add(this.btnHecho);
-            this.Controls.Add(this.panelFaltaCorral);
-            this.Controls.Add(this.panelSigCorral);
             this.Controls.Add(this.txtServirIniV);
             this.Controls.Add(this.panelBasculaIni);
             this.Controls.Add(this.panelNumCarga);
@@ -1225,11 +1241,16 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelBarra);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panel11);
+            this.Controls.Add(this.panel10);
+            this.Controls.Add(this.panelFaltaCorral);
+            this.Controls.Add(this.panelSigCorral);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Servir";
+            this.ShowInTaskbar = false;
             this.Text = "Servir";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Servir_FormClosed);
@@ -1267,23 +1288,23 @@
             this.panelNumCarga.PerformLayout();
             this.panelBasculaIni.ResumeLayout(false);
             this.panelBasculaIni.PerformLayout();
-            this.panelSigCorral.ResumeLayout(false);
-            this.panelSigCorral.PerformLayout();
-            this.panelFaltaCorral.ResumeLayout(false);
-            this.panelFaltaCorral.PerformLayout();
             this.panelBasculaIniV.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
-            this.panel10.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
             this.panel12.ResumeLayout(false);
             this.panel13.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panelFaltaCorral.ResumeLayout(false);
+            this.panelFaltaCorral.PerformLayout();
+            this.panelSigCorral.ResumeLayout(false);
+            this.panelSigCorral.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1355,10 +1376,6 @@
         private System.Windows.Forms.TextBox txtBasculaIni;
         private System.Windows.Forms.Panel panelBasculaIni;
         private System.Windows.Forms.Label lblBasculaIni;
-        private System.Windows.Forms.Panel panelSigCorral;
-        private System.Windows.Forms.Label lblSigCorral;
-        private System.Windows.Forms.Panel panelFaltaCorral;
-        private System.Windows.Forms.Label lblFaltaCorral;
         private System.Windows.Forms.TextBox txtCarga;
         private System.Windows.Forms.Button btnAjustar;
         private System.Windows.Forms.Panel panelBasculaIniV;
@@ -1377,14 +1394,19 @@
         private System.Windows.Forms.Label txtServirFinV;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Label txtCorral;
-        private System.Windows.Forms.Panel panel10;
-        private System.Windows.Forms.Label txtSigCorral;
-        private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Label txtFaltaCorral;
         private System.Windows.Forms.Panel panel12;
         private System.Windows.Forms.Label txtRacion;
         private System.Windows.Forms.Panel panel13;
         private System.Windows.Forms.Label txtNumCarga;
         private System.Windows.Forms.Label lblRecibePeso;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Label txtFaltaCorral;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Label txtSigCorral;
+        private System.Windows.Forms.Panel panelFaltaCorral;
+        private System.Windows.Forms.Label lblFaltaCorral;
+        private System.Windows.Forms.Panel panelSigCorral;
+        private System.Windows.Forms.Label lblSigCorral;
+        private System.Windows.Forms.Label label1;
     }
 }

@@ -30,7 +30,7 @@ namespace Senga
 
         int lv_pos = 0;
         int lv_posr = 0;
-        string[] estable = new string[] { "0", "0", "0" };
+        string[] estable = new string[] { "0", "0", "0", "0", "0", "0" };
         string[] establer = new string[] { "0", "0" };
         int estr = 0;
         bool vestable = false;
@@ -1007,7 +1007,7 @@ namespace Senga
                     resultado = 100 - Convert.ToInt32(division);
 
                     //if (resultado <= Convert.ToInt32(minvariacion))
-                    if (Math.Abs(variacion) <= Convert.ToDouble(minvariacion))
+                    if ( variacion >= 0 || variacion >= (Convert.ToDouble(minvariacion) * -1))
                     {
                         hecho = "S";
                     }
@@ -1324,7 +1324,7 @@ namespace Senga
 
             lv_pos = lv_pos + 1;
 
-            if (lv_pos == 3)
+            if (lv_pos == 6) //3)
             {
                 lv_pos = 0;
             }
@@ -1332,7 +1332,11 @@ namespace Senga
             estable[lv_pos] = txtServirFin.Text; //txtServir.Text;
             //estable[lv_pos] = dator; //txtServir.Text;
 
-            if (estable[0] == estable[1] && estable[1] == estable[2])
+            if (estable[0] == estable[1] 
+                && estable[0] == estable[2]
+                && estable[0] == estable[3]
+                && estable[0] == estable[4]
+                && estable[0] == estable[5])            
             {
                 lblEst.ForeColor = Color.Green;
                 lblEst.Text = "Estable";
@@ -1382,6 +1386,7 @@ namespace Senga
             //---------------------------------------------------------------------------------
             //servir
 
+
             //resultado = Convert.ToInt32(txtServirIni.Text) - Convert.ToInt32(txtServirFin.Text);
             resultado = Convert.ToInt32(txtBasculaIni.Text) - Convert.ToInt32(txtServirFin.Text);
 
@@ -1390,22 +1395,25 @@ namespace Senga
                 //resultado = 0;
             }
 
+            //-----------------------------------------------------
             if (resultado < 0)
             {
                 if (vestable) //(resultado > -100)
                 {
-                    if (cantAjustes <= 2)
+                    if (cantAjustes <= 1)
                     {
-                        //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
-                        //--------------
-                        //txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
-                        //cantAjustes++;
-                        //Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
-                        //--------------
+                    //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
+                    //--------------
+                    txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
+                    cantAjustes++;
+                    Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                    //--------------
                     }
                 }
                 //resultado = 0;
             }
+            //-----------------------------------------------------
+
 
             txtServir.Text = resultado.ToString();
 
@@ -1444,6 +1452,7 @@ namespace Senga
             fomatoCampos();
 
             pesoant = pesoact;
+
 
 
         }

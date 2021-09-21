@@ -987,6 +987,8 @@ namespace Senga
 
                 ubicaCorralMapa();
 
+                filaAct();
+
             }
         }
 
@@ -1001,9 +1003,17 @@ namespace Senga
 
                 ubicaCorralMapa();
 
+                filaAct();
+
             }
         }
 
+        private void filaAct() 
+        {
+            txtFilaAct.Text = DGServidas.CurrentRow.Index.ToString();
+
+
+        }
 
         private void ubicaCorralMapa() 
         {
@@ -1385,13 +1395,13 @@ namespace Senga
 
         private void btnServida_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(1);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),1);
             frm.Show();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(2);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),2);
             frm.Show();
         }
 
@@ -2660,11 +2670,13 @@ namespace Senga
     
             };
 
-            int vplan = Int32.Parse(txtPlan.Text.Replace(",",""));
+            int vPlan = Int32.Parse(txtPlan.Text.Replace(",",""));
             int vServido = Int32.Parse(txtServido.Text.Replace(",", ""));
-            int vfalta = vplan - vServido;
+            int vFalta = Int32.Parse(txtFalta.Text.Replace(",", ""));
+            
+            //int vfalta = vplan - vServido;
 
-            double[] valores = { vServido, vfalta, 0, 0, 0, 0, 0, 0 };
+            double[] valores = { vPlan, vFalta, 0, 0, 0, 0, 0, 0 };
 
             //int totalcapas = overlayCeldas.Polygons.Count;
 
@@ -2707,7 +2719,7 @@ namespace Senga
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(2);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),2);
             frm.Show();
         }
 

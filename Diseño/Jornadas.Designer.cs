@@ -193,6 +193,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Jornadas";
+            this.ShowInTaskbar = false;
             this.Text = "Jornadas";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Jornadas_Activated);

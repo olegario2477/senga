@@ -13,11 +13,13 @@ namespace Senga
     {
 
         int vventana;
+        int vjornada;
 
-        public Captura(int ventana)
+        public Captura(int jornada, int ventana)
         {
             InitializeComponent();
             vventana = ventana;
+            vjornada = jornada;
         }
 
         private void Captura_Load(object sender, EventArgs e)

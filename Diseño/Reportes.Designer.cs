@@ -111,6 +111,7 @@ namespace Senga
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.Name = "Reportes";
+            this.ShowInTaskbar = false;
             this.Text = "Reporte";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Reportes_Load);

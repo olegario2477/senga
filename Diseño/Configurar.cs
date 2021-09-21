@@ -95,7 +95,20 @@ namespace Senga
 
 
 
+            btnEjecutar.Top = 0;
+            btnLimpia.Top = btnEjecutar.Top + btnLimpia.Height;
+            btnRecursos.Top = btnLimpia.Top + btnRecursos.Height;
+            btnTablas.Top = btnRecursos.Top + btnTablas.Height;
 
+
+
+            btnEjecutar.Left = this.Width - btnEjecutar.Width - 10;
+            btnLimpia.Left = btnEjecutar.Left;
+            btnRecursos.Left = btnEjecutar.Left;
+            btnTablas.Left = btnEjecutar.Left;
+
+
+            splitContainer1.Width = this.Width - btnEjecutar.Width - 50;
 
 
 

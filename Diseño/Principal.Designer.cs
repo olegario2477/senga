@@ -117,7 +117,7 @@
             this.panelGps.Controls.Add(this.picVerde);
             this.panelGps.Controls.Add(this.picRojo);
             this.panelGps.Controls.Add(this.chkWarning);
-            this.panelGps.Location = new System.Drawing.Point(352, 481);
+            this.panelGps.Location = new System.Drawing.Point(215, 192);
             this.panelGps.Name = "panelGps";
             this.panelGps.Size = new System.Drawing.Size(307, 57);
             this.panelGps.TabIndex = 48;
@@ -613,7 +613,7 @@
             this.panelBateria.Controls.Add(this.txtCharge);
             this.panelBateria.Controls.Add(this.txtFullLifetime);
             this.panelBateria.Controls.Add(this.txtChargeStatus);
-            this.panelBateria.Location = new System.Drawing.Point(352, 239);
+            this.panelBateria.Location = new System.Drawing.Point(528, 192);
             this.panelBateria.Name = "panelBateria";
             this.panelBateria.Size = new System.Drawing.Size(234, 225);
             this.panelBateria.TabIndex = 55;
@@ -678,7 +678,7 @@
             // 
             // btnTemperatura
             // 
-            this.btnTemperatura.Location = new System.Drawing.Point(282, 406);
+            this.btnTemperatura.Location = new System.Drawing.Point(690, 423);
             this.btnTemperatura.Name = "btnTemperatura";
             this.btnTemperatura.Size = new System.Drawing.Size(64, 58);
             this.btnTemperatura.TabIndex = 57;
@@ -719,6 +719,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Principal";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

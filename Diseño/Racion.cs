@@ -30,11 +30,12 @@ namespace Senga
         int pesoact = 0;
         int pesostop = 0;
         int pesomargen = 0;
-        string[] estable = new string[] { "0", "0", "0" };
+        string[] estable = new string[] { "0", "0", "0", "0", "0", "0" };
         bool vestable = false;
         int lv_pos = 0;
         string vzeros = "";
         string vpeso = "";
+        int cantAjustes = 1;
         bool beepOn = true;
 
         public Racion(string idd, string id)
@@ -841,14 +842,18 @@ namespace Senga
 
             lv_pos = lv_pos + 1;
 
-            if (lv_pos == 3)
+            if (lv_pos == 6)//3)
             {
                 lv_pos = 0;
             }
 
             estable[lv_pos] = txtBruto.Text; //txtServir.Text;
 
-            if (estable[0] == estable[1] && estable[1] == estable[2])
+            if (estable[0] == estable[1] 
+                && estable[0] == estable[2]
+                && estable[0] == estable[3]
+                && estable[0] == estable[4]
+                && estable[0] == estable[5])
             {
                 //lblEst.ForeColor = Color.Green;
                 //lblEst.Text = "Estable";
@@ -863,17 +868,37 @@ namespace Senga
                 lblEstable.Visible = false;
             }
 
+            //----------------------------------------------------------------------------------------
+            resultado = Convert.ToInt32(txtBruto.Text) - Convert.ToInt32(txtBasculaIni.Text);
+            if (resultado < 0)
+            {
+                if (vestable) //(resultado > -100)
+                {
+                    if (cantAjustes <= 1)
+                    {
+                    //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
+                    //--------------
+                    txtBasculaIni.Text = txtBruto.Text; //AJUSTAR
+                    cantAjustes++;
+                    llenaSolicitar();
+                    Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+                    //--------------
+                    }
+                }
+                //resultado = 0;
+            }
+            //----------------------------------------------------------------------------------------
 
             //if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
             //{
-                //txtBasculaIni.Text = txtBruto.Text;
+            //txtBasculaIni.Text = txtBruto.Text;
 
-                //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
-                //if (resultado < 0)
-                //{ 
-                //    resultado = 0; 
-                //}
-                //txtSolicitar.Text = resultado.ToString();
+            //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+            //if (resultado < 0)
+            //{ 
+            //    resultado = 0; 
+            //}
+            //txtSolicitar.Text = resultado.ToString();
 
 
             //}
@@ -931,7 +956,7 @@ namespace Senga
 
         private void btnRacion_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(3);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(vjornada),3);
             frm.Show();
         }
 
@@ -1017,7 +1042,7 @@ namespace Senga
 
         private void btnTolva_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(5);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(vjornada),5);
             frm.Show();
         }
 

@@ -53,12 +53,12 @@
             this.txtCorrales = new System.Windows.Forms.TextBox();
             this.txtHechos = new System.Windows.Forms.TextBox();
             this.panelRacion = new System.Windows.Forms.Panel();
+            this.txtVueltas = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtTolva = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtPlanta = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtVueltas = new System.Windows.Forms.TextBox();
             this.lblCantidad = new System.Windows.Forms.Label();
             this.btnSincroniza = new System.Windows.Forms.Button();
             this.lblPlanes = new System.Windows.Forms.Label();
@@ -76,6 +76,7 @@
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -100,7 +101,6 @@
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
-            this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -145,7 +145,7 @@
             this.btnCargar.Image = ((System.Drawing.Image)(resources.GetObject("btnCargar.Image")));
             this.btnCargar.Location = new System.Drawing.Point(3, 452);
             this.btnCargar.Name = "btnCargar";
-            this.btnCargar.Size = new System.Drawing.Size(316, 227);
+            this.btnCargar.Size = new System.Drawing.Size(318, 227);
             this.btnCargar.TabIndex = 58;
             this.btnCargar.Text = "Cargar";
             this.btnCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -169,30 +169,32 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(10, 188);
+            this.label5.Location = new System.Drawing.Point(3, 247);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(86, 25);
             this.label5.TabIndex = 63;
             this.label5.Text = "Camion";
+            this.label5.Visible = false;
             // 
             // txtCamion
             // 
             this.txtCamion.BackColor = System.Drawing.Color.White;
             this.txtCamion.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCamion.ForeColor = System.Drawing.Color.Black;
-            this.txtCamion.Location = new System.Drawing.Point(0, 216);
+            this.txtCamion.Location = new System.Drawing.Point(171, 234);
             this.txtCamion.Name = "txtCamion";
             this.txtCamion.ReadOnly = true;
-            this.txtCamion.Size = new System.Drawing.Size(102, 38);
+            this.txtCamion.Size = new System.Drawing.Size(24, 38);
             this.txtCamion.TabIndex = 62;
             this.txtCamion.Text = "1";
             this.txtCamion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCamion.Visible = false;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(221, 120);
+            this.label4.Location = new System.Drawing.Point(113, 83);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 25);
             this.label4.TabIndex = 61;
@@ -201,12 +203,12 @@
             // txtServida
             // 
             this.txtServida.BackColor = System.Drawing.Color.White;
-            this.txtServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServida.ForeColor = System.Drawing.Color.Black;
-            this.txtServida.Location = new System.Drawing.Point(214, 148);
+            this.txtServida.Location = new System.Drawing.Point(0, 111);
             this.txtServida.Name = "txtServida";
             this.txtServida.ReadOnly = true;
-            this.txtServida.Size = new System.Drawing.Size(102, 38);
+            this.txtServida.Size = new System.Drawing.Size(316, 53);
             this.txtServida.TabIndex = 60;
             this.txtServida.Text = "1";
             this.txtServida.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -247,12 +249,12 @@
             // txtRacion
             // 
             this.txtRacion.BackColor = System.Drawing.Color.White;
-            this.txtRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRacion.ForeColor = System.Drawing.Color.Black;
             this.txtRacion.Location = new System.Drawing.Point(0, 29);
             this.txtRacion.Name = "txtRacion";
             this.txtRacion.ReadOnly = true;
-            this.txtRacion.Size = new System.Drawing.Size(316, 83);
+            this.txtRacion.Size = new System.Drawing.Size(316, 53);
             this.txtRacion.TabIndex = 68;
             this.txtRacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -295,7 +297,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(10, 120);
+            this.label1.Location = new System.Drawing.Point(5, 178);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 25);
             this.label1.TabIndex = 72;
@@ -306,7 +308,7 @@
             this.txtJornada.BackColor = System.Drawing.Color.White;
             this.txtJornada.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtJornada.ForeColor = System.Drawing.Color.Black;
-            this.txtJornada.Location = new System.Drawing.Point(0, 148);
+            this.txtJornada.Location = new System.Drawing.Point(0, 206);
             this.txtJornada.Name = "txtJornada";
             this.txtJornada.ReadOnly = true;
             this.txtJornada.Size = new System.Drawing.Size(102, 38);
@@ -377,12 +379,12 @@
             // 
             // panelRacion
             // 
+            this.panelRacion.Controls.Add(this.txtVueltas);
             this.panelRacion.Controls.Add(this.label7);
             this.panelRacion.Controls.Add(this.txtTolva);
             this.panelRacion.Controls.Add(this.label6);
             this.panelRacion.Controls.Add(this.txtPlanta);
             this.panelRacion.Controls.Add(this.label3);
-            this.panelRacion.Controls.Add(this.txtVueltas);
             this.panelRacion.Controls.Add(this.lblCantidad);
             this.panelRacion.Controls.Add(this.label1);
             this.panelRacion.Controls.Add(this.txtServida);
@@ -394,15 +396,27 @@
             this.panelRacion.Controls.Add(this.txtJornada);
             this.panelRacion.Location = new System.Drawing.Point(3, 149);
             this.panelRacion.Name = "panelRacion";
-            this.panelRacion.Size = new System.Drawing.Size(316, 289);
+            this.panelRacion.Size = new System.Drawing.Size(316, 304);
             this.panelRacion.TabIndex = 77;
             this.panelRacion.Visible = false;
+            // 
+            // txtVueltas
+            // 
+            this.txtVueltas.BackColor = System.Drawing.Color.White;
+            this.txtVueltas.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVueltas.ForeColor = System.Drawing.Color.Black;
+            this.txtVueltas.Location = new System.Drawing.Point(213, 206);
+            this.txtVueltas.Name = "txtVueltas";
+            this.txtVueltas.ReadOnly = true;
+            this.txtVueltas.Size = new System.Drawing.Size(103, 38);
+            this.txtVueltas.TabIndex = 74;
+            this.txtVueltas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(126, 189);
+            this.label7.Location = new System.Drawing.Point(95, 247);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(66, 25);
             this.label7.TabIndex = 79;
@@ -414,10 +428,10 @@
             this.txtTolva.BackColor = System.Drawing.Color.White;
             this.txtTolva.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTolva.ForeColor = System.Drawing.Color.Black;
-            this.txtTolva.Location = new System.Drawing.Point(107, 216);
+            this.txtTolva.Location = new System.Drawing.Point(260, 234);
             this.txtTolva.Name = "txtTolva";
             this.txtTolva.ReadOnly = true;
-            this.txtTolva.Size = new System.Drawing.Size(102, 38);
+            this.txtTolva.Size = new System.Drawing.Size(27, 38);
             this.txtTolva.TabIndex = 78;
             this.txtTolva.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTolva.Visible = false;
@@ -426,7 +440,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(124, 120);
+            this.label6.Location = new System.Drawing.Point(121, 178);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(73, 25);
             this.label6.TabIndex = 77;
@@ -437,7 +451,7 @@
             this.txtPlanta.BackColor = System.Drawing.Color.White;
             this.txtPlanta.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPlanta.ForeColor = System.Drawing.Color.Black;
-            this.txtPlanta.Location = new System.Drawing.Point(107, 148);
+            this.txtPlanta.Location = new System.Drawing.Point(107, 206);
             this.txtPlanta.Name = "txtPlanta";
             this.txtPlanta.ReadOnly = true;
             this.txtPlanta.Size = new System.Drawing.Size(102, 38);
@@ -448,30 +462,18 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(222, 189);
+            this.label3.Location = new System.Drawing.Point(221, 178);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(85, 25);
             this.label3.TabIndex = 75;
             this.label3.Text = "Vueltas";
-            // 
-            // txtVueltas
-            // 
-            this.txtVueltas.BackColor = System.Drawing.Color.White;
-            this.txtVueltas.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVueltas.ForeColor = System.Drawing.Color.Black;
-            this.txtVueltas.Location = new System.Drawing.Point(214, 216);
-            this.txtVueltas.Name = "txtVueltas";
-            this.txtVueltas.ReadOnly = true;
-            this.txtVueltas.Size = new System.Drawing.Size(102, 38);
-            this.txtVueltas.TabIndex = 74;
-            this.txtVueltas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblCantidad
             // 
             this.lblCantidad.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidad.ForeColor = System.Drawing.Color.Black;
-            this.lblCantidad.Location = new System.Drawing.Point(0, 257);
+            this.lblCantidad.Location = new System.Drawing.Point(0, 272);
             this.lblCantidad.Name = "lblCantidad";
             this.lblCantidad.Size = new System.Drawing.Size(316, 32);
             this.lblCantidad.TabIndex = 73;
@@ -674,6 +676,17 @@
             this.pbBateria.Name = "pbBateria";
             this.pbBateria.Size = new System.Drawing.Size(50, 41);
             // 
+            // toolStripLabel9
+            // 
+            this.toolStripLabel9.AutoSize = false;
+            this.toolStripLabel9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripLabel9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.toolStripLabel9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripLabel9.Name = "toolStripLabel9";
+            this.toolStripLabel9.Size = new System.Drawing.Size(13, 41);
+            this.toolStripLabel9.Text = "]";
+            this.toolStripLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lblBateriaTiempo
             // 
             this.lblBateriaTiempo.Font = new System.Drawing.Font("Segoe UI", 20F);
@@ -856,17 +869,6 @@
             this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCarga.Visible = false;
             // 
-            // toolStripLabel9
-            // 
-            this.toolStripLabel9.AutoSize = false;
-            this.toolStripLabel9.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripLabel9.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.toolStripLabel9.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.toolStripLabel9.Name = "toolStripLabel9";
-            this.toolStripLabel9.Size = new System.Drawing.Size(13, 41);
-            this.toolStripLabel9.Text = "]";
-            this.toolStripLabel9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // Raciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -896,9 +898,11 @@
             this.Controls.Add(this.DGRaciones);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Raciones";
+            this.ShowInTaskbar = false;
             this.Text = "Raciones";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Raciones_Activated);

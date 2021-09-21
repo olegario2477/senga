@@ -132,6 +132,7 @@
             this.txtVariacionC = new System.Windows.Forms.TextBox();
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.btnAgregar = new System.Windows.Forms.Button();
+            this.txtFilaAct = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -173,7 +174,7 @@
             // 
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.Image = ((System.Drawing.Image)(resources.GetObject("btnBuscar.Image")));
-            this.btnBuscar.Location = new System.Drawing.Point(731, 0);
+            this.btnBuscar.Location = new System.Drawing.Point(664, 0);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(149, 149);
             this.btnBuscar.TabIndex = 1;
@@ -211,7 +212,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(18, 202);
+            this.label4.Location = new System.Drawing.Point(228, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(80, 24);
             this.label4.TabIndex = 48;
@@ -222,7 +223,7 @@
             this.txtServida.BackColor = System.Drawing.Color.White;
             this.txtServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtServida.ForeColor = System.Drawing.Color.Black;
-            this.txtServida.Location = new System.Drawing.Point(3, 227);
+            this.txtServida.Location = new System.Drawing.Point(217, 172);
             this.txtServida.Name = "txtServida";
             this.txtServida.ReadOnly = true;
             this.txtServida.Size = new System.Drawing.Size(102, 30);
@@ -235,10 +236,10 @@
             this.txtCabezas.BackColor = System.Drawing.Color.White;
             this.txtCabezas.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCabezas.ForeColor = System.Drawing.Color.Black;
-            this.txtCabezas.Location = new System.Drawing.Point(111, 227);
+            this.txtCabezas.Location = new System.Drawing.Point(325, 172);
             this.txtCabezas.Name = "txtCabezas";
             this.txtCabezas.ReadOnly = true;
-            this.txtCabezas.Size = new System.Drawing.Size(99, 30);
+            this.txtCabezas.Size = new System.Drawing.Size(113, 30);
             this.txtCabezas.TabIndex = 46;
             this.txtCabezas.Text = "888";
             this.txtCabezas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -247,7 +248,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(110, 202);
+            this.label3.Location = new System.Drawing.Point(335, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 24);
             this.label3.TabIndex = 45;
@@ -593,10 +594,10 @@
             this.txtFaltaV.BackColor = System.Drawing.Color.White;
             this.txtFaltaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFaltaV.ForeColor = System.Drawing.Color.Black;
-            this.txtFaltaV.Location = new System.Drawing.Point(217, 172);
+            this.txtFaltaV.Location = new System.Drawing.Point(3, 227);
             this.txtFaltaV.Name = "txtFaltaV";
             this.txtFaltaV.ReadOnly = true;
-            this.txtFaltaV.Size = new System.Drawing.Size(220, 30);
+            this.txtFaltaV.Size = new System.Drawing.Size(207, 30);
             this.txtFaltaV.TabIndex = 80;
             this.txtFaltaV.Text = "-88,888";
             this.txtFaltaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -605,7 +606,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(299, 148);
+            this.label11.Location = new System.Drawing.Point(80, 202);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(55, 24);
             this.label11.TabIndex = 77;
@@ -619,7 +620,7 @@
             this.txtServidoExtraV.Location = new System.Drawing.Point(780, 706);
             this.txtServidoExtraV.Name = "txtServidoExtraV";
             this.txtServidoExtraV.ReadOnly = true;
-            this.txtServidoExtraV.Size = new System.Drawing.Size(36, 30);
+            this.txtServidoExtraV.Size = new System.Drawing.Size(16, 30);
             this.txtServidoExtraV.TabIndex = 85;
             this.txtServidoExtraV.Text = "-88,888";
             this.txtServidoExtraV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -629,7 +630,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(822, 712);
+            this.label13.Location = new System.Drawing.Point(802, 710);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(58, 24);
             this.label13.TabIndex = 84;
@@ -652,9 +653,10 @@
             // 
             // chartServidas
             // 
+            this.chartServidas.BackColor = System.Drawing.Color.Transparent;
             chartArea1.Name = "ChartArea1";
             this.chartServidas.ChartAreas.Add(chartArea1);
-            this.chartServidas.Location = new System.Drawing.Point(729, 697);
+            this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
@@ -662,7 +664,7 @@
             series1.IsVisibleInLegend = false;
             series1.Name = "Series1";
             this.chartServidas.Series.Add(series1);
-            this.chartServidas.Size = new System.Drawing.Size(45, 39);
+            this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
             this.chartServidas.Visible = false;
@@ -990,6 +992,7 @@
             // 
             // panelMapa
             // 
+            this.panelMapa.Controls.Add(this.chartServidas);
             this.panelMapa.Controls.Add(this.toolStrip3);
             this.panelMapa.Controls.Add(this.toolStrip2);
             this.panelMapa.Controls.Add(this.gMapControl1);
@@ -1202,7 +1205,7 @@
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
-            this.btnAgregar.Location = new System.Drawing.Point(667, 0);
+            this.btnAgregar.Location = new System.Drawing.Point(711, 0);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(149, 149);
             this.btnAgregar.TabIndex = 97;
@@ -1211,6 +1214,19 @@
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Visible = false;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
+            // 
+            // txtFilaAct
+            // 
+            this.txtFilaAct.BackColor = System.Drawing.Color.White;
+            this.txtFilaAct.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFilaAct.ForeColor = System.Drawing.Color.Black;
+            this.txtFilaAct.Location = new System.Drawing.Point(869, 706);
+            this.txtFilaAct.Name = "txtFilaAct";
+            this.txtFilaAct.ReadOnly = true;
+            this.txtFilaAct.Size = new System.Drawing.Size(11, 30);
+            this.txtFilaAct.TabIndex = 98;
+            this.txtFilaAct.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFilaAct.Visible = false;
             // 
             // Servidas
             // 
@@ -1221,12 +1237,12 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1281, 788);
             this.ControlBox = false;
-            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.btnBuscar);
+            this.Controls.Add(this.txtFilaAct);
+            this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtServidoExtraV);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.txtBascula);
-            this.Controls.Add(this.chartServidas);
             this.Controls.Add(this.txtVariacionC);
             this.Controls.Add(this.txtServidoExtra);
             this.Controls.Add(this.txtRealidadC);
@@ -1263,6 +1279,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Servidas";
+            this.ShowInTaskbar = false;
             this.Text = "Servidas";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.Servidas_Activated);
@@ -1387,5 +1404,6 @@
         public System.Windows.Forms.ToolStripLabel lblBateriaTiempo;
         private System.Windows.Forms.ToolStripLabel toolStripLabel9;
         private System.Windows.Forms.Button btnAgregar;
+        private System.Windows.Forms.TextBox txtFilaAct;
     }
 }

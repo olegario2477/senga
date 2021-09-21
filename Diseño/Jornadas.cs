@@ -255,7 +255,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    table.Rows.Add(row["Id"].ToString(), row["Fecha"].ToString().Substring(0, 10), row["Raciones"].ToString(), row["Hechos"].ToString() + "/" + row["Corrales"].ToString());
+                    table.Rows.Add(row["Id"].ToString(), row["Fecha"].ToString().Substring(0, 10), row["Raciones"].ToString(), cadenaCero(row["Hechos"].ToString()) + "/" + cadenaCero(row["Corrales"].ToString()));
 
                     if (row["Id"].ToString() == "0" && primero)
                         if (primero)
@@ -709,9 +709,17 @@ namespace Senga
 
         }
 
+        private string cadenaCero(string valor)
+        {
 
+            if (valor.Equals(""))
+            {
+                valor = "0";
+            }
 
+            return valor;
 
+        }
 
 
 

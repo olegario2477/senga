@@ -556,7 +556,7 @@ namespace Senga
 
         private void btnServida_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(1);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),1);
             frm.Show();
         }
 
@@ -2171,7 +2171,7 @@ namespace Senga
 
         private void btnPlanta_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(4);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),4);
             frm.Show();
         }
 
