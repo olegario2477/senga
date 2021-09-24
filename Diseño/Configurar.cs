@@ -1613,7 +1613,9 @@ namespace Senga
 
             if (!comm.abrirPuerto())
             {
-                MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer(comm.p_error + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
             }
             else
             {

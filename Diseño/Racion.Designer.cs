@@ -117,6 +117,7 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.txtFaltaV = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.txtCapacidadV = new System.Windows.Forms.Label();
             this.txtCargaPorc = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.txtCargaIniV = new System.Windows.Forms.Label();
@@ -124,11 +125,10 @@
             this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtBrutoV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtCargaV = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.txtRacion = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtCapacidadV = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picFisico)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picFisicoF)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -183,6 +183,7 @@
             // btnHecho
             // 
             this.btnHecho.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHecho.Image = ((System.Drawing.Image)(resources.GetObject("btnHecho.Image")));
             this.btnHecho.Location = new System.Drawing.Point(972, 439);
             this.btnHecho.Name = "btnHecho";
             this.btnHecho.Size = new System.Drawing.Size(284, 354);
@@ -955,10 +956,11 @@
             // 
             this.panelCapacidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCapacidad.Controls.Add(this.lblCapacidad);
-            this.panelCapacidad.Location = new System.Drawing.Point(494, 710);
+            this.panelCapacidad.Location = new System.Drawing.Point(491, 710);
             this.panelCapacidad.Name = "panelCapacidad";
-            this.panelCapacidad.Size = new System.Drawing.Size(173, 83);
+            this.panelCapacidad.Size = new System.Drawing.Size(178, 83);
             this.panelCapacidad.TabIndex = 105;
+            this.panelCapacidad.Visible = false;
             // 
             // lblCapacidad
             // 
@@ -1133,8 +1135,20 @@
             this.panel6.Controls.Add(this.txtCapacidadV);
             this.panel6.Location = new System.Drawing.Point(673, 710);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(285, 83);
+            this.panel6.Size = new System.Drawing.Size(293, 83);
             this.panel6.TabIndex = 122;
+            this.panel6.Visible = false;
+            // 
+            // txtCapacidadV
+            // 
+            this.txtCapacidadV.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtCapacidadV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCapacidadV.Location = new System.Drawing.Point(0, 0);
+            this.txtCapacidadV.Name = "txtCapacidadV";
+            this.txtCapacidadV.Size = new System.Drawing.Size(289, 79);
+            this.txtCapacidadV.TabIndex = 127;
+            this.txtCapacidadV.Text = "-88,888";
+            this.txtCapacidadV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtCargaPorc
             // 
@@ -1215,6 +1229,18 @@
             this.panel9.Size = new System.Drawing.Size(1108, 309);
             this.panel9.TabIndex = 125;
             // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Black;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Lime;
+            this.label1.Location = new System.Drawing.Point(1067, 255);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 45);
+            this.label1.TabIndex = 77;
+            this.label1.Text = "%";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // txtCargaV
             // 
             this.txtCargaV.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1245,29 +1271,6 @@
             this.txtRacion.TabIndex = 75;
             this.txtRacion.Text = "8888";
             this.txtRacion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Black;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Lime;
-            this.label1.Location = new System.Drawing.Point(1067, 255);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 45);
-            this.label1.TabIndex = 77;
-            this.label1.Text = "%";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtCapacidadV
-            // 
-            this.txtCapacidadV.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCapacidadV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCapacidadV.Location = new System.Drawing.Point(0, 0);
-            this.txtCapacidadV.Name = "txtCapacidadV";
-            this.txtCapacidadV.Size = new System.Drawing.Size(281, 79);
-            this.txtCapacidadV.TabIndex = 127;
-            this.txtCapacidadV.Text = "-88,888";
-            this.txtCapacidadV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Racion
             // 

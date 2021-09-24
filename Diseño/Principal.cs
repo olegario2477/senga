@@ -18,8 +18,11 @@ namespace Senga
 {
     public partial class Principal : Form//, ITimer
     {
-        
+
+        private delegate void DelegaAcceso(string accion);
+
         Comm commGps = new Comm();
+        public SerialPort serialPort0 = new SerialPort();
         SerialPort serialPort2 = new SerialPort();
 
         private string nameruta = "\\senga_archivos";
@@ -49,6 +52,8 @@ namespace Senga
         String appgps = "GpsGateXP";
         String msgError = "";
         String versionAct = "";
+
+        bool RecibirPeso = false;
 
         //public void Start()
         //{
@@ -129,6 +134,7 @@ namespace Senga
             else
             {
 
+                //iniciaPesoOpc2();
 
                 DataRow row = obtieneConfig();
 
@@ -140,7 +146,7 @@ namespace Senga
 
                     wsactivo = row["ws"].ToString().Equals("S"); 
 
-
+                    
                 }
 
 
@@ -181,6 +187,7 @@ namespace Senga
 
                 statusTimer(true);
                     
+
                 //ejecutaAppGPS(); 
 
 
@@ -2993,6 +3000,244 @@ namespace Senga
         //    Console.WriteLine(threads);
 
         //}
+
+
+        private void iniciaPesoOpc2()
+        {
+
+            try
+            {
+                serialPort0.PortName = puertoConfig();
+                serialPort0.BaudRate = baudConfig();
+                serialPort0.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
+                serialPort0.DataBits = dataConfig();
+                serialPort0.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
+                serialPort0.DataReceived += new SerialDataReceivedEventHandler(SerialPort0_DataReceived);
+                serialPort0.ReadTimeout = 500;
+                serialPort0.WriteTimeout = 500;
+                //serialPort1.NewLine = "\r\n";
+                serialPort0.Open();
+
+                RecibirPeso = true;
+
+            }
+            catch (Exception err)
+            {
+                Close();
+                //MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer(err.Message + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                //ErrorLogging(err);
+            }
+
+
+        }
+
+        private void SerialPort0_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            try
+            {
+
+                if (this.Enabled)
+                {
+
+                    //lblRecibePeso.Visible = !lblRecibePeso.Visible;
+
+                    //char v = (char)serialPort1.ReadByte();
+                    //byte b = (byte)serialPort1.ReadByte();
+
+
+                    string indata = serialPort0.ReadExisting();
+                    Thread.Sleep(10);
+
+                    string stringTemp = indata;
+                    char c = (char)02;
+                    stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+
+                    string[] string_array = stringTemp.Split('\r');
+
+                    int j = string_array.Length;
+                    for (int i = 0; i < j; i++)
+                    {
+                        stringTemp = string_array[i].Trim();
+                        long number1 = 0;
+                        if (long.TryParse(stringTemp, out number1))
+                        {
+                            this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                            //Console.WriteLine(stringTemp);
+                        }
+                    }
+
+                    //this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                    //Console.WriteLine(stringTemp);
+
+
+                }
+
+            }
+            catch (Exception merr)
+            {
+                Console.WriteLine("Error " + merr);
+            }
+        
+        }
+
+        private void si_DataReceived(string accion)
+        {
+
+            if (RecibirPeso)
+            {
+
+                txtBascula.Text = accion;
+                txtBascula.Refresh();
+                //procesaPeso(txtBascula.Text);
+
+                //Console.WriteLine(accion);
+                //Console.WriteLine(txtBascula.Text);
+            }
+
+        }
+
+        private string puertoConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string portname = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    portname = row["Puerto"].ToString();
+                }
+            }
+
+            return portname;
+
+        }
+
+        private int baudConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            int baudrate = 0;
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    baudrate = Convert.ToInt32(row["BaudRate"]);
+                }
+            }
+
+            return baudrate;
+
+        }
+
+        private int dataConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            int databits = 0;
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    databits = Convert.ToInt32(row["DataBits"]);
+                }
+            }
+
+            return databits;
+
+        }
+
+        private string parityConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string paritybits = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    paritybits = row["Parity"].ToString();
+                }
+            }
+
+            return paritybits;
+
+        }
+
+        private string stopConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string stopbits = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    stopbits = row["StopBits"].ToString();
+                }
+            }
+
+            return stopbits;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
 
     }
 }

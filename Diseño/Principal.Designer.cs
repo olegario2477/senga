@@ -95,6 +95,7 @@
             this.timerBateria = new System.Windows.Forms.Timer(this.components);
             this.lblSQL = new System.Windows.Forms.Label();
             this.btnTemperatura = new System.Windows.Forms.Button();
+            this.txtBascula = new System.Windows.Forms.TextBox();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -687,6 +688,14 @@
             this.btnTemperatura.Visible = false;
             this.btnTemperatura.Click += new System.EventHandler(this.btnTemperatura_Click);
             // 
+            // txtBascula
+            // 
+            this.txtBascula.Location = new System.Drawing.Point(20, 388);
+            this.txtBascula.Name = "txtBascula";
+            this.txtBascula.Size = new System.Drawing.Size(81, 20);
+            this.txtBascula.TabIndex = 58;
+            this.txtBascula.Visible = false;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -696,6 +705,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.txtBascula);
             this.Controls.Add(this.btnTemperatura);
             this.Controls.Add(this.panelBateria);
             this.Controls.Add(this.label1);
@@ -810,6 +820,7 @@
         private System.Windows.Forms.Label lblSQL;
         private System.Windows.Forms.Button btnTemperatura;
         private System.Windows.Forms.ToolStripLabel toolStripLabel9;
+        public System.Windows.Forms.TextBox txtBascula;
     }
 }
 

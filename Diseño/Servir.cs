@@ -51,9 +51,13 @@ namespace Senga
         //public delegate void AddDataDelegate(String myString);
         //public AddDataDelegate myDelegate;
 
+        //public static Servir instance = null;
+
         public Servir(string idd, string iddr, string id, string corralgps, double lat, double lng, string numcarga, string corrales)
         {
             InitializeComponent();
+            //instance = this;
+
             vidd = idd;
             viddr = iddr;
             vjornada = id;
@@ -75,9 +79,12 @@ namespace Senga
             txtServirFinV.Text = "0";
             txtServirV.Text = "0";
             txtVariacionV.Text = "0";
+            txtVariacion.Text = "0";
             txtPlanV.Text = "0";
+            txtPlan.Text = "0";
             txtPorc.Text = "0";
             txtVarCab.Text = "0";
+            txtNumCarga.Text = "0";
 
 
 
@@ -318,7 +325,8 @@ namespace Senga
             catch (Exception err)
             {
                 Close();
-                MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer(err.Message + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
                 //ErrorLogging(err);
             }
 
@@ -1398,18 +1406,18 @@ namespace Senga
             //-----------------------------------------------------
             if (resultado < 0)
             {
-                if (vestable) //(resultado > -100)
+                if (vestable && cantAjustes <= 1) //(resultado > -100)
                 {
-                    if (cantAjustes <= 1)
-                    {
+
                     //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
                     //--------------
                     txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
                     cantAjustes++;
                     Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
-                    //--------------
-                    }
+                    //--------------                    
+                    
                 }
+
                 //resultado = 0;
             }
             //-----------------------------------------------------
@@ -1663,12 +1671,14 @@ namespace Senga
 
                     //if (btnHecho.BackColor == SystemColors.Control)
                     //if (btnAjustar.BackColor == SystemColors.Control)
-                    if (txtBasculaIniV.BackColor == Color.Black)
+                    //if (txtBasculaIniV.BackColor == Color.Black)
+                    if (txtServirV.BackColor == Color.Black)
                     {
                         //btnHecho.BackColor = Color.Yellow;
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Yellow;
-                        txtBasculaIniV.BackColor = Color.Yellow;
+                        //txtBasculaIniV.BackColor = Color.Yellow;
+                        txtServirV.BackColor = Color.Yellow;
                         //btnAjustar.BackColor = Color.Yellow;
                         //btnAjustar.ForeColor = Color.Black;
 
@@ -1680,7 +1690,8 @@ namespace Senga
                         //btnHecho.BackColor = SystemColors.Control;
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Black;
-                        txtBasculaIniV.BackColor = Color.Black;
+                        //txtBasculaIniV.BackColor = Color.Black;
+                        txtServirV.BackColor = Color.Black;
                         //btnAjustar.BackColor = SystemColors.Control;
                         //btnAjustar.ForeColor = Color.Black;
 
@@ -1696,7 +1707,8 @@ namespace Senga
                     //btnHecho.BackColor = SystemColors.Control;
                     //btnHecho.ForeColor = Color.Black;
                     //txtServirIniV.BackColor = Color.Black;
-                    txtBasculaIniV.BackColor = Color.Black;
+                    //txtBasculaIniV.BackColor = Color.Black;
+                    txtServirV.BackColor = Color.Black;
                     //btnAjustar.BackColor = SystemColors.Control;
                     //btnAjustar.ForeColor = Color.Black;
                 }

@@ -116,7 +116,7 @@ namespace Senga
                 operacionRacion();
                 limpiarRacion();
                 refrescaGrid();
-
+                tiempoServido();
 
 
                 //var th = new Thread(refrescaGrid);
@@ -2894,6 +2894,41 @@ namespace Senga
             }
 
             return valor;
+
+        }
+
+        private void tiempoServido() 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+            
+            TimeSpan ts;
+            string duracion = "00:00:00";
+
+            datos.p_sql = "SELECT MIN(Hora) AS MinHora, MAX(Hora) AS MaxHora FROM servidas WHERE hora <> '00:00:00' AND num = " + txtServida.Text + " and id = " + txtJornada.Text;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (!row["MaxHora"].ToString().Equals("") && !row["MinHora"].ToString().Equals(""))
+                    { 
+                        ts = DateTime.Parse(row["MaxHora"].ToString()) - DateTime.Parse(row["MinHora"].ToString());
+                        duracion = ts.ToString();                    
+                    }
+
+
+                }
+            
+            }
+
+            txtTiempo.Text = duracion.ToString();
 
         }
 

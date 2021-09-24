@@ -78,6 +78,15 @@ namespace Senga
             int capacidad = 0;
             int resultado = 0;
 
+            txtCargaV.Text = "0";
+            txtBasculaIniV.Text = "0";
+            txtBrutoV.Text = "0";
+            txtSolicitarV.Text = "0";
+            txtCargadoV.Text = "0";
+            txtFaltaV.Text = "0";
+            txtCapacidadV.Text = "0";
+            txtCargaPorc.Text = "0";
+
             txtBruto.Text = "0";
             txtTamano.Text = "0";
             txtFalta.Text = "0";
@@ -244,7 +253,9 @@ namespace Senga
             catch (Exception err)
             {
                 Close();
-                MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer(err.Message + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                
             }
 
         }
@@ -872,10 +883,9 @@ namespace Senga
             resultado = Convert.ToInt32(txtBruto.Text) - Convert.ToInt32(txtBasculaIni.Text);
             if (resultado < 0)
             {
-                if (vestable) //(resultado > -100)
+                if (vestable && cantAjustes <= 1) //(resultado > -100)
                 {
-                    if (cantAjustes <= 1)
-                    {
+
                     //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
                     //--------------
                     txtBasculaIni.Text = txtBruto.Text; //AJUSTAR
@@ -883,8 +893,9 @@ namespace Senga
                     llenaSolicitar();
                     Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
                     //--------------
-                    }
+                    
                 }
+
                 //resultado = 0;
             }
             //----------------------------------------------------------------------------------------
@@ -1358,7 +1369,7 @@ namespace Senga
 
             Color colorFondo = Color.Black;
             Color colorFondoW = Color.White;
-            Color colorFondoP = Color.Blue;
+            Color colorFondoP = Color.Brown;
             Color colorLetra = Color.Lime;
             Color colorLetraH = Color.Yellow;
             Color colorLetraT = Color.White;
@@ -1655,12 +1666,14 @@ namespace Senga
 
                     //if (btnHecho.BackColor == SystemColors.Control)
                     //if (btnAjustar.BackColor == SystemColors.Control)
-                    if (txtBasculaIniV.BackColor == Color.Black)
+                    //if (txtBasculaIniV.BackColor == Color.Black)
+                    if (txtCargadoV.BackColor == Color.Black)
                     {
                         //btnHecho.BackColor = Color.Yellow;
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Yellow;
-                        txtBasculaIniV.BackColor = Color.Yellow;
+                        //txtBasculaIniV.BackColor = Color.Yellow;
+                        txtCargadoV.BackColor = Color.Yellow;
                         //btnAjustar.BackColor = Color.Yellow;
                         //btnAjustar.ForeColor = Color.Black;
 
@@ -1672,7 +1685,8 @@ namespace Senga
                         //btnHecho.BackColor = SystemColors.Control;
                         //btnHecho.ForeColor = Color.Black;
                         //txtServirIniV.BackColor = Color.Black;
-                        txtBasculaIniV.BackColor = Color.Black;
+                        //txtBasculaIniV.BackColor = Color.Black;
+                        txtCargadoV.BackColor = Color.Black;
                         //btnAjustar.BackColor = SystemColors.Control;
                         //btnAjustar.ForeColor = Color.Black;
 
@@ -1688,7 +1702,8 @@ namespace Senga
                     //btnHecho.BackColor = SystemColors.Control;
                     //btnHecho.ForeColor = Color.Black;
                     //txtServirIniV.BackColor = Color.Black;
-                    txtBasculaIniV.BackColor = Color.Black;
+                    //txtBasculaIniV.BackColor = Color.Black;
+                    txtCargadoV.BackColor = Color.Black;
                     //btnAjustar.BackColor = SystemColors.Control;
                     //btnAjustar.ForeColor = Color.Black;
                 }

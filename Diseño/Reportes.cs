@@ -351,6 +351,7 @@ namespace Senga
         private void comboBoxOpciones_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+            this.Cursor = Cursors.WaitCursor;
 
             switch (comboBoxOpciones.SelectedIndex) 
             {
@@ -372,6 +373,7 @@ namespace Senga
 
             }
 
+            this.Cursor = Cursors.Default;
 
         }
 
