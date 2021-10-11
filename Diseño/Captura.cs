@@ -279,7 +279,7 @@ namespace Senga
                 }
                 else 
                 {
-                    MessageBox.Show("No se Encontro Corral", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    //MessageBox.Show("No se Encontro Corral", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 //datos.p_sql = "UPDATE operacion SET idd = " + idd;
 

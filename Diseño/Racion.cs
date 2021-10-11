@@ -30,8 +30,9 @@ namespace Senga
         int pesoact = 0;
         int pesostop = 0;
         int pesomargen = 0;
-        string[] estable = new string[] { "0", "0", "0", "0", "0", "0" };
+        string[] seriePesos = new string[] { "0", "0", "0", "0", "0", "0" };
         bool vestable = false;
+        bool vtolerable = false;
         int lv_pos = 0;
         string vzeros = "";
         string vpeso = "";
@@ -858,26 +859,60 @@ namespace Senga
                 lv_pos = 0;
             }
 
-            estable[lv_pos] = txtBruto.Text; //txtServir.Text;
+            seriePesos[lv_pos] = txtBruto.Text; //txtServir.Text;
 
-            if (estable[0] == estable[1] 
-                && estable[0] == estable[2]
-                && estable[0] == estable[3]
-                && estable[0] == estable[4]
-                && estable[0] == estable[5])
+            if (seriePesos[0] == seriePesos[1] 
+                && seriePesos[0] == seriePesos[2]
+                && seriePesos[0] == seriePesos[3]
+                && seriePesos[0] == seriePesos[4]
+                && seriePesos[0] == seriePesos[5])          
             {
                 //lblEst.ForeColor = Color.Green;
                 //lblEst.Text = "Estable";
                 vestable = true;
-                lblEstable.Visible = true;
+                //lblEstable.Visible = true;
+                lblEstable.ForeColor = Color.Lime;
             }
             else
             {
                 //lblEst.ForeColor = Color.Red;
                 //lblEst.Text = "Variable";
                 vestable = false;
-                lblEstable.Visible = false;
+                //lblEstable.Visible = false;
+                lblEstable.ForeColor = Color.Gray;
             }
+
+            long p1 = long.Parse(cadenaCero(seriePesos[0])) - long.Parse(cadenaCero(seriePesos[1]));
+            long p2 = long.Parse(cadenaCero(seriePesos[1])) - long.Parse(cadenaCero(seriePesos[2]));
+            long p3 = long.Parse(cadenaCero(seriePesos[2])) - long.Parse(cadenaCero(seriePesos[3]));
+            long p4 = long.Parse(cadenaCero(seriePesos[3])) - long.Parse(cadenaCero(seriePesos[4]));
+            long p5 = long.Parse(cadenaCero(seriePesos[4])) - long.Parse(cadenaCero(seriePesos[5]));
+
+            int pt = 15;
+
+            if ((p1 >= -pt && p1 <= pt)
+                && (p2 >= -pt && p2 <= pt)
+                && (p3 >= -pt && p3 <= pt)
+                && (p4 >= -pt && p4 <= pt)
+                && (p5 >= -pt && p5 <= pt))
+            {
+                //lblEst.ForeColor = Color.Green;
+                //lblEst.Text = "Estable";
+                vtolerable = true;
+                //lblTolerable.Visible = true;
+                lblTolerable.ForeColor = Color.Lime;
+                Console.WriteLine("TOLERABLE" + " " + p1.ToString() + "," + p2.ToString() + "," + p3.ToString() + "," + p4.ToString() + "," + p5.ToString());
+            }
+            else
+            {
+                //lblEst.ForeColor = Color.Red;
+                //lblEst.Text = "Variable";
+                vtolerable = false;
+                //lblTolerable.Visible = false;
+                lblTolerable.ForeColor = Color.Gray;
+            }
+
+
 
             //----------------------------------------------------------------------------------------
             resultado = Convert.ToInt32(txtBruto.Text) - Convert.ToInt32(txtBasculaIni.Text);

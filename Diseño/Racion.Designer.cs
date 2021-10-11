@@ -125,6 +125,7 @@
             this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtBrutoV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.lblTolerable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtCargaV = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -294,13 +295,12 @@
             this.lblEstable.AutoSize = true;
             this.lblEstable.BackColor = System.Drawing.Color.Black;
             this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstable.ForeColor = System.Drawing.Color.Lime;
+            this.lblEstable.ForeColor = System.Drawing.Color.Gray;
             this.lblEstable.Location = new System.Drawing.Point(3, 3);
             this.lblEstable.Name = "lblEstable";
             this.lblEstable.Size = new System.Drawing.Size(48, 46);
             this.lblEstable.TabIndex = 62;
-            this.lblEstable.Text = "E";
-            this.lblEstable.Visible = false;
+            this.lblEstable.Text = "S";
             // 
             // btnRacion
             // 
@@ -1220,6 +1220,7 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.lblTolerable);
             this.panel9.Controls.Add(this.txtCargaPorc);
             this.panel9.Controls.Add(this.label1);
             this.panel9.Controls.Add(this.lblEstable);
@@ -1228,6 +1229,18 @@
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1108, 309);
             this.panel9.TabIndex = 125;
+            // 
+            // lblTolerable
+            // 
+            this.lblTolerable.AutoSize = true;
+            this.lblTolerable.BackColor = System.Drawing.Color.Black;
+            this.lblTolerable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTolerable.ForeColor = System.Drawing.Color.Gray;
+            this.lblTolerable.Location = new System.Drawing.Point(3, 49);
+            this.lblTolerable.Name = "lblTolerable";
+            this.lblTolerable.Size = new System.Drawing.Size(50, 46);
+            this.lblTolerable.TabIndex = 78;
+            this.lblTolerable.Text = "R";
             // 
             // label1
             // 
@@ -1464,11 +1477,12 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label txtBrutoV;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.Label txtCargaV;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Label txtRacion;
         private System.Windows.Forms.Label lblRecibePeso;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label txtCapacidadV;
+        private System.Windows.Forms.Label lblTolerable;
+        private System.Windows.Forms.Label txtCargaV;
     }
 }

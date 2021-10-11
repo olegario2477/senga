@@ -34,8 +34,10 @@ namespace Senga
             this.txtReporte = new System.Windows.Forms.TextBox();
             this.comboBoxOpciones = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dataGridSQLResultados = new System.Windows.Forms.DataGridView();
             this.btnCalculadora = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCerrar
@@ -55,16 +57,16 @@ namespace Senga
             // 
             this.txtReporte.AllowDrop = true;
             this.txtReporte.BackColor = System.Drawing.Color.Black;
-            this.txtReporte.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReporte.ForeColor = System.Drawing.Color.Lime;
-            this.txtReporte.Location = new System.Drawing.Point(0, 54);
+            this.txtReporte.Location = new System.Drawing.Point(12, 12);
             this.txtReporte.Multiline = true;
             this.txtReporte.Name = "txtReporte";
             this.txtReporte.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtReporte.Size = new System.Drawing.Size(1386, 242);
+            this.txtReporte.Size = new System.Drawing.Size(156, 46);
             this.txtReporte.TabIndex = 11;
             this.txtReporte.Text = "Jornada";
+            this.txtReporte.Visible = false;
             // 
             // comboBoxOpciones
             // 
@@ -80,13 +82,28 @@ namespace Senga
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.txtReporte);
+            this.panel1.Controls.Add(this.dataGridSQLResultados);
             this.panel1.Controls.Add(this.comboBoxOpciones);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 167);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1386, 296);
             this.panel1.TabIndex = 13;
+            // 
+            // dataGridSQLResultados
+            // 
+            this.dataGridSQLResultados.AllowDrop = true;
+            this.dataGridSQLResultados.AllowUserToAddRows = false;
+            this.dataGridSQLResultados.AllowUserToDeleteRows = false;
+            this.dataGridSQLResultados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridSQLResultados.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridSQLResultados.Location = new System.Drawing.Point(0, 54);
+            this.dataGridSQLResultados.Name = "dataGridSQLResultados";
+            this.dataGridSQLResultados.ReadOnly = true;
+            this.dataGridSQLResultados.RowHeadersWidth = 70;
+            this.dataGridSQLResultados.RowTemplate.Height = 35;
+            this.dataGridSQLResultados.Size = new System.Drawing.Size(1386, 242);
+            this.dataGridSQLResultados.TabIndex = 81;
             // 
             // btnCalculadora
             // 
@@ -108,6 +125,7 @@ namespace Senga
             this.ClientSize = new System.Drawing.Size(1386, 463);
             this.ControlBox = false;
             this.Controls.Add(this.btnCalculadora);
+            this.Controls.Add(this.txtReporte);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnCerrar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -118,8 +136,9 @@ namespace Senga
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Reportes_Load);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -130,5 +149,6 @@ namespace Senga
         private System.Windows.Forms.ComboBox comboBoxOpciones;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCalculadora;
+        private System.Windows.Forms.DataGridView dataGridSQLResultados;
     }
 }

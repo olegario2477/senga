@@ -2207,6 +2207,14 @@ namespace Senga
         private void btnNube_Click(object sender, EventArgs e)
         {
 
+            nubeTransferencia();
+
+
+        }
+
+        private void nubeTransferencia() 
+        {         
+
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
 
@@ -2297,6 +2305,7 @@ namespace Senga
                 //}               
 
             }
+
         }
 
         private Boolean hayServidos()

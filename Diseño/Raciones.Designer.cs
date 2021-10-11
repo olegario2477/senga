@@ -53,6 +53,8 @@
             this.txtCorrales = new System.Windows.Forms.TextBox();
             this.txtHechos = new System.Windows.Forms.TextBox();
             this.panelRacion = new System.Windows.Forms.Panel();
+            this.txtTiempo = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.txtVueltas = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.txtTolva = new System.Windows.Forms.TextBox();
@@ -101,8 +103,6 @@
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
-            this.txtTiempo = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -149,7 +149,7 @@
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(318, 227);
             this.btnCargar.TabIndex = 58;
-            this.btnCargar.Text = "Cargar";
+            this.btnCargar.Text = "CARGAR";
             this.btnCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCargar.UseVisualStyleBackColor = false;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
@@ -405,6 +405,28 @@
             this.panelRacion.Size = new System.Drawing.Size(316, 304);
             this.panelRacion.TabIndex = 77;
             this.panelRacion.Visible = false;
+            // 
+            // txtTiempo
+            // 
+            this.txtTiempo.BackColor = System.Drawing.Color.White;
+            this.txtTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTiempo.ForeColor = System.Drawing.Color.Black;
+            this.txtTiempo.Location = new System.Drawing.Point(0, 111);
+            this.txtTiempo.Name = "txtTiempo";
+            this.txtTiempo.ReadOnly = true;
+            this.txtTiempo.Size = new System.Drawing.Size(315, 38);
+            this.txtTiempo.TabIndex = 80;
+            this.txtTiempo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(115, 83);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(84, 25);
+            this.label8.TabIndex = 81;
+            this.label8.Text = "Tiempo";
             // 
             // txtVueltas
             // 
@@ -876,28 +898,6 @@
             this.txtCarga.TabIndex = 90;
             this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCarga.Visible = false;
-            // 
-            // txtTiempo
-            // 
-            this.txtTiempo.BackColor = System.Drawing.Color.White;
-            this.txtTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTiempo.ForeColor = System.Drawing.Color.Black;
-            this.txtTiempo.Location = new System.Drawing.Point(0, 111);
-            this.txtTiempo.Name = "txtTiempo";
-            this.txtTiempo.ReadOnly = true;
-            this.txtTiempo.Size = new System.Drawing.Size(315, 38);
-            this.txtTiempo.TabIndex = 80;
-            this.txtTiempo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(115, 83);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 25);
-            this.label8.TabIndex = 81;
-            this.label8.Text = "Tiempo";
             // 
             // Raciones
             // 

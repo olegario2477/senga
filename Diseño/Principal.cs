@@ -481,6 +481,7 @@ namespace Senga
                     serialPort2.DataBits = dataConfigGps();
                     serialPort2.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfigGps(), true);
                     serialPort2.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                    serialPort2.ErrorReceived += new SerialErrorReceivedEventHandler(SerialPort_ErrorReceivedHandler);
                     serialPort2.ReadTimeout = 500;
                     serialPort2.WriteTimeout = 500;
                     serialPort2.Open();
@@ -2251,7 +2252,7 @@ namespace Senga
             DataTable dt = new DataTable();
 
 
-            if (gLatitudgps != 0)
+            if (gLatitudgps != 0 && gLongitudgps != 0)
             {
                 datos.p_sql = "INSERT INTO recorrido (fecha,hora,latitud,longitud,numcamion) values('" + gfechagps + "','" + ghoragps + "'," + gLatitudgps.ToString() + "," + gLongitudgps.ToString() + "," + numcamion + ")";
 
@@ -2315,7 +2316,7 @@ namespace Senga
                 lblWsActivoF.Value = 0;
             }
 
-            if (!lblLatitud.Text.Equals("0"))
+            if (!lblLatitud.Text.Equals("0") && ! lblLongitud.Text.Equals("0"))
             {
                 focoGps();
             }
@@ -2360,28 +2361,53 @@ namespace Senga
             try
             {
 
-                SerialPort port = (SerialPort)sender;
-                byte[] _buffer = new byte[port.BytesToRead];
-                port.Read(_buffer, 0, _buffer.Length);
+                //SerialPort port = (SerialPort)sender;
+                //byte[] _buffer = new byte[port.BytesToRead];
+                //port.Read(_buffer, 0, _buffer.Length);
 
-                //Parse buffer
-                string sdata = "";
-                Encoding encoding = ASCIIEncoding.GetEncoding(1252);
-                if (null != _buffer)
-                {
-                    sdata = encoding.GetString(_buffer);
-                }
+                //Thread.Sleep(20);
+
+                ////Parse buffer
+                //string sdata = "";
+                //Encoding encoding = ASCIIEncoding.GetEncoding(1252);
+                //if (null != _buffer)
+                //{
+                //    sdata = encoding.GetString(_buffer);
+                //}
+
+                string sdata = serialPort2.ReadExisting();
+                Thread.Sleep(200);
+
+
                 string[] string_array = sdata.Split('$');
                 string Gprmc = null;
+
+
                 for (int i = 0; i < string_array.Length; i++)
                 {
-                    string stringTemp = string_array[i];
+                    string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
                     string[] line_array = stringTemp.Split(',');
                     if (line_array[0] == "GPRMC")
                     {
+
                         Gprmc = string.Join(",", string_array[i]);
+                        //Gprmc = line_array[3] + "," + line_array[5];
+                        
+
+                        if (Gprmc != null)
+                        {
+
+                            if (line_array[4].Length > 0 && line_array[6].Length > 0)
+                            { 
+                                displayToWindow(Gprmc);
+                            }
+                    
+                    }
+
+                        break;
                     }
                 }
+
 
                 if (Gprmc != null)
                 {
@@ -2400,7 +2426,43 @@ namespace Senga
                 //MessageBox.Show(merr.Message);
 
                 //ErrorLogging(merr);
+
+                //Console.WriteLine("GPS " + merr + DateTime.Now.ToString());
             }
+
+        }
+
+        private void SerialPort_ErrorReceivedHandler(object sender, SerialErrorReceivedEventArgs e)
+        {
+
+
+            //TODO processing error message here
+            string message = "";
+            switch (e.EventType)
+            {
+                case SerialError.Frame:
+                    message = "Framing error ";
+                    break;
+                case SerialError.Overrun:
+                    message = "character-buffer overrun ";
+                    break;
+                case SerialError.RXOver:
+                    message = "Input buffer overflow";
+                    break;
+                case SerialError.RXParity:
+                    message = "parity error pada hardware";
+                    break;
+                case SerialError.TXFull:
+                    message = "transmit data, namun output buffer sedang penuh";
+                    break;
+            }
+
+            Invoke(new Action(() =>
+            {
+                lblErrorGPS.Text += message.ToString() + '\n' + '\r';
+            }));
+
+            //lblErrorGPS.Invoke(new EventHandler(delegate { lblErrorGPS.Text += e.ToString() + '\n' + '\r'; }));
 
         }
 
@@ -2409,13 +2471,13 @@ namespace Senga
             BeginInvoke(new EventHandler(delegate
             {
 
-                txtLectura.Text = inData;
-
                 string validos = "A";
                 if (chkWarning.Checked) { validos = "V"; }
 
-                gLatitudgps = separaNMEA(inData, validos, 3);
-                gLongitudgps = separaNMEA(inData, validos, 5);
+                Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+
+                gLatitudgps = separaNMEA(inData, validos,3);
+                gLongitudgps = separaNMEA(inData, validos,5);
 
                 lblLatitud.Text = gLatitudgps.ToString();
                 lblLongitud.Text = gLongitudgps.ToString();
@@ -2423,6 +2485,7 @@ namespace Senga
                 gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
                 ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
+                txtLectura.Text = inData;
 
             }));
         }
@@ -3228,16 +3291,27 @@ namespace Senga
 
         }
 
+        private void btnSimularGps_Click(object sender, EventArgs e)
+        {
 
 
+            string[] valores = txtSimularLatLng.Text.Split(',');
 
+            gLatitudgps = double.Parse(valores[0]);
+            gLongitudgps = double.Parse(valores[1]);
 
+            if (!txtSimularLatitud.Text.Equals("") && !txtSimularLongitud.Text.Equals("")) 
+            {
+                gLatitudgps = double.Parse(txtSimularLatitud.Text);
+                gLongitudgps = double.Parse(txtSimularLongitud.Text);
+            }
 
+            lblLatitud.Text = gLatitudgps.ToString();
+            lblLongitud.Text = gLongitudgps.ToString();
 
+            gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+            ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
-
-
-
-
+        }
     }
 }

@@ -32,6 +32,11 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.timerWs = new System.Windows.Forms.Timer(this.components);
             this.panelGps = new System.Windows.Forms.Panel();
+            this.txtSimularLatLng = new System.Windows.Forms.TextBox();
+            this.txtSimularLongitud = new System.Windows.Forms.TextBox();
+            this.txtSimularLatitud = new System.Windows.Forms.TextBox();
+            this.btnSimularGps = new System.Windows.Forms.Button();
+            this.lblErrorGPS = new System.Windows.Forms.Label();
             this.txtLectura = new System.Windows.Forms.TextBox();
             this.picVerde = new System.Windows.Forms.PictureBox();
             this.picRojo = new System.Windows.Forms.PictureBox();
@@ -96,6 +101,9 @@
             this.lblSQL = new System.Windows.Forms.Label();
             this.btnTemperatura = new System.Windows.Forms.Button();
             this.txtBascula = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -114,28 +122,76 @@
             // panelGps
             // 
             this.panelGps.BackColor = System.Drawing.Color.White;
+            this.panelGps.Controls.Add(this.label4);
+            this.panelGps.Controls.Add(this.label3);
+            this.panelGps.Controls.Add(this.label2);
+            this.panelGps.Controls.Add(this.txtSimularLatLng);
+            this.panelGps.Controls.Add(this.txtSimularLongitud);
+            this.panelGps.Controls.Add(this.txtSimularLatitud);
+            this.panelGps.Controls.Add(this.btnSimularGps);
+            this.panelGps.Controls.Add(this.lblErrorGPS);
             this.panelGps.Controls.Add(this.txtLectura);
             this.panelGps.Controls.Add(this.picVerde);
             this.panelGps.Controls.Add(this.picRojo);
             this.panelGps.Controls.Add(this.chkWarning);
-            this.panelGps.Location = new System.Drawing.Point(215, 192);
+            this.panelGps.Location = new System.Drawing.Point(20, 227);
             this.panelGps.Name = "panelGps";
-            this.panelGps.Size = new System.Drawing.Size(307, 57);
+            this.panelGps.Size = new System.Drawing.Size(483, 263);
             this.panelGps.TabIndex = 48;
-            this.panelGps.Visible = false;
+            // 
+            // txtSimularLatLng
+            // 
+            this.txtSimularLatLng.Location = new System.Drawing.Point(222, 15);
+            this.txtSimularLatLng.Name = "txtSimularLatLng";
+            this.txtSimularLatLng.Size = new System.Drawing.Size(153, 20);
+            this.txtSimularLatLng.TabIndex = 112;
+            // 
+            // txtSimularLongitud
+            // 
+            this.txtSimularLongitud.Location = new System.Drawing.Point(222, 59);
+            this.txtSimularLongitud.Name = "txtSimularLongitud";
+            this.txtSimularLongitud.Size = new System.Drawing.Size(153, 20);
+            this.txtSimularLongitud.TabIndex = 111;
+            // 
+            // txtSimularLatitud
+            // 
+            this.txtSimularLatitud.Location = new System.Drawing.Point(222, 37);
+            this.txtSimularLatitud.Name = "txtSimularLatitud";
+            this.txtSimularLatitud.Size = new System.Drawing.Size(153, 20);
+            this.txtSimularLatitud.TabIndex = 110;
+            // 
+            // btnSimularGps
+            // 
+            this.btnSimularGps.Location = new System.Drawing.Point(381, 14);
+            this.btnSimularGps.Name = "btnSimularGps";
+            this.btnSimularGps.Size = new System.Drawing.Size(85, 21);
+            this.btnSimularGps.TabIndex = 109;
+            this.btnSimularGps.Text = "Simular";
+            this.btnSimularGps.UseVisualStyleBackColor = true;
+            this.btnSimularGps.Click += new System.EventHandler(this.btnSimularGps_Click);
+            // 
+            // lblErrorGPS
+            // 
+            this.lblErrorGPS.AutoSize = true;
+            this.lblErrorGPS.Location = new System.Drawing.Point(3, 7);
+            this.lblErrorGPS.Name = "lblErrorGPS";
+            this.lblErrorGPS.Size = new System.Drawing.Size(10, 13);
+            this.lblErrorGPS.TabIndex = 108;
+            this.lblErrorGPS.Text = ".";
             // 
             // txtLectura
             // 
-            this.txtLectura.Location = new System.Drawing.Point(3, 26);
+            this.txtLectura.Location = new System.Drawing.Point(3, 92);
+            this.txtLectura.Multiline = true;
             this.txtLectura.Name = "txtLectura";
-            this.txtLectura.Size = new System.Drawing.Size(299, 20);
+            this.txtLectura.Size = new System.Drawing.Size(477, 154);
             this.txtLectura.TabIndex = 68;
             // 
             // picVerde
             // 
             this.picVerde.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picVerde.Image = ((System.Drawing.Image)(resources.GetObject("picVerde.Image")));
-            this.picVerde.Location = new System.Drawing.Point(308, 3);
+            this.picVerde.Location = new System.Drawing.Point(613, 0);
             this.picVerde.Name = "picVerde";
             this.picVerde.Size = new System.Drawing.Size(38, 36);
             this.picVerde.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -147,7 +203,7 @@
             // 
             this.picRojo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picRojo.Image = ((System.Drawing.Image)(resources.GetObject("picRojo.Image")));
-            this.picRojo.Location = new System.Drawing.Point(308, 3);
+            this.picRojo.Location = new System.Drawing.Point(569, 0);
             this.picRojo.Name = "picRojo";
             this.picRojo.Size = new System.Drawing.Size(38, 36);
             this.picRojo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -158,7 +214,7 @@
             // chkWarning
             // 
             this.chkWarning.AutoSize = true;
-            this.chkWarning.Location = new System.Drawing.Point(3, 3);
+            this.chkWarning.Location = new System.Drawing.Point(3, 40);
             this.chkWarning.Name = "chkWarning";
             this.chkWarning.Size = new System.Drawing.Size(66, 17);
             this.chkWarning.TabIndex = 57;
@@ -498,7 +554,7 @@
             // 
             this.btnReparto.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReparto.Image = ((System.Drawing.Image)(resources.GetObject("btnReparto.Image")));
-            this.btnReparto.Location = new System.Drawing.Point(415, 12);
+            this.btnReparto.Location = new System.Drawing.Point(450, 0);
             this.btnReparto.Name = "btnReparto";
             this.btnReparto.Size = new System.Drawing.Size(149, 149);
             this.btnReparto.TabIndex = 5;
@@ -511,7 +567,7 @@
             // 
             this.btnRecorrido.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecorrido.Image = ((System.Drawing.Image)(resources.GetObject("btnRecorrido.Image")));
-            this.btnRecorrido.Location = new System.Drawing.Point(545, 10);
+            this.btnRecorrido.Location = new System.Drawing.Point(605, 0);
             this.btnRecorrido.Name = "btnRecorrido";
             this.btnRecorrido.Size = new System.Drawing.Size(149, 149);
             this.btnRecorrido.TabIndex = 4;
@@ -524,7 +580,7 @@
             // 
             this.btnConfigurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfigurar.Image = ((System.Drawing.Image)(resources.GetObject("btnConfigurar.Image")));
-            this.btnConfigurar.Location = new System.Drawing.Point(690, 12);
+            this.btnConfigurar.Location = new System.Drawing.Point(758, 0);
             this.btnConfigurar.Name = "btnConfigurar";
             this.btnConfigurar.Size = new System.Drawing.Size(149, 149);
             this.btnConfigurar.TabIndex = 1;
@@ -548,7 +604,7 @@
             // 
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(1000, 12);
+            this.btnSalir.Location = new System.Drawing.Point(1068, 0);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(149, 149);
             this.btnSalir.TabIndex = 3;
@@ -561,7 +617,7 @@
             // 
             this.btnServidas.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServidas.Image = ((System.Drawing.Image)(resources.GetObject("btnServidas.Image")));
-            this.btnServidas.Location = new System.Drawing.Point(845, 12);
+            this.btnServidas.Location = new System.Drawing.Point(913, 0);
             this.btnServidas.Name = "btnServidas";
             this.btnServidas.Size = new System.Drawing.Size(149, 149);
             this.btnServidas.TabIndex = 2;
@@ -586,7 +642,7 @@
             // 
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
-            this.btnActualizar.Location = new System.Drawing.Point(316, 12);
+            this.btnActualizar.Location = new System.Drawing.Point(295, 0);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(149, 149);
             this.btnActualizar.TabIndex = 6;
@@ -616,13 +672,13 @@
             this.panelBateria.Controls.Add(this.txtChargeStatus);
             this.panelBateria.Location = new System.Drawing.Point(528, 192);
             this.panelBateria.Name = "panelBateria";
-            this.panelBateria.Size = new System.Drawing.Size(234, 225);
+            this.panelBateria.Size = new System.Drawing.Size(234, 198);
             this.panelBateria.TabIndex = 55;
             this.panelBateria.Visible = false;
             // 
             // btnBateria
             // 
-            this.btnBateria.Location = new System.Drawing.Point(104, 178);
+            this.btnBateria.Location = new System.Drawing.Point(105, 165);
             this.btnBateria.Name = "btnBateria";
             this.btnBateria.Size = new System.Drawing.Size(69, 22);
             this.btnBateria.TabIndex = 5;
@@ -679,9 +735,9 @@
             // 
             // btnTemperatura
             // 
-            this.btnTemperatura.Location = new System.Drawing.Point(690, 423);
+            this.btnTemperatura.Location = new System.Drawing.Point(698, 396);
             this.btnTemperatura.Name = "btnTemperatura";
-            this.btnTemperatura.Size = new System.Drawing.Size(64, 58);
+            this.btnTemperatura.Size = new System.Drawing.Size(64, 37);
             this.btnTemperatura.TabIndex = 57;
             this.btnTemperatura.Text = "Temp";
             this.btnTemperatura.UseVisualStyleBackColor = true;
@@ -690,11 +746,38 @@
             // 
             // txtBascula
             // 
-            this.txtBascula.Location = new System.Drawing.Point(20, 388);
+            this.txtBascula.Location = new System.Drawing.Point(23, 189);
             this.txtBascula.Name = "txtBascula";
             this.txtBascula.Size = new System.Drawing.Size(81, 20);
             this.txtBascula.TabIndex = 58;
             this.txtBascula.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(196, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(22, 13);
+            this.label2.TabIndex = 113;
+            this.label2.Text = "Lat";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(196, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(25, 13);
+            this.label3.TabIndex = 114;
+            this.label3.Text = "Lng";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(170, 18);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.TabIndex = 115;
+            this.label4.Text = "Lat, Lng";
             // 
             // Principal
             // 
@@ -821,6 +904,14 @@
         private System.Windows.Forms.Button btnTemperatura;
         private System.Windows.Forms.ToolStripLabel toolStripLabel9;
         public System.Windows.Forms.TextBox txtBascula;
+        private System.Windows.Forms.Label lblErrorGPS;
+        private System.Windows.Forms.Button btnSimularGps;
+        private System.Windows.Forms.TextBox txtSimularLongitud;
+        private System.Windows.Forms.TextBox txtSimularLatitud;
+        private System.Windows.Forms.TextBox txtSimularLatLng;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
     }
 }
 

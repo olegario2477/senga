@@ -26,6 +26,7 @@ namespace Senga
         bool activado = false;
         string vracion;
         string vnumcarga;
+        //int vfilaAct = 0;
         DataTable dtUbictmp;
         DataTable dtUbictmpgrid;
 
@@ -43,6 +44,7 @@ namespace Senga
         GMapOverlay overlayCamion;
 
         GMapOverlay overlayRuta;
+        GMapOverlay overlayRutaP;
 
         GMapPolygon polygonCelda;
         GMapOverlay overlayCeldas;
@@ -73,9 +75,12 @@ namespace Senga
         private void Servidas_Load(object sender, EventArgs e)
         {
             propiedadesGrid();
-            seleccionarFila();
+            seleccionarFila2();
 
             posicionbotones();
+
+            DGServidas.Height = 590;
+            txtCaptura.Text = "";
 
             activado = true;
             formatoGrid();
@@ -86,8 +91,6 @@ namespace Senga
             cargaMapa();
 
             activar();                       
-
-  
 
 
             panelServida.Visible = true;
@@ -118,6 +121,7 @@ namespace Senga
             btnHecho.Top = 0;
             btnQuitar.Top = 0;
             btnBuscar.Top = 0;
+            btnCargar.Top = 0;
             //btnAgregar.Top = 0;
 
 
@@ -126,6 +130,7 @@ namespace Senga
             btnHecho.Left = btnCerrar.Left - btnHecho.Width;
             btnQuitar.Left = btnHecho.Left - btnQuitar.Width;
             btnBuscar.Left = btnQuitar.Left - btnBuscar.Width;
+            btnCargar.Left = btnBuscar.Left - btnCargar.Width;
             //btnAgregar.Left = btnQuitar.Left - btnAgregar.Width;
 
 
@@ -160,7 +165,8 @@ namespace Senga
      
                 }
                 
-                seleccionarFila();
+                //seleccionarFila();
+                seleccionarFila2();
                 barra();
 
                 txtCorrales.Text = DGServidas.RowCount.ToString();
@@ -227,6 +233,9 @@ namespace Senga
 
             overlayRuta = new GMapOverlay("Ruta");
             gMapControl1.Overlays.Add(overlayRuta);
+
+            overlayRutaP = new GMapOverlay("RutaP");
+            gMapControl1.Overlays.Add(overlayRutaP);
 
             overlayCamion = new GMapOverlay("camion");
             gMapControl1.Overlays.Add(overlayCamion);
@@ -486,6 +495,45 @@ namespace Senga
             }
         }
 
+        private void seleccionarFila2()
+        {
+
+            txtFilaAct.Text = cadenaCero(txtFilaAct.Text); 
+
+            int vfilaAct = Convert.ToInt32(txtFilaAct.Text.Replace(",",""));
+
+            if (DGServidas.RowCount != 0)
+            {
+
+                if (DGServidas.RowCount == vfilaAct)
+                {
+                    vfilaAct -= 1;
+                }
+
+                DGServidas.CurrentCell = DGServidas.Rows[vfilaAct].Cells[0];
+
+                //DGServidas.Rows[vfilaAct].Selected = true;
+                
+                if (vfilaAct > 10) 
+                { 
+                    DGServidas.FirstDisplayedScrollingRowIndex = vfilaAct;                
+                }
+
+                DGServidas.Refresh();
+
+                txtIdD.Text = DGServidas.Rows[vfilaAct].Cells["IdD"].Value.ToString();
+
+                filaDatos(txtIdD.Text);
+
+                ubicaCorralMapa();
+
+                filaAct();
+                //txtFilaAct.Text = vfilaAct.ToString();
+
+            }
+
+        }
+        
         private void refrescaGrid()
         {
             //formatoGrid();
@@ -987,14 +1035,11 @@ namespace Senga
 
                 ubicaCorralMapa();
 
-                filaAct();
-
             }
         }
 
         private void DGServidas_SelectionChanged(object sender, EventArgs e)
         {
-
             if (DGServidas.CurrentRow != null)
             {
                 txtIdD.Text = (string)DGServidas.CurrentRow.Cells["IdD"].Value;
@@ -1003,16 +1048,12 @@ namespace Senga
 
                 ubicaCorralMapa();
 
-                filaAct();
-
             }
         }
 
         private void filaAct() 
         {
             txtFilaAct.Text = DGServidas.CurrentRow.Index.ToString();
-
-
         }
 
         private void ubicaCorralMapa() 
@@ -1141,6 +1182,10 @@ namespace Senga
                 {
                     txtSirviendo.Text = txtCorral.Text;
 
+                    filaAct();
+
+                    vnumcarga = cargaServida();
+
                     Senga.Servir frm = new Senga.Servir(txtIdD.Text,txtIdDr.Text,txtJornada.Text,lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text);
                     frm.Show();
                 }
@@ -1148,6 +1193,33 @@ namespace Senga
             //}
 
             //guardarOperacion();
+
+        }
+
+        private string cargaServida() 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string valor = "0";
+
+            datos.p_sql = "SELECT * FROM raciones WHERE idd =" + txtIdDr.Text;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    valor = row["NumCarga"].ToString();
+                }
+            }
+
+            return valor;
 
         }
 
@@ -1401,8 +1473,22 @@ namespace Senga
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),2);
-            frm.Show();
+            //Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),2);
+            //frm.Show();
+
+            if (DGServidas.Height == 320)
+            {
+                DGServidas.Height = 590;
+                panelCaptura.Visible = false;
+            }
+            else 
+            { 
+                DGServidas.Height = 320;
+                panelCaptura.Visible = true;
+            }
+
+
+
         }
 
         //private void btnArchivos_Click(object sender, EventArgs e)
@@ -1481,6 +1567,8 @@ namespace Senga
 
                 this.Cursor = Cursors.WaitCursor;
 
+                filaAct();
+
                 datos.p_sql = "SELECT corral, realidad FROM servidas WHERE idd = " + idd.ToString();
 
                 if (!datos.consultaSQL(ref dt, true))
@@ -1511,7 +1599,8 @@ namespace Senga
                         }
                         else
                         {
-
+                            
+                          
                             refrescaGrid();
 
                             if (DGServidas.RowCount == 0)
@@ -1519,7 +1608,8 @@ namespace Senga
                                 limpiarCorral();
                             }
 
-                            seleccionarFila();
+
+                            seleccionarFila2();
 
 
                             cantidadTotal();
@@ -1552,8 +1642,9 @@ namespace Senga
                             }
 
 
-                            //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                            
+                            
+                            //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
                         }
                     }
 
@@ -1585,6 +1676,7 @@ namespace Senga
 
                 this.Cursor = Cursors.WaitCursor;
 
+                filaAct();
 
                 datos.p_sql = "SELECT corral, realidad FROM servidas WHERE idd = " + idd.ToString();
 
@@ -1624,7 +1716,7 @@ namespace Senga
                                   limpiarCorral();
                             }
                             
-                            seleccionarFila();
+                            seleccionarFila2();
 
                             cantidadTotal();
                             cantidadt = Convert.ToInt32(txtCantidadT.Text);
@@ -1658,8 +1750,8 @@ namespace Senga
                                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
-                            //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+             
+                            //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
 
                         }
@@ -2302,6 +2394,7 @@ namespace Senga
         {
 
             Boolean vencontro = false;
+            List<PointLatLng> puntos = new List<PointLatLng>();
 
             //List<PointLatLng> puntos = new List<PointLatLng>();
 
@@ -2320,6 +2413,7 @@ namespace Senga
             //{
 
             overlayCeldas.Polygons.Clear();
+            overlayRutaP.Routes.Clear();
             //overlaylabelCeldas.Markers.Clear();
 
             foreach (DataRow row in dt.Rows)
@@ -2359,10 +2453,22 @@ namespace Senga
                           Convert.ToDouble(row["lat4"]),
                           Convert.ToDouble(row["lng4"]));
 
+                    if (!row["lat"].Equals("0")) 
+                    { 
+                        puntos.Add(new PointLatLng(Convert.ToDouble(row["lat"]), Convert.ToDouble(row["lng"])));                    
+                    }
+
+
 
                 }
 
                 corralActividadNombre();
+
+                GMapRoute PuntoRutaP = new GMapRoute(puntos, "Ruta");
+                overlayRutaP.Routes.Add(PuntoRutaP);
+                PuntoRutaP.Stroke.Color = Color.Yellow;
+                PuntoRutaP.Stroke.Width = 1;
+                //PuntoRuta.Stroke.Color = Color.Transparent;
 
             }
 
@@ -2566,6 +2672,7 @@ namespace Senga
 
                 PuntoRuta.Stroke.Color = Color.Yellow;
                 //PuntoRuta.Stroke.Color = Color.Transparent; //Color.Blue;
+                PuntoRuta.Stroke.Width = 1;
 
                 double distance = PuntoRuta.Distance * 1000;
 
@@ -2723,10 +2830,191 @@ namespace Senga
             frm.Show();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         //private void trackBar1_Scroll(object sender, EventArgs e)
         //{
         //    //gMapControl1.Zoom = trackBar1.Value;
         //}
+
+
+        private void agregaDigito(string digito)
+        {
+            string valor = txtCaptura.Text;
+
+            if (valor.Length < txtCaptura.MaxLength)
+            {
+                txtCaptura.Text = valor + digito;
+            }
+
+            sonidoBoton();
+
+        }
+
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            buscarCorral();
+        }
+
+        private void buscarCorral() 
+        {
+
+            String searchValue = txtCaptura.Text;
+            int rowIndex = -1;
+            foreach (DataGridViewRow row in DGServidas.Rows)
+            {
+                if (row.Cells[0].Value.ToString().Equals(searchValue))
+                {
+                    rowIndex = row.Index;
+                    break;
+                }
+            }
+
+            if (rowIndex != -1)
+            {
+                DGServidas.CurrentCell = DGServidas.Rows[rowIndex].Cells[0];
+
+                if (rowIndex > 5)
+                {
+                    DGServidas.FirstDisplayedScrollingRowIndex = rowIndex;
+                }
+
+
+                txtIdD.Text = DGServidas.Rows[rowIndex].Cells["IdD"].Value.ToString();
+
+                filaDatos(txtIdD.Text);
+
+                ubicaCorralMapa();
+
+                filaAct();
+
+                txtCaptura.Text = "";
+            }
+
+        }
+
+        private void btnUno_Click(object sender, EventArgs e)
+        {
+            agregaDigito("1");
+        }
+
+        private void btnDos_Click(object sender, EventArgs e)
+        {
+            agregaDigito("2");
+        }
+
+        private void btnTres_Click(object sender, EventArgs e)
+        {
+            agregaDigito("3");
+        }
+
+        private void btnCuatro_Click(object sender, EventArgs e)
+        {
+            agregaDigito("4");
+        }
+
+        private void btnCinco_Click(object sender, EventArgs e)
+        {
+            agregaDigito("5");
+        }
+
+        private void btnSeis_Click(object sender, EventArgs e)
+        {
+            agregaDigito("6");
+        }
+
+        private void btnSiete_Click(object sender, EventArgs e)
+        {
+            agregaDigito("7");
+        }
+
+        private void btnOcho_Click(object sender, EventArgs e)
+        {
+            agregaDigito("8");
+        }
+
+        private void btnNueve_Click(object sender, EventArgs e)
+        {
+            agregaDigito("9");
+        }
+
+        private void btnCero_Click(object sender, EventArgs e)
+        {
+            agregaDigito("0");
+        }
+
+        private void btnBorrar_Click(object sender, EventArgs e)
+        {
+            txtCaptura.Text = cortarCadena(1, txtCaptura.Text);
+        }
+
+        private void sonidoBoton() 
+        {
+            //Console.Beep(440, 50);
+        }
+
+        public string cortarCadena(int cantQuitar, String cadena)
+        {
+
+            string resultado = "";
+
+            if (cadena.Length > 0)
+            {
+                resultado = cadena.Substring(0, cadena.Length - cantQuitar);
+            }
+
+            return resultado;
+        }
+
+        private void btnCargar_Click(object sender, EventArgs e)
+        {
+
+            if (DGServidas.RowCount != 0)
+            {
+
+                //rowIndex = DGServidas.CurrentRow.Index;
+
+                //if (txtCorrales.Text == txtHechos.Text)
+                //{
+                //    //MessageBox.Show("Racion Servida Completada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //    Comun.mensajeVer("Racion Servida Completada", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+
+                //}
+                //else
+                //{
+
+                    Datos datos = new Datos();
+                    DataTable dt = new DataTable();
+
+                    filaAct();
+
+                    datos.p_sql = "UPDATE operacion SET accion = 'C'" + ", racion = '" + txtRacion.Text + "'";
+
+                    if (!datos.consultaSQL(ref dt, true))
+                    {
+                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+                    if (txtIdDr.Text != "")
+                    {
+
+                        Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text);
+                        frm.Show();
+                    }
+
+                //}
+
+
+            }
+
+        }
+
+
+
 
 
     }

@@ -31,8 +31,9 @@ namespace Senga
         {
             posicionbotones();
             llenaCombo();
+            propiedadesGrid();
 
-        
+
 
 
 
@@ -68,7 +69,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            txtReporte.Text = "";
 
             datos.p_sql = "SELECT Servidas.Num, Servidas.Racion, Servidas.Corral, Servidas.NumCarga, Servidas.Planeado, Servidas.Realidad, Servidas.BasculaIni, Servidas.BasculaFin, Servidas.CargaIni, Servidas.Hora, Cargas.BasculaFin AS BasculaFinCarga FROM Servidas LEFT Join Cargas ON Servidas.NumCarga = Cargas.IdD WHERE (Servidas.Hecho = 'S' OR Servidas.Hecho = 'X') AND Servidas.Id = " + vjornada + " ORDER BY Servidas.NumCarga, Servidas.Hora";
 
@@ -128,6 +130,76 @@ namespace Senga
                 }
             }
 
+
+
+
+            ////--------------------------------------------------------------
+            //DataTable dt2 = new DataTable();
+            //txtDt(txtReporte, ref dt2);
+            //dataGridSQLResultados.DataSource = dt2;
+            ////--------------------------------------------------------------
+
+        }
+
+
+        private void txtDt(TextBox txt, ref DataTable dt) 
+        {
+            //TextReader reader = new StringReader(csv);
+            var table = new DataTable();
+
+
+            string[] lines = txt.Text.Split('\n');
+
+            string[] cols = lines[0].Replace("\r", "").Split('\t');
+
+            foreach (string col in cols)
+                table.Columns.Add(col);
+
+
+            for(int i = 1; i < lines.Length; i++) 
+            {
+
+                var row = table.NewRow();
+                string[] filas = lines[i].Replace("\r", "").Split('\t');
+                int k = 0;
+                foreach (var fila in filas)
+                {
+                    row[cols[k]] = fila.Replace("\r", "");
+                    k++;
+                }
+                table.Rows.Add(row);
+
+            }
+
+            //foreach (string line in lines) 
+            //{
+
+            //    table.Rows.Add(row);
+
+
+            //}
+
+            //using (var it = reader.ReadCsvWithHeader().GetEnumerator())
+            //{
+
+            //if (!it.MoveNext()) return;
+
+            //foreach (var k in it.Current.Keys)
+            //    table.Columns.Add(k);
+
+            //do
+            //{
+            //    var row = table.NewRow();
+            //    foreach (var k in it.Current.Keys)
+            //        row[k] = it.Current[k];
+
+            //    table.Rows.Add(row);
+
+            //} while (it.MoveNext());
+            //}
+
+            dt = table;
+
         }
 
         private void consulta2()
@@ -136,7 +208,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            txtReporte.Text = "";
 
             datos.p_sql = "SELECT Num, NumCarga,COUNT(*) as Corral,Racion,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,NumCarga,Racion";
 
@@ -163,7 +236,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            txtReporte.Text = "";
 
             datos.p_sql = "SELECT Num, Racion,COUNT(*) as Corral,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,Racion";
 
@@ -190,7 +264,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            txtReporte.Text = "";
 
             datos.p_sql = "SELECT * FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " ORDER BY NumCarga, Hora";
 
@@ -236,7 +311,7 @@ namespace Senga
 
                         acumcarga = 0;
 
-                        sqlConsultaTxt(txtReporte,"Carga","SELECT Hora,Num,Racion,IdD,'' as Vacio,Carga FROM Cargas WHERE Id = " + vjornada + " AND IdD = " + row["NumCarga"].ToString());
+                        sqlConsultaTxt(txtReporte,"Carga", "SELECT Hora,Num,Racion,IdD,'' as Vacio,Carga FROM Cargas WHERE Id = " + vjornada + " AND IdD = " + row["NumCarga"].ToString());
 
                         linea();
                        
@@ -271,7 +346,8 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
+            txtReporte.Text = "";
 
             datos.p_sql = "SELECT * FROM Cargas WHERE Id = " + vjornada;
 
@@ -299,7 +375,7 @@ namespace Senga
 
         void linea() 
         { 
-            txtReporte.Text += "------------------------------------------------------------------------------------------------------------" + '\r' + '\n';
+            //txtReporte.Text += "------------------------------------------------------------------------------------------------------------" + '\r' + '\n';
         }
 
         private void sqlConsultaTxt(TextBox txt, string accion, string sql)
@@ -320,7 +396,7 @@ namespace Senga
             var valores = new List<string>();
             valores.Clear();
 
-            string cadena = "";
+            //string cadena = "";
             
             datos.p_sql = sql;
 
@@ -332,14 +408,14 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    cadena = "";
+                    //cadena = "";
 
-                    for (int i=0;i<row.ItemArray.Length ;i++) 
-                    { 
-                        cadena = cadena + row[i].ToString() + '\t';
-                    }
-
-                    valores.Add(cadena);
+                    //for (int i=0;i<row.ItemArray.Length ;i++) 
+                    //{ 
+                    //    cadena = cadena + row[i].ToString() + '\t';
+                    //}
+                    
+                    valores.Add(string.Join("\t", row.ItemArray));
                 }            
             }
 
@@ -373,6 +449,20 @@ namespace Senga
 
             }
 
+            //--------------------------------------------------------------
+            DataTable dt2 = new DataTable();
+            txtDt(txtReporte, ref dt2);
+            dataGridSQLResultados.DataSource = null;
+            dataGridSQLResultados.DataSource = dt2;
+
+
+            foreach (DataGridViewColumn item in dataGridSQLResultados.Columns)
+            {
+                item.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+
+            //--------------------------------------------------------------
+
             this.Cursor = Cursors.Default;
 
         }
@@ -396,6 +486,32 @@ namespace Senga
             return valor;
 
         }
+
+        private void propiedadesGrid()
+        {
+
+            dataGridSQLResultados.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridSQLResultados.ReadOnly = true;
+            dataGridSQLResultados.AllowUserToAddRows = false;
+            dataGridSQLResultados.AllowUserToDeleteRows = false;
+            dataGridSQLResultados.AllowUserToOrderColumns = false;
+            dataGridSQLResultados.AllowUserToResizeColumns = false;
+            dataGridSQLResultados.AllowUserToResizeRows = false;
+            dataGridSQLResultados.MultiSelect = false;
+            //DGServidas.ColumnHeadersVisible = false;
+            dataGridSQLResultados.RowHeadersVisible = false;
+            //dataGridSQLResultados.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridSQLResultados.DefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
+            dataGridSQLResultados.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
+
+            dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            //DGServidas.RowTemplate.Height = 50;
+
+
+        }
+
+
+
 
     }
 }

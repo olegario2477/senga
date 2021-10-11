@@ -107,6 +107,7 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtPorc = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.lblTolerable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtVariacionV = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -389,13 +390,12 @@
             this.lblEstable.AutoSize = true;
             this.lblEstable.BackColor = System.Drawing.Color.Black;
             this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstable.ForeColor = System.Drawing.Color.Lime;
+            this.lblEstable.ForeColor = System.Drawing.Color.Gray;
             this.lblEstable.Location = new System.Drawing.Point(4, 4);
             this.lblEstable.Name = "lblEstable";
             this.lblEstable.Size = new System.Drawing.Size(48, 46);
             this.lblEstable.TabIndex = 61;
-            this.lblEstable.Text = "E";
-            this.lblEstable.Visible = false;
+            this.lblEstable.Text = "S";
             // 
             // pbServido2
             // 
@@ -842,7 +842,7 @@
             this.panelCorral.Controls.Add(this.lblCorral);
             this.panelCorral.Location = new System.Drawing.Point(12, 13);
             this.panelCorral.Name = "panelCorral";
-            this.panelCorral.Size = new System.Drawing.Size(135, 113);
+            this.panelCorral.Size = new System.Drawing.Size(122, 113);
             this.panelCorral.TabIndex = 104;
             // 
             // panelRacion
@@ -998,6 +998,7 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.lblTolerable);
             this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.txtPorc);
             this.panel7.Controls.Add(this.lblEstable);
@@ -1006,6 +1007,18 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1123, 309);
             this.panel7.TabIndex = 119;
+            // 
+            // lblTolerable
+            // 
+            this.lblTolerable.AutoSize = true;
+            this.lblTolerable.BackColor = System.Drawing.Color.Black;
+            this.lblTolerable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTolerable.ForeColor = System.Drawing.Color.Gray;
+            this.lblTolerable.Location = new System.Drawing.Point(4, 50);
+            this.lblTolerable.Name = "lblTolerable";
+            this.lblTolerable.Size = new System.Drawing.Size(50, 46);
+            this.lblTolerable.TabIndex = 79;
+            this.lblTolerable.Text = "R";
             // 
             // label1
             // 
@@ -1069,20 +1082,20 @@
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel9.Controls.Add(this.txtCorral);
-            this.panel9.Location = new System.Drawing.Point(153, 14);
+            this.panel9.Location = new System.Drawing.Point(140, 14);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(192, 111);
+            this.panel9.Size = new System.Drawing.Size(205, 111);
             this.panel9.TabIndex = 121;
             // 
             // txtCorral
             // 
             this.txtCorral.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCorral.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCorral.Location = new System.Drawing.Point(0, 0);
             this.txtCorral.Name = "txtCorral";
-            this.txtCorral.Size = new System.Drawing.Size(188, 107);
+            this.txtCorral.Size = new System.Drawing.Size(201, 107);
             this.txtCorral.TabIndex = 75;
-            this.txtCorral.Text = "8888";
+            this.txtCorral.Text = "88888";
             this.txtCorral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel12
@@ -1409,5 +1422,6 @@
         private System.Windows.Forms.Panel panelSigCorral;
         private System.Windows.Forms.Label lblSigCorral;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTolerable;
     }
 }
