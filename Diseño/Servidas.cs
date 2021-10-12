@@ -1916,6 +1916,10 @@ namespace Senga
 
             lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
+            //AUTO-DETECTA-CORRAL--------------------------------------
+            //buscarCorral(lblCorral.Text);
+            //--------------------------------------
+
             gLatitud = lat;
             gLongitud = lng;
 
@@ -2857,13 +2861,14 @@ namespace Senga
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            buscarCorral();
+            buscarCorral(txtCaptura.Text);
+            txtCaptura.Text = "";
         }
 
-        private void buscarCorral() 
+        private void buscarCorral(string captura) 
         {
 
-            String searchValue = txtCaptura.Text;
+            String searchValue = captura;
             int rowIndex = -1;
             foreach (DataGridViewRow row in DGServidas.Rows)
             {
@@ -2883,7 +2888,6 @@ namespace Senga
                     DGServidas.FirstDisplayedScrollingRowIndex = rowIndex;
                 }
 
-
                 txtIdD.Text = DGServidas.Rows[rowIndex].Cells["IdD"].Value.ToString();
 
                 filaDatos(txtIdD.Text);
@@ -2891,8 +2895,7 @@ namespace Senga
                 ubicaCorralMapa();
 
                 filaAct();
-
-                txtCaptura.Text = "";
+                
             }
 
         }
@@ -3012,6 +3015,18 @@ namespace Senga
             }
 
         }
+
+        private void btnSimularGps_Click(object sender, EventArgs e)
+        {
+
+            if (!txtSimularLatLng.Text.Equals(""))
+            {
+                Principal.instance.txtSimularLatLng.Text = txtSimularLatLng.Text;
+                Principal.instance.btnSimularGps.PerformClick();
+            }
+
+        }
+
 
 
 

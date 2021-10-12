@@ -274,9 +274,8 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1284, 10);
+            this.panel1.Size = new System.Drawing.Size(1284, 17);
             this.panel1.TabIndex = 55;
-            this.panel1.Visible = false;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // lblNumCarga
@@ -619,103 +618,93 @@
             // 
             // pic10
             // 
-            this.pic10.BackColor = System.Drawing.Color.Lime;
+            this.pic10.BackColor = System.Drawing.Color.Gray;
             this.pic10.Location = new System.Drawing.Point(8, 5);
             this.pic10.Name = "pic10";
             this.pic10.Size = new System.Drawing.Size(119, 25);
             this.pic10.TabIndex = 9;
             this.pic10.TabStop = false;
-            this.pic10.Visible = false;
             // 
             // pic9
             // 
-            this.pic9.BackColor = System.Drawing.Color.Lime;
+            this.pic9.BackColor = System.Drawing.Color.Gray;
             this.pic9.Location = new System.Drawing.Point(8, 35);
             this.pic9.Name = "pic9";
             this.pic9.Size = new System.Drawing.Size(119, 25);
             this.pic9.TabIndex = 8;
             this.pic9.TabStop = false;
-            this.pic9.Visible = false;
             // 
             // pic8
             // 
-            this.pic8.BackColor = System.Drawing.Color.Lime;
+            this.pic8.BackColor = System.Drawing.Color.Gray;
             this.pic8.Location = new System.Drawing.Point(8, 65);
             this.pic8.Name = "pic8";
             this.pic8.Size = new System.Drawing.Size(119, 25);
             this.pic8.TabIndex = 7;
             this.pic8.TabStop = false;
-            this.pic8.Visible = false;
             // 
             // pic7
             // 
-            this.pic7.BackColor = System.Drawing.Color.Lime;
+            this.pic7.BackColor = System.Drawing.Color.Gray;
             this.pic7.Location = new System.Drawing.Point(8, 95);
             this.pic7.Name = "pic7";
             this.pic7.Size = new System.Drawing.Size(119, 25);
             this.pic7.TabIndex = 6;
             this.pic7.TabStop = false;
-            this.pic7.Visible = false;
             // 
             // pic6
             // 
-            this.pic6.BackColor = System.Drawing.Color.Lime;
+            this.pic6.BackColor = System.Drawing.Color.Gray;
             this.pic6.Location = new System.Drawing.Point(8, 125);
             this.pic6.Name = "pic6";
             this.pic6.Size = new System.Drawing.Size(119, 25);
             this.pic6.TabIndex = 5;
             this.pic6.TabStop = false;
-            this.pic6.Visible = false;
             // 
             // pic5
             // 
-            this.pic5.BackColor = System.Drawing.Color.Lime;
+            this.pic5.BackColor = System.Drawing.Color.Gray;
             this.pic5.Location = new System.Drawing.Point(8, 155);
             this.pic5.Name = "pic5";
             this.pic5.Size = new System.Drawing.Size(119, 25);
             this.pic5.TabIndex = 4;
             this.pic5.TabStop = false;
-            this.pic5.Visible = false;
             // 
             // pic4
             // 
-            this.pic4.BackColor = System.Drawing.Color.Lime;
+            this.pic4.BackColor = System.Drawing.Color.Gray;
             this.pic4.Location = new System.Drawing.Point(8, 185);
             this.pic4.Name = "pic4";
             this.pic4.Size = new System.Drawing.Size(119, 25);
             this.pic4.TabIndex = 3;
             this.pic4.TabStop = false;
-            this.pic4.Visible = false;
             // 
             // pic3
             // 
-            this.pic3.BackColor = System.Drawing.Color.Lime;
+            this.pic3.BackColor = System.Drawing.Color.Gray;
             this.pic3.Location = new System.Drawing.Point(8, 215);
             this.pic3.Name = "pic3";
             this.pic3.Size = new System.Drawing.Size(119, 25);
             this.pic3.TabIndex = 2;
             this.pic3.TabStop = false;
-            this.pic3.Visible = false;
             // 
             // pic2
             // 
-            this.pic2.BackColor = System.Drawing.Color.Lime;
+            this.pic2.BackColor = System.Drawing.Color.Gray;
             this.pic2.Location = new System.Drawing.Point(8, 245);
             this.pic2.Name = "pic2";
             this.pic2.Size = new System.Drawing.Size(119, 25);
             this.pic2.TabIndex = 1;
             this.pic2.TabStop = false;
-            this.pic2.Visible = false;
             // 
             // pic1
             // 
-            this.pic1.BackColor = System.Drawing.Color.Lime;
+            this.pic1.BackColor = System.Drawing.Color.Gray;
             this.pic1.Location = new System.Drawing.Point(8, 275);
             this.pic1.Name = "pic1";
             this.pic1.Size = new System.Drawing.Size(119, 25);
             this.pic1.TabIndex = 0;
             this.pic1.TabStop = false;
-            this.pic1.Visible = false;
             // 
             // timerBeep
             // 

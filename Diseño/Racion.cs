@@ -1476,157 +1476,428 @@ namespace Senga
 
             if (porc <= 0)
             {
-                pic1.Visible = false;
-                pic2.Visible = false;
-                pic3.Visible = false;
-                pic4.Visible = false;
-                pic5.Visible = false;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+
+                pic1.BackColor = Color.Gray;
+                pic2.BackColor = Color.Gray;
+                pic3.BackColor = Color.Gray;
+                pic4.BackColor = Color.Gray;
+                pic5.BackColor = Color.Gray;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+
+                //pic1.Visible = false;
+                //pic2.Visible = false;
+                //pic3.Visible = false;
+                //pic4.Visible = false;
+                //pic5.Visible = false;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc > 0 && porc < 20)
             {
-                pic1.Visible = true;
-                pic2.Visible = false;
-                pic3.Visible = false;
-                pic4.Visible = false;
-                pic5.Visible = false;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Gray;
+                pic3.BackColor = Color.Gray;
+                pic4.BackColor = Color.Gray;
+                pic5.BackColor = Color.Gray;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+
+                //pic1.Visible = true;
+                //pic2.Visible = false;
+                //pic3.Visible = false;
+                //pic4.Visible = false;
+                //pic5.Visible = false;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 20 && porc < 30)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = false;
-                pic4.Visible = false;
-                pic5.Visible = false;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Gray;
+                pic4.BackColor = Color.Gray;
+                pic5.BackColor = Color.Gray;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = false;
+                //pic4.Visible = false;
+                //pic5.Visible = false;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 30 && porc < 40)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = false;
-                pic5.Visible = false;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Gray;
+                pic5.BackColor = Color.Gray;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = false;
+                //pic5.Visible = false;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 40 && porc < 50)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = false;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Gray;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = false;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 50 && porc < 60)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = false;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Gray;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = false;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 60 && porc < 70)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = true;
-                pic7.Visible = false;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Gray;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = true;
+                //pic7.Visible = false;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 70 && porc < 80)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = true;
-                pic7.Visible = true;
-                pic8.Visible = false;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Gray;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = true;
+                //pic7.Visible = true;
+                //pic8.Visible = false;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 80 && porc < 90)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = true;
-                pic7.Visible = true;
-                pic8.Visible = true;
-                pic9.Visible = false;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Gray;
+                pic10.BackColor = Color.Gray;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = true;
+                //pic7.Visible = true;
+                //pic8.Visible = true;
+                //pic9.Visible = false;
+                //pic10.Visible = false;
             }
 
             if (porc >= 90 && porc < 100)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = true;
-                pic7.Visible = true;
-                pic8.Visible = true;
-                pic9.Visible = true;
-                pic10.Visible = false;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Lime;
+                pic10.BackColor = Color.Gray;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = true;
+                //pic7.Visible = true;
+                //pic8.Visible = true;
+                //pic9.Visible = true;
+                //pic10.Visible = false;
             }
 
             if (porc >= 100)
             {
-                pic1.Visible = true;
-                pic2.Visible = true;
-                pic3.Visible = true;
-                pic4.Visible = true;
-                pic5.Visible = true;
-                pic6.Visible = true;
-                pic7.Visible = true;
-                pic8.Visible = true;
-                pic9.Visible = true;
-                pic10.Visible = true;
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Lime;
+                pic10.BackColor = Color.Lime;
+                //pic1.Visible = true;
+                //pic2.Visible = true;
+                //pic3.Visible = true;
+                //pic4.Visible = true;
+                //pic5.Visible = true;
+                //pic6.Visible = true;
+                //pic7.Visible = true;
+                //pic8.Visible = true;
+                //pic9.Visible = true;
+                //pic10.Visible = true;
             }
+
+            //if (porc <= 0)
+            //{
+            //    pic1.Visible = false;
+            //    pic2.Visible = false;
+            //    pic3.Visible = false;
+            //    pic4.Visible = false;
+            //    pic5.Visible = false;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc > 0 && porc < 20)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = false;
+            //    pic3.Visible = false;
+            //    pic4.Visible = false;
+            //    pic5.Visible = false;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 20 && porc < 30)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = false;
+            //    pic4.Visible = false;
+            //    pic5.Visible = false;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 30 && porc < 40)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = false;
+            //    pic5.Visible = false;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 40 && porc < 50)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = false;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 50 && porc < 60)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = false;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 60 && porc < 70)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = true;
+            //    pic7.Visible = false;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 70 && porc < 80)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = true;
+            //    pic7.Visible = true;
+            //    pic8.Visible = false;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 80 && porc < 90)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = true;
+            //    pic7.Visible = true;
+            //    pic8.Visible = true;
+            //    pic9.Visible = false;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 90 && porc < 100)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = true;
+            //    pic7.Visible = true;
+            //    pic8.Visible = true;
+            //    pic9.Visible = true;
+            //    pic10.Visible = false;
+            //}
+
+            //if (porc >= 100)
+            //{
+            //    pic1.Visible = true;
+            //    pic2.Visible = true;
+            //    pic3.Visible = true;
+            //    pic4.Visible = true;
+            //    pic5.Visible = true;
+            //    pic6.Visible = true;
+            //    pic7.Visible = true;
+            //    pic8.Visible = true;
+            //    pic9.Visible = true;
+            //    pic10.Visible = true;
+            //}
 
         }
 

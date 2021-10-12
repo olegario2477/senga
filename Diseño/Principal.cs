@@ -3296,11 +3296,12 @@ namespace Senga
 
 
             string[] valores = txtSimularLatLng.Text.Split(',');
-
-            gLatitudgps = double.Parse(valores[0]);
-            gLongitudgps = double.Parse(valores[1]);
-
-            if (!txtSimularLatitud.Text.Equals("") && !txtSimularLongitud.Text.Equals("")) 
+            if (!txtSimularLatLng.Text.Equals(""))
+            {
+                gLatitudgps = double.Parse(valores[0]);
+                gLongitudgps = double.Parse(valores[1]);
+            }
+            if (!txtSimularLatitud.Text.Equals("") && !txtSimularLongitud.Text.Equals(""))
             {
                 gLatitudgps = double.Parse(txtSimularLatitud.Text);
                 gLongitudgps = double.Parse(txtSimularLongitud.Text);

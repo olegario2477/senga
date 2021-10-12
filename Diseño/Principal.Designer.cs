@@ -32,6 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.timerWs = new System.Windows.Forms.Timer(this.components);
             this.panelGps = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.txtSimularLatLng = new System.Windows.Forms.TextBox();
             this.txtSimularLongitud = new System.Windows.Forms.TextBox();
             this.txtSimularLatitud = new System.Windows.Forms.TextBox();
@@ -101,9 +104,6 @@
             this.lblSQL = new System.Windows.Forms.Label();
             this.btnTemperatura = new System.Windows.Forms.Button();
             this.txtBascula = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -139,11 +139,38 @@
             this.panelGps.Size = new System.Drawing.Size(483, 263);
             this.panelGps.TabIndex = 48;
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(170, 18);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(46, 13);
+            this.label4.TabIndex = 115;
+            this.label4.Text = "Lat, Lng";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(196, 62);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(25, 13);
+            this.label3.TabIndex = 114;
+            this.label3.Text = "Lng";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(196, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(22, 13);
+            this.label2.TabIndex = 113;
+            this.label2.Text = "Lat";
+            // 
             // txtSimularLatLng
             // 
             this.txtSimularLatLng.Location = new System.Drawing.Point(222, 15);
             this.txtSimularLatLng.Name = "txtSimularLatLng";
-            this.txtSimularLatLng.Size = new System.Drawing.Size(153, 20);
+            this.txtSimularLatLng.Size = new System.Drawing.Size(244, 20);
             this.txtSimularLatLng.TabIndex = 112;
             // 
             // txtSimularLongitud
@@ -162,9 +189,9 @@
             // 
             // btnSimularGps
             // 
-            this.btnSimularGps.Location = new System.Drawing.Point(381, 14);
+            this.btnSimularGps.Location = new System.Drawing.Point(381, 41);
             this.btnSimularGps.Name = "btnSimularGps";
-            this.btnSimularGps.Size = new System.Drawing.Size(85, 21);
+            this.btnSimularGps.Size = new System.Drawing.Size(85, 38);
             this.btnSimularGps.TabIndex = 109;
             this.btnSimularGps.Text = "Simular";
             this.btnSimularGps.UseVisualStyleBackColor = true;
@@ -181,10 +208,10 @@
             // 
             // txtLectura
             // 
-            this.txtLectura.Location = new System.Drawing.Point(3, 92);
+            this.txtLectura.Location = new System.Drawing.Point(3, 85);
             this.txtLectura.Multiline = true;
             this.txtLectura.Name = "txtLectura";
-            this.txtLectura.Size = new System.Drawing.Size(477, 154);
+            this.txtLectura.Size = new System.Drawing.Size(477, 175);
             this.txtLectura.TabIndex = 68;
             // 
             // picVerde
@@ -532,7 +559,7 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 31;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(817, 243);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(730, 192);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
             this.listBoxRecorridos.Size = new System.Drawing.Size(149, 221);
             this.listBoxRecorridos.TabIndex = 52;
@@ -672,7 +699,7 @@
             this.panelBateria.Controls.Add(this.txtChargeStatus);
             this.panelBateria.Location = new System.Drawing.Point(528, 192);
             this.panelBateria.Name = "panelBateria";
-            this.panelBateria.Size = new System.Drawing.Size(234, 198);
+            this.panelBateria.Size = new System.Drawing.Size(196, 198);
             this.panelBateria.TabIndex = 55;
             this.panelBateria.Visible = false;
             // 
@@ -735,7 +762,7 @@
             // 
             // btnTemperatura
             // 
-            this.btnTemperatura.Location = new System.Drawing.Point(698, 396);
+            this.btnTemperatura.Location = new System.Drawing.Point(660, 406);
             this.btnTemperatura.Name = "btnTemperatura";
             this.btnTemperatura.Size = new System.Drawing.Size(64, 37);
             this.btnTemperatura.TabIndex = 57;
@@ -751,33 +778,6 @@
             this.txtBascula.Size = new System.Drawing.Size(81, 20);
             this.txtBascula.TabIndex = 58;
             this.txtBascula.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(196, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(22, 13);
-            this.label2.TabIndex = 113;
-            this.label2.Text = "Lat";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(196, 62);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(25, 13);
-            this.label3.TabIndex = 114;
-            this.label3.Text = "Lng";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(170, 18);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(46, 13);
-            this.label4.TabIndex = 115;
-            this.label4.Text = "Lat, Lng";
             // 
             // Principal
             // 
@@ -905,13 +905,13 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel9;
         public System.Windows.Forms.TextBox txtBascula;
         private System.Windows.Forms.Label lblErrorGPS;
-        private System.Windows.Forms.Button btnSimularGps;
         private System.Windows.Forms.TextBox txtSimularLongitud;
         private System.Windows.Forms.TextBox txtSimularLatitud;
-        private System.Windows.Forms.TextBox txtSimularLatLng;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtSimularLatLng;
+        public System.Windows.Forms.Button btnSimularGps;
     }
 }
 

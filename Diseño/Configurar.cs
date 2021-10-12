@@ -314,7 +314,16 @@ namespace Senga
             DataTable dt = new DataTable();
 
 
-            if(txtCapacidad.Text == "")
+            if (cmbPuertos.Text.Equals( cmbPuertosGps.Text)) 
+            {             
+                Comun.mensajeVer("COM: Puertos GPS y Peso no deben ser iguales.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                return;
+            }
+            
+
+
+
+            if (txtCapacidad.Text == "")
             {
                 txtCapacidad.Text = "0";
             }
