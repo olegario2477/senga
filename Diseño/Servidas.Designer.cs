@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -127,7 +127,7 @@
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.btnAgregar = new System.Windows.Forms.Button();
             this.panelCaptura = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panelSimular = new System.Windows.Forms.Panel();
             this.label15 = new System.Windows.Forms.Label();
             this.txtSimularLatLng = new System.Windows.Forms.TextBox();
             this.btnSimularGps = new System.Windows.Forms.Button();
@@ -163,7 +163,7 @@
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelCaptura.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.panelSimular.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -640,16 +640,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea3);
+            chartArea1.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea1);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series3.IsValueShownAsLabel = true;
-            series3.IsVisibleInLegend = false;
-            series3.Name = "Series1";
-            this.chartServidas.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.IsValueShownAsLabel = true;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "Series1";
+            this.chartServidas.Series.Add(series1);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
@@ -1164,7 +1164,7 @@
             // 
             // panelCaptura
             // 
-            this.panelCaptura.Controls.Add(this.panel1);
+            this.panelCaptura.Controls.Add(this.panelSimular);
             this.panelCaptura.Controls.Add(this.label14);
             this.panelCaptura.Controls.Add(this.btnOK);
             this.panelCaptura.Controls.Add(this.btnBorrar);
@@ -1185,16 +1185,16 @@
             this.panelCaptura.TabIndex = 99;
             this.panelCaptura.Visible = false;
             // 
-            // panel1
+            // panelSimular
             // 
-            this.panel1.Controls.Add(this.label15);
-            this.panel1.Controls.Add(this.txtSimularLatLng);
-            this.panel1.Controls.Add(this.btnSimularGps);
-            this.panel1.Location = new System.Drawing.Point(13, 135);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(213, 98);
-            this.panel1.TabIndex = 111;
-            this.panel1.Visible = false;
+            this.panelSimular.Controls.Add(this.label15);
+            this.panelSimular.Controls.Add(this.txtSimularLatLng);
+            this.panelSimular.Controls.Add(this.btnSimularGps);
+            this.panelSimular.Location = new System.Drawing.Point(13, 135);
+            this.panelSimular.Name = "panelSimular";
+            this.panelSimular.Size = new System.Drawing.Size(213, 98);
+            this.panelSimular.TabIndex = 111;
+            this.panelSimular.Visible = false;
             // 
             // label15
             // 
@@ -1562,8 +1562,8 @@
             this.toolStrip2.PerformLayout();
             this.panelCaptura.ResumeLayout(false);
             this.panelCaptura.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.panelSimular.ResumeLayout(false);
+            this.panelSimular.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -1692,7 +1692,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnCargar;
         private System.Windows.Forms.Button btnSimularGps;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelSimular;
         public System.Windows.Forms.TextBox txtSimularLatLng;
         private System.Windows.Forms.Label label15;
     }

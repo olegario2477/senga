@@ -89,8 +89,8 @@ namespace Senga
 
 
 
-
-
+            manejoDePrincipal(false);
+            
             manejoTimerDePrincipal(false);
             manejoTimerDeServidas(false);
 
@@ -266,6 +266,8 @@ namespace Senga
 
         private void Servir_FormClosed(object sender, EventArgs e)
         {
+
+            manejoDePrincipal(true);
 
             manejoTimerDePrincipal(true);
             manejoTimerDeServidas(true);
@@ -2055,7 +2057,28 @@ namespace Senga
 
         }
 
+        private void manejoDePrincipal(Boolean activar) 
+        {
 
+
+            //if (activar)
+            //{
+            //    //Principal.instance.serialPortGps.Open();
+            //    Principal.instance.pauseGps = true;
+
+
+            //}
+            //else
+            //{
+            //    //Principal.instance.serialPortGps.Close();
+            //    Principal.instance.pauseGps = false;
+
+
+            //}
+
+
+        }
+        
         private void manejoTimerDePrincipal(Boolean activar)
         {
             //ITimer miInterfaz = this.Owner as ITimer;

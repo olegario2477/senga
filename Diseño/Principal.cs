@@ -22,8 +22,8 @@ namespace Senga
         private delegate void DelegaAcceso(string accion);
 
         Comm commGps = new Comm();
-        public SerialPort serialPort0 = new SerialPort();
-        SerialPort serialPort2 = new SerialPort();
+        public SerialPort serialPortPeso = new SerialPort();
+        public SerialPort serialPortGps = new SerialPort();
 
         private string nameruta = "\\senga_archivos";
         private string nameapp = "\\app";
@@ -54,6 +54,8 @@ namespace Senga
         String versionAct = "";
 
         bool RecibirPeso = false;
+        public bool pauseGps = false;
+
 
         //public void Start()
         //{
@@ -145,10 +147,8 @@ namespace Senga
                     numcamion = row["numcamion"].ToString();
 
                     wsactivo = row["ws"].ToString().Equals("S"); 
-
                     
                 }
-
 
                 carpeta_existe_local();
 
@@ -475,16 +475,16 @@ namespace Senga
                 try
                 {
 
-                    serialPort2.PortName = puertoConfigGps();
-                    serialPort2.BaudRate = baudConfigGps();
-                    serialPort2.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfigGps(), true);
-                    serialPort2.DataBits = dataConfigGps();
-                    serialPort2.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfigGps(), true);
-                    serialPort2.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
-                    serialPort2.ErrorReceived += new SerialErrorReceivedEventHandler(SerialPort_ErrorReceivedHandler);
-                    serialPort2.ReadTimeout = 500;
-                    serialPort2.WriteTimeout = 500;
-                    serialPort2.Open();
+                    serialPortGps.PortName = puertoConfigGps();
+                    serialPortGps.BaudRate = baudConfigGps();
+                    serialPortGps.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfigGps(), true);
+                    serialPortGps.DataBits = dataConfigGps();
+                    serialPortGps.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfigGps(), true);
+                    serialPortGps.DataReceived += new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
+                    //serialPortGps.ErrorReceived += new SerialErrorReceivedEventHandler(SerialPort_ErrorReceivedHandler);
+                    serialPortGps.ReadTimeout = 500;
+                    serialPortGps.WriteTimeout = 500;
+                    serialPortGps.Open();
 
                 }
                 catch (Exception err)
@@ -527,7 +527,7 @@ namespace Senga
                 commGps.p_databitsgps = dataConfigGps();
                 commGps.p_paritygps = parityConfigGps();
                 commGps.p_stopbitsgps = stopConfigGps();
-                commGps.p_spgps = serialPort2;
+                commGps.p_spgps = serialPortGps;
 
                 if (!validapuertoExiste(commGps.p_commgps))
                 {
@@ -2162,8 +2162,8 @@ namespace Senga
         private void cerrarpuertoGps()
         {
 
-            serialPort2.Close();
-            serialPort2.Dispose();
+            serialPortGps.Close();
+            serialPortGps.Dispose();
 
             //if (commGps.p_spgps is null)
             //{
@@ -2355,7 +2355,7 @@ namespace Senga
 
         }
 
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void SerialPortGps_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
             try
@@ -2375,50 +2375,53 @@ namespace Senga
                 //    sdata = encoding.GetString(_buffer);
                 //}
 
-                string sdata = serialPort2.ReadExisting();
-                Thread.Sleep(200);
-
-
-                string[] string_array = sdata.Split('$');
-                string Gprmc = null;
-
-
-                for (int i = 0; i < string_array.Length; i++)
+                if (!pauseGps)
                 {
-                    string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
-                    string[] line_array = stringTemp.Split(',');
-                    if (line_array[0] == "GPRMC")
+                    string sdata = serialPortGps.ReadExisting();
+                    Thread.Sleep(200);
+
+                    string[] string_array = sdata.Split('$');
+                    string Gprmc = null;
+
+                    for (int i = 0; i < string_array.Length; i++)
                     {
-
-                        Gprmc = string.Join(",", string_array[i]);
-                        //Gprmc = line_array[3] + "," + line_array[5];
-                        
-
-                        if (Gprmc != null)
+                        string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+                        string[] line_array = stringTemp.Split(',');
+                        if (line_array[0] == "GPRMC")
                         {
 
-                            if (line_array[4].Length > 0 && line_array[6].Length > 0)
-                            { 
-                                displayToWindow(Gprmc);
+                            Gprmc = string.Join(",", string_array[i]);
+                            //Gprmc = line_array[3] + "," + line_array[5];
+
+
+                            if (Gprmc != null)
+                            {
+
+                                if (line_array[4].Length > 0 && line_array[6].Length > 0)
+                                {
+                                    displayToWindow(Gprmc);
+                                }
+
                             }
-                    
+
+                            break;
+                        }
                     }
 
-                        break;
+
+                    if (Gprmc != null)
+                    {
+                        displayToWindow(Gprmc);
+
+
                     }
-                }
-
-
-                if (Gprmc != null)
-                {
-                    displayToWindow(Gprmc);
-
+                    //else
+                    //{
+                    //    displayToWindow("");
+                    //}
 
                 }
-                //else
-                //{
-                //    displayToWindow("");
-                //}
+
 
             }
             catch (Exception merr)
@@ -2432,39 +2435,39 @@ namespace Senga
 
         }
 
-        private void SerialPort_ErrorReceivedHandler(object sender, SerialErrorReceivedEventArgs e)
-        {
+        //private void SerialPort_ErrorReceivedHandler(object sender, SerialErrorReceivedEventArgs e)
+        //{
 
 
-            //TODO processing error message here
-            string message = "";
-            switch (e.EventType)
-            {
-                case SerialError.Frame:
-                    message = "Framing error ";
-                    break;
-                case SerialError.Overrun:
-                    message = "character-buffer overrun ";
-                    break;
-                case SerialError.RXOver:
-                    message = "Input buffer overflow";
-                    break;
-                case SerialError.RXParity:
-                    message = "parity error pada hardware";
-                    break;
-                case SerialError.TXFull:
-                    message = "transmit data, namun output buffer sedang penuh";
-                    break;
-            }
+        //    //TODO processing error message here
+        //    string message = "";
+        //    switch (e.EventType)
+        //    {
+        //        case SerialError.Frame:
+        //            message = "Framing error ";
+        //            break;
+        //        case SerialError.Overrun:
+        //            message = "character-buffer overrun ";
+        //            break;
+        //        case SerialError.RXOver:
+        //            message = "Input buffer overflow";
+        //            break;
+        //        case SerialError.RXParity:
+        //            message = "parity error pada hardware";
+        //            break;
+        //        case SerialError.TXFull:
+        //            message = "transmit data, namun output buffer sedang penuh";
+        //            break;
+        //    }
 
-            Invoke(new Action(() =>
-            {
-                lblErrorGPS.Text += message.ToString() + '\n' + '\r';
-            }));
+        //    Invoke(new Action(() =>
+        //    {
+        //        lblErrorGPS.Text += message.ToString() + '\n' + '\r';
+        //    }));
 
-            //lblErrorGPS.Invoke(new EventHandler(delegate { lblErrorGPS.Text += e.ToString() + '\n' + '\r'; }));
+        //    //lblErrorGPS.Invoke(new EventHandler(delegate { lblErrorGPS.Text += e.ToString() + '\n' + '\r'; }));
 
-        }
+        //}
 
         private void displayToWindow(string inData)
         {
@@ -3070,16 +3073,16 @@ namespace Senga
 
             try
             {
-                serialPort0.PortName = puertoConfig();
-                serialPort0.BaudRate = baudConfig();
-                serialPort0.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
-                serialPort0.DataBits = dataConfig();
-                serialPort0.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
-                serialPort0.DataReceived += new SerialDataReceivedEventHandler(SerialPort0_DataReceived);
-                serialPort0.ReadTimeout = 500;
-                serialPort0.WriteTimeout = 500;
+                serialPortPeso.PortName = puertoConfig();
+                serialPortPeso.BaudRate = baudConfig();
+                serialPortPeso.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
+                serialPortPeso.DataBits = dataConfig();
+                serialPortPeso.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
+                serialPortPeso.DataReceived += new SerialDataReceivedEventHandler(SerialPortPeso_DataReceived);
+                serialPortPeso.ReadTimeout = 500;
+                serialPortPeso.WriteTimeout = 500;
                 //serialPort1.NewLine = "\r\n";
-                serialPort0.Open();
+                serialPortPeso.Open();
 
                 RecibirPeso = true;
 
@@ -3095,7 +3098,7 @@ namespace Senga
 
         }
 
-        private void SerialPort0_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        private void SerialPortPeso_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
             try
@@ -3110,7 +3113,7 @@ namespace Senga
                     //byte b = (byte)serialPort1.ReadByte();
 
 
-                    string indata = serialPort0.ReadExisting();
+                    string indata = serialPortPeso.ReadExisting();
                     Thread.Sleep(10);
 
                     string stringTemp = indata;
@@ -3278,7 +3281,7 @@ namespace Senga
             if (!datos.consultaSQL(ref dt, true))
             {
                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
+            } 
             else
             {
                 foreach (DataRow row in dt.Rows)
@@ -3314,5 +3317,33 @@ namespace Senga
             ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
         }
+
+        private void btnONGps_Click(object sender, EventArgs e)
+        {
+            pauseGps = false;
+            //serialPortGps.DataReceived += new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
+        }
+
+        private void btnOFFGps_Click(object sender, EventArgs e)
+        {
+            pauseGps = true;
+            //serialPortGps.DataReceived -= new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
+        }
+
+        private void btnConecta_Click(object sender, EventArgs e)
+        {
+            if (!serialPortGps.IsOpen)
+                serialPortGps.Open();
+        
+        }
+
+        private void btnDesconecta_Click(object sender, EventArgs e)
+        {
+
+            if (serialPortGps.IsOpen)
+                serialPortGps.Close();
+        
+        }
+
     }
 }

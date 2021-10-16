@@ -106,6 +106,9 @@ namespace Senga
             //txtCorralUbic.Visible = true;
 
             colorFila();
+
+            panelSimular.Visible = Principal.instance.panelGps.Visible;
+        
         }
 
         private void Servidas_Activated(object sender, EventArgs e) 
@@ -1914,6 +1917,7 @@ namespace Senga
             lblLatitud.Text = lat.ToString();
             lblLongitud.Text = lng.ToString();
 
+            //lblCorral.Text = corralUbicacion(dtUbictmp, lat, lng, gmindist);
             lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
             //AUTO-DETECTA-CORRAL--------------------------------------
