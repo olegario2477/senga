@@ -62,6 +62,8 @@ namespace Senga
         {
 
             //this.Visible = false;
+            //manejoDePrincipal(false);
+
             manejoTimerDePrincipal(false);
             manejoTimerDeRaciones(false);
                        
@@ -379,6 +381,7 @@ namespace Senga
             //comm.cerrarPuerto();
             //comm.liberarPuerto();
             //------------------------------------
+            manejoDePrincipal(true);
 
             manejoTimerDePrincipal(true);
             manejoTimerDeRaciones(true);
@@ -1303,12 +1306,14 @@ namespace Senga
             if (activar)
             {
                 Principal.instance.timerWs.Start();
+                Principal.instance.timerGps.Start();
                 Principal.instance.timerRecorrido.Start();
                 Principal.instance.timerBateria.Start();
             }
             else
             {
                 Principal.instance.timerWs.Stop();
+                Principal.instance.timerGps.Stop();
                 Principal.instance.timerRecorrido.Stop();
                 Principal.instance.timerBateria.Stop();
             }
@@ -2018,6 +2023,36 @@ namespace Senga
 
 
         }
+
+        private void manejoDePrincipal(Boolean activar)
+        {
+
+            if (activar)
+            {
+
+                try
+                {
+                    Principal.instance.serialPortGps.Open();
+                    //Principal.instance.pauseGps = true;
+                }
+                catch { }
+
+            }
+            else
+            {
+                try
+                {
+                    Principal.instance.serialPortGps.Close();
+                    //Principal.instance.pauseGps = false;
+                }
+                catch { }
+
+            }
+
+        }
+
+
+
     }
 
 }

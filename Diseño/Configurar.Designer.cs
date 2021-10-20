@@ -43,6 +43,7 @@
             this.txtCapacidad = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
             this.lblTestPeso = new System.Windows.Forms.Label();
             this.btnTestPeso = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -94,6 +95,7 @@
             this.btnListPuertos = new System.Windows.Forms.Button();
             this.listPuertos = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label31 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.cmbStopGps = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -127,6 +129,7 @@
             this.btnConfigPeso = new System.Windows.Forms.Button();
             this.listBoxConfigDisplay = new System.Windows.Forms.ListBox();
             this.mtto = new System.Windows.Forms.TabPage();
+            this.btnActualizar = new System.Windows.Forms.Button();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.txtCompact = new System.Windows.Forms.Button();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -142,8 +145,6 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
-            this.label30 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -249,9 +250,9 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(24, 55);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(144, 26);
+            this.label3.Size = new System.Drawing.Size(87, 26);
             this.label3.TabIndex = 45;
-            this.label3.Text = "Puertos COM";
+            this.label3.Text = "Puertos";
             // 
             // txtDiasElim
             // 
@@ -317,6 +318,16 @@
             this.groupBox1.TabIndex = 51;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "PESO";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(6, 279);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(122, 26);
+            this.label30.TabIndex = 58;
+            this.label30.Text = "ATEN USB";
             // 
             // lblTestPeso
             // 
@@ -741,9 +752,9 @@
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label26.Location = new System.Drawing.Point(41, 190);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(98, 31);
+            this.label26.Size = new System.Drawing.Size(145, 31);
             this.label26.TabIndex = 97;
-            this.label26.Text = "Activar";
+            this.label26.Text = "Auto Envio";
             // 
             // chkWs
             // 
@@ -903,6 +914,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "GPS";
             // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Location = new System.Drawing.Point(9, 283);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(130, 26);
+            this.label31.TabIndex = 59;
+            this.label31.Text = "Prolific USB";
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
@@ -1021,9 +1042,9 @@
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.Location = new System.Drawing.Point(36, 62);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(144, 26);
+            this.label21.Size = new System.Drawing.Size(87, 26);
             this.label21.TabIndex = 45;
-            this.label21.Text = "Puertos COM";
+            this.label21.Text = "Puertos";
             // 
             // zone
             // 
@@ -1047,7 +1068,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(152, 135);
             this.button3.TabIndex = 84;
-            this.button3.Text = "Actualizar";
+            this.button3.Text = "Refresca";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -1264,6 +1285,7 @@
             // 
             // mtto
             // 
+            this.mtto.Controls.Add(this.btnActualizar);
             this.mtto.Controls.Add(this.btnLimpiar);
             this.mtto.Controls.Add(this.txtCompact);
             this.mtto.Controls.Add(this.tableLayoutPanel);
@@ -1274,6 +1296,19 @@
             this.mtto.Text = "MTTO";
             this.mtto.UseVisualStyleBackColor = true;
             // 
+            // btnActualizar
+            // 
+            this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizar.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.Image")));
+            this.btnActualizar.Location = new System.Drawing.Point(379, 29);
+            this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.Size = new System.Drawing.Size(149, 149);
+            this.btnActualizar.TabIndex = 89;
+            this.btnActualizar.Text = "Actualizar";
+            this.btnActualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
+            // 
             // btnLimpiar
             // 
             this.btnLimpiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1282,7 +1317,7 @@
             this.btnLimpiar.Name = "btnLimpiar";
             this.btnLimpiar.Size = new System.Drawing.Size(149, 149);
             this.btnLimpiar.TabIndex = 88;
-            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.Text = "Limpiar BD";
             this.btnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnLimpiar.UseVisualStyleBackColor = true;
             this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
@@ -1480,26 +1515,6 @@
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
             // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(6, 279);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(122, 26);
-            this.label30.TabIndex = 58;
-            this.label30.Text = "ATEN USB";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(9, 283);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(130, 26);
-            this.label31.TabIndex = 59;
-            this.label31.Text = "Prolific USB";
-            // 
             // Configurar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1673,5 +1688,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Button btnActualizar;
     }
 }

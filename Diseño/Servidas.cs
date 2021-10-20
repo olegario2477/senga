@@ -35,6 +35,7 @@ namespace Senga
         double gLatitud = 21.923002;
         double gLongitud = -98.745503;
         double gmindist = 0.02;
+        string gCoordenadas = "";
         private List<PointLatLng> _points;
 
         GMarkerGoogle markerRecorrer;
@@ -42,6 +43,8 @@ namespace Senga
 
         GMarkerGoogle markerCamion;
         GMapOverlay overlayCamion;
+
+        GMapOverlay overlayLinea;
 
         GMapOverlay overlayRuta;
         GMapOverlay overlayRutaP;
@@ -74,6 +77,8 @@ namespace Senga
         
         private void Servidas_Load(object sender, EventArgs e)
         {
+
+
             propiedadesGrid();
             seleccionarFila2();
 
@@ -90,7 +95,9 @@ namespace Senga
 
             cargaMapa();
 
-            activar();                       
+            activar();
+
+
 
 
             panelServida.Visible = true;
@@ -108,7 +115,9 @@ namespace Senga
             colorFila();
 
             panelSimular.Visible = Principal.instance.panelGps.Visible;
-        
+
+            gMapControl1.Refresh();
+
         }
 
         private void Servidas_Activated(object sender, EventArgs e) 
@@ -220,7 +229,7 @@ namespace Senga
             gMapControl1.CanDragMap = true;
 
             gMapControl1.MinZoom = 15;//15
-            gMapControl1.MaxZoom = 17;//19
+            gMapControl1.MaxZoom = 19;//17
             gMapControl1.Zoom = 15;
             gMapControl1.Bearing = -50;
             gMapControl1.AutoScroll = true;
@@ -240,17 +249,20 @@ namespace Senga
             overlayRutaP = new GMapOverlay("RutaP");
             gMapControl1.Overlays.Add(overlayRutaP);
 
+            overlayLinea = new GMapOverlay("Ruta");
+            gMapControl1.Overlays.Add(overlayLinea);
+
             overlayCamion = new GMapOverlay("camion");
             gMapControl1.Overlays.Add(overlayCamion);
 
             overlayRecorrer = new GMapOverlay("recorrer");
             gMapControl1.Overlays.Add(overlayRecorrer);
 
-            
+
             //ubicServir(dtUbictmp);
 
 
-
+            //gMapControl1.Refresh();
 
 
         }
@@ -1449,22 +1461,23 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     txtServida.Text = row["Servida"].ToString();
-                }
-            }
-
-            datos.p_sql = "SELECT TOP 1 * FROM operacion";
-
-            if (!datos.consultaSQL(ref dt, true))
-            {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            else
-            {
-                foreach (DataRow row in dt.Rows)
-                {
                     txtJornada.Text = row["Jornada"].ToString();
                 }
             }
+
+            //datos.p_sql = "SELECT TOP 1 * FROM operacion";
+
+            //if (!datos.consultaSQL(ref dt, true))
+            //{
+            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
+            //else
+            //{
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        txtJornada.Text = row["Jornada"].ToString();
+            //    }
+            //}
         
         }
 
@@ -1917,8 +1930,8 @@ namespace Senga
             lblLatitud.Text = lat.ToString();
             lblLongitud.Text = lng.ToString();
 
-            //lblCorral.Text = corralUbicacion(dtUbictmp, lat, lng, gmindist);
-            lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
+            lblCorral.Text = corralUbicacion(dtUbictmp, lat, lng, gmindist);
+            //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
             //AUTO-DETECTA-CORRAL--------------------------------------
             //buscarCorral(lblCorral.Text);
@@ -2002,6 +2015,9 @@ namespace Senga
             double clat = 0;
             double clng = 0;
 
+            double clatmin = 0;
+            double clngmin = 0;
+
             double dist = 0;
             double distmin = 9999999;
 
@@ -2023,6 +2039,10 @@ namespace Senga
                     {
                         distmin = dist;
                         corralmin = row["corral"].ToString();
+
+                        clatmin = clat;
+                        clngmin = clng;
+
                     }
 
                 }
@@ -2032,6 +2052,9 @@ namespace Senga
                 if (distmin <= distancia)//0.05)
                 {
                     corral = corralmin;
+
+                    mostrarLinea(lat, lng, clatmin, clngmin);
+
                 }
                 else
                 {
@@ -2046,6 +2069,41 @@ namespace Senga
 
 
             return corral;
+
+        }
+
+        private void mostrarLinea(double lat1, double lng1, double lat2, double lng2)
+        {
+
+            try
+            {
+
+                List<PointLatLng> puntos = new List<PointLatLng>();
+
+                overlayLinea.Routes.Clear();
+
+                puntos.Add(new PointLatLng(lat1, lng1));
+                puntos.Add(new PointLatLng(lat2, lng2));
+
+                GMapRoute PuntoLinea = new GMapRoute(puntos, "Linea");
+                overlayLinea.Routes.Add(PuntoLinea);
+
+                PuntoLinea.Stroke.Color = Color.Yellow;
+                //PuntoRuta.Stroke.Color = Color.Transparent; //Color.Blue;
+
+                //double distance = PuntoLinea.Distance * 1000;
+
+                //distance = Math.Round(distance, 2);
+
+                //lblDistancia.Text = distance.ToString();
+                //lblDistancia.Visible = true;
+
+            }
+            catch (Exception e)
+            {
+
+            }
+
 
         }
 
@@ -2253,13 +2311,20 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
+            operacionCorral();
+
             this.Cursor = Cursors.WaitCursor;
 
-            datos.p_sql = "SELECT * FROM ubicacion";
+            datos.p_sql = "SELECT " +
+                " ubicacion.corral ,latitud ,longitud ,latitud1 ,longitud1 ,latitud2 ,longitud2 ,latitud3 ,longitud3 ,latitud4 ,longitud4 " +
+                " FROM Ubicacion " +
+                " LEFT JOIN Servidas ON Ubicacion.corral = Servidas.corral " +
+                " WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' AND num = " + txtServida.Text + " and id = " + txtJornada.Text;
+                
 
             if (!datos.consultaSQL(ref dt, true))
             {
-                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 //msgErrores(datos.p_error, Constants.MSG_ERROR);
             }
             else
@@ -2665,8 +2730,8 @@ namespace Senga
 
                     foreach (DataRow row2 in rows)
                     {
-                        vLatitud = Convert.ToDouble(row2["lat1"]);
-                        vLongitud = Convert.ToDouble(row2["lng1"]);
+                        vLatitud = Convert.ToDouble(row2["lat"]);
+                        vLongitud = Convert.ToDouble(row2["lng"]);
                     }
 
                 }
@@ -2745,7 +2810,7 @@ namespace Senga
 
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            if (gMapControl1.Zoom <= 17)
+            if (gMapControl1.Zoom <= 19)
             {
                 gMapControl1.Zoom += 1;
             }
@@ -3032,9 +3097,30 @@ namespace Senga
         }
 
 
+        private void gMapControl1_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            base.OnMouseMove(e);
+
+            double lat = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lat, 6);
+            double lng = Math.Round(gMapControl1.FromLocalToLatLng(e.X, e.Y).Lng, 6);
+
+            gCoordenadas = Convert.ToString(lat) + "," + Convert.ToString(lng);
+
+            corralUbicacion(dtUbictmp, lat, lng, gmindist);
 
 
 
 
+
+        }
+
+        private void copiarCoordenadaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            Clipboard.SetText(gCoordenadas); //To copy your text to your clipboard
+            Clipboard.GetText(); //To get your text from your clipboard
+        }
     }
+
 }

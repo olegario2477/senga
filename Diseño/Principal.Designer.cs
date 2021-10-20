@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.timerWs = new System.Windows.Forms.Timer(this.components);
             this.panelGps = new System.Windows.Forms.Panel();
+            this.btnServicio = new System.Windows.Forms.Button();
             this.btnDesconecta = new System.Windows.Forms.Button();
             this.btnConecta = new System.Windows.Forms.Button();
             this.btnOFFGps = new System.Windows.Forms.Button();
@@ -98,7 +99,10 @@
             this.btnActualizar = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panelBateria = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtBascula = new System.Windows.Forms.TextBox();
             this.btnBateria = new System.Windows.Forms.Button();
+            this.btnTemperatura = new System.Windows.Forms.Button();
             this.txtLineStatus = new System.Windows.Forms.TextBox();
             this.txtLifeRemaining = new System.Windows.Forms.TextBox();
             this.txtCharge = new System.Windows.Forms.TextBox();
@@ -106,8 +110,7 @@
             this.txtChargeStatus = new System.Windows.Forms.TextBox();
             this.timerBateria = new System.Windows.Forms.Timer(this.components);
             this.lblSQL = new System.Windows.Forms.Label();
-            this.btnTemperatura = new System.Windows.Forms.Button();
-            this.txtBascula = new System.Windows.Forms.TextBox();
+            this.timerGps = new System.Windows.Forms.Timer(this.components);
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -126,6 +129,7 @@
             // panelGps
             // 
             this.panelGps.BackColor = System.Drawing.Color.White;
+            this.panelGps.Controls.Add(this.btnServicio);
             this.panelGps.Controls.Add(this.btnDesconecta);
             this.panelGps.Controls.Add(this.btnConecta);
             this.panelGps.Controls.Add(this.btnOFFGps);
@@ -142,10 +146,20 @@
             this.panelGps.Controls.Add(this.picVerde);
             this.panelGps.Controls.Add(this.picRojo);
             this.panelGps.Controls.Add(this.chkWarning);
-            this.panelGps.Location = new System.Drawing.Point(20, 227);
+            this.panelGps.Location = new System.Drawing.Point(12, 385);
             this.panelGps.Name = "panelGps";
-            this.panelGps.Size = new System.Drawing.Size(783, 376);
+            this.panelGps.Size = new System.Drawing.Size(867, 221);
             this.panelGps.TabIndex = 48;
+            // 
+            // btnServicio
+            // 
+            this.btnServicio.Location = new System.Drawing.Point(743, 63);
+            this.btnServicio.Name = "btnServicio";
+            this.btnServicio.Size = new System.Drawing.Size(97, 35);
+            this.btnServicio.TabIndex = 120;
+            this.btnServicio.Text = "Servicio";
+            this.btnServicio.UseVisualStyleBackColor = true;
+            this.btnServicio.Click += new System.EventHandler(this.btnServicio_Click);
             // 
             // btnDesconecta
             // 
@@ -169,7 +183,7 @@
             // 
             // btnOFFGps
             // 
-            this.btnOFFGps.Location = new System.Drawing.Point(327, 64);
+            this.btnOFFGps.Location = new System.Drawing.Point(341, 63);
             this.btnOFFGps.Name = "btnOFFGps";
             this.btnOFFGps.Size = new System.Drawing.Size(97, 34);
             this.btnOFFGps.TabIndex = 117;
@@ -179,7 +193,7 @@
             // 
             // btnONGps
             // 
-            this.btnONGps.Location = new System.Drawing.Point(224, 63);
+            this.btnONGps.Location = new System.Drawing.Point(238, 62);
             this.btnONGps.Name = "btnONGps";
             this.btnONGps.Size = new System.Drawing.Size(97, 34);
             this.btnONGps.TabIndex = 116;
@@ -260,7 +274,7 @@
             this.txtLectura.Location = new System.Drawing.Point(3, 104);
             this.txtLectura.Multiline = true;
             this.txtLectura.Name = "txtLectura";
-            this.txtLectura.Size = new System.Drawing.Size(763, 269);
+            this.txtLectura.Size = new System.Drawing.Size(851, 109);
             this.txtLectura.TabIndex = 68;
             this.txtLectura.Text = "Gps";
             // 
@@ -268,7 +282,7 @@
             // 
             this.picVerde.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picVerde.Image = ((System.Drawing.Image)(resources.GetObject("picVerde.Image")));
-            this.picVerde.Location = new System.Drawing.Point(742, 0);
+            this.picVerde.Location = new System.Drawing.Point(746, 3);
             this.picVerde.Name = "picVerde";
             this.picVerde.Size = new System.Drawing.Size(38, 36);
             this.picVerde.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -280,7 +294,7 @@
             // 
             this.picRojo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picRojo.Image = ((System.Drawing.Image)(resources.GetObject("picRojo.Image")));
-            this.picRojo.Location = new System.Drawing.Point(742, 39);
+            this.picRojo.Location = new System.Drawing.Point(802, 3);
             this.picRojo.Name = "picRojo";
             this.picRojo.Size = new System.Drawing.Size(38, 36);
             this.picRojo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -609,9 +623,9 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 31;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(1011, 189);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(913, 153);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
-            this.listBoxRecorridos.Size = new System.Drawing.Size(149, 221);
+            this.listBoxRecorridos.Size = new System.Drawing.Size(315, 407);
             this.listBoxRecorridos.TabIndex = 52;
             this.listBoxRecorridos.Visible = false;
             this.listBoxRecorridos.SelectedIndexChanged += new System.EventHandler(this.listBoxRecorridos_SelectedIndexChanged);
@@ -726,6 +740,7 @@
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnActualizar.UseVisualStyleBackColor = true;
+            this.btnActualizar.Visible = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // label1
@@ -741,17 +756,37 @@
             // 
             // panelBateria
             // 
+            this.panelBateria.Controls.Add(this.label5);
+            this.panelBateria.Controls.Add(this.txtBascula);
             this.panelBateria.Controls.Add(this.btnBateria);
+            this.panelBateria.Controls.Add(this.btnTemperatura);
             this.panelBateria.Controls.Add(this.txtLineStatus);
             this.panelBateria.Controls.Add(this.txtLifeRemaining);
             this.panelBateria.Controls.Add(this.txtCharge);
             this.panelBateria.Controls.Add(this.txtFullLifetime);
             this.panelBateria.Controls.Add(this.txtChargeStatus);
-            this.panelBateria.Location = new System.Drawing.Point(809, 192);
+            this.panelBateria.Location = new System.Drawing.Point(12, 181);
             this.panelBateria.Name = "panelBateria";
-            this.panelBateria.Size = new System.Drawing.Size(196, 198);
+            this.panelBateria.Size = new System.Drawing.Size(216, 198);
             this.panelBateria.TabIndex = 55;
             this.panelBateria.Visible = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(18, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(31, 13);
+            this.label5.TabIndex = 114;
+            this.label5.Text = "Peso";
+            // 
+            // txtBascula
+            // 
+            this.txtBascula.Location = new System.Drawing.Point(60, 9);
+            this.txtBascula.Name = "txtBascula";
+            this.txtBascula.Size = new System.Drawing.Size(60, 20);
+            this.txtBascula.TabIndex = 58;
+            this.txtBascula.Visible = false;
             // 
             // btnBateria
             // 
@@ -762,6 +797,17 @@
             this.btnBateria.Text = "Bateria";
             this.btnBateria.UseVisualStyleBackColor = true;
             this.btnBateria.Click += new System.EventHandler(this.btnBateria_Click);
+            // 
+            // btnTemperatura
+            // 
+            this.btnTemperatura.Location = new System.Drawing.Point(126, 10);
+            this.btnTemperatura.Name = "btnTemperatura";
+            this.btnTemperatura.Size = new System.Drawing.Size(76, 20);
+            this.btnTemperatura.TabIndex = 57;
+            this.btnTemperatura.Text = "Temp";
+            this.btnTemperatura.UseVisualStyleBackColor = true;
+            this.btnTemperatura.Visible = false;
+            this.btnTemperatura.Click += new System.EventHandler(this.btnTemperatura_Click);
             // 
             // txtLineStatus
             // 
@@ -810,24 +856,10 @@
             this.lblSQL.Size = new System.Drawing.Size(307, 411);
             this.lblSQL.TabIndex = 56;
             // 
-            // btnTemperatura
+            // timerGps
             // 
-            this.btnTemperatura.Location = new System.Drawing.Point(941, 396);
-            this.btnTemperatura.Name = "btnTemperatura";
-            this.btnTemperatura.Size = new System.Drawing.Size(64, 37);
-            this.btnTemperatura.TabIndex = 57;
-            this.btnTemperatura.Text = "Temp";
-            this.btnTemperatura.UseVisualStyleBackColor = true;
-            this.btnTemperatura.Visible = false;
-            this.btnTemperatura.Click += new System.EventHandler(this.btnTemperatura_Click);
-            // 
-            // txtBascula
-            // 
-            this.txtBascula.Location = new System.Drawing.Point(23, 189);
-            this.txtBascula.Name = "txtBascula";
-            this.txtBascula.Size = new System.Drawing.Size(81, 20);
-            this.txtBascula.TabIndex = 58;
-            this.txtBascula.Visible = false;
+            this.timerGps.Interval = 2000;
+            this.timerGps.Tick += new System.EventHandler(this.timerGps_Tick);
             // 
             // Principal
             // 
@@ -838,8 +870,6 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
-            this.Controls.Add(this.txtBascula);
-            this.Controls.Add(this.btnTemperatura);
             this.Controls.Add(this.panelBateria);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizar);
@@ -891,7 +921,6 @@
         private System.Windows.Forms.Button btnServidas;
         private System.Windows.Forms.Button btnSalir;
         private System.Windows.Forms.PictureBox picLogo;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnConfigurar;
         private System.Windows.Forms.PictureBox picVerde;
         private System.Windows.Forms.PictureBox picRojo;
@@ -966,6 +995,10 @@
         public System.Windows.Forms.Button btnONGps;
         public System.Windows.Forms.Button btnConecta;
         public System.Windows.Forms.Button btnDesconecta;
+        public System.Windows.Forms.PictureBox pictureBox1;
+        public System.Windows.Forms.Button btnServicio;
+        public System.Windows.Forms.Timer timerGps;
+        private System.Windows.Forms.Label label5;
     }
 }
 

@@ -26,6 +26,10 @@ namespace Senga
         private string namec = "\\procesados";
         private string nameu = "\\ubicaciones";
 
+        private string nameapp = "\\app";
+        private string nameappnom = "\\senga";
+        private string vrutared;
+
         ConnectedWs connectar;
         DataTable dtUbictmp;
 
@@ -382,8 +386,9 @@ namespace Senga
             else
             {
                 //MessageBox.Show("Listo, cerrar y abrir aplicacion para que tome los cambios.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                Comun.mensajeVer("Listo, cerrar y abrir aplicacion para que tome los cambios.", Constants.MSG_BOTON_OK,Constants.MSG_IMG_OK);
-                
+                Comun.mensajeVer("Listo, guardo los cambios, se reiniciara la aplicacion.", Constants.MSG_BOTON_OK,Constants.MSG_IMG_OK);
+
+                Application.Restart();
             }
 
             //carpeta_existe_local();
@@ -1854,6 +1859,136 @@ namespace Senga
         {
             portDescripcion();
         }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+
+            if (!redConectado())
+            {
+                //MessageBox.Show("Sin red disponible.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
+                Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+            }
+            else
+            {
+
+                //if (Comun.mensajeVer("¿ Desea actualizar version ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                //{
+
+                try
+                {
+
+                    vrutared = rutared();
+
+                    string sourcePath = vrutared + nameruta + nameapp + nameappnom + "\\Senga.exe";
+                    string actualPath = Directory.GetCurrentDirectory() + "\\Senga.exe"; ;
+                    string targetPath = Directory.GetCurrentDirectory() + "\\Senga_nva_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".exe";
+
+                    FileVersionInfo sourcePathFileVersionInfo = FileVersionInfo.GetVersionInfo(sourcePath);
+                    DateTime sourcedt = File.GetLastWriteTime(sourcePath);
+                    FileVersionInfo actualPathFileVersionInfo = FileVersionInfo.GetVersionInfo(actualPath);
+                    DateTime actualdt = File.GetLastWriteTime(actualPath);
+
+                    string vsourcePath = sourcePathFileVersionInfo.FileVersion;
+                    string vactualPath = actualPathFileVersionInfo.FileVersion;
+
+
+                    //foreach (String srcPath in Directory.GetFiles(Directory.GetCurrentDirectory()))
+                    //{
+                    //    if (srcPath.Contains("Senga_nva")) 
+                    //    {
+                    //       string a = "";
+                    //    }
+                    //}
+
+                    //if (sourcedt == actualdt)
+                    if (vsourcePath == vactualPath)
+                    {
+                        Comun.mensajeVer("No hay actualizaciones a una nueva version de la App", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                    }
+                    else
+                    {
+                        if (Comun.mensajeVer("¿ Desea actualizar nueva version " + vsourcePath + " ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                        {
+
+                            Principal.instance.pictureBox1.Visible = false;
+                            Principal.instance.Refresh();
+                            this.Visible = false;
+
+
+
+                            File.Copy(sourcePath, targetPath, true);
+
+                            Rename(actualPath, "Senga_" + vactualPath + "_" + DateTime.Now.ToString("ddMMyyHHmmss"));
+
+                            Rename(targetPath, "Senga");
+
+                            File.Copy(sourcePath, targetPath, true);
+
+                            Application.Restart();
+
+                            //Comun.mensajeVer("Listo reinciar aplicacion", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+
+                        }
+                    }
+
+
+                }
+                catch (Exception ec)
+                {
+                    Comun.mensajeVer(ec.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
+
+                //}
+
+            }
+
+        }
+
+        private Boolean redConectado()
+        {
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        }
+
+        public void Rename(string filePath, string newFileName)
+        {
+
+            var newFilePath = Path.Combine(Path.GetDirectoryName(filePath), newFileName + Path.GetExtension(filePath));
+
+            if (!File.Exists(newFilePath))
+            {
+                File.Move(filePath, newFilePath);
+            }
+
+        }
+
+        private string rutared()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string valor = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    valor = row["RutaRed"].ToString();
+                }
+            }
+
+            return valor;
+
+        }
+
+
+
     }
 
 }

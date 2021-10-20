@@ -89,7 +89,7 @@ namespace Senga
 
 
 
-            manejoDePrincipal(false);
+            //manejoDePrincipal(false);
             
             manejoTimerDePrincipal(false);
             manejoTimerDeServidas(false);
@@ -2061,20 +2061,26 @@ namespace Senga
         {
 
 
-            //if (activar)
-            //{
-            //    //Principal.instance.serialPortGps.Open();
-            //    Principal.instance.pauseGps = true;
+            if (activar)
+            {
+                try
+                {
+                    Principal.instance.serialPortGps.Open();
+                    //Principal.instance.pauseGps = true;
+                }
+                catch { }
 
+            }
+            else
+            {
+                try
+                {
+                    Principal.instance.serialPortGps.Close();
+                    //Principal.instance.pauseGps = false;
+                }
+                catch { }
 
-            //}
-            //else
-            //{
-            //    //Principal.instance.serialPortGps.Close();
-            //    Principal.instance.pauseGps = false;
-
-
-            //}
+            }
 
 
         }
@@ -2099,12 +2105,14 @@ namespace Senga
             if (activar)
             {
                 Principal.instance.timerWs.Start();
+                Principal.instance.timerGps.Start();
                 Principal.instance.timerRecorrido.Start();
                 Principal.instance.timerBateria.Start();
             }
             else
             {
                 Principal.instance.timerWs.Stop();
+                Principal.instance.timerGps.Stop();
                 Principal.instance.timerRecorrido.Stop();
                 Principal.instance.timerBateria.Stop();
             }

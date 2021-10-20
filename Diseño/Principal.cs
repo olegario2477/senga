@@ -13,6 +13,7 @@ using System.IO;
 using System.Threading;
 using System.Net.NetworkInformation;
 using System.Management;
+using System.ServiceProcess;
 
 namespace Senga
 {
@@ -22,7 +23,7 @@ namespace Senga
         private delegate void DelegaAcceso(string accion);
 
         Comm commGps = new Comm();
-        public SerialPort serialPortPeso = new SerialPort();
+        //public SerialPort serialPortPeso = new SerialPort();
         public SerialPort serialPortGps = new SerialPort();
 
         private string nameruta = "\\senga_archivos";
@@ -33,6 +34,7 @@ namespace Senga
         string servida = "";
         string racion = "";
         //string ip = "";
+        string recibidos = "";
 
         public double gLatitudgps = 0;
         public double gLongitudgps = 0;
@@ -116,7 +118,6 @@ namespace Senga
             versionAct = Application.ProductVersion;
 
             lblVersion.Text = "v" + versionAct + " - " + bitModo();
-
 
         
             //cambiosSQL(versionAct);
@@ -480,11 +481,15 @@ namespace Senga
                     serialPortGps.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfigGps(), true);
                     serialPortGps.DataBits = dataConfigGps();
                     serialPortGps.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfigGps(), true);
-                    serialPortGps.DataReceived += new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
+                    //serialPortGps.DataReceived += new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
                     //serialPortGps.ErrorReceived += new SerialErrorReceivedEventHandler(SerialPort_ErrorReceivedHandler);
                     serialPortGps.ReadTimeout = 500;
                     serialPortGps.WriteTimeout = 500;
                     serialPortGps.Open();
+
+
+                    timerGps.Start();
+
 
                 }
                 catch (Exception err)
@@ -816,11 +821,9 @@ namespace Senga
                 //consultaRecorridoCamion(dtCamiontmp);
                 //enviarWsdlRecorridoCamion(dtCamiontmp);     
 
-
             }
 
         }
-
 
         private Boolean redConectado()
         {
@@ -2355,76 +2358,102 @@ namespace Senga
 
         }
 
+
+        private void SerialPortGps2_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                recibidos = serialPortGps.ReadExisting();
+                this.Invoke(new EventHandler(Actualizar)); 
+            }
+            catch 
+            {
+
+            } 
+
+        }
+
+        private void Actualizar(object s, EventArgs e)
+        {
+            txtLectura.Text = recibidos;
+        }
+
+
         private void SerialPortGps_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 
             try
             {
 
-                //SerialPort port = (SerialPort)sender;
-                //byte[] _buffer = new byte[port.BytesToRead];
-                //port.Read(_buffer, 0, _buffer.Length);
-
-                //Thread.Sleep(20);
-
-                ////Parse buffer
-                //string sdata = "";
-                //Encoding encoding = ASCIIEncoding.GetEncoding(1252);
-                //if (null != _buffer)
-                //{
-                //    sdata = encoding.GetString(_buffer);
-                //}
-
                 if (!pauseGps)
                 {
-                    string sdata = serialPortGps.ReadExisting();
-                    Thread.Sleep(200);
 
-                    string[] string_array = sdata.Split('$');
-                    string Gprmc = null;
+                    //-----------------------------
+                    SerialPort port = (SerialPort)sender;
+                    byte[] _buffer = new byte[port.BytesToRead];
+                    port.Read(_buffer, 0, _buffer.Length);
 
-                    for (int i = 0; i < string_array.Length; i++)
+                    //Parse buffer
+                    string sdata = "";
+                    Encoding encoding = ASCIIEncoding.GetEncoding(1252);
+                    if (null != _buffer)
                     {
-                        string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
-                        string[] line_array = stringTemp.Split(',');
-                        if (line_array[0] == "GPRMC")
+                        sdata = encoding.GetString(_buffer);
+                    }
+
+                    //-----------------------------
+                    //string sdata = serialPortGps.ReadExisting();
+                    Thread.Sleep(50);//200
+                    //-----------------------------
+
+                    if (sdata.Contains("GPRMC"))
+                    {
+
+                        string[] string_array = sdata.Split('$');
+                        string Gprmc = null;
+
+                        for (int i = 0; i < string_array.Length; i++)
                         {
-
-                            Gprmc = string.Join(",", string_array[i]);
-                            //Gprmc = line_array[3] + "," + line_array[5];
-
-
-                            if (Gprmc != null)
+                            string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+                            string[] line_array = stringTemp.Split(',');
+                            if (line_array[0] == "GPRMC")
                             {
 
-                                if (line_array[4].Length > 0 && line_array[6].Length > 0)
+                                Gprmc = string.Join(",", string_array[i]);
+                                //Gprmc = line_array[3] + "," + line_array[5];
+
+                                if (Gprmc != null)
                                 {
-                                    displayToWindow(Gprmc);
+
+                                    //if (line_array[4].Length > 0 && line_array[6].Length > 0)
+                                    if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                    {
+                                        displayToWindow(Gprmc);
+                                    }
+
                                 }
 
+                                break;
                             }
-
-                            break;
                         }
+
+                        //if (Gprmc != null)
+                        //{
+                        //    displayToWindow(Gprmc);
+                        //}
+
+                        //else
+                        //{
+                        //    displayToWindow("");
+                        //}
+
                     }
-
-
-                    if (Gprmc != null)
-                    {
-                        displayToWindow(Gprmc);
-
-
-                    }
-                    //else
-                    //{
-                    //    displayToWindow("");
-                    //}
 
                 }
 
 
             }
-            catch (Exception merr)
+            catch //(Exception merr)
             {
                 //MessageBox.Show(merr.Message);
 
@@ -2854,6 +2883,7 @@ namespace Senga
             }
 
         }
+
         private void cambiosSQL(String version) 
         {
 
@@ -3068,101 +3098,101 @@ namespace Senga
         //}
 
 
-        private void iniciaPesoOpc2()
-        {
+        //private void iniciaPesoOpc2()
+        //{
 
-            try
-            {
-                serialPortPeso.PortName = puertoConfig();
-                serialPortPeso.BaudRate = baudConfig();
-                serialPortPeso.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
-                serialPortPeso.DataBits = dataConfig();
-                serialPortPeso.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
-                serialPortPeso.DataReceived += new SerialDataReceivedEventHandler(SerialPortPeso_DataReceived);
-                serialPortPeso.ReadTimeout = 500;
-                serialPortPeso.WriteTimeout = 500;
-                //serialPort1.NewLine = "\r\n";
-                serialPortPeso.Open();
+        //    try
+        //    {
+        //        serialPortPeso.PortName = puertoConfig();
+        //        serialPortPeso.BaudRate = baudConfig();
+        //        serialPortPeso.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
+        //        serialPortPeso.DataBits = dataConfig();
+        //        serialPortPeso.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
+        //        serialPortPeso.DataReceived += new SerialDataReceivedEventHandler(SerialPortPeso_DataReceived);
+        //        serialPortPeso.ReadTimeout = 500;
+        //        serialPortPeso.WriteTimeout = 500;
+        //        //serialPort1.NewLine = "\r\n";
+        //        serialPortPeso.Open();
 
-                RecibirPeso = true;
+        //        RecibirPeso = true;
 
-            }
-            catch (Exception err)
-            {
-                Close();
-                //MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Comun.mensajeVer(err.Message + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
-                //ErrorLogging(err);
-            }
-
-
-        }
-
-        private void SerialPortPeso_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-
-            try
-            {
-
-                if (this.Enabled)
-                {
-
-                    //lblRecibePeso.Visible = !lblRecibePeso.Visible;
-
-                    //char v = (char)serialPort1.ReadByte();
-                    //byte b = (byte)serialPort1.ReadByte();
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        Close();
+        //        //MessageBox.Show(err.Message, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //        Comun.mensajeVer(err.Message + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+        //        //ErrorLogging(err);
+        //    }
 
 
-                    string indata = serialPortPeso.ReadExisting();
-                    Thread.Sleep(10);
+        //}
 
-                    string stringTemp = indata;
-                    char c = (char)02;
-                    stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+        //private void SerialPortPeso_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        //{
 
-                    string[] string_array = stringTemp.Split('\r');
+        //    try
+        //    {
 
-                    int j = string_array.Length;
-                    for (int i = 0; i < j; i++)
-                    {
-                        stringTemp = string_array[i].Trim();
-                        long number1 = 0;
-                        if (long.TryParse(stringTemp, out number1))
-                        {
-                            this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
-                            //Console.WriteLine(stringTemp);
-                        }
-                    }
+        //        if (this.Enabled)
+        //        {
 
-                    //this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
-                    //Console.WriteLine(stringTemp);
+        //            //lblRecibePeso.Visible = !lblRecibePeso.Visible;
+
+        //            //char v = (char)serialPort1.ReadByte();
+        //            //byte b = (byte)serialPort1.ReadByte();
 
 
-                }
+        //            string indata = serialPortPeso.ReadExisting();
+        //            Thread.Sleep(10);
 
-            }
-            catch (Exception merr)
-            {
-                Console.WriteLine("Error " + merr);
-            }
+        //            string stringTemp = indata;
+        //            char c = (char)02;
+        //            stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+
+        //            string[] string_array = stringTemp.Split('\r');
+
+        //            int j = string_array.Length;
+        //            for (int i = 0; i < j; i++)
+        //            {
+        //                stringTemp = string_array[i].Trim();
+        //                long number1 = 0;
+        //                if (long.TryParse(stringTemp, out number1))
+        //                {
+        //                    this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+        //                    //Console.WriteLine(stringTemp);
+        //                }
+        //            }
+
+        //            //this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+        //            //Console.WriteLine(stringTemp);
+
+
+        //        }
+
+        //    }
+        //    catch (Exception merr)
+        //    {
+        //        Console.WriteLine("Error " + merr);
+        //    }
         
-        }
+        //}
 
-        private void si_DataReceived(string accion)
-        {
+        //private void si_DataReceived(string accion)
+        //{
 
-            if (RecibirPeso)
-            {
+        //    if (RecibirPeso)
+        //    {
 
-                txtBascula.Text = accion;
-                txtBascula.Refresh();
-                //procesaPeso(txtBascula.Text);
+        //        txtBascula.Text = accion;
+        //        txtBascula.Refresh();
+        //        //procesaPeso(txtBascula.Text);
 
-                //Console.WriteLine(accion);
-                //Console.WriteLine(txtBascula.Text);
-            }
+        //        //Console.WriteLine(accion);
+        //        //Console.WriteLine(txtBascula.Text);
+        //    }
 
-        }
+        //}
 
         private string puertoConfig()
         {
@@ -3345,5 +3375,85 @@ namespace Senga
         
         }
 
+        private void btnServicio_Click(object sender, EventArgs e)
+        {
+
+            ServiceBase[] servicesToRun;
+            servicesToRun = new ServiceBase[]
+            {
+                new ServicioGPS()//,
+                //new Service2()
+            };
+            ServiceBase.Run(servicesToRun);
+          
+
+        }
+
+        private void timerGps_Tick(object sender, EventArgs e)
+        {
+
+            try
+            {
+
+                string sdata = serialPortGps.ReadExisting();
+
+                string[] string_array = sdata.Split('$');
+                string Gprmc = null;
+
+                for (int i = 0; i < string_array.Length; i++)
+                {
+                    
+                    string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+                    string[] line_array = stringTemp.Split(',');
+
+                    if (line_array[0] == "GPRMC")
+                    {
+
+                        Gprmc = string.Join(",", string_array[i]);
+
+                        if (Gprmc != null)
+                        {
+
+                            if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                            {
+
+                                string inData = Gprmc;
+
+                                string validos = "A";
+                                if (chkWarning.Checked) { validos = "V"; }
+
+                                Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+
+                                gLatitudgps = separaNMEA(inData, validos, 3);
+                                gLongitudgps = separaNMEA(inData, validos, 5);
+
+                                lblLatitud.Text = gLatitudgps.ToString();
+                                lblLongitud.Text = gLongitudgps.ToString();
+
+                                gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                                ghoragps = DateTime.Now.ToString("HH:mm:ss");
+
+                                txtLectura.Text = inData;
+
+                            }
+
+                        }
+
+                        break;
+                    }
+
+                }
+
+            }
+            catch { }
+
+        }
+
+
+
+
+
+
     }
+
 }
