@@ -69,6 +69,8 @@
             this.txtCapacidad = new System.Windows.Forms.TextBox();
             this.txtPlaneado = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnWsEnviar = new System.Windows.Forms.Button();
+            this.btnWsRecibir = new System.Windows.Forms.Button();
             this.btnPlanta = new System.Windows.Forms.Button();
             this.btnNube = new System.Windows.Forms.Button();
             this.btnUSB = new System.Windows.Forms.Button();
@@ -81,11 +83,11 @@
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnConectar = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLatitud = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLongitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -158,7 +160,7 @@
             // 
             this.btnServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServida.Image = ((System.Drawing.Image)(resources.GetObject("btnServida.Image")));
-            this.btnServida.Location = new System.Drawing.Point(355, -2);
+            this.btnServida.Location = new System.Drawing.Point(166, 0);
             this.btnServida.Name = "btnServida";
             this.btnServida.Size = new System.Drawing.Size(140, 149);
             this.btnServida.TabIndex = 2;
@@ -231,7 +233,7 @@
             // 
             this.btnLista.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLista.Image = ((System.Drawing.Image)(resources.GetObject("btnLista.Image")));
-            this.btnLista.Location = new System.Drawing.Point(731, 0);
+            this.btnLista.Location = new System.Drawing.Point(860, -2);
             this.btnLista.Name = "btnLista";
             this.btnLista.Size = new System.Drawing.Size(140, 149);
             this.btnLista.TabIndex = 6;
@@ -288,7 +290,7 @@
             this.btnServir.BackColor = System.Drawing.SystemColors.Control;
             this.btnServir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServir.Image = ((System.Drawing.Image)(resources.GetObject("btnServir.Image")));
-            this.btnServir.Location = new System.Drawing.Point(997, 0);
+            this.btnServir.Location = new System.Drawing.Point(1045, 0);
             this.btnServir.Name = "btnServir";
             this.btnServir.Size = new System.Drawing.Size(140, 149);
             this.btnServir.TabIndex = 8;
@@ -324,7 +326,7 @@
             // 
             this.btnArchivos.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnArchivos.Image = ((System.Drawing.Image)(resources.GetObject("btnArchivos.Image")));
-            this.btnArchivos.Location = new System.Drawing.Point(858, 0);
+            this.btnArchivos.Location = new System.Drawing.Point(948, 0);
             this.btnArchivos.Name = "btnArchivos";
             this.btnArchivos.Size = new System.Drawing.Size(140, 149);
             this.btnArchivos.TabIndex = 7;
@@ -515,7 +517,7 @@
             // 
             this.btnSincroniza.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSincroniza.Image = ((System.Drawing.Image)(resources.GetObject("btnSincroniza.Image")));
-            this.btnSincroniza.Location = new System.Drawing.Point(608, 0);
+            this.btnSincroniza.Location = new System.Drawing.Point(762, 0);
             this.btnSincroniza.Name = "btnSincroniza";
             this.btnSincroniza.Size = new System.Drawing.Size(140, 149);
             this.btnSincroniza.TabIndex = 5;
@@ -530,7 +532,7 @@
             this.lblPlanes.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPlanes.ForeColor = System.Drawing.Color.Red;
-            this.lblPlanes.Location = new System.Drawing.Point(744, 6);
+            this.lblPlanes.Location = new System.Drawing.Point(873, 4);
             this.lblPlanes.Name = "lblPlanes";
             this.lblPlanes.Size = new System.Drawing.Size(29, 31);
             this.lblPlanes.TabIndex = 79;
@@ -542,7 +544,7 @@
             this.lblServidos.BackColor = System.Drawing.SystemColors.ControlLight;
             this.lblServidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblServidos.ForeColor = System.Drawing.Color.Red;
-            this.lblServidos.Location = new System.Drawing.Point(864, 6);
+            this.lblServidos.Location = new System.Drawing.Point(954, 6);
             this.lblServidos.Name = "lblServidos";
             this.lblServidos.Size = new System.Drawing.Size(29, 31);
             this.lblServidos.TabIndex = 80;
@@ -552,7 +554,7 @@
             // 
             this.btnExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorer.Image")));
-            this.btnExplorer.Location = new System.Drawing.Point(221, 3);
+            this.btnExplorer.Location = new System.Drawing.Point(40, 0);
             this.btnExplorer.Name = "btnExplorer";
             this.btnExplorer.Size = new System.Drawing.Size(128, 149);
             this.btnExplorer.TabIndex = 4;
@@ -587,6 +589,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnWsEnviar);
+            this.panel1.Controls.Add(this.btnWsRecibir);
             this.panel1.Controls.Add(this.btnExplorer);
             this.panel1.Controls.Add(this.btnPlanta);
             this.panel1.Controls.Add(this.btnServida);
@@ -607,11 +611,37 @@
             this.panel1.TabIndex = 85;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // btnWsEnviar
+            // 
+            this.btnWsEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWsEnviar.Image = ((System.Drawing.Image)(resources.GetObject("btnWsEnviar.Image")));
+            this.btnWsEnviar.Location = new System.Drawing.Point(475, 0);
+            this.btnWsEnviar.Name = "btnWsEnviar";
+            this.btnWsEnviar.Size = new System.Drawing.Size(140, 149);
+            this.btnWsEnviar.TabIndex = 85;
+            this.btnWsEnviar.Text = "ENVIA";
+            this.btnWsEnviar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnWsEnviar.UseVisualStyleBackColor = true;
+            this.btnWsEnviar.Click += new System.EventHandler(this.btnWsEnviar_Click);
+            // 
+            // btnWsRecibir
+            // 
+            this.btnWsRecibir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnWsRecibir.Image = ((System.Drawing.Image)(resources.GetObject("btnWsRecibir.Image")));
+            this.btnWsRecibir.Location = new System.Drawing.Point(353, 0);
+            this.btnWsRecibir.Name = "btnWsRecibir";
+            this.btnWsRecibir.Size = new System.Drawing.Size(140, 149);
+            this.btnWsRecibir.TabIndex = 84;
+            this.btnWsRecibir.Text = "RECIBE";
+            this.btnWsRecibir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnWsRecibir.UseVisualStyleBackColor = true;
+            this.btnWsRecibir.Click += new System.EventHandler(this.btnWsRecibir_Click);
+            // 
             // btnPlanta
             // 
             this.btnPlanta.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanta.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanta.Image")));
-            this.btnPlanta.Location = new System.Drawing.Point(275, 0);
+            this.btnPlanta.Location = new System.Drawing.Point(110, 0);
             this.btnPlanta.Name = "btnPlanta";
             this.btnPlanta.Size = new System.Drawing.Size(140, 149);
             this.btnPlanta.TabIndex = 1;
@@ -624,7 +654,7 @@
             // 
             this.btnNube.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNube.Image = ((System.Drawing.Image)(resources.GetObject("btnNube.Image")));
-            this.btnNube.Location = new System.Drawing.Point(434, 0);
+            this.btnNube.Location = new System.Drawing.Point(593, 0);
             this.btnNube.Name = "btnNube";
             this.btnNube.Size = new System.Drawing.Size(140, 149);
             this.btnNube.TabIndex = 82;
@@ -637,7 +667,7 @@
             // 
             this.btnUSB.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnUSB.Image = ((System.Drawing.Image)(resources.GetObject("btnUSB.Image")));
-            this.btnUSB.Location = new System.Drawing.Point(512, 0);
+            this.btnUSB.Location = new System.Drawing.Point(656, 0);
             this.btnUSB.Name = "btnUSB";
             this.btnUSB.Size = new System.Drawing.Size(140, 149);
             this.btnUSB.TabIndex = 81;
@@ -652,10 +682,11 @@
             this.picLogo.Image = ((System.Drawing.Image)(resources.GetObject("picLogo.Image")));
             this.picLogo.Location = new System.Drawing.Point(0, 0);
             this.picLogo.Name = "picLogo";
-            this.picLogo.Size = new System.Drawing.Size(221, 149);
+            this.picLogo.Size = new System.Drawing.Size(34, 149);
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 83;
             this.picLogo.TabStop = false;
+            this.picLogo.Visible = false;
             // 
             // toolStrip1
             // 
@@ -668,11 +699,11 @@
             this.toolStripLabel9,
             this.lblBateriaTiempo,
             this.toolStripSeparator5,
+            this.btnConectar,
             this.toolStripLabel1,
+            this.toolStripLabel2,
             this.toolStripSeparator1,
             this.lblLatitud,
-            this.toolStripSeparator2,
-            this.toolStripLabel2,
             this.toolStripSeparator4,
             this.lblLongitud,
             this.toolStripSeparator3});
@@ -729,12 +760,33 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 44);
             // 
+            // btnConectar
+            // 
+            this.btnConectar.BackColor = System.Drawing.Color.LightGray;
+            this.btnConectar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnConectar.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.btnConectar.Image = ((System.Drawing.Image)(resources.GetObject("btnConectar.Image")));
+            this.btnConectar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConectar.Name = "btnConectar";
+            this.btnConectar.Size = new System.Drawing.Size(116, 41);
+            this.btnConectar.Text = "ON GPS";
+            this.btnConectar.ToolTipText = "ON GPS";
+            this.btnConectar.Visible = false;
+            this.btnConectar.Click += new System.EventHandler(this.btnConectar_Click);
+            // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 41);
-            this.toolStripLabel1.Text = "Latitud";
+            this.toolStripLabel1.Size = new System.Drawing.Size(53, 41);
+            this.toolStripLabel1.Text = "Lat";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(61, 41);
+            this.toolStripLabel2.Text = "Lng";
             // 
             // toolStripSeparator1
             // 
@@ -747,18 +799,6 @@
             this.lblLatitud.Name = "lblLatitud";
             this.lblLatitud.Size = new System.Drawing.Size(32, 41);
             this.lblLatitud.Text = "0";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(124, 41);
-            this.toolStripLabel2.Text = "Longitud";
             // 
             // toolStripSeparator4
             // 
@@ -1002,7 +1042,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel lblLatitud;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripLabel lblLongitud;
@@ -1028,5 +1067,8 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel9;
         private System.Windows.Forms.TextBox txtTiempo;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripButton btnConectar;
+        private System.Windows.Forms.Button btnWsEnviar;
+        private System.Windows.Forms.Button btnWsRecibir;
     }
 }

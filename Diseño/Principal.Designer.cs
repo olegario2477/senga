@@ -57,15 +57,15 @@
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
             this.lblBateriaTiempo = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnIniciaGps = new System.Windows.Forms.ToolStripButton();
+            this.btnConectarGps = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLatitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLongitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnIniciaGps = new System.Windows.Forms.ToolStripButton();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.lblConectado = new System.Windows.Forms.ToolStripLabel();
@@ -111,6 +111,7 @@
             this.timerBateria = new System.Windows.Forms.Timer(this.components);
             this.lblSQL = new System.Windows.Forms.Label();
             this.timerGps = new System.Windows.Forms.Timer(this.components);
+            this.btnVerGps = new System.Windows.Forms.Button();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -146,19 +147,21 @@
             this.panelGps.Controls.Add(this.picVerde);
             this.panelGps.Controls.Add(this.picRojo);
             this.panelGps.Controls.Add(this.chkWarning);
-            this.panelGps.Location = new System.Drawing.Point(12, 385);
+            this.panelGps.Location = new System.Drawing.Point(33, 385);
             this.panelGps.Name = "panelGps";
             this.panelGps.Size = new System.Drawing.Size(867, 221);
             this.panelGps.TabIndex = 48;
+            this.panelGps.Visible = false;
             // 
             // btnServicio
             // 
+            this.btnServicio.BackColor = System.Drawing.Color.Transparent;
             this.btnServicio.Location = new System.Drawing.Point(743, 63);
             this.btnServicio.Name = "btnServicio";
             this.btnServicio.Size = new System.Drawing.Size(97, 35);
             this.btnServicio.TabIndex = 120;
             this.btnServicio.Text = "Servicio";
-            this.btnServicio.UseVisualStyleBackColor = true;
+            this.btnServicio.UseVisualStyleBackColor = false;
             this.btnServicio.Click += new System.EventHandler(this.btnServicio_Click);
             // 
             // btnDesconecta
@@ -323,15 +326,15 @@
             this.toolStripLabel9,
             this.lblBateriaTiempo,
             this.toolStripSeparator5,
+            this.btnIniciaGps,
+            this.btnConectarGps,
             this.toolStripLabel1,
+            this.toolStripLabel2,
             this.toolStripSeparator1,
             this.lblLatitud,
             this.toolStripSeparator2,
-            this.toolStripLabel2,
-            this.toolStripSeparator4,
             this.lblLongitud,
-            this.toolStripSeparator3,
-            this.btnIniciaGps});
+            this.toolStripSeparator3});
             this.toolStrip1.Location = new System.Drawing.Point(0, 657);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1244, 44);
@@ -385,12 +388,47 @@
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 44);
             // 
+            // btnIniciaGps
+            // 
+            this.btnIniciaGps.BackColor = System.Drawing.Color.LightGray;
+            this.btnIniciaGps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnIniciaGps.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.btnIniciaGps.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciaGps.Image")));
+            this.btnIniciaGps.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnIniciaGps.Name = "btnIniciaGps";
+            this.btnIniciaGps.Size = new System.Drawing.Size(116, 41);
+            this.btnIniciaGps.Text = "ON GPS";
+            this.btnIniciaGps.ToolTipText = "ON GPS";
+            this.btnIniciaGps.Visible = false;
+            this.btnIniciaGps.Click += new System.EventHandler(this.btnIniciaGps_Click);
+            // 
+            // btnConectarGps
+            // 
+            this.btnConectarGps.BackColor = System.Drawing.Color.LightGray;
+            this.btnConectarGps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnConectarGps.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.btnConectarGps.Image = ((System.Drawing.Image)(resources.GetObject("btnConectarGps.Image")));
+            this.btnConectarGps.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConectarGps.Name = "btnConectarGps";
+            this.btnConectarGps.Size = new System.Drawing.Size(116, 41);
+            this.btnConectarGps.Text = "ON GPS";
+            this.btnConectarGps.ToolTipText = "ON GPS";
+            this.btnConectarGps.Visible = false;
+            this.btnConectarGps.Click += new System.EventHandler(this.btnConectar_Click);
+            // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 41);
-            this.toolStripLabel1.Text = "Latitud";
+            this.toolStripLabel1.Size = new System.Drawing.Size(53, 41);
+            this.toolStripLabel1.Text = "Lat";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(61, 41);
+            this.toolStripLabel2.Text = "Lng";
             // 
             // toolStripSeparator1
             // 
@@ -409,18 +447,6 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
             // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(124, 41);
-            this.toolStripLabel2.Text = "Longitud";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
-            // 
             // lblLongitud
             // 
             this.lblLongitud.Font = new System.Drawing.Font("Segoe UI", 20F);
@@ -432,20 +458,6 @@
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
-            // 
-            // btnIniciaGps
-            // 
-            this.btnIniciaGps.BackColor = System.Drawing.Color.LightGray;
-            this.btnIniciaGps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnIniciaGps.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.btnIniciaGps.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciaGps.Image")));
-            this.btnIniciaGps.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnIniciaGps.Name = "btnIniciaGps";
-            this.btnIniciaGps.Size = new System.Drawing.Size(116, 41);
-            this.btnIniciaGps.Text = "ON GPS";
-            this.btnIniciaGps.ToolTipText = "ON GPS";
-            this.btnIniciaGps.Visible = false;
-            this.btnIniciaGps.Click += new System.EventHandler(this.btnIniciaGps_Click);
             // 
             // toolStrip2
             // 
@@ -620,12 +632,12 @@
             // 
             // listBoxRecorridos
             // 
-            this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
-            this.listBoxRecorridos.ItemHeight = 31;
+            this.listBoxRecorridos.ItemHeight = 46;
             this.listBoxRecorridos.Location = new System.Drawing.Point(913, 153);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
-            this.listBoxRecorridos.Size = new System.Drawing.Size(315, 407);
+            this.listBoxRecorridos.Size = new System.Drawing.Size(319, 372);
             this.listBoxRecorridos.TabIndex = 52;
             this.listBoxRecorridos.Visible = false;
             this.listBoxRecorridos.SelectedIndexChanged += new System.EventHandler(this.listBoxRecorridos_SelectedIndexChanged);
@@ -765,7 +777,7 @@
             this.panelBateria.Controls.Add(this.txtCharge);
             this.panelBateria.Controls.Add(this.txtFullLifetime);
             this.panelBateria.Controls.Add(this.txtChargeStatus);
-            this.panelBateria.Location = new System.Drawing.Point(12, 181);
+            this.panelBateria.Location = new System.Drawing.Point(408, 181);
             this.panelBateria.Name = "panelBateria";
             this.panelBateria.Size = new System.Drawing.Size(216, 198);
             this.panelBateria.TabIndex = 55;
@@ -861,6 +873,18 @@
             this.timerGps.Interval = 2000;
             this.timerGps.Tick += new System.EventHandler(this.timerGps_Tick);
             // 
+            // btnVerGps
+            // 
+            this.btnVerGps.BackColor = System.Drawing.Color.Black;
+            this.btnVerGps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVerGps.Location = new System.Drawing.Point(0, 370);
+            this.btnVerGps.Name = "btnVerGps";
+            this.btnVerGps.Size = new System.Drawing.Size(3, 100);
+            this.btnVerGps.TabIndex = 57;
+            this.btnVerGps.Text = ">";
+            this.btnVerGps.UseVisualStyleBackColor = false;
+            this.btnVerGps.Click += new System.EventHandler(this.btnVerGps_Click);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -870,6 +894,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.btnVerGps);
             this.Controls.Add(this.panelBateria);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnActualizar);
@@ -933,7 +958,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel lblServer;
@@ -999,6 +1023,8 @@
         public System.Windows.Forms.Button btnServicio;
         public System.Windows.Forms.Timer timerGps;
         private System.Windows.Forms.Label label5;
+        public System.Windows.Forms.ToolStripButton btnConectarGps;
+        private System.Windows.Forms.Button btnVerGps;
     }
 }
 

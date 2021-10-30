@@ -1657,9 +1657,10 @@ namespace Senga
                                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
+                            txtFalta.Text = falta.ToString();
+                            txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
+                            txtCorrales.Text = DGServidas.RowCount.ToString();
 
-                            
-                            
                             //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
                         }
                     }
@@ -1766,7 +1767,11 @@ namespace Senga
                                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
-             
+
+                            txtFalta.Text = falta.ToString();
+                            txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
+                            txtCorrales.Text = DGServidas.RowCount.ToString();
+
                             //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
 
@@ -2324,7 +2329,7 @@ namespace Senga
 
             if (!datos.consultaSQL(ref dt, true))
             {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 //msgErrores(datos.p_error, Constants.MSG_ERROR);
             }
             else
@@ -2460,6 +2465,7 @@ namespace Senga
             pbBateria.Value = Principal.instance.pbBateria.Value;
             lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
 
+            btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
 
         }
         
@@ -3120,6 +3126,11 @@ namespace Senga
 
             Clipboard.SetText(gCoordenadas); //To copy your text to your clipboard
             Clipboard.GetText(); //To get your text from your clipboard
+        }
+
+        private void btnConectar_Click(object sender, EventArgs e)
+        {
+            Principal.instance.btnConectarGps.PerformClick();
         }
     }
 

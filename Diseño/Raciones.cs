@@ -47,7 +47,7 @@ namespace Senga
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             //Close();
-            
+
 
             Jornadas frm = new Jornadas();
             //frm.MdiParent = this;
@@ -59,7 +59,7 @@ namespace Senga
 
         private void Raciones_Load(object sender, EventArgs e)
         {
-            
+
             propiedadesGrid();
             propiedadesGrid2();
             seleccionarFila();
@@ -103,14 +103,14 @@ namespace Senga
 
         private void Raciones_Activated(object sender, EventArgs e)
         {
-            
+
             activar();
 
         }
 
         private void activar()
         {
-           
+
             if (activado)
             {
                 operacionRacion();
@@ -148,40 +148,47 @@ namespace Senga
                 cantservidos();
 
             }
-        
+
         }
 
         private void posicionbotones()
         {
             btnCerrar.Top = 0;
-            btnServir.Top = 0;            
-            btnArchivos.Top = 0;            
+            btnServir.Top = 0;
+            btnArchivos.Top = 0;
             btnLista.Top = 0;
             btnSincroniza.Top = 0;
             btnExplorer.Top = 0;
             btnUSB.Top = 0;
             btnNube.Top = 0;
+            btnWsRecibir.Top = 0;
+            btnWsEnviar.Top = 0;
             btnServida.Top = 0;
             btnPlanta.Top = 0;
 
             //oculta boton
             btnExplorer.Width = 0;
             //btnSincroniza.Width = 0;
+            btnWsEnviar.Width = 0;
             btnLista.Width = 0;
             btnArchivos.Width = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
-            btnServir.Left = btnCerrar.Left - btnServir.Width;            
+            btnServir.Left = btnCerrar.Left - btnServir.Width;
             btnArchivos.Left = btnServir.Left - btnArchivos.Width;
             btnLista.Left = btnArchivos.Left - btnLista.Width;
             btnSincroniza.Left = btnLista.Left - btnSincroniza.Width;
             btnExplorer.Left = btnSincroniza.Left - btnExplorer.Width;
             btnUSB.Left = btnExplorer.Left - btnUSB.Width;
             btnNube.Left = btnUSB.Left - btnNube.Width;
-            btnServida.Left = btnNube.Left - btnServida.Width;
+
+            btnWsEnviar.Left = btnNube.Left - btnWsEnviar.Width;
+            btnWsRecibir.Left = btnWsEnviar.Left - btnWsRecibir.Width;
+
+            btnServida.Left = btnWsRecibir.Left - btnServida.Width;
             btnPlanta.Left = btnServida.Left - btnPlanta.Width;
 
-            
+
 
             lblPlanes.Top = btnLista.Top + 5;
             lblPlanes.Left = btnLista.Left + 5;
@@ -213,7 +220,7 @@ namespace Senga
             DGRaciones.CellBorderStyle = DataGridViewCellBorderStyle.None;
             DGRaciones.DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
             //DGRaciones.RowTemplate.Height = 50;
-            
+
 
         }
 
@@ -285,11 +292,11 @@ namespace Senga
         {
 
             DataTable table = new DataTable();
-            
-            table.Columns.Add("Racion", typeof(string));            
+
+            table.Columns.Add("Racion", typeof(string));
             table.Columns.Add("Corrales", typeof(string));
             //table.Columns.Add("Hechos", typeof(long));
-            table.Columns.Add("Plan", typeof(long));            
+            table.Columns.Add("Plan", typeof(long));
             //table.Columns.Add("Variacion", typeof(string));
             table.Columns.Add("Cargas", typeof(long));
             table.Columns.Add("Servido", typeof(long));
@@ -338,7 +345,7 @@ namespace Senga
             table.Columns.Add("Recibio", typeof(long));
             //table.Columns.Add("Servido", typeof(long));
             table.Columns.Add("Carga", typeof(long));
- 
+
 
             DGCargas.DataSource = table;
 
@@ -395,7 +402,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["Racion"].ToString(), (row["HechoC"].ToString() +"/"+ row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), /*row["Carga"].ToString(),*/ Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
+                    table.Rows.Add(row["Racion"].ToString(), (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), /*row["Carga"].ToString(),*/ Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -415,7 +422,7 @@ namespace Senga
 
             }
 
-             
+
         }
 
         private void datosGrid2()
@@ -431,14 +438,14 @@ namespace Senga
             string idd = "0";
             bool primero = true;
 
-           datos.p_sql = "SELECT NumCarga,Sum(Realidad) as Realidad FROM Servidas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' group by NumCarga";
+            datos.p_sql = "SELECT NumCarga,Sum(Realidad) as Realidad FROM Servidas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' group by NumCarga";
 
             if (!datos.consultaSQL(ref dt2, true))
             {
                 //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc"; 
+            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -451,22 +458,22 @@ namespace Senga
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    
+
                     string realidad = "0";
 
                     foreach (DataRow row2 in dt2.Rows)
                     {
-                        if (row2["NumCarga"].ToString().Equals(row["IdD"].ToString())) 
-                        { 
+                        if (row2["NumCarga"].ToString().Equals(row["IdD"].ToString()))
+                        {
                             realidad = row2["Realidad"].ToString();
                             break;
-                        }                        
-                        
+                        }
+
                     }
 
                     //long anterior = Convert.ToInt32(cadenaCero(row["BasculaIni"].ToString()));
                     long anterior = Convert.ToInt32(cadenaCero(row["CargaIni"].ToString()));
-                    long dif = anterior + (Convert.ToInt32(cadenaCero(row["Carga"].ToString())) );//- Convert.ToInt32(cadenaCero(realidad)) );
+                    long dif = anterior + (Convert.ToInt32(cadenaCero(row["Carga"].ToString())));//- Convert.ToInt32(cadenaCero(realidad)) );
 
                     long carga = dif;
                     //------------------------------------
@@ -478,7 +485,7 @@ namespace Senga
                     table.Rows.Add(row["IdD"].ToString(),/* row["Hora"].ToString(), row["Tolva"].ToString(),*/ row["Solicito"].ToString(), anterior.ToString(), row["Carga"].ToString(), /*realidad.ToString(),*/ carga.ToString());
 
                     difant = dif;
-                   
+
                     //if (row["Cargado"].ToString() == "0" && primero)
                     ////if (primero)
                     //{
@@ -521,7 +528,7 @@ namespace Senga
             double division = 0;
 
             division = Convert.ToDouble(plan) / Convert.ToDouble(capacidad);
-            entero = (int)Math.Truncate(division); 
+            entero = (int)Math.Truncate(division);
             decimales = division - entero;
 
             if (decimales > 0)
@@ -531,7 +538,7 @@ namespace Senga
 
             resultado = entero;
             return resultado.ToString();
-            
+
         }
 
         private void DGRaciones_SelectionChanged(object sender, EventArgs e)
@@ -541,28 +548,28 @@ namespace Senga
 
         }
 
-        void refreshCargas() 
-        { 
+        void refreshCargas()
+        {
 
             if (DGRaciones.CurrentRow != null)
             {
-                txtIdDr.Text = (string)DGRaciones.CurrentRow.Cells["IdD"].Value;                 
+                txtIdDr.Text = (string)DGRaciones.CurrentRow.Cells["IdD"].Value;
 
                 filaDatos(txtIdDr.Text);
             }
 
-            datosGrid2();       
+            datosGrid2();
         }
 
         private void btnServida_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),1);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 1);
             frm.Show();
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
         {
-                        
+
 
             if (DGRaciones.RowCount != 0)
             {
@@ -578,7 +585,7 @@ namespace Senga
                 else
                 {
 
-                    
+
                     Datos datos = new Datos();
                     DataTable dt = new DataTable();
 
@@ -589,10 +596,10 @@ namespace Senga
                         MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     }
 
-                                                                                                     
+
 
                     if (txtIdDr.Text != "")
-                    {                       
+                    {
 
                         Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text);
                         frm.Show();
@@ -628,7 +635,7 @@ namespace Senga
                     txtCarga.Text = row["Carga"].ToString();
                     txtCorrales.Text = row["Cantidad"].ToString();
                     txtHechos.Text = row["HechoC"].ToString();
-                    
+
                     txtPlaneado.Text = row["Planeado"].ToString();
                     txtNumCarga.Text = row["NumCarga"].ToString();
 
@@ -731,7 +738,7 @@ namespace Senga
             }
 
             datos.p_sql = "SELECT TOP 1 * FROM configuracion";
-            
+
             if (!datos.consultaSQL(ref dt, true))
             {
                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -745,7 +752,7 @@ namespace Senga
                 }
             }
 
-            
+
         }
 
         private void limpiarRacion()
@@ -810,7 +817,7 @@ namespace Senga
             }
             //pbServido.Value = valor;
 
-                       
+
         }
 
         private void quitadifdiaplan()
@@ -823,12 +830,12 @@ namespace Senga
             {
 
                 string namefile = Path.GetFileName(srcPath);
-                
+
                 string[] lines = namefile.Split('_');
                 string tipo = lines[0].Trim();
                 string line = lines[1].Trim();
                 string fecha = lines[2].Substring(0, 6);
-                
+
                 if (!(tipo.Equals("P") && line.Equals(txtCamion.Text) && fecha.Equals(DateTime.Now.ToString("ddMMyy"))))
                 {
 
@@ -886,7 +893,7 @@ namespace Senga
 
                 //if (!(tipo.Equals("P")))
                 //{
-                    moverArchivo(srcPath, targetproc, true);
+                moverArchivo(srcPath, targetproc, true);
                 //}
 
 
@@ -930,7 +937,7 @@ namespace Senga
 
                 lblCantidad.Visible = true;
                 lblCantidad.Text = "Espere ...";
-                                
+
                 int registros_ins = 0;
                 int tipof = 0;
                 string linea = "";
@@ -950,7 +957,7 @@ namespace Senga
                         tipof = 2;
                     }
 
-                    if (tipof!=0)
+                    if (tipof != 0)
                     {
 
                         //string[] lineas = namefile.Split('_');
@@ -960,260 +967,260 @@ namespace Senga
                         //if (fecha.Equals(DateTime.Now.ToString("ddMMyy")))
                         //{
 
-                            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
-                            //openFileDialog1.Filter = "Archivos Txt|*.txt";
-                            //openFileDialog1.Title = "Seleccion un Archivo Texto";
+                        //OpenFileDialog openFileDialog1 = new OpenFileDialog();
+                        //openFileDialog1.Filter = "Archivos Txt|*.txt";
+                        //openFileDialog1.Title = "Seleccion un Archivo Texto";
 
-                            //openFileDialog1.InitialDirectory = rutaarchivos() + nameruta + namea;//@"C:\";
+                        //openFileDialog1.InitialDirectory = rutaarchivos() + nameruta + namea;//@"C:\";
 
-                            int registros_sel = 0;
+                        int registros_sel = 0;
 
-                            int registrost = 0;
+                        int registrost = 0;
 
-                            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                            //{
+                        //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        //{
 
-                            //this.Refresh();
-                            //pbAgregar.Value = 0;
-                            //pbAgregar.Visible = true;
+                        //this.Refresh();
+                        //pbAgregar.Value = 0;
+                        //pbAgregar.Visible = true;
 
-                            this.Cursor = Cursors.WaitCursor;
-                                               
-                            try
+                        this.Cursor = Cursors.WaitCursor;
+
+                        try
+                        {
+                            //StreamReader objReader = new StreamReader(openFileDialog1.OpenFile());
+                            StreamReader objReader = new StreamReader(srcPath);
+                            string sLine = "";
+
+
+                            while (sLine != null)
                             {
-                                //StreamReader objReader = new StreamReader(openFileDialog1.OpenFile());
-                                StreamReader objReader = new StreamReader(srcPath);
-                                string sLine = "";
-
-
-                                while (sLine != null)
+                                sLine = objReader.ReadLine();
+                                if (sLine != null)
                                 {
-                                    sLine = objReader.ReadLine();
-                                    if (sLine != null)
-                                    {
-                                        registrost = registrost + 1;
-                                    }
+                                    registrost = registrost + 1;
                                 }
+                            }
 
-                                //pbAgregar.Maximum = registrost;
+                            //pbAgregar.Maximum = registrost;
 
-                                objReader.Close();
+                            objReader.Close();
 
-                                //objReader = new StreamReader(openFileDialog1.OpenFile());
-                                objReader = new StreamReader(srcPath);
-                                sLine = "";
+                            //objReader = new StreamReader(openFileDialog1.OpenFile());
+                            objReader = new StreamReader(srcPath);
+                            sLine = "";
 
-                                //activado = false;
-                                int registrosact = 0;
-                                //ArrayList arrText = new ArrayList();
+                            //activado = false;
+                            int registrosact = 0;
+                            //ArrayList arrText = new ArrayList();
 
-                                while (sLine != null)
+                            while (sLine != null)
+                            {
+
+                                sLine = objReader.ReadLine();
+
+                                if (sLine != null)
+                                //arrText.Add(sLine);
                                 {
 
-                                    sLine = objReader.ReadLine();
+                                    registrosact = registrosact + 1;
 
-                                    if (sLine != null)
-                                    //arrText.Add(sLine);
+                                    string[] lines = { };
+
+                                    if (tipof == 1)
                                     {
-
-                                        registrosact = registrosact + 1;
-
-                                        string[] lines = { };
-
-                                        if (tipof == 1)
-                                        {
-                                            lines = sLine.Split(',');
-                                        }
+                                        lines = sLine.Split(',');
+                                    }
                                     //
 
-                                        if (tipof == 2)
+                                    if (tipof == 2)
+                                    {
+
+                                        if (registrosact == 1)
+                                        {
+                                            continue;
+                                        }
+                                        else
                                         {
 
-                                            if (registrosact == 1)
+                                            linea = sLine + " " + registrosact.ToString();
+                                            string[] lines2 = sLine.Split(',');
+                                            lines = new string[lines2.Length];
+
+                                            if (lines2.Length < 2)
                                             {
-                                                continue; 
+                                                continue;
                                             }
                                             else
                                             {
 
-                                                linea = sLine + " " + registrosact.ToString();
-                                                string[] lines2 = sLine.Split(',');
-                                                lines = new string [lines2.Length];
-
-                                                if (lines2.Length < 2)
+                                                if (!lines2[2].Trim().Equals("P"))
                                                 {
                                                     continue;
                                                 }
                                                 else
-                                                { 
+                                                {
 
-                                                    if (!lines2[2].Trim().Equals("P"))
-                                                    {
-                                                        continue;
-                                                    }
-                                                    else
-                                                    {
-
-                                                        lines[0] = txtCamion.Text;
-                                                        lines[1] = lines2[4].Substring(0, 1).Trim();
-                                                        lines[2] = lines2[5].Trim();
-                                                        lines[3] = lines2[6].Trim();
-                                                        lines[4] = lines2[13].Trim();
-                                                        lines[5] = lines2[7].Trim();
-                                                        lines[6] = "00:00";
-                                                        lines[7] = "0";
-
-                                                    }
+                                                    lines[0] = txtCamion.Text;
+                                                    lines[1] = lines2[4].Substring(0, 1).Trim();
+                                                    lines[2] = lines2[5].Trim();
+                                                    lines[3] = lines2[6].Trim();
+                                                    lines[4] = lines2[13].Trim();
+                                                    lines[5] = lines2[7].Trim();
+                                                    lines[6] = "00:00";
+                                                    lines[7] = "0";
 
                                                 }
 
                                             }
-                                                                            
-                                        }
-                                        
 
-                                        //
-                                                                               
-                                        try
-                                        {
-
-                                            registros_sel = registros_sel + 1;
-                                            //pbAgregar.Value = registros_sel;
-
-                                            //lblCantidad.Text = registros_sel.ToString() + " - " + registrost.ToString();
-                                            lblCantidad.Refresh();
-
-                                            //if (txtCamion.Text.Equals(lines[0].Trim()))
-                                            //{
-
-                                                //datos.p_sql = "SELECT idd FROM servidas WHERE num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-
-                                                //if (!datos.consultaSQL(ref dt, true))
-                                                //{
-                                                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                                                //}
-
-                                                //if (dt.Rows.Count == 0)
-                                                //{
-
-                                                //datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + ")";
-
-
-                                                datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) select top 1 " + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + " from jornadas where not exists ( select * from servidas where num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada + ")";
-
-                                                vservida = lines[1].Trim();
-                                                dbOperations.Add(datos.p_sql);
-                                                registros_ins = registros_ins + 1;
-
-                                                //if (!datos.consultaSQL(ref dt, false))
-                                                //{
-                                                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                                                //}
-                                                //else
-                                                //{
-                                                //    registros_ins = registros_ins + 1;
-                                                //}
-
-                                            //}
-
-
-                                            //}
-
-                                        }
-                                        catch (Exception exc)
-                                        {
-                                            if (vmsg) { MessageBox.Show(exc.Message); }
-                                            lblCantidad.Visible = false;
-                                        }
-                                        finally
-                                        {
-                                            //pbAgregar.PerformStep();
-                                            //pbAgregar.Refresh();
-
-                                            //lblCantidad.Text = registros_sel.ToString() + " - " + registrost.ToString();
-                                            //lblCantidad.Refresh();
-
-                                            //this.Refresh();
-                                            //this.Focus();
                                         }
 
                                     }
-                                }
 
-                                objReader.Close();
-                                //activado = true;
 
-                                datos.p_sql_list = dbOperations;
-                                if (!datos.consultaSQLs(ref dt))
-                                {
-                                    if (vmsg) { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
-                                }
-                                else
-                                {
-                                    //registros_ins = registros_ins + 1;
-                                }
+                                    //
 
-                                //----------------------------------------------------------------
-
-                                datos.p_sql = "SELECT num as Num, racion as Racion, count(corral) as Corrales , sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE id = " + vjornada + " group by num, racion"; //( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) group by num, racion";
-
-                                if (!datos.consultaSQL(ref dt, true))
-                                {
-                                    if (vmsg) { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
-                                }
-                                else
-                                {
-                                    foreach (DataRow row in dt.Rows)
+                                    try
                                     {
 
-                                        if (row["Corrales"].ToString() != "0")
+                                        registros_sel = registros_sel + 1;
+                                        //pbAgregar.Value = registros_sel;
+
+                                        //lblCantidad.Text = registros_sel.ToString() + " - " + registrost.ToString();
+                                        lblCantidad.Refresh();
+
+                                        //if (txtCamion.Text.Equals(lines[0].Trim()))
+                                        //{
+
+                                        //datos.p_sql = "SELECT idd FROM servidas WHERE num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+                                        //if (!datos.consultaSQL(ref dt, true))
+                                        //{
+                                        //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                        //}
+
+                                        //if (dt.Rows.Count == 0)
+                                        //{
+
+                                        //datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + ")";
+
+
+                                        datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) select top 1 " + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + " from jornadas where not exists ( select * from servidas where num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada + ")";
+
+                                        vservida = lines[1].Trim();
+                                        dbOperations.Add(datos.p_sql);
+                                        registros_ins = registros_ins + 1;
+
+                                        //if (!datos.consultaSQL(ref dt, false))
+                                        //{
+                                        //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                        //}
+                                        //else
+                                        //{
+                                        //    registros_ins = registros_ins + 1;
+                                        //}
+
+                                        //}
+
+
+                                        //}
+
+                                    }
+                                    catch (Exception exc)
+                                    {
+                                        if (vmsg) { MessageBox.Show(exc.Message); }
+                                        lblCantidad.Visible = false;
+                                    }
+                                    finally
+                                    {
+                                        //pbAgregar.PerformStep();
+                                        //pbAgregar.Refresh();
+
+                                        //lblCantidad.Text = registros_sel.ToString() + " - " + registrost.ToString();
+                                        //lblCantidad.Refresh();
+
+                                        //this.Refresh();
+                                        //this.Focus();
+                                    }
+
+                                }
+                            }
+
+                            objReader.Close();
+                            //activado = true;
+
+                            datos.p_sql_list = dbOperations;
+                            if (!datos.consultaSQLs(ref dt))
+                            {
+                                if (vmsg) { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
+                            }
+                            else
+                            {
+                                //registros_ins = registros_ins + 1;
+                            }
+
+                            //----------------------------------------------------------------
+
+                            datos.p_sql = "SELECT num as Num, racion as Racion, count(corral) as Corrales , sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE id = " + vjornada + " group by num, racion"; //( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) group by num, racion";
+
+                            if (!datos.consultaSQL(ref dt, true))
+                            {
+                                if (vmsg) { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
+                            }
+                            else
+                            {
+                                foreach (DataRow row in dt.Rows)
+                                {
+
+                                    if (row["Corrales"].ToString() != "0")
+                                    {
+
+                                        datos.p_sql = "SELECT idd FROM raciones WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and id = " + vjornada; // "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+                                        if (!datos.consultaSQL(ref dt2, true))
                                         {
-
-                                            datos.p_sql = "SELECT idd FROM raciones WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and id = " + vjornada; // "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-
-                                            if (!datos.consultaSQL(ref dt2, true))
-                                            {
                                             if (vmsg)
                                             { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
-                                            }
-
-                                            if (dt2.Rows.Count == 0)
-                                            {
-                                                long falta = long.Parse(row["Planeado"].ToString());
-                                                datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,carga,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,0,'00:00:00')";
-                                            }
-                                            else
-                                            {
-                                                long falta = long.Parse(row["Planeado"].ToString());
-                                                datos.p_sql = "UPDATE raciones SET cantidad = " + row["Corrales"].ToString() + " , planeado = " + row["Planeado"].ToString() + " , falta = " + falta.ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-                                            }
-
-                                            if (!datos.consultaSQL(ref dt2, false))
-                                            {
-                                            if (vmsg)
-                                            { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
-                                            }
-
-
                                         }
+
+                                        if (dt2.Rows.Count == 0)
+                                        {
+                                            long falta = long.Parse(row["Planeado"].ToString());
+                                            datos.p_sql = "insert into raciones (id,fecha,num,racion,cantidad,planeado,falta,cargado,servido,hechoc,carga,hora) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + "," + falta.ToString() + ",0,0,0,0,'00:00:00')";
+                                        }
+                                        else
+                                        {
+                                            long falta = long.Parse(row["Planeado"].ToString());
+                                            datos.p_sql = "UPDATE raciones SET cantidad = " + row["Corrales"].ToString() + " , planeado = " + row["Planeado"].ToString() + " , falta = " + falta.ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+                                        }
+
+                                        if (!datos.consultaSQL(ref dt2, false))
+                                        {
+                                            if (vmsg)
+                                            { MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop); }
+                                        }
+
 
                                     }
 
                                 }
 
-
-
-
                             }
-                            catch (Exception msgerror)
-                            {
+
+
+
+
+                        }
+                        catch (Exception msgerror)
+                        {
                             //MessageBox.Show("El archivo no se puede leer");
                             if (vmsg)
                             { Comun.mensajeVer("El archivo no se puede leer " + msgerror + " " + linea, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP); }
-                                this.Cursor = Cursors.Default;
-                                lblCantidad.Visible = false;    
-                                return;
-                            }
+                            this.Cursor = Cursors.Default;
+                            lblCantidad.Visible = false;
+                            return;
+                        }
 
                         //}
 
@@ -1259,7 +1266,7 @@ namespace Senga
                         //    File.Move(srcPath, newname);
 
                         //}
-                                               
+
                         break;
 
                     }
@@ -1290,7 +1297,7 @@ namespace Senga
 
                 //MessageBox.Show("Listo, Cargo Plan : " + registros_ins.ToString() + " Registros", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 if (vmsg) { Comun.mensajeVer("Cargo Plan : " + registros_ins.ToString() + " Registros", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK); }
-                         
+
                 pbAgregar.Visible = false;
                 DGRaciones.Focus();
 
@@ -1352,18 +1359,18 @@ namespace Senga
                                 MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             }
 
-                     
+
                             string vracion = txtRacion.Text;
                             string vnumcarga = txtNumCarga.Text;
 
-                           
+
 
                             Servidas frm = new Servidas(vracion, vnumcarga);
                             //frm.MdiParent = this;
                             frm.Show();
 
 
-                             Close();
+                            Close();
 
 
                         }
@@ -1428,7 +1435,7 @@ namespace Senga
                         {
                             //Open the File
                             //StreamWriter objWriter = new StreamWriter(saveFileDialog1.FileName);
-                            
+
                             Datos datos = new Datos();
                             DataTable dt = new DataTable();
 
@@ -1468,7 +1475,7 @@ namespace Senga
                                     //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                                     if (vmsg)
                                     { Comun.mensajeVer("Listo, Guardo Servida " + txtServida.Text, Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK); }
-                                    
+
 
                                 }
                                 else
@@ -1477,9 +1484,9 @@ namespace Senga
                                     { Comun.mensajeVer("No Guardo Servida " + txtServida.Text, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP); }
                                 }
 
-                            }                            
+                            }
 
-                      
+
 
                         }
                         catch (Exception)
@@ -1505,9 +1512,10 @@ namespace Senga
             String file = "";
             grabar(true, ref file);
 
-        }        
+        }
 
-        private string rutaarchivos() {
+        private string rutaarchivos()
+        {
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
@@ -1529,7 +1537,7 @@ namespace Senga
             }
 
             return valor;
-        
+
         }
 
         private string rutared()
@@ -1644,7 +1652,7 @@ namespace Senga
 
         private Boolean usbConectado(ref string unidad)
         {
-            
+
             DriveInfo[] allDrives = DriveInfo.GetDrives();
             Boolean listo = false;
 
@@ -1658,9 +1666,9 @@ namespace Senga
                 }
 
             }
-              
+
             return listo;
-            
+
         }
 
         private void btnUSB_Click(object sender, EventArgs e)
@@ -1746,9 +1754,9 @@ namespace Senga
                 }
 
             }
-                                          
+
         }
-        
+
         private void btnSincroniza_Click(object sender, EventArgs e)
         {
             //sincronizarWS();
@@ -1940,84 +1948,84 @@ namespace Senga
                 //if (lblPlanes.Text.Equals("0"))
                 //{
 
-                    foreach (String srcPath in Directory.GetFiles(sourcePath))
+                foreach (String srcPath in Directory.GetFiles(sourcePath))
+                {
+
+                    string namefile = Path.GetFileName(srcPath);
+
+                    if (namefile.Contains("P_"))
                     {
 
-                        string namefile = Path.GetFileName(srcPath);
+                        string[] lines = namefile.Split('_');
+                        string tipo = lines[0].Trim();
+                        string line = lines[1].Trim();
+                        string fecha = lines[2].Substring(0, 6);
 
-                        if (namefile.Contains("P_"))
+
+                        if (((String.Equals(txtCamion.Text, line) && valcamion)) || !valcamion)
                         {
-
-                            string[] lines = namefile.Split('_');
-                            string tipo = lines[0].Trim();
-                            string line = lines[1].Trim();
-                            string fecha = lines[2].Substring(0, 6);
-
-
-                            if (((String.Equals(txtCamion.Text, line) && valcamion)) || !valcamion)
+                            if (((String.Equals(DateTime.Now.ToString("ddMMyy"), fecha) && valfechahoy)) || !valfechahoy)
                             {
-                                if (((String.Equals(DateTime.Now.ToString("ddMMyy"), fecha) && valfechahoy)) || !valfechahoy)
-                                {
-                                    File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
-                                }
-
+                                File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
                             }
-
-                            //if (valcamion)
-                            //{
-                            //    if (String.Equals(txtCamion.Text, line))
-                            //    {
-                            //        File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
-                            //}
-
-                            //if (String.Equals(txtCamion.Text, line))
-                            //{
-
-                            //if (fecha.Equals(DateTime.Now.ToString("ddMMyy")))
-                            //{
-                            //namefile = namefile.Replace("P_", "X_");
-
-                            //if (!File.Exists(targetPath + "\\" + namefile))
-                            //{
-                            //File.Copy(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"), true);                                    
-                            //File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));                                    
-                            //}
-
-                            //}
-
-                            //}
-                            //namefilei = namefile;
-                            //encontrof = true;
-                            //break;
 
                         }
 
+                        //if (valcamion)
+                        //{
+                        //    if (String.Equals(txtCamion.Text, line))
+                        //    {
+                        //        File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
+                        //}
+
+                        //if (String.Equals(txtCamion.Text, line))
+                        //{
+
+                        //if (fecha.Equals(DateTime.Now.ToString("ddMMyy")))
+                        //{
+                        //namefile = namefile.Replace("P_", "X_");
+
+                        //if (!File.Exists(targetPath + "\\" + namefile))
+                        //{
+                        //File.Copy(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"), true);                                    
+                        //File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));                                    
+                        //}
+
+                        //}
+
+                        //}
+                        //namefilei = namefile;
+                        //encontrof = true;
+                        //break;
+
                     }
 
-                    //if (!encontrof)
-                    //{
+                }
 
-                    //    foreach (String srcPath in Directory.GetFiles(sourcePath))
-                    //    {
+                //if (!encontrof)
+                //{
 
-                    //        string namefile = Path.GetFileName(srcPath);
+                //    foreach (String srcPath in Directory.GetFiles(sourcePath))
+                //    {
 
-                    //        if (namefile.Contains("DS_UNDON"))
-                    //        {
-                    //            //File.Copy(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"), true);
-                    //            File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
-                    //            namefilei = namefile;
-                    //            break;
-                    //        }
+                //        string namefile = Path.GetFileName(srcPath);
 
-                    //    }
+                //        if (namefile.Contains("DS_UNDON"))
+                //        {
+                //            //File.Copy(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"), true);
+                //            File.Move(srcPath, srcPath.Replace(sourcePath, targetPath + "\\"));
+                //            namefilei = namefile;
+                //            break;
+                //        }
 
-                    //}
+                //    }
+
+                //}
 
                 //}
 
@@ -2042,23 +2050,23 @@ namespace Senga
 
         }
 
-        private void cantplanes() 
+        private void cantplanes()
         {
 
             int cantp = 0;
             string sourcePath = rutaarchivos() + nameruta + namea;
-            
+
             foreach (String srcPath in Directory.GetFiles(sourcePath))
             {
 
                 string namefile = Path.GetFileName(srcPath);
-                
+
                 string[] lines = namefile.Split('_');
                 string tipo = lines[0].Trim();
                 string line = lines[1].Trim();
                 string fecha = lines[2].Substring(0, 6);
 
-                if ((tipo.Equals("P") ))// && line.Equals(txtCamion.Text) && fecha.Equals(DateTime.Now.ToString("ddMMyy"))))
+                if ((tipo.Equals("P")))// && line.Equals(txtCamion.Text) && fecha.Equals(DateTime.Now.ToString("ddMMyy"))))
                 //if (tipo.Equals("P") )//|| namefile.Contains("DS_UNDON"))
                 {
                     cantp = cantp + 1;
@@ -2066,8 +2074,8 @@ namespace Senga
 
             }
 
-            lblPlanes.Text = cantp.ToString();        
-            
+            lblPlanes.Text = cantp.ToString();
+
         }
 
         private void cantservidos()
@@ -2092,13 +2100,13 @@ namespace Senga
             lblServidos.Text = cantp.ToString();
 
 
-        } 
+        }
 
         private void btnExplorer_Click(object sender, EventArgs e)
         {
 
             Process.Start("explorer.exe", rutaarchivos() + nameruta);
-            
+
         }
 
         private void carpeta_existe_local()
@@ -2133,9 +2141,9 @@ namespace Senga
                 }
 
             }
-            catch (Exception e) 
-            { 
-            
+            catch (Exception e)
+            {
+
             }
             //if (!System.IO.Directory.Exists(rutaarchivosred() + nameruta))
             //{
@@ -2171,7 +2179,7 @@ namespace Senga
 
         private void btnPlanta_Click(object sender, EventArgs e)
         {
-            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),4);
+            Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 4);
             frm.Show();
         }
 
@@ -2206,14 +2214,21 @@ namespace Senga
 
         private void btnNube_Click(object sender, EventArgs e)
         {
-
             nubeTransferencia();
-
-
         }
 
-        private void nubeTransferencia() 
-        {         
+        private void btnWsRecibir_Click(object sender, EventArgs e)
+        {
+            nubeTransferenciaRecibe();
+        }
+
+        private void btnWsEnviar_Click(object sender, EventArgs e)
+        {
+            nubeTransferenciaEnvia();
+        }
+
+        private void nubeTransferencia()
+        {
 
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
@@ -2245,12 +2260,12 @@ namespace Senga
                     merror = pmsgerr;
                     mok = pmsge;
 
-                    lista(false);                
+                    lista(false);
                 }
                 else  //SAP<<Tablet
                 {
                     textomsg = "Envio";
-                    
+
                     if (!hayServidos())
                     //if (txtServido.Text.Equals("0"))
                     {
@@ -2303,6 +2318,167 @@ namespace Senga
                 //{ 
                 //    Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);         
                 //}               
+
+            }
+
+        }
+
+        private void nubeTransferenciaRecibe()
+        {
+
+            DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
+
+            String file = "";
+            String pmsgerr = "";
+            String pmsge = "";
+            String smsgerr = "";
+            String smsge = "";
+            String textomsg = "";
+
+            String merror = "";
+            String mok = "";
+
+            if (!redConectado())
+            {
+                Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+            }
+            else
+            {
+                //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                //if (DGRaciones.RowCount != 0) //SAP>>Tablet
+                //{
+                    textomsg = "Recibio";
+
+                    quitaArchivosde("P");
+                    leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
+                    merror = pmsgerr;
+                    mok = pmsge;
+
+                    lista(false);
+                //}
+                //else 
+                //{
+
+                //    Comun.mensajeVer("Debe haber Registros", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                //    return;
+
+                //}
+                //else  //SAP<<Tablet
+                //{
+                //textomsg = "Envio";
+
+                //if (!hayServidos())
+                //{
+                //    Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                //    return;
+                //}
+                //else
+                //{
+                //quitaArchivosde("S");
+                //grabar(false, ref file);
+
+                //if (!file.Equals(""))
+                //{
+                //    leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
+                //    merror = smsgerr;
+                //    mok = smsge;
+                //}
+                //else
+                //{
+                //    merror = "Falla Obtener Informacion";
+                //}
+
+                //}
+
+                //}
+
+                if (mok == "OK")
+                {
+                    Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                }
+                else
+                {
+                    Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
+
+            }
+
+        }
+
+        private void nubeTransferenciaEnvia()
+        {
+
+            DataTable dt = new DataTable();
+            DataTable dt2 = new DataTable();
+
+            String file = "";
+            String pmsgerr = "";
+            String pmsge = "";
+            String smsgerr = "";
+            String smsge = "";
+            String textomsg = "";
+
+            String merror = "";
+            String mok = "";
+
+            if (!redConectado())
+            {
+                Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+            }
+            else
+            {
+                //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                //if (DGRaciones.RowCount == 0) //SAP>>Tablet
+                //{
+                //textomsg = "Recibio";
+
+                //quitaArchivosde("P");
+                //leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
+                //merror = pmsgerr;
+                //mok = pmsge;
+
+                //lista(false);
+                //}
+                //else  //SAP<<Tablet
+                //{
+                textomsg = "Envio";
+
+                if (!hayServidos())
+                {
+                    Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    return;
+                }
+                else
+                {
+                    quitaArchivosde("S");
+                    grabar(false, ref file);
+
+                    if (!file.Equals(""))
+                    {
+                        leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
+                        merror = smsgerr;
+                        mok = smsge;
+                    }
+                    else
+                    {
+                        merror = "Falla Obtener Informacion";
+                    }
+
+                }
+
+                //}
+
+                if (mok == "OK")
+                {
+                    Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                }
+                else
+                {
+                    Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
 
             }
 
@@ -2366,7 +2542,7 @@ namespace Senga
             //        break;
             //}
 
-            String seleccion = "PLAN" + txtServida.Text.PadLeft(2,'0');
+            String seleccion = "PLAN" + txtServida.Text.PadLeft(2, '0');
 
 
             Thread t = new Thread(() =>
@@ -2383,7 +2559,7 @@ namespace Senga
             //    //Application.DoEvents();
             //}           
 
-             t.Join();
+            t.Join();
 
             lista = connectar.getList();
             String errormsg = connectar.getError();
@@ -2429,8 +2605,8 @@ namespace Senga
 
             //if (!errormsg.Equals(""))
             //{
-                //MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+            //MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             //}
             //if (!errormsg.Equals("")) { lblErrores.Text = errormsg; }
 
@@ -2440,7 +2616,7 @@ namespace Senga
             }
 
 
-            if (dt.Rows.Count==0)
+            if (dt.Rows.Count == 0)
             {
                 msgerr = "Ningun Registro";
             }
@@ -2465,15 +2641,15 @@ namespace Senga
                     String seleccion = "SERVIDO";
 
                     lista.Clear();
-                    
+
                     foreach (DataRow row in dt.Rows)
                     {
 
-                        lista.Add(            
-                            row["Numcamion"].ToString() + "|" +   
-                            row["Jornada"].ToString() + "|" +   
+                        lista.Add(
+                            row["Numcamion"].ToString() + "|" +
+                            row["Jornada"].ToString() + "|" +
                             row["Fecha"].ToString().Substring(0, 2) + "." + row["Fecha"].ToString().Substring(3, 2) + ".20" + row["Fecha"].ToString().Substring(6, 2) + "|" +
-                            row["Hora"].ToString() +":00" + "|" +
+                            row["Hora"].ToString() + ":00" + "|" +
                             row["Corral"].ToString() + "|" +
                             row["Servida"].ToString() + "|" +
                             row["Racion"].ToString() + "|" +
@@ -2483,7 +2659,7 @@ namespace Senga
                         );
 
                     }
-                    
+
                     //lista.Add(txtTransferir.Text+" 2");
 
                     Thread t = new Thread(() =>
@@ -2507,7 +2683,7 @@ namespace Senga
 
                     msgerr = errormsg;
                     msge = emsg;
-                    
+
                     //string[] lurl = url.Split('/');
                     //string[] serverl = lurl[2].Trim().Split('.');
                     //lblServer.Text = serverl[0].Trim();
@@ -2518,8 +2694,8 @@ namespace Senga
 
                     //if (!errormsg.Equals(""))
                     //{
-                        //    //MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        //    txtError.Text = "Localiza: " + errormsg;
+                    //    //MessageBox.Show(errormsg, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    txtError.Text = "Localiza: " + errormsg;
                     //}
 
                     //if (!emsg.Equals(""))
@@ -2529,29 +2705,29 @@ namespace Senga
                     //if (emsg.Equals("OK"))
                     //{
 
-                        //        ////msgErrores("Envio Ws", Constants.MSG_OK);
+                    //        ////msgErrores("Envio Ws", Constants.MSG_OK);
 
-                        //        //List<string> dbOperations = new List<string>();
+                    //        //List<string> dbOperations = new List<string>();
 
-                        //        //foreach (DataRow row in dt.Rows)
-                        //        //{
-                        //        //    dbOperations.Add("UPDATE operacion SET envio = 'S'");
-                        //        //}
+                    //        //foreach (DataRow row in dt.Rows)
+                    //        //{
+                    //        //    dbOperations.Add("UPDATE operacion SET envio = 'S'");
+                    //        //}
 
-                        //        //datos.p_sql_list = dbOperations;
+                    //        //datos.p_sql_list = dbOperations;
 
-                        //        //if (!datos.consultaSQLs(ref dt))
-                        //        //{
-                        //        //    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                        //        //    //msgErrores(datos.p_error, Constants.MSG_ERROR);
-                        //        //}
-                        //        //else
-                        //        //{
+                    //        //if (!datos.consultaSQLs(ref dt))
+                    //        //{
+                    //        //    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //        //    //msgErrores(datos.p_error, Constants.MSG_ERROR);
+                    //        //}
+                    //        //else
+                    //        //{
 
-                        //        //}
+                    //        //}
 
 
-                        //    }
+                    //    }
 
                     //}
 
@@ -2598,7 +2774,7 @@ namespace Senga
         {
 
             string rutadestino = rutaarchivos() + nameruta + namea + "\\P_" + numcamion() + "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".txt";
-            
+
             if (dt.Rows.Count > 0)
             {
                 StreamWriter objWriter = new StreamWriter(rutadestino);
@@ -2611,12 +2787,12 @@ namespace Senga
                 objWriter.Close();
 
             }
-            
+
         }
 
         private void leerArchivoServ(ref String file, ref DataTable dt, ref String msgerr, ref String msge)
         {
-            
+
             string sourcePath = rutaarchivos() + nameruta + nameb;
             string targetproc = rutaarchivos() + nameruta + nameb + namec;
 
@@ -2626,7 +2802,7 @@ namespace Senga
             dttmp.Columns.Add("Jornada");
             dttmp.Columns.Add("Numcamion");
             dttmp.Columns.Add("Servida");
-            dttmp.Columns.Add("Corral");           
+            dttmp.Columns.Add("Corral");
             dttmp.Columns.Add("Racion");
             dttmp.Columns.Add("Planeado");
             dttmp.Columns.Add("Realidad");
@@ -2637,94 +2813,94 @@ namespace Senga
             //foreach (String srcPath in Directory.GetFiles(sourcePath))
             //{
 
-            String srcPath = sourcePath+"\\"+file; 
+            String srcPath = sourcePath + "\\" + file;
 
-                string namefile = Path.GetFileName(srcPath);
+            string namefile = Path.GetFileName(srcPath);
 
-                if (namefile.Substring(0, 2).Equals("S_"))
+            if (namefile.Substring(0, 2).Equals("S_"))
+            {
+
+                StreamReader objReader;
+
+                try
                 {
 
-                    StreamReader objReader;
+                    objReader = new StreamReader(srcPath);
+                    string sLine = "";
 
-                    try
+                    while (sLine != null)
                     {
 
-                        objReader = new StreamReader(srcPath);
-                        string sLine = "";
+                        sLine = objReader.ReadLine();
 
-                        while (sLine != null)
+                        if (sLine != null)
                         {
 
-                            sLine = objReader.ReadLine();
+                            string[] lines = sLine.Split(',');
 
-                            if (sLine != null)
-                            {
+                            DataRow newRow = dttmp.NewRow();
+                            newRow["Jornada"] = vjornada.Trim();
+                            newRow["Numcamion"] = lines[0].Trim();
+                            newRow["Servida"] = lines[1].Trim();
+                            newRow["Corral"] = lines[2].Trim();
+                            newRow["Racion"] = lines[3].Trim();
+                            newRow["Planeado"] = lines[4].Trim();
+                            newRow["Realidad"] = lines[5].Trim();
+                            newRow["Hora"] = lines[6].Replace("-", "").Trim();
+                            newRow["Fecha"] = lines[7].Replace(":", "").Trim();
 
-                                string[] lines = sLine.Split(',');
-
-                                DataRow newRow = dttmp.NewRow();
-                                newRow["Jornada"] = vjornada.Trim();
-                                newRow["Numcamion"] = lines[0].Trim();
-                                newRow["Servida"] = lines[1].Trim();
-                                newRow["Corral"] = lines[2].Trim();
-                                newRow["Racion"] = lines[3].Trim();
-                                newRow["Planeado"] = lines[4].Trim();
-                                newRow["Realidad"] = lines[5].Trim();
-                                newRow["Hora"] = lines[6].Replace("-", "").Trim();
-                                newRow["Fecha"] = lines[7].Replace(":", "").Trim();                                                              
-
-                                dttmp.Rows.Add(newRow);
-                                                                                             
-                            }
+                            dttmp.Rows.Add(newRow);
 
                         }
 
-                        dt = dttmp;
+                    }
 
-                        objReader.Close();
+                    dt = dttmp;
 
-                        enviarWsdlServido(dt, ref msgerr, ref msge);
-                    
-                        //if (msge.Equals("OK") || msge.Equals("REP"))
-                        //{
+                    objReader.Close();
 
-                            //string namefile2 = Path.GetFileName(srcPath);
-                            //namefile2 = namefile2.Replace(".txt", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".txt")
-                            //                   .Replace(".TXT", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".TXT");
+                    enviarWsdlServido(dt, ref msgerr, ref msge);
 
-                            //string newname2 = targetproc + "\\" + namefile2;
+                    //if (msge.Equals("OK") || msge.Equals("REP"))
+                    //{
 
-                            //try
-                            //{
-                            //    File.Move(srcPath, newname2);
-                            //}
-                            //catch (Exception)
-                            //{
+                    //string namefile2 = Path.GetFileName(srcPath);
+                    //namefile2 = namefile2.Replace(".txt", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".txt")
+                    //                   .Replace(".TXT", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".TXT");
 
-                            //}
+                    //string newname2 = targetproc + "\\" + namefile2;
 
-                        moverArchivo(srcPath, targetproc, true);
+                    //try
+                    //{
+                    //    File.Move(srcPath, newname2);
+                    //}
+                    //catch (Exception)
+                    //{
 
-                        //}
+                    //}
 
-                        return;
+                    moverArchivo(srcPath, targetproc, true);
 
-                    }                              
-                    catch (Exception msgerror)
-                    {
+                    //}
+
+                    return;
+
+                }
+                catch (Exception msgerror)
+                {
                     //MessageBox.Show("El archivo no se puede leer");
                     //Comun.mensajeVer("El archivo no se puede leer " + msgerror + " " + linea, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
                     //this.Cursor = Cursors.Default;
                     //lblCantidad.Visible = false;
                     return;
-                    }
-                                                           
-
                 }
 
-                
+
+            }
+
+
             //}
-                                 
+
 
         }
 
@@ -2736,12 +2912,12 @@ namespace Senga
             string newname = "";
 
             if (fechahora)
-            { 
+            {
                 namefile = namefile.Replace(".txt", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".txt")
                                     .Replace(".TXT", "_" + DateTime.Now.ToString("ddMMyyHHmmss") + ".TXT");
             }
             newname = destino + "\\" + namefile;
-            
+
             try
             {
                 File.Move(origen, newname);
@@ -2805,6 +2981,7 @@ namespace Senga
             pbBateria.Value = Principal.instance.pbBateria.Value;
             lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
 
+            btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
             //if (wsactivo && lblConectadoF.Value == 1)
             //{
             //    focoWs();
@@ -2906,12 +3083,12 @@ namespace Senga
 
         }
 
-        private void tiempoServido() 
+        private void tiempoServido()
         {
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
-            
+
             TimeSpan ts;
             string duracion = "00:00:00";
 
@@ -2927,20 +3104,26 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     if (!row["MaxHora"].ToString().Equals("") && !row["MinHora"].ToString().Equals(""))
-                    { 
+                    {
                         ts = DateTime.Parse(row["MaxHora"].ToString()) - DateTime.Parse(row["MinHora"].ToString());
-                        duracion = ts.ToString();                    
+                        duracion = ts.ToString();
                     }
 
 
                 }
-            
+
             }
 
             txtTiempo.Text = duracion.ToString();
 
         }
 
+        private void btnConectar_Click(object sender, EventArgs e)
+        {
+            Principal.instance.btnConectarGps.PerformClick();
+        }
+
+
     }
-       
+    
 }

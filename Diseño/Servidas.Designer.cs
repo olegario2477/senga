@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -95,15 +95,16 @@
             this.lblCorral = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLatitud = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLongitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.timerH = new System.Windows.Forms.Timer(this.components);
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copiarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelMapa = new System.Windows.Forms.Panel();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
@@ -154,20 +155,19 @@
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.txtServidoExtraV = new System.Windows.Forms.TextBox();
             this.btnCargar = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copiarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnConectar = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartServidas)).BeginInit();
             this.toolStrip1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.panelMapa.SuspendLayout();
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelCaptura.SuspendLayout();
             this.panelSimular.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnServida
@@ -643,16 +643,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea2);
+            chartArea4.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea4);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series2.IsValueShownAsLabel = true;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "Series1";
-            this.chartServidas.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series4.IsValueShownAsLabel = true;
+            series4.IsVisibleInLegend = false;
+            series4.Name = "Series1";
+            this.chartServidas.Series.Add(series4);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
@@ -800,11 +800,11 @@
             this.toolStripSeparator6,
             this.lblCorral,
             this.toolStripSeparator5,
+            this.btnConectar,
             this.toolStripLabel1,
+            this.toolStripLabel2,
             this.toolStripSeparator1,
             this.lblLatitud,
-            this.toolStripSeparator2,
-            this.toolStripLabel2,
             this.toolStripSeparator4,
             this.lblLongitud,
             this.toolStripSeparator3});
@@ -889,8 +889,15 @@
             // 
             this.toolStripLabel1.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(100, 41);
-            this.toolStripLabel1.Text = "Latitud";
+            this.toolStripLabel1.Size = new System.Drawing.Size(53, 41);
+            this.toolStripLabel1.Text = "Lat";
+            // 
+            // toolStripLabel2
+            // 
+            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripLabel2.Name = "toolStripLabel2";
+            this.toolStripLabel2.Size = new System.Drawing.Size(61, 41);
+            this.toolStripLabel2.Text = "Lng";
             // 
             // toolStripSeparator1
             // 
@@ -903,18 +910,6 @@
             this.lblLatitud.Name = "lblLatitud";
             this.lblLatitud.Size = new System.Drawing.Size(32, 41);
             this.lblLatitud.Text = "0";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
-            // 
-            // toolStripLabel2
-            // 
-            this.toolStripLabel2.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(124, 41);
-            this.toolStripLabel2.Text = "Longitud";
             // 
             // toolStripSeparator4
             // 
@@ -969,6 +964,20 @@
             this.gMapControl1.TabIndex = 92;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.gMapControl1_MouseMove);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copiarCoordenadaToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(178, 26);
+            // 
+            // copiarCoordenadaToolStripMenuItem
+            // 
+            this.copiarCoordenadaToolStripMenuItem.Name = "copiarCoordenadaToolStripMenuItem";
+            this.copiarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.copiarCoordenadaToolStripMenuItem.Text = "Copiar Coordenada";
+            this.copiarCoordenadaToolStripMenuItem.Click += new System.EventHandler(this.copiarCoordenadaToolStripMenuItem_Click);
             // 
             // imageList1
             // 
@@ -1500,19 +1509,19 @@
             this.btnCargar.UseVisualStyleBackColor = true;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
-            // contextMenuStrip1
+            // btnConectar
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copiarCoordenadaToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
-            // 
-            // copiarCoordenadaToolStripMenuItem
-            // 
-            this.copiarCoordenadaToolStripMenuItem.Name = "copiarCoordenadaToolStripMenuItem";
-            this.copiarCoordenadaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.copiarCoordenadaToolStripMenuItem.Text = "Copiar Coordenada";
-            this.copiarCoordenadaToolStripMenuItem.Click += new System.EventHandler(this.copiarCoordenadaToolStripMenuItem_Click);
+            this.btnConectar.BackColor = System.Drawing.Color.LightGray;
+            this.btnConectar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnConectar.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.btnConectar.Image = ((System.Drawing.Image)(resources.GetObject("btnConectar.Image")));
+            this.btnConectar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConectar.Name = "btnConectar";
+            this.btnConectar.Size = new System.Drawing.Size(116, 41);
+            this.btnConectar.Text = "ON GPS";
+            this.btnConectar.ToolTipText = "ON GPS";
+            this.btnConectar.Visible = false;
+            this.btnConectar.Click += new System.EventHandler(this.btnConectar_Click);
             // 
             // Servidas
             // 
@@ -1573,6 +1582,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartServidas)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.panelMapa.ResumeLayout(false);
             this.panelMapa.PerformLayout();
             this.toolStrip3.ResumeLayout(false);
@@ -1585,7 +1595,6 @@
             this.panelSimular.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1649,7 +1658,6 @@
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel lblLatitud;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripLabel lblLongitud;
@@ -1717,5 +1725,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem copiarCoordenadaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton btnConectar;
     }
 }

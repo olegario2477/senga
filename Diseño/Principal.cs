@@ -40,6 +40,7 @@ namespace Senga
         public double gLongitudgps = 0;
         string gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
         string ghoragps = "00:00:00";
+        string gTodo = "TODO";
 
         DateTime ultError = new DateTime();
         DataTable dtCamiontmp;
@@ -463,13 +464,15 @@ namespace Senga
         private void iniciaGps()
         {
 
-            if (!procesoEjecucion(appgps))
-            {
-                txtError.Text = "La aplicacion GpsGate esta cerrada";
-                btnIniciaGps.Visible = true;
-            }
-            else
-            {
+            Cursor = Cursors.WaitCursor;
+
+            //if (!procesoEjecucion(appgps))
+            //{
+            //    txtError.Text = "La aplicacion GpsGate esta cerrada";
+            //    btnIniciaGps.Visible = true;
+            //}
+            //else
+            //{
 
                 btnIniciaGps.Visible = false;
                 txtError.Text = "";
@@ -497,10 +500,13 @@ namespace Senga
                     //MessageBox.Show(err.Message);
                     //ErrorLogging(err);
                     txtError.Text = "GPS "+err.ToString();
+                    btnIniciaGps.Visible = true;
+                    Cursor = Cursors.Default;
                 }
 
-            }
+            //}
 
+            Cursor = Cursors.Default;
 
         }
 
@@ -1157,12 +1163,13 @@ namespace Senga
                 t.Name = seleccion;
                 t.Start();
 
-                while (t.IsAlive)
-                {
-                    Thread.Sleep(50);
-                    //Application.DoEvents();
-                }
+                //while (t.IsAlive)
+                //{
+                //    Thread.Sleep(50);
+                //    //Application.DoEvents();
+                //}
 
+                t.Join();
                 //t.Abort();
 
                 String errormsg = connectar.getError();
@@ -2540,7 +2547,7 @@ namespace Senga
                         if (!words[col].ToString().Equals(""))
                         {
                             coordenada = convertNMEAGradosdecimales(double.Parse(words[col].ToString()), words[col + 1].ToString());
-                            resultado = Math.Round(coordenada, 6);
+                            resultado = Math.Round(coordenada, 10);// 6);
                         }
                     }
                 }
@@ -2576,6 +2583,8 @@ namespace Senga
                 //listBoxRecorridos.Visible = true;
 
                 listBoxRecorridos.Items.Clear();
+
+                listBoxRecorridos.Items.Add(gTodo);
 
                 foreach (DataRow row in dtCamiontmp.Rows)
                 {
@@ -2743,7 +2752,7 @@ namespace Senga
 
         private void listBoxRecorridos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (!redConectado())
             {
                 //MessageBox.Show("Sin red disponible.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
@@ -2752,29 +2761,36 @@ namespace Senga
             else
             {
 
-                msgError = "";
-
-                DataView dv = new DataView(dtCamiontmp);
-                dv.RowFilter = "fecha = '" + listBoxRecorridos.Text + "'";
-
-                //dtCamiontmp.Rows.Clear();
-
-                dtCamiontmp = dv.ToTable();
-
-                enviarWsdlRecorridoCamion(dtCamiontmp);
-
-                limpiarRecorridoCamion();
-
-                if (msgError.Equals(""))
+                if (Comun.mensajeVer("¿ Desea enviar recorridos, " + listBoxRecorridos.Text + " ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
                 {
-                    //MessageBox.Show("Listo, Total " + dtCamiontmp.Rows.Count.ToString() + " Reg.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-                    Comun.mensajeVer("Listo, Total " + dtCamiontmp.Rows.Count.ToString() + " Reg.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-                }
-                else
-                {
-                    MessageBox.Show(msgError, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                }
 
+                    msgError = "";
+
+                    DataView dv = new DataView(dtCamiontmp);
+
+                    if (!listBoxRecorridos.Text.Equals(gTodo))
+                    {
+                        dv.RowFilter = "fecha = '" + listBoxRecorridos.Text + "'";
+                        //dtCamiontmp.Rows.Clear();
+                        dtCamiontmp = dv.ToTable();
+                    }
+
+                    enviarWsdlRecorridoCamion(dtCamiontmp);
+
+                    limpiarRecorridoCamion();
+
+                    if (msgError.Equals(""))
+                    {
+                        //MessageBox.Show("Listo, Total " + dtCamiontmp.Rows.Count.ToString() + " Reg.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                        Comun.mensajeVer("Listo, Total " + dtCamiontmp.Rows.Count.ToString() + " Reg.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    {
+                        MessageBox.Show(msgError, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    }
+
+                }
+            
             }
 
             listBoxRecorridos.Visible = false;
@@ -3392,68 +3408,104 @@ namespace Senga
         private void timerGps_Tick(object sender, EventArgs e)
         {
 
-            try
+            if (serialPortGps != null)
             {
 
-                string sdata = serialPortGps.ReadExisting();
-
-                string[] string_array = sdata.Split('$');
-                string Gprmc = null;
-
-                for (int i = 0; i < string_array.Length; i++)
+                try
                 {
-                    
-                    string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
-                    string[] line_array = stringTemp.Split(',');
 
-                    if (line_array[0] == "GPRMC")
+                    string sdata = serialPortGps.ReadExisting();
+
+                    string[] string_array = sdata.Split('$');
+                    string Gprmc = null;
+
+                    for (int i = 0; i < string_array.Length; i++)
                     {
 
-                        Gprmc = string.Join(",", string_array[i]);
+                        string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+                        string[] line_array = stringTemp.Split(',');
 
-                        if (Gprmc != null)
+                        if (line_array[0] == "GPRMC")
                         {
 
-                            if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                            Gprmc = string.Join(",", string_array[i]);
+
+                            if (Gprmc != null)
                             {
 
-                                string inData = Gprmc;
+                                if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                {
 
-                                string validos = "A";
-                                if (chkWarning.Checked) { validos = "V"; }
+                                    string inData = Gprmc;
 
-                                Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+                                    string validos = "A";
+                                    if (chkWarning.Checked) { validos = "V"; }
 
-                                gLatitudgps = separaNMEA(inData, validos, 3);
-                                gLongitudgps = separaNMEA(inData, validos, 5);
+                                    Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
 
-                                lblLatitud.Text = gLatitudgps.ToString();
-                                lblLongitud.Text = gLongitudgps.ToString();
+                                    gLatitudgps = separaNMEA(inData, validos, 3);
+                                    gLongitudgps = separaNMEA(inData, validos, 5);
 
-                                gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
-                                ghoragps = DateTime.Now.ToString("HH:mm:ss");
+                                    lblLatitud.Text = gLatitudgps.ToString();
+                                    lblLongitud.Text = gLongitudgps.ToString();
 
-                                txtLectura.Text = inData;
+                                    gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                                    ghoragps = DateTime.Now.ToString("HH:mm:ss");
+
+                                    txtLectura.Text = inData;
+
+                                }
 
                             }
 
+                            break;
                         }
 
-                        break;
                     }
 
                 }
+                catch (Exception err)
+                {
 
+                    //Console.WriteLine("GPS " + err.Message + DateTime.Now.ToString());
+                    txtError.Text = err.Message;
+                    btnConectarGps.Visible = true;
+                }
+            
             }
-            catch { }
 
         }
 
+        private void btnConectar_Click(object sender, EventArgs e)
+        {
 
 
+            try {
+
+                Cursor = Cursors.WaitCursor;
+                
+                if (!serialPortGps.IsOpen)
+                    serialPortGps.Open();
+
+                btnConectarGps.Visible = false;
+                txtError.Text = "Puerto GPS OK";
 
 
+            }
+            catch (Exception err)
+            {
+                txtError.Text = err.Message;
+                Cursor = Cursors.Default;
+            }
 
+            Cursor = Cursors .Default;
+
+        }
+
+        private void btnVerGps_Click(object sender, EventArgs e)
+        {
+            panelGps.Visible = !panelGps.Visible;
+        }
     }
 
 }
