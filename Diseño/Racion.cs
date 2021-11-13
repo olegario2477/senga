@@ -38,6 +38,9 @@ namespace Senga
         string vpeso = "";
         int cantAjustes = 1;
         bool beepOn = true;
+        char c = (char)02;
+        char r = '\r';
+        char n = '\n';
 
         public Racion(string idd, string id)
         {
@@ -248,7 +251,8 @@ namespace Senga
                 serialPort1.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
                 serialPort1.DataBits = dataConfig();
                 serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
-                serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                //serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived2);
                 serialPort1.ReadTimeout = 500;
                 serialPort1.WriteTimeout = 500;
                 serialPort1.Open();
@@ -1095,6 +1099,64 @@ namespace Senga
             frm.Show();
         }
 
+        void SerialPort_DataReceived2(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            try
+            {
+
+                //if (serialPort1.IsOpen)
+                if (this.Enabled)
+                {         
+
+                    string indata = serialPort1.ReadExisting();
+                    //Thread.Sleep(10);
+                    Thread.Sleep(100);
+                    string stringTemp = indata;
+                    //stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+                    stringTemp = stringTemp.Replace(r.ToString(), "]\r").Trim();
+
+
+                    string[] string_array = stringTemp.Split('\r');
+
+                    int j = string_array.Length;
+                    //for (int i = 1; i < j-1; i++)
+                    for (int i = 0; i < j; i++)
+                    {
+                        
+                        stringTemp = string_array[i].Trim();
+                        Console.WriteLine(">"+stringTemp);
+                        
+                        if (stringTemp.Contains(c.ToString()) && stringTemp.Contains("]"))
+                        {
+                            stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+                            stringTemp = stringTemp.Replace("]", "").Trim();
+
+
+                            if (stringTemp.Length >= 1 && stringTemp.Length <= 2)
+                            {
+                                string a = "";
+                            }
+
+                            long number1 = 0;
+                            if (long.TryParse(stringTemp, out number1))
+                            {
+                                this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                                
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
+            catch (Exception merr)
+            {
+                Console.WriteLine("Error " + merr);
+            }
+
+        }
 
         void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -1107,7 +1169,8 @@ namespace Senga
                 {
                 
                     string indata = serialPort1.ReadExisting();
-                    Thread.Sleep(10);
+                    //Thread.Sleep(10);
+                    Thread.Sleep(1000);
                     string stringTemp = indata;
                     char c = (char)02;
                     stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
@@ -1135,131 +1198,131 @@ namespace Senga
             }
 
 
-    //if (this.Enabled)
-    //{
+            //if (this.Enabled)
+            //{
 
-    //    //try
-    //    //{
+            //    //try
+            //    //{
 
-    //    Thread.Sleep(500);
+            //    Thread.Sleep(500);
 
-    //    //SerialPort sp = (SerialPort)sender;
-    //    //string indata = sp.ReadExisting();
-    //    string indata = serialPort1.ReadExisting();
+            //    //SerialPort sp = (SerialPort)sender;
+            //    //string indata = sp.ReadExisting();
+            //    string indata = serialPort1.ReadExisting();
 
-    //    //indata = indata.Replace("   25", "18005");
-
-
-    //    string stringTemp = indata;
-    //    char c = (char)02;
-    //    stringTemp = stringTemp.Replace(c.ToString(), "");
-    //    stringTemp = stringTemp.TrimStart();
-    //    stringTemp = stringTemp.TrimEnd();
-
-    //    string[] string_array = stringTemp.Split('\r');
-    //    int j = string_array.Length;
-    //    for (int i = 0; i < j; i++)
-    //    {
-
-    //        stringTemp = string_array[i].Trim();
-
-    //        long number1 = 0;
-    //        if (long.TryParse(stringTemp, out number1))
-    //        {
-    //            displayFunction(stringTemp);
-    //            Console.WriteLine(stringTemp);
-
-    //        }
-
-    //    }
-
-    //    //}
-    //    //catch (Exception merr)
-    //    //{
-    //    //    Console.WriteLine("Error "+merr);
-    //    //}
-
-    //}
+            //    //indata = indata.Replace("   25", "18005");
 
 
+            //    string stringTemp = indata;
+            //    char c = (char)02;
+            //    stringTemp = stringTemp.Replace(c.ToString(), "");
+            //    stringTemp = stringTemp.TrimStart();
+            //    stringTemp = stringTemp.TrimEnd();
 
-    //this.Invoke(new UpdateTextEventHandler(UpdateTextBox), new string[] { indata });
+            //    string[] string_array = stringTemp.Split('\r');
+            //    int j = string_array.Length;
+            //    for (int i = 0; i < j; i++)
+            //    {
 
-    //////rtxtBruto.Text += sp.ReadExisting() + "\n";
-    //////Console.Write("Data Received:");
-    //////Console.WriteLine(indata);
-    ///
+            //        stringTemp = string_array[i].Trim();
 
+            //        long number1 = 0;
+            //        if (long.TryParse(stringTemp, out number1))
+            //        {
+            //            displayFunction(stringTemp);
+            //            Console.WriteLine(stringTemp);
 
-    //try
-    //{
+            //        }
 
-    //    SerialPort port = (SerialPort)sender;
+            //    }
 
-    //    //-----------------------------------------------------
-    //    //byte[] _buffer = new byte[port.BytesToRead];
-    //    //port.Read(_buffer, 0, _buffer.Length);
+            //    //}
+            //    //catch (Exception merr)
+            //    //{
+            //    //    Console.WriteLine("Error "+merr);
+            //    //}
 
-    //    ////Parse buffer
-    //    //string sdata = "";
-    //    //Encoding encoding = ASCIIEncoding.GetEncoding(1252);
-    //    //if (null != _buffer)
-    //    //{
-    //    //    sdata = encoding.GetString(_buffer);
-    //    //}
-    //    //-----------------------------------------------------
-
-    //    string sdata = port.ReadExisting();
-
-    //    //-----------------------------------------------------
-
-    //    string[] string_array = sdata.Split('\r');
-    //    string Peso = null;
-    //    for (int i = 0; i < string_array.Length; i++)
-    //    {
-    //        string stringTemp = string_array[i];
-
-    //        char c = (char)02;
-    //        stringTemp = stringTemp.Replace(c.ToString(), "");
-    //        stringTemp = stringTemp.TrimStart();
-    //        stringTemp = stringTemp.TrimEnd();
-
-    //        Peso = stringTemp;
-    //        vpeso = stringTemp;
-
-    //        if (Peso != null && Peso != "")
-    //        {
-    //            //Invoke(new UpdateTextEventHandler(UpdateTextBox), new string[] { Peso });
-    //            Invoke(new EventHandler(ShowData));
-    //        }
-
-    //        //break;
-
-    //    }
+            //}
 
 
-    //}
-    //catch (Exception merr)
-    //{
 
-    //}
+            //this.Invoke(new UpdateTextEventHandler(UpdateTextBox), new string[] { indata });
 
-}
+            //////rtxtBruto.Text += sp.ReadExisting() + "\n";
+            //////Console.Write("Data Received:");
+            //////Console.WriteLine(indata);
+            ///
 
-//private void ShowData(object sender, EventArgs e)
-//{
-//    rtxtBruto.AppendText(vpeso);
-//}
 
-//private void UpdateTextBox(string text)
-//{
-//    if (!string.IsNullOrEmpty(text))
-//    {
-//        //rtxtBruto.Text += text;
-//        rtxtBruto.Text += text;
-//        rtxtBruto.Text += "\n";
-//    }
-//}
+            //try
+            //{
+
+            //    SerialPort port = (SerialPort)sender;
+
+            //    //-----------------------------------------------------
+            //    //byte[] _buffer = new byte[port.BytesToRead];
+            //    //port.Read(_buffer, 0, _buffer.Length);
+
+            //    ////Parse buffer
+            //    //string sdata = "";
+            //    //Encoding encoding = ASCIIEncoding.GetEncoding(1252);
+            //    //if (null != _buffer)
+            //    //{
+            //    //    sdata = encoding.GetString(_buffer);
+            //    //}
+            //    //-----------------------------------------------------
+
+            //    string sdata = port.ReadExisting();
+
+            //    //-----------------------------------------------------
+
+            //    string[] string_array = sdata.Split('\r');
+            //    string Peso = null;
+            //    for (int i = 0; i < string_array.Length; i++)
+            //    {
+            //        string stringTemp = string_array[i];
+
+            //        char c = (char)02;
+            //        stringTemp = stringTemp.Replace(c.ToString(), "");
+            //        stringTemp = stringTemp.TrimStart();
+            //        stringTemp = stringTemp.TrimEnd();
+
+            //        Peso = stringTemp;
+            //        vpeso = stringTemp;
+
+            //        if (Peso != null && Peso != "")
+            //        {
+            //            //Invoke(new UpdateTextEventHandler(UpdateTextBox), new string[] { Peso });
+            //            Invoke(new EventHandler(ShowData));
+            //        }
+
+            //        //break;
+
+            //    }
+
+
+            //}
+            //catch (Exception merr)
+            //{
+
+            //}
+
+        }
+
+        //private void ShowData(object sender, EventArgs e)
+        //{
+        //    rtxtBruto.AppendText(vpeso);
+        //}
+
+        //private void UpdateTextBox(string text)
+        //{
+        //    if (!string.IsNullOrEmpty(text))
+        //    {
+        //        //rtxtBruto.Text += text;
+        //        rtxtBruto.Text += text;
+        //        rtxtBruto.Text += "\n";
+        //    }
+        //}
 
         private void si_DataReceived(string accion) 
         {
