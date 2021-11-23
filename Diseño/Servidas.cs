@@ -151,6 +151,11 @@ namespace Senga
             //DGJornadas.Left = 0;
             //DGJornadas.Width = this.Width;
 
+            picGpsDesconectado.Top = gMapControl1.Height - picGpsDesconectado.Height - toolStrip3.Height;
+            picGpsDesconectado.Left = gMapControl1.Width - picGpsDesconectado.Width;
+
+
+
 
         }
 
@@ -1846,8 +1851,15 @@ namespace Senga
 
             if (gLatitud != 0)
             {
-                ubicacionActual(gLatitud,gLongitud);
+                ubicacionActual(gLatitud, gLongitud);
                 indicaDistancia();
+                picGpsDesconectado.Visible = false;
+            }
+            else 
+            {             
+                overlayCamion.Markers.Clear();
+                picGpsDesconectado.Visible = true;
+
             }
             
 
@@ -1947,6 +1959,11 @@ namespace Senga
 
             Console.WriteLine("LEE GPS Principal" + " " + DateTime.Now.ToString());
 
+        }
+
+        public string leeCorralUbicacion(double lat, double lng) 
+        {
+            return corralUbicacion(dtUbictmp, lat, lng, gmindist);
         }
 
         private void leerGPSBD()

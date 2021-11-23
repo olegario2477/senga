@@ -46,6 +46,10 @@ namespace Senga
         bool beepOn = true;
         int cantAjustes = 1;
         string vcorrales = "";
+        char c = (char)02;
+        char r = '\r';
+        char n = '\n';
+        string recibeData = "";
 
         //private string RxString;
 
@@ -62,9 +66,9 @@ namespace Senga
             vidd = idd;
             viddr = iddr;
             vjornada = id;
-            vcorralgps = corralgps;
-            vlat = lat;
-            vlng = lng;
+            vcorralgps = "0000";//corralgps;
+            vlat = 0;// lat;
+            vlng = 0;// lng;
             vnumcarga = numcarga;
             vcorrales = corrales;
         }
@@ -155,14 +159,14 @@ namespace Senga
                 //    }
                 //}
 
-                if (txtCorral.Text.Equals(vcorralgps))
-                {
-                    panel1.BackColor = Color.Green;
-                }
-                else
-                {
-                    panel1.BackColor = Color.Red;
-                }          
+                //if (txtCorral.Text.Equals(vcorralgps))
+                //{
+                //    panel1.BackColor = Color.Green;
+                //}
+                //else
+                //{
+                //    panel1.BackColor = Color.Red;
+                //}          
 
                 minvariacion = minimaVariacion();
 
@@ -316,7 +320,8 @@ namespace Senga
                 serialPort1.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
                 serialPort1.DataBits = dataConfig();
                 serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
-                serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                //serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
+                serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived2);
                 serialPort1.ReadTimeout = 500;
                 serialPort1.WriteTimeout = 500;
                 //serialPort1.NewLine = "\r\n";
@@ -1597,6 +1602,42 @@ namespace Senga
                 resultado = Convert.ToInt32(Math.Round(porc1));
                 barrar(resultado);
 
+                //-------------------------------------------------------------------
+                if (resultado >= 20 && resultado < 40)
+                {
+                    if (vlat == 0 && vlng == 0)
+                    {
+                        Principal.instance.leerGPS();
+                        vlat = Principal.instance.gLatitudgps;
+                        vlng = Principal.instance.gLongitudgps;
+
+                        //vlat = 21.920879;
+                        //vlng = -98.741526;
+
+                        if (vlat != 0 && vlng != 0)
+                        {
+                            lblGps.ForeColor = Color.Lime;
+                            vcorralgps = Servidas.instance.leeCorralUbicacion(vlat, vlng);
+                            
+                            lblCorralGps.Text = vcorralgps;
+                            lblCorralGps.ForeColor = Color.Lime;
+
+                            if (txtCorral.Text.Equals(vcorralgps))
+                            {
+                                //panel1.BackColor = Color.Green;
+                                lblCorralGps.ForeColor = Color.Lime;
+                            }
+                            else
+                            {
+                                //panel1.BackColor = Color.Red;
+                                lblCorralGps.ForeColor = Color.Orange;
+                            }
+
+                        }
+                    }
+                }
+                //-------------------------------------------------------------------
+
                 //if (porc1 > 100)
                 //{
                 //    porc1 = 100 - porc1;
@@ -1882,6 +1923,108 @@ namespace Senga
 
         }
 
+        private void SerialPort_DataReceived2(object sender, SerialDataReceivedEventArgs e)
+        {
+
+            try
+            {
+                
+                if (this.Enabled)
+                {
+
+                    recibeData += serialPort1.ReadExisting();                    
+
+                    if (recibeData.Contains("\r"))
+                    {
+
+                        string stringTemp = recibeData;
+
+                        string[] string_array = stringTemp.Split('\r');
+
+                        for (int i = 0; i < string_array.Length; i++)
+                        {
+
+                            stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
+
+                            long number1 = 0;
+                            if (long.TryParse(stringTemp, out number1))
+                            {
+                                this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                                break;
+                            }
+
+                        }
+
+                        recibeData = "";
+
+                    }
+
+                }
+
+            }
+            catch (Exception merr)
+            {
+                Console.WriteLine("Error " + merr);
+            }
+
+
+            //try
+            //{
+
+            //    //if (serialPort1.IsOpen)
+            //    if (this.Enabled)
+            //    {
+
+            //        string indata = serialPort1.ReadExisting();
+            //        //Thread.Sleep(10);
+            //        Thread.Sleep(100);
+            //        string stringTemp = indata;
+            //        //stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+            //        stringTemp = stringTemp.Replace(r.ToString(), "]\r").Trim();
+
+
+            //        string[] string_array = stringTemp.Split('\r');
+
+            //        int j = string_array.Length;
+            //        //for (int i = 1; i < j-1; i++)
+            //        for (int i = 0; i < j; i++)
+            //        {
+
+            //            stringTemp = string_array[i].Trim();
+            //            //Console.WriteLine(">" + stringTemp);
+
+            //            if (stringTemp.Contains(c.ToString()) && stringTemp.Contains("]"))
+            //            {
+            //                stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
+            //                stringTemp = stringTemp.Replace("]", "").Trim();
+
+
+            //                //if (stringTemp.Length >= 1 && stringTemp.Length <= 2)
+            //                //{
+            //                //    string a = "";
+            //                //}
+
+            //                long number1 = 0;
+            //                if (long.TryParse(stringTemp, out number1))
+            //                {
+            //                    this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+
+            //                }
+            //            }
+
+            //        }
+
+            //    }
+
+            //}
+            //catch (Exception merr)
+            //{
+            //    Console.WriteLine("Error " + merr);
+            //}
+
+
+        }
+        
         private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
 

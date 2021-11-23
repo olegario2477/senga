@@ -328,6 +328,7 @@
             this.label30.Size = new System.Drawing.Size(122, 26);
             this.label30.TabIndex = 58;
             this.label30.Text = "ATEN USB";
+            this.label30.Visible = false;
             // 
             // lblTestPeso
             // 
@@ -923,6 +924,7 @@
             this.label31.Size = new System.Drawing.Size(130, 26);
             this.label31.TabIndex = 59;
             this.label31.Text = "Prolific USB";
+            this.label31.Visible = false;
             // 
             // label17
             // 

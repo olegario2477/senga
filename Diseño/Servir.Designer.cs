@@ -107,6 +107,8 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtPorc = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.lblCorralGps = new System.Windows.Forms.Label();
+            this.lblGps = new System.Windows.Forms.Label();
             this.lblTolerable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtVariacionV = new System.Windows.Forms.Label();
@@ -987,6 +989,8 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.lblCorralGps);
+            this.panel7.Controls.Add(this.lblGps);
             this.panel7.Controls.Add(this.lblTolerable);
             this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.txtPorc);
@@ -996,6 +1000,31 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1123, 309);
             this.panel7.TabIndex = 119;
+            // 
+            // lblCorralGps
+            // 
+            this.lblCorralGps.AutoSize = true;
+            this.lblCorralGps.BackColor = System.Drawing.Color.Black;
+            this.lblCorralGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCorralGps.ForeColor = System.Drawing.Color.Gray;
+            this.lblCorralGps.Location = new System.Drawing.Point(2, 263);
+            this.lblCorralGps.Name = "lblCorralGps";
+            this.lblCorralGps.Size = new System.Drawing.Size(112, 46);
+            this.lblCorralGps.TabIndex = 81;
+            this.lblCorralGps.Text = "0000";
+            // 
+            // lblGps
+            // 
+            this.lblGps.AutoSize = true;
+            this.lblGps.BackColor = System.Drawing.Color.Black;
+            this.lblGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGps.ForeColor = System.Drawing.Color.Gray;
+            this.lblGps.Location = new System.Drawing.Point(4, 95);
+            this.lblGps.Name = "lblGps";
+            this.lblGps.Size = new System.Drawing.Size(52, 46);
+            this.lblGps.TabIndex = 80;
+            this.lblGps.Text = "G";
+            this.lblGps.Visible = false;
             // 
             // lblTolerable
             // 
@@ -1412,5 +1441,7 @@
         private System.Windows.Forms.Label lblSigCorral;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTolerable;
+        private System.Windows.Forms.Label lblGps;
+        private System.Windows.Forms.Label lblCorralGps;
     }
 }

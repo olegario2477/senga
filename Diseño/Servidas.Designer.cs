@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -94,6 +94,7 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.lblCorral = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnConectar = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -107,6 +108,7 @@
             this.copiarCoordenadaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.panelMapa = new System.Windows.Forms.Panel();
+            this.picGpsDesconectado = new System.Windows.Forms.PictureBox();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
@@ -155,7 +157,6 @@
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.txtServidoExtraV = new System.Windows.Forms.TextBox();
             this.btnCargar = new System.Windows.Forms.Button();
-            this.btnConectar = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -163,6 +164,7 @@
             this.toolStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelMapa.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsDesconectado)).BeginInit();
             this.toolStrip3.SuspendLayout();
             this.toolStrip2.SuspendLayout();
             this.panelCaptura.SuspendLayout();
@@ -643,16 +645,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea1);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series4.IsValueShownAsLabel = true;
-            series4.IsVisibleInLegend = false;
-            series4.Name = "Series1";
-            this.chartServidas.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.IsValueShownAsLabel = true;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "Series1";
+            this.chartServidas.Series.Add(series1);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
@@ -877,13 +879,27 @@
             // 
             this.lblCorral.Font = new System.Drawing.Font("Segoe UI", 20F);
             this.lblCorral.Name = "lblCorral";
-            this.lblCorral.Size = new System.Drawing.Size(53, 41);
-            this.lblCorral.Text = "No";
+            this.lblCorral.Size = new System.Drawing.Size(77, 41);
+            this.lblCorral.Text = "0000";
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 44);
+            // 
+            // btnConectar
+            // 
+            this.btnConectar.BackColor = System.Drawing.Color.LightGray;
+            this.btnConectar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnConectar.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.btnConectar.Image = ((System.Drawing.Image)(resources.GetObject("btnConectar.Image")));
+            this.btnConectar.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnConectar.Name = "btnConectar";
+            this.btnConectar.Size = new System.Drawing.Size(116, 41);
+            this.btnConectar.Text = "ON GPS";
+            this.btnConectar.ToolTipText = "ON GPS";
+            this.btnConectar.Visible = false;
+            this.btnConectar.Click += new System.EventHandler(this.btnConectar_Click);
             // 
             // toolStripLabel1
             // 
@@ -992,6 +1008,7 @@
             // 
             // panelMapa
             // 
+            this.panelMapa.Controls.Add(this.picGpsDesconectado);
             this.panelMapa.Controls.Add(this.chartServidas);
             this.panelMapa.Controls.Add(this.toolStrip3);
             this.panelMapa.Controls.Add(this.toolStrip2);
@@ -1002,6 +1019,17 @@
             this.panelMapa.Size = new System.Drawing.Size(655, 450);
             this.panelMapa.TabIndex = 93;
             this.panelMapa.Visible = false;
+            // 
+            // picGpsDesconectado
+            // 
+            this.picGpsDesconectado.Image = ((System.Drawing.Image)(resources.GetObject("picGpsDesconectado.Image")));
+            this.picGpsDesconectado.Location = new System.Drawing.Point(466, 180);
+            this.picGpsDesconectado.Name = "picGpsDesconectado";
+            this.picGpsDesconectado.Size = new System.Drawing.Size(101, 112);
+            this.picGpsDesconectado.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picGpsDesconectado.TabIndex = 95;
+            this.picGpsDesconectado.TabStop = false;
+            this.picGpsDesconectado.Visible = false;
             // 
             // toolStrip3
             // 
@@ -1204,9 +1232,9 @@
             this.panelSimular.Controls.Add(this.label15);
             this.panelSimular.Controls.Add(this.txtSimularLatLng);
             this.panelSimular.Controls.Add(this.btnSimularGps);
-            this.panelSimular.Location = new System.Drawing.Point(13, 135);
+            this.panelSimular.Location = new System.Drawing.Point(13, 108);
             this.panelSimular.Name = "panelSimular";
-            this.panelSimular.Size = new System.Drawing.Size(213, 98);
+            this.panelSimular.Size = new System.Drawing.Size(213, 139);
             this.panelSimular.TabIndex = 111;
             this.panelSimular.Visible = false;
             // 
@@ -1228,9 +1256,10 @@
             // 
             // btnSimularGps
             // 
-            this.btnSimularGps.Location = new System.Drawing.Point(125, 53);
+            this.btnSimularGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSimularGps.Location = new System.Drawing.Point(109, 53);
             this.btnSimularGps.Name = "btnSimularGps";
-            this.btnSimularGps.Size = new System.Drawing.Size(85, 38);
+            this.btnSimularGps.Size = new System.Drawing.Size(101, 83);
             this.btnSimularGps.TabIndex = 110;
             this.btnSimularGps.Text = "Simular";
             this.btnSimularGps.UseVisualStyleBackColor = true;
@@ -1509,20 +1538,6 @@
             this.btnCargar.UseVisualStyleBackColor = true;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
-            // btnConectar
-            // 
-            this.btnConectar.BackColor = System.Drawing.Color.LightGray;
-            this.btnConectar.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnConectar.Font = new System.Drawing.Font("Segoe UI", 20F);
-            this.btnConectar.Image = ((System.Drawing.Image)(resources.GetObject("btnConectar.Image")));
-            this.btnConectar.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnConectar.Name = "btnConectar";
-            this.btnConectar.Size = new System.Drawing.Size(116, 41);
-            this.btnConectar.Text = "ON GPS";
-            this.btnConectar.ToolTipText = "ON GPS";
-            this.btnConectar.Visible = false;
-            this.btnConectar.Click += new System.EventHandler(this.btnConectar_Click);
-            // 
             // Servidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1585,6 +1600,7 @@
             this.contextMenuStrip1.ResumeLayout(false);
             this.panelMapa.ResumeLayout(false);
             this.panelMapa.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picGpsDesconectado)).EndInit();
             this.toolStrip3.ResumeLayout(false);
             this.toolStrip3.PerformLayout();
             this.toolStrip2.ResumeLayout(false);
@@ -1726,5 +1742,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem copiarCoordenadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btnConectar;
+        private System.Windows.Forms.PictureBox picGpsDesconectado;
     }
 }

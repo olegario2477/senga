@@ -3408,6 +3408,13 @@ namespace Senga
         private void timerGps_Tick(object sender, EventArgs e)
         {
 
+            leerGPS();
+
+        }
+
+        public void leerGPS() 
+        { 
+        
             if (serialPortGps != null)
             {
 
@@ -3416,52 +3423,68 @@ namespace Senga
 
                     string sdata = serialPortGps.ReadExisting();
 
-                    string[] string_array = sdata.Split('$');
-                    string Gprmc = null;
-
-                    for (int i = 0; i < string_array.Length; i++)
+                    if (!sdata.Equals(""))
                     {
 
-                        string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
-                        string[] line_array = stringTemp.Split(',');
+                        string[] string_array = sdata.Split('$');
+                        string Gprmc = null;
 
-                        if (line_array[0] == "GPRMC")
+                        for (int i = 0; i < string_array.Length; i++)
                         {
 
-                            Gprmc = string.Join(",", string_array[i]);
+                            string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+                            string[] line_array = stringTemp.Split(',');
 
-                            if (Gprmc != null)
+                            if (line_array[0] == "GPRMC")
                             {
 
-                                if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                Gprmc = string.Join(",", string_array[i]);
+
+                                if (Gprmc != null)
                                 {
 
-                                    string inData = Gprmc;
+                                    if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                    {
 
-                                    string validos = "A";
-                                    if (chkWarning.Checked) { validos = "V"; }
+                                        string inData = Gprmc;
 
-                                    Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+                                        string validos = "A";
+                                        if (chkWarning.Checked) { validos = "V"; }
 
-                                    gLatitudgps = separaNMEA(inData, validos, 3);
-                                    gLongitudgps = separaNMEA(inData, validos, 5);
+                                        Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
 
-                                    lblLatitud.Text = gLatitudgps.ToString();
-                                    lblLongitud.Text = gLongitudgps.ToString();
+                                        gLatitudgps = separaNMEA(inData, validos, 3);
+                                        gLongitudgps = separaNMEA(inData, validos, 5);
 
-                                    gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
-                                    ghoragps = DateTime.Now.ToString("HH:mm:ss");
+                                        lblLatitud.Text = gLatitudgps.ToString();
+                                        lblLongitud.Text = gLongitudgps.ToString();
 
-                                    txtLectura.Text = inData;
+                                        gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                                        ghoragps = DateTime.Now.ToString("HH:mm:ss");
+
+                                        txtLectura.Text = inData;
+
+                                        Console.WriteLine("GPS " + gLatitudgps +"-"+ gLongitudgps);
+
+                                    }
 
                                 }
 
+                                break;
                             }
 
-                            break;
                         }
 
                     }
+                    else 
+                    {
+                        gLatitudgps = 0;
+                        gLongitudgps = 0;
+                        lblLatitud.Text = gLatitudgps.ToString();
+                        lblLongitud.Text = gLongitudgps.ToString();
+                        txtLectura.Text = "";
+                    }
+
 
                 }
                 catch (Exception err)
@@ -3470,10 +3493,17 @@ namespace Senga
                     //Console.WriteLine("GPS " + err.Message + DateTime.Now.ToString());
                     txtError.Text = err.Message;
                     btnConectarGps.Visible = true;
+
+                    gLatitudgps = 0;
+                    gLongitudgps = 0;
+                    lblLatitud.Text = gLatitudgps.ToString();
+                    lblLongitud.Text = gLongitudgps.ToString();
+                    txtLectura.Text = "";
+
                 }
             
-            }
-
+            }       
+        
         }
 
         private void btnConectar_Click(object sender, EventArgs e)

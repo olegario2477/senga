@@ -41,6 +41,7 @@ namespace Senga
         char c = (char)02;
         char r = '\r';
         char n = '\n';
+        string recibeData = "";
 
         public Racion(string idd, string id)
         {
@@ -1105,49 +1106,36 @@ namespace Senga
             try
             {
 
-                //if (serialPort1.IsOpen)
-                if (this.Enabled)
-                {         
+                 if (this.Enabled)
+                {       
+                    
+                    recibeData += serialPort1.ReadExisting();                    
 
-                    string indata = serialPort1.ReadExisting();
-                    //Thread.Sleep(10);
-                    Thread.Sleep(100);
-                    string stringTemp = indata;
-                    //stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
-                    stringTemp = stringTemp.Replace(r.ToString(), "]\r").Trim();
-
-
-                    string[] string_array = stringTemp.Split('\r');
-
-                    int j = string_array.Length;
-                    //for (int i = 1; i < j-1; i++)
-                    for (int i = 0; i < j; i++)
+                    if (recibeData.Contains("\r"))
                     {
-                        
-                        stringTemp = string_array[i].Trim();
-                        Console.WriteLine(">"+stringTemp);
-                        
-                        if (stringTemp.Contains(c.ToString()) && stringTemp.Contains("]"))
+
+                        string stringTemp = recibeData;
+
+                        string[] string_array = stringTemp.Split('\r');                                       
+
+                        for (int i = 0; i < string_array.Length; i++)
                         {
-                            stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
-                            stringTemp = stringTemp.Replace("]", "").Trim();
 
-
-                            if (stringTemp.Length >= 1 && stringTemp.Length <= 2)
-                            {
-                                string a = "";
-                            }
-
+                            stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
+                
                             long number1 = 0;
                             if (long.TryParse(stringTemp, out number1))
                             {
                                 this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
-                                
-                            }
+                                break;
+                            }                                         
+
                         }
 
-                    }
+                        recibeData = "";
 
+                    }
+                
                 }
 
             }
@@ -1169,8 +1157,8 @@ namespace Senga
                 {
                 
                     string indata = serialPort1.ReadExisting();
-                    //Thread.Sleep(10);
-                    Thread.Sleep(1000);
+                    Thread.Sleep(10);
+                    //Thread.Sleep(1000);
                     string stringTemp = indata;
                     char c = (char)02;
                     stringTemp = stringTemp.Replace(c.ToString(), "").Replace(" ", "").Trim();
