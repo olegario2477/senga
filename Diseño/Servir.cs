@@ -50,7 +50,7 @@ namespace Senga
         char r = '\r';
         char n = '\n';
         string recibeData = "";
-
+        int vcontLeerGps = 0;
         //private string RxString;
 
         //public delegate void AddDataDelegate(String myString);
@@ -66,9 +66,11 @@ namespace Senga
             vidd = idd;
             viddr = iddr;
             vjornada = id;
+            //----------------------------------------
             vcorralgps = "0000";//corralgps;
             vlat = 0;// lat;
             vlng = 0;// lng;
+            //----------------------------------------
             vnumcarga = numcarga;
             vcorrales = corrales;
         }
@@ -1603,39 +1605,9 @@ namespace Senga
                 barrar(resultado);
 
                 //-------------------------------------------------------------------
-                if (resultado >= 20 && resultado < 40)
-                {
-                    if (vlat == 0 && vlng == 0)
-                    {
-                        Principal.instance.leerGPS();
-                        vlat = Principal.instance.gLatitudgps;
-                        vlng = Principal.instance.gLongitudgps;
 
-                        //vlat = 21.920879;
-                        //vlng = -98.741526;
+                tomaCoordenada(resultado);
 
-                        if (vlat != 0 && vlng != 0)
-                        {
-                            lblGps.ForeColor = Color.Lime;
-                            vcorralgps = Servidas.instance.leeCorralUbicacion(vlat, vlng);
-                            
-                            lblCorralGps.Text = vcorralgps;
-                            lblCorralGps.ForeColor = Color.Lime;
-
-                            if (txtCorral.Text.Equals(vcorralgps))
-                            {
-                                //panel1.BackColor = Color.Green;
-                                lblCorralGps.ForeColor = Color.Lime;
-                            }
-                            else
-                            {
-                                //panel1.BackColor = Color.Red;
-                                lblCorralGps.ForeColor = Color.Orange;
-                            }
-
-                        }
-                    }
-                }
                 //-------------------------------------------------------------------
 
                 //if (porc1 > 100)
@@ -1659,6 +1631,51 @@ namespace Senga
 
 
         }
+
+        public void tomaCoordenada(int resultado) 
+        {
+
+            if (resultado >= 40 && resultado < 70)
+            {
+
+                if ((vlat == 0 && vlng == 0) || (vlat != 0 && vlng != 0 && vcontLeerGps < 3))
+                {
+                    //Principal.instance.limpaGPS();
+                    Principal.instance.leerGPS();
+                    vlat = Principal.instance.gLatitudgps;
+                    vlng = Principal.instance.gLongitudgps;
+                    
+                    vcontLeerGps++;
+                    lblDifGps.Text = Principal.instance.lblDifGps.Text + ", "+lblDifGps.Text;
+                    //vlat = 21.920879; vlng = -98.741526;
+
+                }
+
+                else if (vcorralgps.Equals("0000"))
+                {
+                    //lblGps.ForeColor = Color.Lime;
+                    vcorralgps = Servidas.instance.leeCorralUbicacion(vlat, vlng);
+
+                    lblCorralGps.Text = vcorralgps;
+                    lblCorralGps.ForeColor = Color.Lime;
+
+                    if (txtCorral.Text.Equals(vcorralgps))
+                    {
+                        //panel1.BackColor = Color.Green;
+                        lblCorralGps.ForeColor = Color.Lime;
+                    }
+                    else
+                    {
+                        //panel1.BackColor = Color.Red;
+                        lblCorralGps.ForeColor = Color.Orange;
+                    }
+
+                }
+                
+            }
+
+        }
+
         //private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         //private void DataReceivedEventHandler(object sender, SerialDataReceivedEventArgs e)
         //{

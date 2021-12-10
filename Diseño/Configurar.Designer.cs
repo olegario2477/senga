@@ -1434,7 +1434,7 @@
             this.btnBasic.Name = "btnBasic";
             this.btnBasic.Size = new System.Drawing.Size(140, 149);
             this.btnBasic.TabIndex = 1;
-            this.btnBasic.Text = "BASIC";
+            this.btnBasic.Text = "Basico";
             this.btnBasic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBasic.UseVisualStyleBackColor = true;
             this.btnBasic.Click += new System.EventHandler(this.btnBasic_Click);
@@ -1447,7 +1447,7 @@
             this.btnWs.Name = "btnWs";
             this.btnWs.Size = new System.Drawing.Size(140, 149);
             this.btnWs.TabIndex = 2;
-            this.btnWs.Text = "WS";
+            this.btnWs.Text = "Ws";
             this.btnWs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnWs.UseVisualStyleBackColor = true;
             this.btnWs.Click += new System.EventHandler(this.btnWs_Click);
@@ -1473,7 +1473,7 @@
             this.btnZone.Name = "btnZone";
             this.btnZone.Size = new System.Drawing.Size(140, 149);
             this.btnZone.TabIndex = 4;
-            this.btnZone.Text = "ZONE";
+            this.btnZone.Text = "Zona";
             this.btnZone.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnZone.UseVisualStyleBackColor = true;
             this.btnZone.Click += new System.EventHandler(this.btnZone_Click);
@@ -1499,7 +1499,7 @@
             this.btnManual.Name = "btnManual";
             this.btnManual.Size = new System.Drawing.Size(140, 149);
             this.btnManual.TabIndex = 6;
-            this.btnManual.Text = "MANUAL";
+            this.btnManual.Text = "Manual";
             this.btnManual.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnManual.UseVisualStyleBackColor = true;
             this.btnManual.Click += new System.EventHandler(this.btnManual_Click);
@@ -1512,7 +1512,7 @@
             this.btnMtto.Name = "btnMtto";
             this.btnMtto.Size = new System.Drawing.Size(140, 149);
             this.btnMtto.TabIndex = 7;
-            this.btnMtto.Text = "MTTO";
+            this.btnMtto.Text = "Mtto";
             this.btnMtto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);

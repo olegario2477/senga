@@ -491,63 +491,100 @@ namespace Senga
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
+
+            Datos datos2 = new Datos();
+            DataTable dt2 = new DataTable();
+
+            int valorf = 0;
+
+            datos2.p_sql = "SELECT count(*) as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+            if (!datos2.consultaSQL(ref dt2, true))
+            {
+                MessageBox.Show(datos2.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt2.Rows)
+                {
+
+                    if (row["Jornada"].ToString() != "0")
+                    {
+                        valorf = Convert.ToInt32(row["Jornada"].ToString());
+                    }
+                }
+            }
+
+
+            if (valorf != 0)
+            {
+
+                //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+
+            else
+            {
+
+                Datos datos = new Datos();
+                DataTable dt = new DataTable();
+
+                //string searchValue = "0";
+                //int filas = 0;
+                int rowIndex = -1;
+
+                datos.p_sql = "insert into jornadas (fecha,Hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "','" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "')";
+
+                if (!datos.consultaSQL(ref dt, false))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
+                {
+                    //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    refrescaGrid();
+
+                    //rowIndex = DGJornadas.RowCount - 1;
+                    //DGJornadas.Rows[rowIndex].Selected = true;
+                    //DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
+                    //txtId.Text = DGJornadas.Rows[rowIndex].Cells["Jornada"].Value.ToString(); 
+
+
+                    //searchValue = DGJornadas.Rows.Cells["Jornada"].Value.ToString();
+                    //txtId.Text = searchValue;
+
+                    //filaDatos(txtId.Text);
+
+                    //searchValue ="20";
+
+                    //if (searchValue != "0")
+                    //{
+
+                    //    foreach (DataGridViewRow row in DGJornadas.Rows)
+                    //    {
+                    //        if (row.Cells["Jornada"].Value.ToString() == searchValue)
+                    //        {
+                    //            rowIndex = row.Index;
+                    //            break;
+                    //        }
+                    //    }
+
+                    //    if (rowIndex != -1)
+                    //    {
+                    //        DGJornadas.Rows[rowIndex].Selected = true;
+                    //        txtId.Text = searchValue;
+                    //        DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
+                    //        filaDatos(txtId.Text);
+                    //    }
+
+                    //}
+
+                    //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+
+                }
             
-            Datos datos = new Datos();
-            DataTable dt = new DataTable();
-
-            //string searchValue = "0";
-            //int filas = 0;
-            int rowIndex = -1;
-
-            datos.p_sql = "insert into jornadas (fecha,Hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "','" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "')";
-
-            if (!datos.consultaSQL(ref dt, false))
-            {
-                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
-            else 
-            {
-                //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                refrescaGrid();
-                
-                //rowIndex = DGJornadas.RowCount - 1;
-                //DGJornadas.Rows[rowIndex].Selected = true;
-                //DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
-                //txtId.Text = DGJornadas.Rows[rowIndex].Cells["Jornada"].Value.ToString(); 
-
-
-                //searchValue = DGJornadas.Rows.Cells["Jornada"].Value.ToString();
-                //txtId.Text = searchValue;
-
-                //filaDatos(txtId.Text);
-                
-                //searchValue ="20";
-
-                //if (searchValue != "0")
-                //{
-
-                //    foreach (DataGridViewRow row in DGJornadas.Rows)
-                //    {
-                //        if (row.Cells["Jornada"].Value.ToString() == searchValue)
-                //        {
-                //            rowIndex = row.Index;
-                //            break;
-                //        }
-                //    }
-
-                //    if (rowIndex != -1)
-                //    {
-                //        DGJornadas.Rows[rowIndex].Selected = true;
-                //        txtId.Text = searchValue;
-                //        DGJornadas.FirstDisplayedScrollingRowIndex = rowIndex;
-                //        filaDatos(txtId.Text);
-                //    }
-
-                //}
-
-                //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-
-            }
+        
         }
 
         private void DGJornadas_CellContentClick(object sender, DataGridViewCellEventArgs e)

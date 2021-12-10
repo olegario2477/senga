@@ -114,6 +114,7 @@ namespace Senga
 
             splitContainer1.Width = this.Width - btnEjecutar.Width - 50;
 
+            btnBasic.Focus();
 
 
         }

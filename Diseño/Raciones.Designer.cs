@@ -619,7 +619,7 @@
             this.btnWsEnviar.Name = "btnWsEnviar";
             this.btnWsEnviar.Size = new System.Drawing.Size(140, 149);
             this.btnWsEnviar.TabIndex = 85;
-            this.btnWsEnviar.Text = "ENVIA";
+            this.btnWsEnviar.Text = "Envia";
             this.btnWsEnviar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnWsEnviar.UseVisualStyleBackColor = true;
             this.btnWsEnviar.Click += new System.EventHandler(this.btnWsEnviar_Click);
@@ -632,7 +632,7 @@
             this.btnWsRecibir.Name = "btnWsRecibir";
             this.btnWsRecibir.Size = new System.Drawing.Size(140, 149);
             this.btnWsRecibir.TabIndex = 84;
-            this.btnWsRecibir.Text = "RECIBE";
+            this.btnWsRecibir.Text = "Recibe";
             this.btnWsRecibir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnWsRecibir.UseVisualStyleBackColor = true;
             this.btnWsRecibir.Click += new System.EventHandler(this.btnWsRecibir_Click);
@@ -658,7 +658,7 @@
             this.btnNube.Name = "btnNube";
             this.btnNube.Size = new System.Drawing.Size(140, 149);
             this.btnNube.TabIndex = 82;
-            this.btnNube.Text = "WS";
+            this.btnNube.Text = "Ws";
             this.btnNube.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNube.UseVisualStyleBackColor = true;
             this.btnNube.Click += new System.EventHandler(this.btnNube_Click);

@@ -107,8 +107,8 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtPorc = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.lblDifGps = new System.Windows.Forms.Label();
             this.lblCorralGps = new System.Windows.Forms.Label();
-            this.lblGps = new System.Windows.Forms.Label();
             this.lblTolerable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtVariacionV = new System.Windows.Forms.Label();
@@ -390,13 +390,13 @@
             // 
             this.lblEstable.AutoSize = true;
             this.lblEstable.BackColor = System.Drawing.Color.Black;
-            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstable.ForeColor = System.Drawing.Color.Gray;
             this.lblEstable.Location = new System.Drawing.Point(4, 4);
             this.lblEstable.Name = "lblEstable";
-            this.lblEstable.Size = new System.Drawing.Size(48, 46);
+            this.lblEstable.Size = new System.Drawing.Size(60, 63);
             this.lblEstable.TabIndex = 61;
-            this.lblEstable.Text = "S";
+            this.lblEstable.Text = "~";
             // 
             // pbServido2
             // 
@@ -989,8 +989,8 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.lblDifGps);
             this.panel7.Controls.Add(this.lblCorralGps);
-            this.panel7.Controls.Add(this.lblGps);
             this.panel7.Controls.Add(this.lblTolerable);
             this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.txtPorc);
@@ -1000,6 +1000,19 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1123, 309);
             this.panel7.TabIndex = 119;
+            // 
+            // lblDifGps
+            // 
+            this.lblDifGps.AutoSize = true;
+            this.lblDifGps.BackColor = System.Drawing.Color.Black;
+            this.lblDifGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDifGps.ForeColor = System.Drawing.Color.Gray;
+            this.lblDifGps.Location = new System.Drawing.Point(120, 263);
+            this.lblDifGps.Name = "lblDifGps";
+            this.lblDifGps.Size = new System.Drawing.Size(36, 46);
+            this.lblDifGps.TabIndex = 82;
+            this.lblDifGps.Text = "*";
+            this.lblDifGps.Visible = false;
             // 
             // lblCorralGps
             // 
@@ -1013,19 +1026,6 @@
             this.lblCorralGps.TabIndex = 81;
             this.lblCorralGps.Text = "0000";
             // 
-            // lblGps
-            // 
-            this.lblGps.AutoSize = true;
-            this.lblGps.BackColor = System.Drawing.Color.Black;
-            this.lblGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGps.ForeColor = System.Drawing.Color.Gray;
-            this.lblGps.Location = new System.Drawing.Point(4, 95);
-            this.lblGps.Name = "lblGps";
-            this.lblGps.Size = new System.Drawing.Size(52, 46);
-            this.lblGps.TabIndex = 80;
-            this.lblGps.Text = "G";
-            this.lblGps.Visible = false;
-            // 
             // lblTolerable
             // 
             this.lblTolerable.AutoSize = true;
@@ -1037,6 +1037,7 @@
             this.lblTolerable.Size = new System.Drawing.Size(50, 46);
             this.lblTolerable.TabIndex = 79;
             this.lblTolerable.Text = "R";
+            this.lblTolerable.Visible = false;
             // 
             // label1
             // 
@@ -1441,7 +1442,7 @@
         private System.Windows.Forms.Label lblSigCorral;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblTolerable;
-        private System.Windows.Forms.Label lblGps;
         private System.Windows.Forms.Label lblCorralGps;
+        private System.Windows.Forms.Label lblDifGps;
     }
 }

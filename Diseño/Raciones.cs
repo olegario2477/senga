@@ -49,9 +49,9 @@ namespace Senga
             //Close();
 
 
-            Jornadas frm = new Jornadas();
-            //frm.MdiParent = this;
-            frm.Show();
+            //Jornadas frm = new Jornadas();
+            ////frm.MdiParent = this;
+            //frm.Show();
 
             Close();
 

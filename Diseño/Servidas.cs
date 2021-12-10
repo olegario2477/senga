@@ -34,7 +34,7 @@ namespace Senga
         string instancia = "2";//1 server y cache   2-cache
         double gLatitud = 21.923002;
         double gLongitud = -98.745503;
-        double gmindist = 0.02;
+        double gmindist = 0.035;//0.02;
         string gCoordenadas = "";
         private List<PointLatLng> _points;
 

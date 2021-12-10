@@ -294,13 +294,13 @@
             // 
             this.lblEstable.AutoSize = true;
             this.lblEstable.BackColor = System.Drawing.Color.Black;
-            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstable.Font = new System.Drawing.Font("Microsoft Sans Serif", 40F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblEstable.ForeColor = System.Drawing.Color.Gray;
             this.lblEstable.Location = new System.Drawing.Point(3, 3);
             this.lblEstable.Name = "lblEstable";
-            this.lblEstable.Size = new System.Drawing.Size(48, 46);
+            this.lblEstable.Size = new System.Drawing.Size(60, 63);
             this.lblEstable.TabIndex = 62;
-            this.lblEstable.Text = "S";
+            this.lblEstable.Text = "~";
             // 
             // btnRacion
             // 
@@ -1231,6 +1231,7 @@
             this.lblTolerable.Size = new System.Drawing.Size(50, 46);
             this.lblTolerable.TabIndex = 78;
             this.lblTolerable.Text = "R";
+            this.lblTolerable.Visible = false;
             // 
             // label1
             // 

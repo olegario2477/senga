@@ -56,9 +56,12 @@ namespace Senga
         String msgError = "";
         String versionAct = "";
 
+
         bool RecibirPeso = false;
         public bool pauseGps = false;
 
+        long lngBytesSend = 0;
+        long lngBtyesReceived = 0;
 
         //public void Start()
         //{
@@ -127,7 +130,7 @@ namespace Senga
             string texto ="";
 
             posicionBotones();
-            btnServidas.Focus();
+            btnJornadas.Focus();
 
 
             if (validaBD(ref texto))
@@ -200,31 +203,54 @@ namespace Senga
 
         }
 
-        //private void velodidadRed()
-        //{
+        private void velocidadRed()
+        {
 
-        //    NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
-        //    foreach (NetworkInterface adapter in adapters)
-        //    {
-        //        if (adapter.Name.Equals("Wi-Fi"))
-        //        {
+            try
+            {
+                NetworkInterface[] adapters = NetworkInterface.GetAllNetworkInterfaces();
+                foreach (NetworkInterface adapter in adapters)
+                {
+                    if (adapter.Name.Contains("Wi-Fi"))
+                    {
 
-        //            IPInterfaceProperties properties = adapter.GetIPProperties();
-        //            IPv4InterfaceStatistics stats = adapter.GetIPv4Statistics();
-        //            Console.WriteLine(adapter.Description);
-        //            Console.WriteLine("     Speed .................................: {0}",
-        //                adapter.Speed);
-        //            Console.WriteLine("     Output queue length....................: {0}",
-        //                stats.OutputQueueLength);
+                        IPInterfaceProperties properties = adapter.GetIPProperties();
+                        IPv4InterfaceStatistics stats = adapter.GetIPv4Statistics();
 
-        //            lblSenalRed.Text = adapter.Speed.ToString();
+                        //Console.WriteLine(adapter.Description);
+                        //Console.WriteLine("     Speed .................................: {0}",
+                        //    adapter.Speed);
+                        //Console.WriteLine("     Output queue length....................: {0}",
+                        //    stats.OutputQueueLength);
 
-        //        }
+                        //lblSenalRed.Text = adapter.Speed.ToString();
 
-                 
+                        lblDescripcionRed.Text = adapter.Description;
 
-        //    }
-        //}
+                        int bytesSentSpeed = (int)(stats.BytesSent - lngBytesSend) / 1024;
+                        int bytesReceivedSpeed = (int)(stats.BytesReceived - lngBtyesReceived) / 1024;
+
+                        lblSpeed.Text = (adapter.Speed / 1000000).ToString() + " Mbps";
+                        lblPacketReceived.Text = stats.UnicastPacketsReceived.ToString();
+                        lblPacketSend.Text = stats.UnicastPacketsSent.ToString();
+                        lblUpload.Text = bytesSentSpeed.ToString() + " KB / s";
+                        lblDownLoad.Text = bytesReceivedSpeed.ToString() + " KB / s ";
+                        lngBytesSend = stats.BytesSent;
+                        lngBtyesReceived = stats.BytesReceived;
+
+                    }
+
+
+
+                }
+
+
+            }
+            catch { }
+
+
+
+        }
 
         private void redEstado()
         {
@@ -273,17 +299,23 @@ namespace Senga
             //btnGPS.Left = 50;
 
             btnActualizar.Top = 0;
+            
             btnSalir.Top = 0;
-            btnServidas.Top = 0;
+            btnPlanes.Top = 0;
+            
+            btnJornadas.Top = 0;
             btnConfigurar.Top = 0;
             btnRecorrido.Top = 0;
             btnReparto.Top = 0;
 
             btnReparto.Width = 0;
+            btnJornadas.Width = 0;
 
             btnSalir.Left = this.Width - btnSalir.Width;
-            btnServidas.Left = btnSalir.Left - btnServidas.Width;
-            btnConfigurar.Left = btnServidas.Left - btnConfigurar.Width;
+            btnPlanes.Left = btnSalir.Left - btnPlanes.Width;
+
+            btnJornadas.Left = btnPlanes.Left - btnJornadas.Width;
+            btnConfigurar.Left = btnJornadas.Left - btnConfigurar.Width;
             btnRecorrido.Left = btnConfigurar.Left - btnRecorrido.Width;
             btnReparto.Left = btnRecorrido.Left - btnReparto.Width;
             btnActualizar.Left = btnReparto.Left - btnActualizar.Width;
@@ -800,7 +832,7 @@ namespace Senga
 
             redEstado();
              
-            //velodidadRed();
+            //velocidadRed();
 
             //enviarWs();
             //picPunto.Visible = ! picPunto.Visible;
@@ -3407,76 +3439,142 @@ namespace Senga
 
         private void timerGps_Tick(object sender, EventArgs e)
         {
-
             leerGPS();
+        }
+
+        public void limpaGPS() 
+        {
+
+            int readCount = serialPortGps.BytesToRead;
+            byte[] buffer = new byte[readCount];
+            serialPortGps.Read(buffer, 0, readCount);
 
         }
 
         public void leerGPS() 
-        { 
-        
+        {
+
             if (serialPortGps != null)
             {
 
                 try
                 {
 
-                    string sdata = serialPortGps.ReadExisting();
-
-                    if (!sdata.Equals(""))
+                    //if (!sdata.Equals(""))
+                    if (serialPortGps.BytesToRead > 0)
                     {
 
-                        string[] string_array = sdata.Split('$');
-                        string Gprmc = null;
+                        //string sdataGps1 = serialPortGps.ReadLine();
 
-                        for (int i = 0; i < string_array.Length; i++)
+                        string sdataGps = serialPortGps.ReadExisting();
+                        
+
+                        string tiempo = DateTime.Now.ToString("HH:mm:ss");
+                        string tiempomas = DateTime.Now.AddHours(6).ToString("HH:mm:ss");
+
+                        string[] string_array = sdataGps.Split('$');
+                        
+                        string lectura = null;
+
+                        //for (int i = 0; i < string_array.Length; i++) //asc
+                        for (int i = string_array.Length - 1; i >= 0 ; i--) //desc
                         {
-
+                            
                             string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
+
+                            Console.WriteLine(string_array.Length.ToString() +"-"+ i.ToString()+"-"+stringTemp);
+
+
                             string[] line_array = stringTemp.Split(',');
 
-                            if (line_array[0] == "GPRMC")
+                            if (line_array.Length >= 7)
                             {
 
-                                Gprmc = string.Join(",", string_array[i]);
-
-                                if (Gprmc != null)
+                                if (line_array[0] == "GPRMC") 
+                                //if(line_array[0] == "GPGGA" )
                                 {
 
-                                    if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                    lectura = string.Join(",", string_array[i]);
+
+                                    if (lectura != null)
                                     {
 
-                                        string inData = Gprmc;
+                                        //if (line_array[4].Equals("N") && line_array[6].Equals("W"))
+                                        //{
 
-                                        string validos = "A";
-                                        if (chkWarning.Checked) { validos = "V"; }
+                                            string inData = lectura;
 
-                                        Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+                                            string validos = "A";
+                                            if (chkWarning.Checked) { validos = "V"; }
 
-                                        gLatitudgps = separaNMEA(inData, validos, 3);
-                                        gLongitudgps = separaNMEA(inData, validos, 5);
+                                            Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
+                                        
+                                            int colLat = 3;
+                                            int colLng = 5;
 
-                                        lblLatitud.Text = gLatitudgps.ToString();
-                                        lblLongitud.Text = gLongitudgps.ToString();
+                                            //if (line_array[0] == "GPRMC") {
+                                            //    colLat = 3;
+                                            //    colLng = 5;
+                                            //} 
+                                            //if (line_array[0] == "GPGGA")
+                                            //{
+                                            //    colLat = 2;
+                                            //    colLng = 4;
+                                            //}
 
-                                        gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
-                                        ghoragps = DateTime.Now.ToString("HH:mm:ss");
+                                           
+
+                                            gLatitudgps = separaNMEA(inData, validos, colLat);
+                                            gLongitudgps = separaNMEA(inData, validos, colLng);
+
+                                            lblLatitud.Text = gLatitudgps.ToString();
+                                            lblLongitud.Text = gLongitudgps.ToString();
+
+                                            gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                                            ghoragps = DateTime.Now.ToString("HH:mm:ss");
+
+
+                                            
+                                        //---------------------------------
+                                            string[] words = inData.Split(',');
+                                            string ghoragps2 = words[1].ToString();
+                                            
+                                            ghoragps2 = ghoragps2.Substring(0, 2)+":"+ghoragps2.Substring(2, 2)+":"+ghoragps2.Substring(4, 2);
+
+                                            DateTime fecha1 = Convert.ToDateTime(tiempomas);
+                                            DateTime fecha2 = Convert.ToDateTime(ghoragps2);
+                                        
+                                            TimeSpan diferenciaHoras = new TimeSpan();
+                                            diferenciaHoras = fecha1 - fecha2;
+                                            int horas = diferenciaHoras.Hours;                                      
+                                            int minutos = diferenciaHoras.Minutes;                    
+                                            int segundos = diferenciaHoras.Seconds;
+
+                                            lblDifGps.Text = horas.ToString() + ":" + minutos.ToString() + ":" + segundos.ToString();
+
+                                            Console.WriteLine("GPS Hora " + tiempomas + "-" + ghoragps2+" - "+ lblDifGps.Text);
+
+                                        //---------------------------------
+
 
                                         txtLectura.Text = inData;
 
-                                        Console.WriteLine("GPS " + gLatitudgps +"-"+ gLongitudgps);
+                                            Console.WriteLine("GPS " + gLatitudgps + "-" + gLongitudgps);
 
+                                            break;
+
+                                        //}
+                                    
                                     }
 
                                 }
-
-                                break;
+                                
                             }
 
                         }
 
                     }
-                    else 
+                    else
                     {
                         gLatitudgps = 0;
                         gLongitudgps = 0;
@@ -3534,8 +3632,96 @@ namespace Senga
 
         private void btnVerGps_Click(object sender, EventArgs e)
         {
-            panelGps.Visible = !panelGps.Visible;
+            //panelGps.Visible = !panelGps.Visible;
+            tabControl1.Visible = !tabControl1.Visible;
         }
+
+        private void btnRed_Click(object sender, EventArgs e)
+        {
+            velocidadRed();
+        }
+
+        private void chkWarning_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPlanes_Click(object sender, EventArgs e)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            int vJornada = 0;
+
+            datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos2.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                if (dt.Rows.Count > 0)
+                {
+                    DataRow row = dt.Rows[0];
+                    vJornada = Convert.ToInt32(row["Jornada"].ToString());                    
+                }
+            }
+
+            if (vJornada == 0)
+            {
+
+                datos.p_sql = "insert into jornadas (fecha,Hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "','" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "')";
+
+                if (!datos.consultaSQL(ref dt, false))
+                {
+                    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+
+                datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+
+                if (!datos.consultaSQL(ref dt, true))
+                {
+                    //MessageBox.Show(datos2.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                else
+                {
+                    if (dt.Rows.Count > 0)
+                    {
+                        DataRow row = dt.Rows[0];
+                        vJornada = Convert.ToInt32(row["Jornada"].ToString());
+                    }
+                }
+
+            }
+
+            datos.p_sql = "UPDATE operacion SET jornada = '" + vJornada.ToString() + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            string vid;
+            vid = vJornada.ToString();
+
+            Raciones frm = new Raciones(vid);
+            //frm.MdiParent = this;
+            frm.Show();
+
+            //Close();
+
+
+
+        }
+
+
+
+
+
+
     }
 
 }

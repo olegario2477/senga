@@ -1107,35 +1107,48 @@ namespace Senga
             {
 
                  if (this.Enabled)
-                {       
-                    
-                    recibeData += serialPort1.ReadExisting();                    
+                 {
 
-                    if (recibeData.Contains("\r"))
+                    if (serialPort1.BytesToRead > 0)
                     {
 
-                        string stringTemp = recibeData;
+                        //if (serialPort1.BytesToRead > 0) 
+                        //{
+                        recibeData += serialPort1.ReadExisting();
+                        //    serialPort1.DiscardInBuffer();
+                        //}
 
-                        string[] string_array = stringTemp.Split('\r');                                       
+                        //recibeData = serialPort1.ReadLine();                    
 
-                        for (int i = 0; i < string_array.Length; i++)
+                        if (recibeData.Contains("\r"))
                         {
 
-                            stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
-                
-                            long number1 = 0;
-                            if (long.TryParse(stringTemp, out number1))
+                            string stringTemp = recibeData;
+
+                            string[] string_array = stringTemp.Split('\r');
+
+                            //for (int i = 0; i < string_array.Length; i++)
+                            for (int i = string_array.Length - 1; i >= 0; i--) //desc
                             {
-                                this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
-                                break;
-                            }                                         
+
+                                stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
+
+                                Console.WriteLine(string_array.Length.ToString() + "-" + i.ToString() + "-" + stringTemp);
+
+                                long number1 = 0;
+                                if (long.TryParse(stringTemp, out number1))
+                                {
+                                    this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                                    break;
+                                }
+
+                            }
+
+                            recibeData = "";
 
                         }
-
-                        recibeData = "";
-
                     }
-                
+
                 }
 
             }
