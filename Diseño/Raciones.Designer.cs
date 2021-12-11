@@ -105,6 +105,7 @@
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
             this.txtCarga = new System.Windows.Forms.TextBox();
+            this.btnJornadas = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -160,7 +161,7 @@
             // 
             this.btnServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServida.Image = ((System.Drawing.Image)(resources.GetObject("btnServida.Image")));
-            this.btnServida.Location = new System.Drawing.Point(166, 0);
+            this.btnServida.Location = new System.Drawing.Point(250, 3);
             this.btnServida.Name = "btnServida";
             this.btnServida.Size = new System.Drawing.Size(140, 149);
             this.btnServida.TabIndex = 2;
@@ -554,7 +555,7 @@
             // 
             this.btnExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorer.Image")));
-            this.btnExplorer.Location = new System.Drawing.Point(40, 0);
+            this.btnExplorer.Location = new System.Drawing.Point(93, 0);
             this.btnExplorer.Name = "btnExplorer";
             this.btnExplorer.Size = new System.Drawing.Size(128, 149);
             this.btnExplorer.TabIndex = 4;
@@ -589,6 +590,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnJornadas);
             this.panel1.Controls.Add(this.btnWsEnviar);
             this.panel1.Controls.Add(this.btnWsRecibir);
             this.panel1.Controls.Add(this.btnExplorer);
@@ -641,7 +643,7 @@
             // 
             this.btnPlanta.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanta.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanta.Image")));
-            this.btnPlanta.Location = new System.Drawing.Point(110, 0);
+            this.btnPlanta.Location = new System.Drawing.Point(166, 0);
             this.btnPlanta.Name = "btnPlanta";
             this.btnPlanta.Size = new System.Drawing.Size(140, 149);
             this.btnPlanta.TabIndex = 1;
@@ -939,6 +941,19 @@
             this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCarga.Visible = false;
             // 
+            // btnJornadas
+            // 
+            this.btnJornadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnJornadas.Image = ((System.Drawing.Image)(resources.GetObject("btnJornadas.Image")));
+            this.btnJornadas.Location = new System.Drawing.Point(15, 0);
+            this.btnJornadas.Name = "btnJornadas";
+            this.btnJornadas.Size = new System.Drawing.Size(149, 149);
+            this.btnJornadas.TabIndex = 86;
+            this.btnJornadas.Text = "Jornadas";
+            this.btnJornadas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnJornadas.UseVisualStyleBackColor = true;
+            this.btnJornadas.Click += new System.EventHandler(this.btnJornadas_Click);
+            // 
             // Raciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1070,5 +1085,6 @@
         private System.Windows.Forms.ToolStripButton btnConectar;
         private System.Windows.Forms.Button btnWsEnviar;
         private System.Windows.Forms.Button btnWsRecibir;
+        private System.Windows.Forms.Button btnJornadas;
     }
 }

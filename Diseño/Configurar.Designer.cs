@@ -145,6 +145,7 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
+            this.label32 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -256,13 +257,12 @@
             // 
             // txtDiasElim
             // 
-            this.txtDiasElim.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiasElim.Location = new System.Drawing.Point(838, 367);
+            this.txtDiasElim.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDiasElim.Location = new System.Drawing.Point(835, 240);
             this.txtDiasElim.Name = "txtDiasElim";
-            this.txtDiasElim.Size = new System.Drawing.Size(24, 45);
+            this.txtDiasElim.Size = new System.Drawing.Size(117, 38);
             this.txtDiasElim.TabIndex = 47;
             this.txtDiasElim.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.txtDiasElim.Visible = false;
             // 
             // label4
             // 
@@ -527,10 +527,10 @@
             this.lbInfoArchivo.FormattingEnabled = true;
             this.lbInfoArchivo.HorizontalScrollbar = true;
             this.lbInfoArchivo.ItemHeight = 25;
-            this.lbInfoArchivo.Location = new System.Drawing.Point(749, 383);
+            this.lbInfoArchivo.Location = new System.Drawing.Point(726, 357);
             this.lbInfoArchivo.Name = "lbInfoArchivo";
             this.lbInfoArchivo.ScrollAlwaysVisible = true;
-            this.lbInfoArchivo.Size = new System.Drawing.Size(69, 29);
+            this.lbInfoArchivo.Size = new System.Drawing.Size(92, 54);
             this.lbInfoArchivo.TabIndex = 60;
             this.lbInfoArchivo.Visible = false;
             // 
@@ -612,6 +612,7 @@
             // 
             // basic
             // 
+            this.basic.Controls.Add(this.label32);
             this.basic.Controls.Add(this.label28);
             this.basic.Controls.Add(this.txtPesoAlarma);
             this.basic.Controls.Add(this.label29);
@@ -1517,6 +1518,16 @@
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
             // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(680, 243);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(128, 31);
+            this.label32.TabIndex = 98;
+            this.label32.Text = "Dias Elim";
+            // 
             // Configurar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1691,5 +1702,6 @@
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Button btnActualizar;
+        private System.Windows.Forms.Label label32;
     }
 }

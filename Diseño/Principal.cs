@@ -130,7 +130,7 @@ namespace Senga
             string texto ="";
 
             posicionBotones();
-            btnJornadas.Focus();
+            btnPlanes.Focus();
 
 
             if (validaBD(ref texto))
@@ -182,7 +182,7 @@ namespace Senga
                 //usuarioiWs();
 
                 //refrescaGPS();
-                //limpiaServidas();
+                limpiaServidas();
                 luzStatus(false);
 
                 //operacionGPS();
@@ -309,17 +309,19 @@ namespace Senga
             btnReparto.Top = 0;
 
             btnReparto.Width = 0;
+            btnActualizar.Width = 0;
             btnJornadas.Width = 0;
 
             btnSalir.Left = this.Width - btnSalir.Width;
             btnPlanes.Left = btnSalir.Left - btnPlanes.Width;
-
-            btnJornadas.Left = btnPlanes.Left - btnJornadas.Width;
-            btnConfigurar.Left = btnJornadas.Left - btnConfigurar.Width;
+            
+            btnConfigurar.Left = btnPlanes.Left - btnConfigurar.Width;
             btnRecorrido.Left = btnConfigurar.Left - btnRecorrido.Width;
+
             btnReparto.Left = btnRecorrido.Left - btnReparto.Width;
             btnActualizar.Left = btnReparto.Left - btnActualizar.Width;
 
+            btnJornadas.Left = btnActualizar.Left - btnJornadas.Width;
 
             listBoxRecorridos.Top = btnRecorrido.Top + btnRecorrido.Height;
             listBoxRecorridos.Left = btnRecorrido.Left;
@@ -466,7 +468,7 @@ namespace Senga
 
             
    
-            Jornadas frm = new Jornadas();
+            Jornadas frm = new Jornadas("0");
 
             //frm.MdiParent = this;
                        
@@ -769,38 +771,99 @@ namespace Senga
 
             }
 
-            //datos.p_sql = "DELETE FROM servidas WHERE fecha < DATE() - " + dias.ToString();
+
+            datos.p_sql = "SELECT id as Jornada FROM jornadas WHERE fecha <= DATE() - " + dias.ToString();
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+
+                this.Cursor = Cursors.WaitCursor;
+
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    datos.p_sql = "DELETE FROM servidas WHERE Id = " + row["Jornada"].ToString();
+
+                    if (!datos.consultaSQL(ref dt, false))
+                    {
+                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+                    datos.p_sql = "DELETE FROM cargas WHERE Id = " + row["Jornada"].ToString();
+
+                    if (!datos.consultaSQL(ref dt, false))
+                    {
+                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+                    datos.p_sql = "DELETE FROM raciones WHERE Id = " + row["Jornada"].ToString();
+
+                    if (!datos.consultaSQL(ref dt, false))
+                    {
+                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+                    datos.p_sql = "DELETE FROM jornadas WHERE Id = " + row["Jornada"].ToString();
+
+                    if (!datos.consultaSQL(ref dt, false))
+                    {
+                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    }
+
+                }
 
 
-            //if (!datos.consultaSQL(ref dt, false))
-            //{
-            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //}
-            //else
-            //{
-            //    //filas = dt.Rows.Count;
-            //}
+            }
+
+                //datos.p_sql = "DELETE FROM servidas WHERE fecha < DATE() - " + dias.ToString();
+
+                //if (!datos.consultaSQL(ref dt, false))
+                //{
+                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //}
+                //else
+                //{
+                //    //filas = dt.Rows.Count;
+                //}
+
+                //datos.p_sql = "DELETE FROM raciones WHERE fecha < DATE() - " + dias.ToString();
+
+                //if (!datos.consultaSQL(ref dt, false))
+                //{
+                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //}
+                //else
+                //{
+                //    //filas = dt.Rows.Count;
+                //}
+
+                //datos.p_sql = "DELETE FROM jornadas WHERE fecha < DATE() - " + dias.ToString();
+
+                //if (!datos.consultaSQL(ref dt, false))
+                //{
+                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //}
+                //else
+                //{
+                //    //filas = dt.Rows.Count;
+                //}
 
 
-            //datos.p_sql = "DELETE FROM raciones WHERE fecha < DATE() - " + dias.ToString();
 
 
-            //if (!datos.consultaSQL(ref dt, false))
-            //{
-            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //}
-            //else
-            //{
-            //    //filas = dt.Rows.Count;
-            //}
+
 
         }
 
-        private void btnConfigurar_Click(object sender, EventArgs e)
-        {
-            Senga.Configurar frm = new Senga.Configurar();
-            frm.Show();
-        }
+    private void btnConfigurar_Click(object sender, EventArgs e)
+    {
+        Senga.Configurar frm = new Senga.Configurar();
+        frm.Show();
+    }
 
         private void timerWs_Tick(object sender, EventArgs e)
         {
@@ -3654,7 +3717,7 @@ namespace Senga
 
             int vJornada = 0;
 
-            datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+            datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) order by id";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -3679,8 +3742,14 @@ namespace Senga
                     //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
-                datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                datos.p_sql = "UPDATE operacion SET servida = '1'";
 
+                if (!datos.consultaSQL(ref dt, true))
+                {
+                    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+
+                datos.p_sql = "SELECT top 1 Id as Jornada FROM jornadas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {

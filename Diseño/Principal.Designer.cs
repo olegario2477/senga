@@ -693,7 +693,7 @@
             // 
             this.btnRecorrido.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecorrido.Image = ((System.Drawing.Image)(resources.GetObject("btnRecorrido.Image")));
-            this.btnRecorrido.Location = new System.Drawing.Point(557, 0);
+            this.btnRecorrido.Location = new System.Drawing.Point(521, 0);
             this.btnRecorrido.Name = "btnRecorrido";
             this.btnRecorrido.Size = new System.Drawing.Size(149, 149);
             this.btnRecorrido.TabIndex = 4;
@@ -706,7 +706,7 @@
             // 
             this.btnConfigurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfigurar.Image = ((System.Drawing.Image)(resources.GetObject("btnConfigurar.Image")));
-            this.btnConfigurar.Location = new System.Drawing.Point(712, 0);
+            this.btnConfigurar.Location = new System.Drawing.Point(663, 0);
             this.btnConfigurar.Name = "btnConfigurar";
             this.btnConfigurar.Size = new System.Drawing.Size(149, 149);
             this.btnConfigurar.TabIndex = 1;
@@ -743,7 +743,7 @@
             // 
             this.btnJornadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJornadas.Image = ((System.Drawing.Image)(resources.GetObject("btnJornadas.Image")));
-            this.btnJornadas.Location = new System.Drawing.Point(867, 0);
+            this.btnJornadas.Location = new System.Drawing.Point(783, 0);
             this.btnJornadas.Name = "btnJornadas";
             this.btnJornadas.Size = new System.Drawing.Size(149, 149);
             this.btnJornadas.TabIndex = 2;
@@ -775,7 +775,6 @@
             this.btnActualizar.Text = "Actualizar";
             this.btnActualizar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnActualizar.UseVisualStyleBackColor = true;
-            this.btnActualizar.Visible = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
             // label1
@@ -1087,7 +1086,7 @@
             // 
             this.btnPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanes.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanes.Image")));
-            this.btnPlanes.Location = new System.Drawing.Point(783, 80);
+            this.btnPlanes.Location = new System.Drawing.Point(938, 0);
             this.btnPlanes.Name = "btnPlanes";
             this.btnPlanes.Size = new System.Drawing.Size(149, 149);
             this.btnPlanes.TabIndex = 61;

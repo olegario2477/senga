@@ -12,11 +12,13 @@ namespace Senga
     {
         bool activado = false;
         private int rowIndex = 0;
+        string vjornada;
 
-        public Jornadas()
+        public Jornadas(string jornada)
         {
             InitializeComponent();
- 
+            vjornada = jornada;
+
         }
         
         private void btnCerrar_Click(object sender, EventArgs e)
@@ -27,13 +29,15 @@ namespace Senga
         private void Jornadas_Load(object sender, EventArgs e)
         {
             propiedadesGrid();
-            seleccionarFila();
-
             posicionbotones();
 
             activado = true;
             formatoGrid();
             activar();
+
+            //jornadaOperacion(vjornada);
+            seleccionarFila();
+
         }
 
         private void Jornadas_Activated(object sender, EventArgs e) 
@@ -80,6 +84,8 @@ namespace Senga
             btnNuevo.Top = 0;
             btnReportes.Top = 0;
             btnLimpiar.Top = 0;
+
+            btnCerrar.Width = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnAbrir.Left = btnCerrar.Left - btnAbrir.Width;
@@ -185,13 +191,18 @@ namespace Senga
             //formatoGrid();
             datosGrid();
 
-            if (DGJornadas.RowCount > 0)
-            {
-                DGJornadas.CurrentCell = DGJornadas.Rows[rowIndex].Cells[0];
-                DGJornadas.Rows[rowIndex].Selected = true;
-            }
+            jornadaOperacion(vjornada);
+            seleccionarFila();
 
-            refreshJornadas();
+            //if (DGJornadas.RowCount > 0)
+            //{
+            //    DGJornadas.CurrentCell = DGJornadas.Rows[rowIndex].Cells[0];
+            //    DGJornadas.Rows[rowIndex].Selected = true;
+            //}
+
+
+
+            //refreshJornadas();
 
         }
 
@@ -266,12 +277,12 @@ namespace Senga
                 }
 
 
-                datos.p_sql = "UPDATE operacion SET jornada = " + id.ToString();
+                //datos.p_sql = "UPDATE operacion SET jornada = " + id.ToString();
 
-                if (!datos.consultaSQL(ref dt, false))
-                {
-                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }
+                //if (!datos.consultaSQL(ref dt, false))
+                //{
+                //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //}
 
             }
 
@@ -365,6 +376,23 @@ namespace Senga
 
                 //botonesHabilita(true);
             }
+
+        }
+
+        private void jornadaOperacion(string id) 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "UPDATE operacion SET jornada = '" + id + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+
+            txtId.Text = vjornada.ToString();
 
         }
 
@@ -516,15 +544,15 @@ namespace Senga
             }
 
 
-            if (valorf != 0)
-            {
+            //if (valorf != 0)
+            //{
 
-                //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-            }
+            //    //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            //}
 
-            else
-            {
+            //else
+            //{
 
                 Datos datos = new Datos();
                 DataTable dt = new DataTable();
@@ -583,7 +611,7 @@ namespace Senga
 
                 }
             
-            }
+            //}
         
         }
 
@@ -595,6 +623,7 @@ namespace Senga
 
             //    filaDatos(txtId.Text);
             //}
+            refreshJornadas();
         }
 
         private void DGJornadas_SelectionChanged(object sender, EventArgs e)
@@ -666,7 +695,7 @@ namespace Senga
                 rowIndex = DGJornadas.CurrentRow.Index;
 
                 vid = txtId.Text;
-                
+                vjornada = vid;
                 Reportes frm = new Reportes(vid);
                 frm.Show();            
             }

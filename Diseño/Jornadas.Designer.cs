@@ -138,7 +138,7 @@
             this.btnAbrir.Name = "btnAbrir";
             this.btnAbrir.Size = new System.Drawing.Size(149, 149);
             this.btnAbrir.TabIndex = 2;
-            this.btnAbrir.Text = "Iniciar";
+            this.btnAbrir.Text = "Abrir";
             this.btnAbrir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAbrir.UseVisualStyleBackColor = true;
             this.btnAbrir.Click += new System.EventHandler(this.btnAbrir_Click);

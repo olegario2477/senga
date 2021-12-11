@@ -165,6 +165,7 @@ namespace Senga
             btnWsEnviar.Top = 0;
             btnServida.Top = 0;
             btnPlanta.Top = 0;
+            btnJornadas.Top = 0;
 
             //oculta boton
             btnExplorer.Width = 0;
@@ -187,6 +188,7 @@ namespace Senga
 
             btnServida.Left = btnWsRecibir.Left - btnServida.Width;
             btnPlanta.Left = btnServida.Left - btnPlanta.Width;
+            btnJornadas.Left = btnPlanta.Left - btnJornadas.Width;
 
 
 
@@ -3121,6 +3123,16 @@ namespace Senga
         private void btnConectar_Click(object sender, EventArgs e)
         {
             Principal.instance.btnConectarGps.PerformClick();
+        }
+
+        private void btnJornadas_Click(object sender, EventArgs e)
+        {
+
+            Jornadas frm = new Jornadas(txtJornada.Text);
+            frm.Show();
+
+            Close();
+
         }
 
 
