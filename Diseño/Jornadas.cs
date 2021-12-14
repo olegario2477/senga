@@ -544,15 +544,15 @@ namespace Senga
             }
 
 
-            //if (valorf != 0)
-            //{
+            if (valorf != 0)
+            {
 
-            //    //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-            //}
+                //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
 
-            //else
-            //{
+            else
+            {
 
                 Datos datos = new Datos();
                 DataTable dt = new DataTable();
@@ -610,9 +610,9 @@ namespace Senga
                     //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
                 }
-            
-            //}
-        
+
+            }
+
         }
 
         private void DGJornadas_CellContentClick(object sender, DataGridViewCellEventArgs e)

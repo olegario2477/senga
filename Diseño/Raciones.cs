@@ -60,21 +60,27 @@ namespace Senga
         private void Raciones_Load(object sender, EventArgs e)
         {
 
-            propiedadesGrid();
-            propiedadesGrid2();
-            seleccionarFila();
 
             posicionbotones();
 
-            carpeta_existe_local();
+            this.Refresh();
+            
+            configuracionBasica();
+
+            propiedadesGrid();
+            propiedadesGrid2();
+
+            seleccionarFila();
+            
+            //carpeta_existe_local();
             activado = true;
 
-            usuarioiWs();
+            //usuarioiWs();
 
             formatoGrid();
             formatoGrid2();
-
-            activar();
+       
+            //activar();
 
             //wsactivo = wsactivoConfigWs();
             //redEstado();
@@ -90,14 +96,27 @@ namespace Senga
             //    //lblWsActivoF.Value = 0;
             //}
 
-
             panelRacion.Visible = true;
-            DGRaciones.Visible = true;
-            DGCargas.Visible = true;
+
             //pbServido.Visible = true;
 
+            //vrutared = rutared();
+            //vrutaarchivos = rutaarchivos();
+
+            activar();
+
+            DGRaciones.Visible = true;
+            DGCargas.Visible = true;
+
+            this.Refresh();
+
+            carpeta_existe_local();
+            usuarioiWs();
             vrutared = rutared();
             vrutaarchivos = rutaarchivos();
+
+
+
 
         }
 
@@ -115,7 +134,9 @@ namespace Senga
             {
                 operacionRacion();
                 limpiarRacion();
+                
                 refrescaGrid();
+                
                 tiempoServido();
 
 
@@ -127,12 +148,12 @@ namespace Senga
                 {
                     limpiarRacion();
                 }
-                else
-                {
-                    //txtIdD.Text = (string)DGServidas.CurrentRow.Cells["IdD"].Value;
-                    //filaDatos(txtIdD.Text);   
+                //else
+                //{
+                //    //txtIdD.Text = (string)DGServidas.CurrentRow.Cells["IdD"].Value;
+                //    //filaDatos(txtIdD.Text);   
 
-                }
+                //}
 
                 //seleccionarFila();
 
@@ -144,8 +165,9 @@ namespace Senga
 
 
                 //barra();
-                cantplanes();
-                cantservidos();
+
+                //cantplanes();
+                //cantservidos();
 
             }
 
@@ -297,6 +319,7 @@ namespace Senga
 
             table.Columns.Add("Racion", typeof(string));
             table.Columns.Add("Corrales", typeof(string));
+
             //table.Columns.Add("Hechos", typeof(long));
             table.Columns.Add("Plan", typeof(long));
             //table.Columns.Add("Variacion", typeof(string));
@@ -323,6 +346,7 @@ namespace Senga
             DGRaciones.Columns["Racion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             DGRaciones.Columns["Corrales"].DefaultCellStyle.Format = "#,0.###";
+
             //DGRaciones.Columns["Hechos"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Plan"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Cargas"].DefaultCellStyle.Format = "#,0.###";
@@ -402,9 +426,9 @@ namespace Senga
 
 
                 foreach (DataRow row in dt.Rows)
-                {
-                    //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["Racion"].ToString(), (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), /*row["Carga"].ToString(),*/ Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
+                {                
+
+                    table.Rows.Add(row["Racion"], (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -655,8 +679,8 @@ namespace Senga
 
                 //botonesHabilita(true);
 
-                txtVueltas.Text = cant_vueltas(txtPlaneado.Text, txtCapacidad.Text);
-                barra();
+                //txtVueltas.Text = cant_vueltas(txtPlaneado.Text, txtCapacidad.Text);
+                //barra();
             }
 
         }
@@ -739,6 +763,30 @@ namespace Senga
                 }
             }
 
+            //datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            //if (!datos.consultaSQL(ref dt, true))
+            //{
+            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
+            //else
+            //{
+            //    foreach (DataRow row in dt.Rows)
+            //    {
+            //        txtCamion.Text = row["NumCamion"].ToString();
+            //        txtCapacidad.Text = row["Capacidad"].ToString();
+            //    }
+            //}
+
+
+        }
+
+        private void configuracionBasica() 
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
             datos.p_sql = "SELECT TOP 1 * FROM configuracion";
 
             if (!datos.consultaSQL(ref dt, true))
@@ -753,7 +801,6 @@ namespace Senga
                     txtCapacidad.Text = row["Capacidad"].ToString();
                 }
             }
-
 
         }
 
@@ -1320,13 +1367,12 @@ namespace Senga
             if (DGRaciones.RowCount != 0)
             {
                 //string a = txtCarga.Text;
-                if (txtCargado.Text == "0")
-                {
-                    //MessageBox.Show("Requiere Carga Para Servidas", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    Comun.mensajeVer("Requiere Carga Para Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                }
-                else
-                {
+                //if (txtCargado.Text == "0")
+                //{
+                //    Comun.mensajeVer("Requiere Carga Para Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                //}
+                //else
+                //{
 
                     if (txtCorrales.Text == txtHechos.Text)
                     {
@@ -1378,7 +1424,7 @@ namespace Senga
                         }
 
                     }
-                }
+                //}
             }
         }
 
@@ -2216,7 +2262,9 @@ namespace Senga
 
         private void btnNube_Click(object sender, EventArgs e)
         {
+
             nubeTransferencia();
+        
         }
 
         private void btnWsRecibir_Click(object sender, EventArgs e)
@@ -2231,6 +2279,8 @@ namespace Senga
 
         private void nubeTransferencia()
         {
+
+
 
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
@@ -2252,6 +2302,10 @@ namespace Senga
             else
             {
                 //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                DGRaciones.Visible = false;
+                DGCargas.Visible = false;
+                this.Refresh();
 
                 if (DGRaciones.RowCount == 0) //SAP>>Tablet
                 {
@@ -2295,6 +2349,10 @@ namespace Senga
                     }
 
                 }
+
+                DGRaciones.Visible = true;
+                DGCargas.Visible = true;
+                this.Refresh();
 
                 if (mok == "OK")
                 {
@@ -2347,11 +2405,16 @@ namespace Senga
             }
             else
             {
+
+                DGRaciones.Visible = false;
+                DGCargas.Visible = false;
+                this.Refresh();
+
                 //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
 
                 //if (DGRaciones.RowCount != 0) //SAP>>Tablet
                 //{
-                    textomsg = "Recibio";
+                textomsg = "Recibio";
 
                     quitaArchivosde("P");
                     leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
@@ -2395,6 +2458,10 @@ namespace Senga
                 //}
 
                 //}
+
+                DGRaciones.Visible = true;
+                DGCargas.Visible = true;
+                this.Refresh();
 
                 if (mok == "OK")
                 {
@@ -3127,6 +3194,17 @@ namespace Senga
 
         private void btnJornadas_Click(object sender, EventArgs e)
         {
+
+
+            //Datos datos = new Datos();
+            //DataTable dt = new DataTable();
+
+            //datos.p_sql = "UPDATE operacion SET racion = '" + txtRacion.Text + "'";
+
+            //if (!datos.consultaSQL(ref dt, true))
+            //{
+            //    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //}
 
             Jornadas frm = new Jornadas(txtJornada.Text);
             frm.Show();

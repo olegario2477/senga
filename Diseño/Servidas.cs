@@ -78,11 +78,13 @@ namespace Senga
         private void Servidas_Load(object sender, EventArgs e)
         {
 
+            posicionbotones();
+            this.Refresh();
 
             propiedadesGrid();
             seleccionarFila2();
 
-            posicionbotones();
+
 
             DGServidas.Height = 590;
             txtCaptura.Text = "";
@@ -211,7 +213,7 @@ namespace Senga
 
             txtCorrales.Text = string.Format("{0:#,##0}", long.Parse(txtCorrales.Text));
             txtPlan.Text = string.Format("{0:#,##0}", long.Parse(txtPlan.Text));
-            txtCargadoV.Text = string.Format("{0:#,##0}", long.Parse(cadenaCero(txtCargado.Text)));
+            txtCargaV.Text = string.Format("{0:#,##0}", long.Parse(Comun.cadenaCero(txtCarga.Text)));
             txtServido.Text = string.Format("{0:#,##0}", long.Parse(txtServido.Text));
             txtFisicoV.Text = string.Format("{0:#,##0}", long.Parse(txtFisico.Text));
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
@@ -518,7 +520,7 @@ namespace Senga
         private void seleccionarFila2()
         {
 
-            txtFilaAct.Text = cadenaCero(txtFilaAct.Text); 
+            txtFilaAct.Text = Comun.cadenaCero(txtFilaAct.Text); 
 
             int vfilaAct = Convert.ToInt32(txtFilaAct.Text.Replace(",",""));
 
@@ -577,7 +579,7 @@ namespace Senga
 
             txtCorrales.Text = "";
             txtPlan.Text = "";
-            txtCargado.Text = "";
+            txtCarga.Text = "";
             txtBascula.Text = "";
             txtServido.Text = "";
             txtFisico.Text = "";
@@ -588,7 +590,7 @@ namespace Senga
             txtServidoExtraV.Text = "";
             
             txtBasculaV.Text = "";
-            txtCargadoV.Text = "";
+            txtCargaV.Text = "";
             txtPlan.Text = "";
             txtCorrales.Text = "";
 
@@ -1136,9 +1138,9 @@ namespace Senga
                     txtIdDr.Text = "0";
                 }
 
-                if (txtCargadoV.Text == "")
+                if (txtCargaV.Text == "")
                 {
-                    txtCargadoV.Text = "0";
+                    txtCargaV.Text = "0";
                 }
 
 
@@ -1147,7 +1149,7 @@ namespace Senga
                     txtBasculaV.Text = "0";
                 }
 
-                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Carga,Servido,Falta,Bascula,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                datos.p_sql = "SELECT Racion,Cantidad,Planeado,Carga,Cargado,Servido,Falta,Bascula,IdD FROM raciones WHERE num = " + txtServida.Text + " and racion ='" + txtRacion.Text + "' and id = " + txtJornada.Text; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -1161,12 +1163,13 @@ namespace Senga
                     {
                         //txtCorrales.Text = row["Cantidad"].ToString();
                         txtPlan.Text = row["Planeado"].ToString();
-                        txtCargado.Text = row["Carga"].ToString();
+                        txtCargado.Text = row["Cargado"].ToString();
+                        txtCarga.Text = row["Carga"].ToString();
                         txtBascula.Text = row["Bascula"].ToString();
                         txtServido.Text = row["Servido"].ToString();
                         txtIdDr.Text = row["IdD"].ToString();
 
-                        resultado = Convert.ToInt32(cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(row["Servido"].ToString());
+                        resultado = Convert.ToInt32(Comun.cadenaCero(row["Carga"].ToString())) - Convert.ToInt32(row["Servido"].ToString());
                         txtFisico.Text = resultado.ToString();
 
                         //resultado = Convert.ToInt32(row["Planeado"].ToString()) - Convert.ToInt32(row["Servido"].ToString());
@@ -1188,15 +1191,22 @@ namespace Senga
         
         private void btnServir_Click(object sender, EventArgs e)
         {
-    
-            //if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
-            //{             
-            //    Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-            //}
-            //else
-            //{ 
 
-            //txtcorral  y  lblcorral
+            if (txtCargado.Text == "0")
+            {
+                Comun.mensajeVer("Requiere Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            else
+            {
+
+                //if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
+                //{             
+                //    Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                //}
+                //else
+                //{ 
+
+                //txtcorral  y  lblcorral
 
                 if (txtIdD.Text != "")
                 {
@@ -1206,13 +1216,15 @@ namespace Senga
 
                     vnumcarga = cargaServida();
 
-                    Senga.Servir frm = new Senga.Servir(txtIdD.Text,txtIdDr.Text,txtJornada.Text,lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text);
+                    Senga.Servir frm = new Senga.Servir(txtIdD.Text, txtIdDr.Text, txtJornada.Text, lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text);
                     frm.Show();
                 }
-                
-            //}
 
-            //guardarOperacion();
+                //}
+
+                //guardarOperacion();
+            
+            }
 
         }
 
@@ -1282,12 +1294,12 @@ namespace Senga
                 vservido = "0";
             }
 
-            string vcargado = txtCargadoV.Text;
-            vcargado = vcargado.Replace(",", "");
+            string vcarga = txtCargaV.Text;
+            vcarga = vcarga.Replace(",", "");
 
-            if (vcargado.Equals(""))
+            if (vcarga.Equals(""))
             {
-                vcargado = "0";
+                vcarga = "0";
             }
 
             string vfalta = txtFaltaV.Text;
@@ -1314,7 +1326,7 @@ namespace Senga
                 txtRacion.Text + "|" +
                 vplan + "|" +
                 vservido + "|" +
-                vcargado + "|" +
+                vcarga + "|" +
                 vfalta + "|" +
                 txtCorrales.Text + "|" +
                 String.Format("{0:HH:mm:ss}", DateTime.Now) + "|" +
@@ -1636,24 +1648,31 @@ namespace Senga
                             cantidadTotal();
                             cantidadt = Convert.ToInt32(txtCantidadT.Text);
 
-                            long falta = 0;
+                            //long falta = 0;
 
-                            datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                            //datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
-                            if (!datos.consultaSQL(ref dt, true))
-                            {
-                                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            }
-                            else
-                            {
-                                foreach (DataRow row in dt.Rows)
-                                {
-                                    if (dt.Rows.Count != 0)
-                                    {
-                                        falta = /*long.Parse(cadenaCero(row["Realidad"].ToString())) -*/ long.Parse(cadenaCero(row["Planeado"].ToString()));
-                                    }
-                                }
-                            }
+                            //if (!datos.consultaSQL(ref dt, true))
+                            //{
+                            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            //}
+                            //else
+                            //{
+                            //    foreach (DataRow row in dt.Rows)
+                            //    {
+                            //        if (dt.Rows.Count != 0)
+                            //        {
+                            //            falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+                            //        }
+                            //    }
+                            //}
+
+                            //if (falta < 0)
+                            //{
+                            //    falta = 0;
+                            //}
+
+                            long falta = Comun.valorFalta(vracion.ToString(), txtServida.Text, txtJornada.Text);
 
                             datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", hechoc = " + cantidadt.ToString() + " WHERE racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
@@ -1745,24 +1764,31 @@ namespace Senga
 
 
 
-                            long falta = 0;
+                            //long falta = 0;
 
-                            datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                            //datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
-                            if (!datos.consultaSQL(ref dt, true))
-                            {
-                                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            }
-                            else
-                            {
-                                foreach (DataRow row in dt.Rows)
-                                {
-                                    if (dt.Rows.Count != 0)
-                                    {
-                                        falta = /*long.Parse(cadenaCero(row["Realidad"].ToString())) -*/ long.Parse(cadenaCero(row["Planeado"].ToString()));
-                                    }
-                                }
-                            }
+                            //if (!datos.consultaSQL(ref dt, true))
+                            //{
+                            //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            //}
+                            //else
+                            //{
+                            //    foreach (DataRow row in dt.Rows)
+                            //    {
+                            //        if (dt.Rows.Count != 0)
+                            //        {
+                            //            falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+                            //        }
+                            //    }
+                            //}
+
+                            //if (falta < 0)
+                            //{
+                            //    falta = 0;
+                            //}
+
+                            long falta = Comun.valorFalta(vracion.ToString(), txtServida.Text, txtJornada.Text);
 
 
                             datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", hechoc = " + cantidadt.ToString() + " WHERE racion = '" + vracion.ToString() + "' and num = " + txtServida.Text + " and id = " + txtJornada.Text; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
@@ -1795,15 +1821,49 @@ namespace Senga
 
         }
 
-        private string cadenaCero(string valor) { 
+        //private long valorFalta(string racion, string servida, string jornada) 
+        //{
+
+        //    Datos datos = new Datos();
+        //    DataTable dt = new DataTable();
+
+        //    long falta = 0;
+
+        //    datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + racion + "' and num = " + servida + " and id = " + jornada;
+
+        //    if (!datos.consultaSQL(ref dt, true))
+        //    {
+        //        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //    }
+        //    else
+        //    {
+        //        foreach (DataRow row in dt.Rows)
+        //        {
+        //            if (dt.Rows.Count != 0)
+        //            {
+        //                falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+        //            }
+        //        }
+        //    }
+
+        //    if (falta < 0)
+        //    {
+        //        falta = 0;
+        //    }
+
+        //    return falta;
+
+        //}
+
+        //private string cadenaCero(string valor) { 
                 
-            if(valor.Equals("")){
-                valor = "0";
-            }
+        //    if(valor.Equals("")){
+        //        valor = "0";
+        //    }
 
-            return valor;
+        //    return valor;
 
-        }
+        //}
 
         private void cantidadTotal()
         {

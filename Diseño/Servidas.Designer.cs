@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -57,7 +57,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtCorrales = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtCargadoV = new System.Windows.Forms.TextBox();
+            this.txtCargaV = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtIdDr = new System.Windows.Forms.TextBox();
             this.txtServido = new System.Windows.Forms.TextBox();
@@ -74,7 +74,7 @@
             this.txtFisicoV = new System.Windows.Forms.TextBox();
             this.txtPlanC = new System.Windows.Forms.TextBox();
             this.txtFisico = new System.Windows.Forms.TextBox();
-            this.txtCargado = new System.Windows.Forms.TextBox();
+            this.txtCarga = new System.Windows.Forms.TextBox();
             this.txtFalta = new System.Windows.Forms.TextBox();
             this.timerOperacion = new System.Windows.Forms.Timer(this.components);
             this.timerGPS = new System.Windows.Forms.Timer(this.components);
@@ -157,6 +157,7 @@
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.txtServidoExtraV = new System.Windows.Forms.TextBox();
             this.btnCargar = new System.Windows.Forms.Button();
+            this.txtCargado = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -207,7 +208,7 @@
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(120, 149);
             this.btnBuscar.TabIndex = 1;
-            this.btnBuscar.Text = "Buscar Corral";
+            this.btnBuscar.Text = "Buscar";
             this.btnBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -397,7 +398,7 @@
             this.btnQuitar.Name = "btnQuitar";
             this.btnQuitar.Size = new System.Drawing.Size(120, 149);
             this.btnQuitar.TabIndex = 2;
-            this.btnQuitar.Text = "Quitar Corral";
+            this.btnQuitar.Text = "Quitar";
             this.btnQuitar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnQuitar.UseVisualStyleBackColor = true;
             this.btnQuitar.Click += new System.EventHandler(this.btnQuitar_Click);
@@ -410,7 +411,7 @@
             this.btnHecho.Name = "btnHecho";
             this.btnHecho.Size = new System.Drawing.Size(120, 149);
             this.btnHecho.TabIndex = 3;
-            this.btnHecho.Text = "Terminar Corral";
+            this.btnHecho.Text = "Terminar";
             this.btnHecho.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHecho.UseVisualStyleBackColor = true;
             this.btnHecho.Click += new System.EventHandler(this.btnHecho_Click);
@@ -473,18 +474,18 @@
             this.label7.TabIndex = 61;
             this.label7.Text = "Sin Servir";
             // 
-            // txtCargadoV
+            // txtCargaV
             // 
-            this.txtCargadoV.BackColor = System.Drawing.Color.White;
-            this.txtCargadoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargadoV.ForeColor = System.Drawing.Color.Black;
-            this.txtCargadoV.Location = new System.Drawing.Point(299, 118);
-            this.txtCargadoV.Name = "txtCargadoV";
-            this.txtCargadoV.ReadOnly = true;
-            this.txtCargadoV.Size = new System.Drawing.Size(103, 30);
-            this.txtCargadoV.TabIndex = 65;
-            this.txtCargadoV.Text = "88,888";
-            this.txtCargadoV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCargaV.BackColor = System.Drawing.Color.White;
+            this.txtCargaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargaV.ForeColor = System.Drawing.Color.Black;
+            this.txtCargaV.Location = new System.Drawing.Point(299, 118);
+            this.txtCargaV.Name = "txtCargaV";
+            this.txtCargaV.ReadOnly = true;
+            this.txtCargaV.Size = new System.Drawing.Size(103, 30);
+            this.txtCargaV.TabIndex = 65;
+            this.txtCargaV.Text = "88,888";
+            this.txtCargaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label8
             // 
@@ -584,7 +585,7 @@
             this.panelServida.Controls.Add(this.txtServida);
             this.panelServida.Controls.Add(this.txtServido);
             this.panelServida.Controls.Add(this.label4);
-            this.panelServida.Controls.Add(this.txtCargadoV);
+            this.panelServida.Controls.Add(this.txtCargaV);
             this.panelServida.Controls.Add(this.label8);
             this.panelServida.Controls.Add(this.label6);
             this.panelServida.Controls.Add(this.label2);
@@ -645,16 +646,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea2);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series1.IsValueShownAsLabel = true;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Series1";
-            this.chartServidas.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series2.IsValueShownAsLabel = true;
+            series2.IsVisibleInLegend = false;
+            series2.Name = "Series1";
+            this.chartServidas.Series.Add(series2);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
@@ -698,18 +699,18 @@
             this.txtFisico.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFisico.Visible = false;
             // 
-            // txtCargado
+            // txtCarga
             // 
-            this.txtCargado.BackColor = System.Drawing.Color.White;
-            this.txtCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargado.ForeColor = System.Drawing.Color.Black;
-            this.txtCargado.Location = new System.Drawing.Point(299, 28);
-            this.txtCargado.Name = "txtCargado";
-            this.txtCargado.ReadOnly = true;
-            this.txtCargado.Size = new System.Drawing.Size(14, 30);
-            this.txtCargado.TabIndex = 81;
-            this.txtCargado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCargado.Visible = false;
+            this.txtCarga.BackColor = System.Drawing.Color.White;
+            this.txtCarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCarga.ForeColor = System.Drawing.Color.Black;
+            this.txtCarga.Location = new System.Drawing.Point(299, 28);
+            this.txtCarga.Name = "txtCarga";
+            this.txtCarga.ReadOnly = true;
+            this.txtCarga.Size = new System.Drawing.Size(14, 30);
+            this.txtCarga.TabIndex = 81;
+            this.txtCarga.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCarga.Visible = false;
             // 
             // txtFalta
             // 
@@ -1194,7 +1195,7 @@
             // 
             this.btnAgregar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregar.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregar.Image")));
-            this.btnAgregar.Location = new System.Drawing.Point(691, 0);
+            this.btnAgregar.Location = new System.Drawing.Point(696, 0);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(11, 149);
             this.btnAgregar.TabIndex = 97;
@@ -1422,6 +1423,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtCargado);
             this.panel2.Controls.Add(this.label13);
             this.panel2.Controls.Add(this.txtRealidadC);
             this.panel2.Controls.Add(this.txtFilaAct);
@@ -1429,9 +1431,9 @@
             this.panel2.Controls.Add(this.txtVariacionC);
             this.panel2.Controls.Add(this.txtBascula);
             this.panel2.Controls.Add(this.txtServidoExtraV);
-            this.panel2.Location = new System.Drawing.Point(664, 56);
+            this.panel2.Location = new System.Drawing.Point(661, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(22, 63);
+            this.panel2.Size = new System.Drawing.Size(32, 105);
             this.panel2.TabIndex = 101;
             // 
             // label13
@@ -1533,10 +1535,23 @@
             this.btnCargar.Name = "btnCargar";
             this.btnCargar.Size = new System.Drawing.Size(120, 149);
             this.btnCargar.TabIndex = 102;
-            this.btnCargar.Text = "Cargar Racion";
+            this.btnCargar.Text = "Cargar";
             this.btnCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCargar.UseVisualStyleBackColor = true;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
+            // 
+            // txtCargado
+            // 
+            this.txtCargado.BackColor = System.Drawing.Color.White;
+            this.txtCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargado.ForeColor = System.Drawing.Color.Black;
+            this.txtCargado.Location = new System.Drawing.Point(9, 69);
+            this.txtCargado.Name = "txtCargado";
+            this.txtCargado.ReadOnly = true;
+            this.txtCargado.Size = new System.Drawing.Size(10, 30);
+            this.txtCargado.TabIndex = 103;
+            this.txtCargado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCargado.Visible = false;
             // 
             // Servidas
             // 
@@ -1560,7 +1575,7 @@
             this.Controls.Add(this.txtLongitud);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.txtLatitud);
-            this.Controls.Add(this.txtCargado);
+            this.Controls.Add(this.txtCarga);
             this.Controls.Add(this.txtJornada);
             this.Controls.Add(this.txtFisicoV);
             this.Controls.Add(this.txtFalta);
@@ -1643,7 +1658,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtCorrales;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtCargadoV;
+        private System.Windows.Forms.TextBox txtCargaV;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtIdDr;
         private System.Windows.Forms.TextBox txtServido;
@@ -1656,7 +1671,7 @@
         private System.Windows.Forms.TextBox txtFisicoV;
         private System.Windows.Forms.TextBox txtPlanC;
         private System.Windows.Forms.TextBox txtFisico;
-        private System.Windows.Forms.TextBox txtCargado;
+        private System.Windows.Forms.TextBox txtCarga;
         private System.Windows.Forms.TextBox txtFalta;
         private System.Windows.Forms.TextBox txtFaltaV;
         private System.Windows.Forms.Timer timerOperacion;
@@ -1743,5 +1758,6 @@
         private System.Windows.Forms.ToolStripMenuItem copiarCoordenadaToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton btnConectar;
         private System.Windows.Forms.PictureBox picGpsDesconectado;
+        private System.Windows.Forms.TextBox txtCargado;
     }
 }

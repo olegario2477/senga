@@ -463,6 +463,8 @@ namespace Senga
 
             //--------------------------------------------------------------
 
+            dataGridSQLResultados.AutoResizeRows();
+
             this.Cursor = Cursors.Default;
 
         }
@@ -498,6 +500,9 @@ namespace Senga
             dataGridSQLResultados.AllowUserToResizeColumns = false;
             dataGridSQLResultados.AllowUserToResizeRows = false;
             dataGridSQLResultados.MultiSelect = false;
+
+            dataGridSQLResultados.AutoResizeRows();
+            
             //DGServidas.ColumnHeadersVisible = false;
             dataGridSQLResultados.RowHeadersVisible = false;
             //dataGridSQLResultados.CellBorderStyle = DataGridViewCellBorderStyle.None;

@@ -7,6 +7,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Media;
 using System.Drawing;
+using System.Data;
 
 namespace Senga
 {
@@ -210,6 +211,54 @@ namespace Senga
 
 
         }
+
+        public static long valorFalta(string racion, string servida, string jornada)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            long falta = 0;
+
+            datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + racion + "' and num = " + servida + " and id = " + jornada;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (dt.Rows.Count != 0)
+                    {
+                        falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+                    }
+                }
+            }
+
+            if (falta < 0)
+            {
+                falta = 0;
+            }
+
+            return falta;
+
+        }
+
+        public static string cadenaCero(string valor)
+        {
+
+            if (valor.Equals(""))
+            {
+                valor = "0";
+            }
+
+            return valor;
+
+        }
+
+
 
 
 

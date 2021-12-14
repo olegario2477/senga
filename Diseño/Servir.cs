@@ -246,9 +246,9 @@ namespace Senga
 
                         //txtEscala.Text = row["Cargado"].ToString();
                         txtEscalaIni.Text = row["Cargado"].ToString();
-                        txtServirIni.Text = cadenaCero(row["Carga"].ToString());
+                        txtServirIni.Text = Comun.cadenaCero(row["Carga"].ToString());
                         //-----------------
-                        txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
+                        txtBasculaIni.Text = Comun.cadenaCero(row["Bascula"].ToString());
                         //-----------------
 
                         calcularEscala();
@@ -902,7 +902,7 @@ namespace Senga
             double porc = Convert.ToDouble(vvalor) / Convert.ToDouble(vmaximo) * 100;
 
             //Comun.sonidoPorc(color, porc, false);
-            Comun.sonidoPeso(color, long.Parse(cadenaCero(txtVariacion.Text)), false);
+            Comun.sonidoPeso(color, long.Parse(Comun.cadenaCero(txtVariacion.Text)), false);
 
             return porc;
 
@@ -1080,9 +1080,9 @@ namespace Senga
 
                 //--------------------
 
-                double variacion = Convert.ToDouble(cadenaCero(txtVariacion.Text));
+                double variacion = Convert.ToDouble(Comun.cadenaCero(txtVariacion.Text));
 
-                if (Math.Abs(Convert.ToDouble(cadenaCero(txtVariacion.Text))) > minvariacion) 
+                if (Math.Abs(Convert.ToDouble(Comun.cadenaCero(txtVariacion.Text))) > minvariacion) 
                 {
 
                     timerBeep.Enabled = false;
@@ -1177,24 +1177,38 @@ namespace Senga
                     cantidadTotal();
                     cantidadt = Convert.ToInt32(txtCantidadT.Text);
 
-                    long falta = 0;
 
-                    datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                    //FALTA---------------------------------------------------------------------------
 
-                    if (!datos.consultaSQL(ref dt, true))
-                    {
-                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    }
-                    else
-                    {
-                        foreach (DataRow row in dt.Rows)
-                        {
-                            if (dt.Rows.Count != 0)
-                            {
-                                falta = long.Parse(cadenaCero(row["Planeado"].ToString())); //- long.Parse(cadenaCero(row["Realidad"].ToString()));
-                            }
-                        }
-                    }
+                    //long falta = 0;
+
+                    //datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE hecho = 'N' and racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+                    ////datos.p_sql = "SELECT sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+
+                    //if (!datos.consultaSQL(ref dt, true))
+                    //{
+                    //    //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //}
+                    //else
+                    //{
+                    //    foreach (DataRow row in dt.Rows)
+                    //    {
+                    //        if (dt.Rows.Count != 0)
+                    //        {
+                    //            //falta = long.Parse(cadenaCero(row["Planeado"].ToString()));
+                    //            falta = long.Parse(cadenaCero(row["Planeado"].ToString())) - long.Parse(cadenaCero(row["Realidad"].ToString()));
+                    //        }
+                    //    }
+                    //}
+
+                    //if (falta < 0) 
+                    //{
+                    //    falta = 0;
+                    //}
+
+                    long falta = Comun.valorFalta(txtRacion.Text, txtServida.Text, vjornada);
+
+                    //--------------------------------------------------------------------------------
 
                     long carga = long.Parse(txtServirIni.Text) - long.Parse(txtServir.Text);// long.Parse(servido.ToString());
                     txtCarga.Text = carga.ToString();
@@ -1338,17 +1352,17 @@ namespace Senga
 
         }
 
-        private string cadenaCero(string valor)
-        {
+        //private string cadenaCero(string valor)
+        //{
 
-            if (valor.Equals(""))
-            {
-                valor = "0";
-            }
+        //    if (valor.Equals(""))
+        //    {
+        //        valor = "0";
+        //    }
 
-            return valor;
+        //    return valor;
 
-        }
+        //}
 
         private void cantidadTotal()
         {
@@ -1488,11 +1502,11 @@ namespace Senga
                 lblEstable.ForeColor = Color.Gray;
             }
 
-            long p1 = long.Parse(cadenaCero(seriePesos[0])) - long.Parse(cadenaCero(seriePesos[1]));
-            long p2 = long.Parse(cadenaCero(seriePesos[1])) - long.Parse(cadenaCero(seriePesos[2]));
-            long p3 = long.Parse(cadenaCero(seriePesos[2])) - long.Parse(cadenaCero(seriePesos[3]));
-            long p4 = long.Parse(cadenaCero(seriePesos[3])) - long.Parse(cadenaCero(seriePesos[4]));
-            long p5 = long.Parse(cadenaCero(seriePesos[4])) - long.Parse(cadenaCero(seriePesos[5]));
+            long p1 = long.Parse(Comun.cadenaCero(seriePesos[0])) - long.Parse(Comun.cadenaCero(seriePesos[1]));
+            long p2 = long.Parse(Comun.cadenaCero(seriePesos[1])) - long.Parse(Comun.cadenaCero(seriePesos[2]));
+            long p3 = long.Parse(Comun.cadenaCero(seriePesos[2])) - long.Parse(Comun.cadenaCero(seriePesos[3]));
+            long p4 = long.Parse(Comun.cadenaCero(seriePesos[3])) - long.Parse(Comun.cadenaCero(seriePesos[4]));
+            long p5 = long.Parse(Comun.cadenaCero(seriePesos[4])) - long.Parse(Comun.cadenaCero(seriePesos[5]));
 
             int pt = 15;
 
