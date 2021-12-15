@@ -129,9 +129,12 @@ namespace Senga
 
             string texto ="";
 
+            panelInicial();
+
             posicionBotones();
             btnPlanes.Focus();
 
+            this.Refresh();
 
             if (validaBD(ref texto))
             {
@@ -200,6 +203,12 @@ namespace Senga
                 //servicioGPS.InitializeLifetimeService();
 
             }
+
+
+            txtError.Visible = true;
+            btnPlanes.Enabled = true;
+            panelInicio.Visible = false;
+            btnPlanes.Focus();
 
         }
 
@@ -284,6 +293,16 @@ namespace Senga
             }
         }
 
+        private void panelInicial() 
+        {
+
+            panelInicio.Visible = true;
+
+            panelInicio.Top = (this.Height / 2) - (panelInicio.Height/2);
+            panelInicio.Left = (this.Width / 2) - (panelInicio.Width / 2);
+
+        }
+        
         private void posicionBotones()
         {
             //btnRaciones.Left = this.Width / 2 - btnRaciones.Width / 2;
@@ -675,7 +694,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT * FROM configuracion";
+            datos.p_sql = "SELECT Id FROM configuracion";
 
             if (!datos.consultaSQL(ref dt, true))
             {

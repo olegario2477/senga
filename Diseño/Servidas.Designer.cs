@@ -149,6 +149,7 @@
             this.btnDos = new System.Windows.Forms.Button();
             this.btnUno = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtCargado = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.txtRealidadC = new System.Windows.Forms.TextBox();
             this.txtFilaAct = new System.Windows.Forms.TextBox();
@@ -157,7 +158,6 @@
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.txtServidoExtraV = new System.Windows.Forms.TextBox();
             this.btnCargar = new System.Windows.Forms.Button();
-            this.txtCargado = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -269,7 +269,7 @@
             this.txtCabezas.Location = new System.Drawing.Point(299, 172);
             this.txtCabezas.Name = "txtCabezas";
             this.txtCabezas.ReadOnly = true;
-            this.txtCabezas.Size = new System.Drawing.Size(103, 30);
+            this.txtCabezas.Size = new System.Drawing.Size(104, 30);
             this.txtCabezas.TabIndex = 46;
             this.txtCabezas.Text = "888";
             this.txtCabezas.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -342,7 +342,7 @@
             this.txtRacion.Location = new System.Drawing.Point(198, 25);
             this.txtRacion.Name = "txtRacion";
             this.txtRacion.ReadOnly = true;
-            this.txtRacion.Size = new System.Drawing.Size(203, 68);
+            this.txtRacion.Size = new System.Drawing.Size(205, 68);
             this.txtRacion.TabIndex = 52;
             this.txtRacion.Text = "8888";
             this.txtRacion.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -458,7 +458,7 @@
             this.txtCorrales.Location = new System.Drawing.Point(199, 227);
             this.txtCorrales.Name = "txtCorrales";
             this.txtCorrales.ReadOnly = true;
-            this.txtCorrales.Size = new System.Drawing.Size(202, 30);
+            this.txtCorrales.Size = new System.Drawing.Size(203, 30);
             this.txtCorrales.TabIndex = 62;
             this.txtCorrales.Text = "888";
             this.txtCorrales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -479,23 +479,25 @@
             this.txtCargaV.BackColor = System.Drawing.Color.White;
             this.txtCargaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargaV.ForeColor = System.Drawing.Color.Black;
-            this.txtCargaV.Location = new System.Drawing.Point(299, 118);
+            this.txtCargaV.Location = new System.Drawing.Point(380, 118);
             this.txtCargaV.Name = "txtCargaV";
             this.txtCargaV.ReadOnly = true;
-            this.txtCargaV.Size = new System.Drawing.Size(103, 30);
+            this.txtCargaV.Size = new System.Drawing.Size(22, 30);
             this.txtCargaV.TabIndex = 65;
             this.txtCargaV.Text = "88,888";
             this.txtCargaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCargaV.Visible = false;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(310, 93);
+            this.label8.Location = new System.Drawing.Point(335, 93);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 24);
             this.label8.TabIndex = 64;
             this.label8.Text = "Carga";
+            this.label8.Visible = false;
             // 
             // txtIdDr
             // 
@@ -601,7 +603,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(204, 93);
+            this.label12.Location = new System.Drawing.Point(252, 93);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 24);
             this.label12.TabIndex = 82;
@@ -615,7 +617,7 @@
             this.txtBasculaV.Location = new System.Drawing.Point(199, 118);
             this.txtBasculaV.Name = "txtBasculaV";
             this.txtBasculaV.ReadOnly = true;
-            this.txtBasculaV.Size = new System.Drawing.Size(94, 30);
+            this.txtBasculaV.Size = new System.Drawing.Size(204, 30);
             this.txtBasculaV.TabIndex = 81;
             this.txtBasculaV.Text = "88,888";
             this.txtBasculaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1436,6 +1438,19 @@
             this.panel2.Size = new System.Drawing.Size(32, 105);
             this.panel2.TabIndex = 101;
             // 
+            // txtCargado
+            // 
+            this.txtCargado.BackColor = System.Drawing.Color.White;
+            this.txtCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCargado.ForeColor = System.Drawing.Color.Black;
+            this.txtCargado.Location = new System.Drawing.Point(9, 69);
+            this.txtCargado.Name = "txtCargado";
+            this.txtCargado.ReadOnly = true;
+            this.txtCargado.Size = new System.Drawing.Size(10, 30);
+            this.txtCargado.TabIndex = 103;
+            this.txtCargado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCargado.Visible = false;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -1539,19 +1554,6 @@
             this.btnCargar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCargar.UseVisualStyleBackColor = true;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
-            // 
-            // txtCargado
-            // 
-            this.txtCargado.BackColor = System.Drawing.Color.White;
-            this.txtCargado.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargado.ForeColor = System.Drawing.Color.Black;
-            this.txtCargado.Location = new System.Drawing.Point(9, 69);
-            this.txtCargado.Name = "txtCargado";
-            this.txtCargado.ReadOnly = true;
-            this.txtCargado.Size = new System.Drawing.Size(10, 30);
-            this.txtCargado.TabIndex = 103;
-            this.txtCargado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCargado.Visible = false;
             // 
             // Servidas
             // 

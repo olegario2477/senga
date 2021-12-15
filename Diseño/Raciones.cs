@@ -60,7 +60,6 @@ namespace Senga
         private void Raciones_Load(object sender, EventArgs e)
         {
 
-
             posicionbotones();
 
             this.Refresh();
@@ -97,6 +96,7 @@ namespace Senga
             //}
 
             panelRacion.Visible = true;
+            this.Refresh();
 
             //pbServido.Visible = true;
 
@@ -114,8 +114,6 @@ namespace Senga
             usuarioiWs();
             vrutared = rutared();
             vrutaarchivos = rutaarchivos();
-
-
 
 
         }
@@ -760,6 +758,20 @@ namespace Senga
                     txtPlanta.Text = row["Planta"].ToString();
                     txtTolva.Text = row["Tolva"].ToString();
                     //txtRacion.Text = row["Racion"].ToString();
+                }
+            }
+
+            datos.p_sql = "SELECT * FROM jornadas WHERE id = "+ txtJornada.Text;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    txtFechaJornada.Text = row["Fecha"].ToString().Substring(0,10);
                 }
             }
 

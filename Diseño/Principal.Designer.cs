@@ -130,6 +130,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.btnPlanes = new System.Windows.Forms.Button();
+            this.panelInicio = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -142,6 +144,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.panelInicio.SuspendLayout();
             this.SuspendLayout();
             // 
             // timerWs
@@ -595,6 +598,7 @@
             this.txtError.Name = "txtError";
             this.txtError.ReadOnly = true;
             this.txtError.Size = new System.Drawing.Size(400, 34);
+            this.txtError.Visible = false;
             // 
             // lblContWs
             // 
@@ -658,7 +662,7 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 46;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(981, 155);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(921, 231);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
             this.listBoxRecorridos.Size = new System.Drawing.Size(319, 372);
             this.listBoxRecorridos.TabIndex = 52;
@@ -912,7 +916,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(37, 235);
+            this.tabControl1.Location = new System.Drawing.Point(20, 281);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(895, 322);
@@ -1084,6 +1088,7 @@
             // 
             // btnPlanes
             // 
+            this.btnPlanes.Enabled = false;
             this.btnPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanes.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanes.Image")));
             this.btnPlanes.Location = new System.Drawing.Point(938, 0);
@@ -1095,6 +1100,24 @@
             this.btnPlanes.UseVisualStyleBackColor = true;
             this.btnPlanes.Click += new System.EventHandler(this.btnPlanes_Click);
             // 
+            // panelInicio
+            // 
+            this.panelInicio.Controls.Add(this.label10);
+            this.panelInicio.Location = new System.Drawing.Point(350, 155);
+            this.panelInicio.Name = "panelInicio";
+            this.panelInicio.Size = new System.Drawing.Size(418, 104);
+            this.panelInicio.TabIndex = 62;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(133, 37);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(147, 31);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Iniciando...";
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1104,6 +1127,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
+            this.Controls.Add(this.panelInicio);
             this.Controls.Add(this.btnPlanes);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnVerGps);
@@ -1151,6 +1175,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panelInicio.ResumeLayout(false);
+            this.panelInicio.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1258,6 +1284,8 @@
         private System.Windows.Forms.TextBox txtLectura;
         public System.Windows.Forms.Label lblDifGps;
         private System.Windows.Forms.Button btnPlanes;
+        private System.Windows.Forms.Panel panelInicio;
+        private System.Windows.Forms.Label label10;
     }
 }
 
