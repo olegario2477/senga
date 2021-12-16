@@ -53,6 +53,8 @@
             this.txtCorrales = new System.Windows.Forms.TextBox();
             this.txtHechos = new System.Windows.Forms.TextBox();
             this.panelRacion = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtFechaJornada = new System.Windows.Forms.TextBox();
             this.txtTiempo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.txtVueltas = new System.Windows.Forms.TextBox();
@@ -69,6 +71,7 @@
             this.txtCapacidad = new System.Windows.Forms.TextBox();
             this.txtPlaneado = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnReportes = new System.Windows.Forms.Button();
             this.btnJornadas = new System.Windows.Forms.Button();
             this.btnWsEnviar = new System.Windows.Forms.Button();
             this.btnWsRecibir = new System.Windows.Forms.Button();
@@ -108,8 +111,6 @@
             this.txtCarga = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtFechaJornada = new System.Windows.Forms.TextBox();
-            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -139,7 +140,7 @@
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.Location = new System.Drawing.Point(1138, 0);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(140, 148);
+            this.btnCerrar.Size = new System.Drawing.Size(120, 148);
             this.btnCerrar.TabIndex = 9;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -166,9 +167,9 @@
             // 
             this.btnServida.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServida.Image = ((System.Drawing.Image)(resources.GetObject("btnServida.Image")));
-            this.btnServida.Location = new System.Drawing.Point(250, 3);
+            this.btnServida.Location = new System.Drawing.Point(332, 3);
             this.btnServida.Name = "btnServida";
-            this.btnServida.Size = new System.Drawing.Size(140, 148);
+            this.btnServida.Size = new System.Drawing.Size(120, 148);
             this.btnServida.TabIndex = 2;
             this.btnServida.Text = "Servida";
             this.btnServida.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -296,7 +297,7 @@
             this.btnServir.Image = ((System.Drawing.Image)(resources.GetObject("btnServir.Image")));
             this.btnServir.Location = new System.Drawing.Point(1045, 0);
             this.btnServir.Name = "btnServir";
-            this.btnServir.Size = new System.Drawing.Size(140, 148);
+            this.btnServir.Size = new System.Drawing.Size(120, 148);
             this.btnServir.TabIndex = 8;
             this.btnServir.Text = "Servidas";
             this.btnServir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -413,6 +414,28 @@
             this.panelRacion.TabIndex = 77;
             this.panelRacion.Visible = false;
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(172, 159);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(72, 25);
+            this.label11.TabIndex = 83;
+            this.label11.Text = "Fecha";
+            // 
+            // txtFechaJornada
+            // 
+            this.txtFechaJornada.BackColor = System.Drawing.Color.White;
+            this.txtFechaJornada.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFechaJornada.ForeColor = System.Drawing.Color.Black;
+            this.txtFechaJornada.Location = new System.Drawing.Point(111, 187);
+            this.txtFechaJornada.Name = "txtFechaJornada";
+            this.txtFechaJornada.ReadOnly = true;
+            this.txtFechaJornada.Size = new System.Drawing.Size(204, 38);
+            this.txtFechaJornada.TabIndex = 82;
+            this.txtFechaJornada.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // txtTiempo
             // 
             this.txtTiempo.BackColor = System.Drawing.Color.White;
@@ -524,7 +547,7 @@
             this.btnSincroniza.Image = ((System.Drawing.Image)(resources.GetObject("btnSincroniza.Image")));
             this.btnSincroniza.Location = new System.Drawing.Point(762, 0);
             this.btnSincroniza.Name = "btnSincroniza";
-            this.btnSincroniza.Size = new System.Drawing.Size(140, 148);
+            this.btnSincroniza.Size = new System.Drawing.Size(120, 148);
             this.btnSincroniza.TabIndex = 5;
             this.btnSincroniza.Text = "WIFI";
             this.btnSincroniza.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -559,9 +582,9 @@
             // 
             this.btnExplorer.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExplorer.Image = ((System.Drawing.Image)(resources.GetObject("btnExplorer.Image")));
-            this.btnExplorer.Location = new System.Drawing.Point(93, 0);
+            this.btnExplorer.Location = new System.Drawing.Point(248, 0);
             this.btnExplorer.Name = "btnExplorer";
-            this.btnExplorer.Size = new System.Drawing.Size(128, 149);
+            this.btnExplorer.Size = new System.Drawing.Size(55, 149);
             this.btnExplorer.TabIndex = 4;
             this.btnExplorer.Text = "Explorar";
             this.btnExplorer.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -594,6 +617,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnReportes);
             this.panel1.Controls.Add(this.btnJornadas);
             this.panel1.Controls.Add(this.btnWsEnviar);
             this.panel1.Controls.Add(this.btnWsRecibir);
@@ -617,13 +641,26 @@
             this.panel1.TabIndex = 85;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // btnReportes
+            // 
+            this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
+            this.btnReportes.Location = new System.Drawing.Point(40, 0);
+            this.btnReportes.Name = "btnReportes";
+            this.btnReportes.Size = new System.Drawing.Size(120, 148);
+            this.btnReportes.TabIndex = 87;
+            this.btnReportes.Text = "Reportes";
+            this.btnReportes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnReportes.UseVisualStyleBackColor = true;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
+            // 
             // btnJornadas
             // 
             this.btnJornadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJornadas.Image = ((System.Drawing.Image)(resources.GetObject("btnJornadas.Image")));
-            this.btnJornadas.Location = new System.Drawing.Point(15, 0);
+            this.btnJornadas.Location = new System.Drawing.Point(142, 0);
             this.btnJornadas.Name = "btnJornadas";
-            this.btnJornadas.Size = new System.Drawing.Size(140, 148);
+            this.btnJornadas.Size = new System.Drawing.Size(120, 148);
             this.btnJornadas.TabIndex = 86;
             this.btnJornadas.Text = "Jornadas";
             this.btnJornadas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -634,9 +671,9 @@
             // 
             this.btnWsEnviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWsEnviar.Image = ((System.Drawing.Image)(resources.GetObject("btnWsEnviar.Image")));
-            this.btnWsEnviar.Location = new System.Drawing.Point(475, 0);
+            this.btnWsEnviar.Location = new System.Drawing.Point(556, 0);
             this.btnWsEnviar.Name = "btnWsEnviar";
-            this.btnWsEnviar.Size = new System.Drawing.Size(140, 149);
+            this.btnWsEnviar.Size = new System.Drawing.Size(59, 149);
             this.btnWsEnviar.TabIndex = 85;
             this.btnWsEnviar.Text = "Envia";
             this.btnWsEnviar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -647,9 +684,9 @@
             // 
             this.btnWsRecibir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnWsRecibir.Image = ((System.Drawing.Image)(resources.GetObject("btnWsRecibir.Image")));
-            this.btnWsRecibir.Location = new System.Drawing.Point(353, 0);
+            this.btnWsRecibir.Location = new System.Drawing.Point(435, 0);
             this.btnWsRecibir.Name = "btnWsRecibir";
-            this.btnWsRecibir.Size = new System.Drawing.Size(140, 148);
+            this.btnWsRecibir.Size = new System.Drawing.Size(120, 148);
             this.btnWsRecibir.TabIndex = 84;
             this.btnWsRecibir.Text = "Recibe";
             this.btnWsRecibir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -660,9 +697,9 @@
             // 
             this.btnPlanta.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanta.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanta.Image")));
-            this.btnPlanta.Location = new System.Drawing.Point(166, 0);
+            this.btnPlanta.Location = new System.Drawing.Point(248, 0);
             this.btnPlanta.Name = "btnPlanta";
-            this.btnPlanta.Size = new System.Drawing.Size(140, 148);
+            this.btnPlanta.Size = new System.Drawing.Size(120, 148);
             this.btnPlanta.TabIndex = 1;
             this.btnPlanta.Text = "Planta";
             this.btnPlanta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -675,7 +712,7 @@
             this.btnNube.Image = ((System.Drawing.Image)(resources.GetObject("btnNube.Image")));
             this.btnNube.Location = new System.Drawing.Point(593, 0);
             this.btnNube.Name = "btnNube";
-            this.btnNube.Size = new System.Drawing.Size(140, 148);
+            this.btnNube.Size = new System.Drawing.Size(120, 148);
             this.btnNube.TabIndex = 82;
             this.btnNube.Text = "Ws";
             this.btnNube.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -688,7 +725,7 @@
             this.btnUSB.Image = ((System.Drawing.Image)(resources.GetObject("btnUSB.Image")));
             this.btnUSB.Location = new System.Drawing.Point(656, 0);
             this.btnUSB.Name = "btnUSB";
-            this.btnUSB.Size = new System.Drawing.Size(140, 148);
+            this.btnUSB.Size = new System.Drawing.Size(120, 148);
             this.btnUSB.TabIndex = 81;
             this.btnUSB.Text = "USB";
             this.btnUSB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -978,28 +1015,6 @@
             this.label10.TabIndex = 92;
             this.label10.Text = "esta en la parte superior \"Cargar\"";
             // 
-            // txtFechaJornada
-            // 
-            this.txtFechaJornada.BackColor = System.Drawing.Color.White;
-            this.txtFechaJornada.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFechaJornada.ForeColor = System.Drawing.Color.Black;
-            this.txtFechaJornada.Location = new System.Drawing.Point(111, 187);
-            this.txtFechaJornada.Name = "txtFechaJornada";
-            this.txtFechaJornada.ReadOnly = true;
-            this.txtFechaJornada.Size = new System.Drawing.Size(204, 38);
-            this.txtFechaJornada.TabIndex = 82;
-            this.txtFechaJornada.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(172, 159);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(72, 25);
-            this.label11.TabIndex = 83;
-            this.label11.Text = "Fecha";
-            // 
             // Raciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1138,5 +1153,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtFechaJornada;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button btnReportes;
     }
 }

@@ -71,6 +71,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.basic = new System.Windows.Forms.TabPage();
+            this.label32 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.txtPesoAlarma = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
@@ -145,7 +146,6 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
-            this.label32 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -195,7 +195,7 @@
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.Location = new System.Drawing.Point(1125, 0);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(140, 149);
+            this.btnCerrar.Size = new System.Drawing.Size(120, 149);
             this.btnCerrar.TabIndex = 9;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -208,7 +208,7 @@
             this.btnGrabar.Image = ((System.Drawing.Image)(resources.GetObject("btnGrabar.Image")));
             this.btnGrabar.Location = new System.Drawing.Point(978, 0);
             this.btnGrabar.Name = "btnGrabar";
-            this.btnGrabar.Size = new System.Drawing.Size(140, 149);
+            this.btnGrabar.Size = new System.Drawing.Size(120, 149);
             this.btnGrabar.TabIndex = 8;
             this.btnGrabar.Text = "Grabar";
             this.btnGrabar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -649,6 +649,16 @@
             this.basic.TabIndex = 5;
             this.basic.Text = "BASIC";
             this.basic.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.Location = new System.Drawing.Point(680, 243);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(128, 31);
+            this.label32.TabIndex = 98;
+            this.label32.Text = "Dias Elim";
             // 
             // label28
             // 
@@ -1433,7 +1443,7 @@
             this.btnBasic.Image = ((System.Drawing.Image)(resources.GetObject("btnBasic.Image")));
             this.btnBasic.Location = new System.Drawing.Point(15, 0);
             this.btnBasic.Name = "btnBasic";
-            this.btnBasic.Size = new System.Drawing.Size(140, 149);
+            this.btnBasic.Size = new System.Drawing.Size(120, 149);
             this.btnBasic.TabIndex = 1;
             this.btnBasic.Text = "Basico";
             this.btnBasic.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1446,7 +1456,7 @@
             this.btnWs.Image = ((System.Drawing.Image)(resources.GetObject("btnWs.Image")));
             this.btnWs.Location = new System.Drawing.Point(159, 0);
             this.btnWs.Name = "btnWs";
-            this.btnWs.Size = new System.Drawing.Size(140, 149);
+            this.btnWs.Size = new System.Drawing.Size(120, 149);
             this.btnWs.TabIndex = 2;
             this.btnWs.Text = "Ws";
             this.btnWs.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1459,7 +1469,7 @@
             this.btnCom.Image = ((System.Drawing.Image)(resources.GetObject("btnCom.Image")));
             this.btnCom.Location = new System.Drawing.Point(302, 0);
             this.btnCom.Name = "btnCom";
-            this.btnCom.Size = new System.Drawing.Size(140, 149);
+            this.btnCom.Size = new System.Drawing.Size(120, 149);
             this.btnCom.TabIndex = 3;
             this.btnCom.Text = "COM";
             this.btnCom.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1472,7 +1482,7 @@
             this.btnZone.Image = ((System.Drawing.Image)(resources.GetObject("btnZone.Image")));
             this.btnZone.Location = new System.Drawing.Point(445, 0);
             this.btnZone.Name = "btnZone";
-            this.btnZone.Size = new System.Drawing.Size(140, 149);
+            this.btnZone.Size = new System.Drawing.Size(120, 149);
             this.btnZone.TabIndex = 4;
             this.btnZone.Text = "Zona";
             this.btnZone.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1485,7 +1495,7 @@
             this.btnSql.Image = ((System.Drawing.Image)(resources.GetObject("btnSql.Image")));
             this.btnSql.Location = new System.Drawing.Point(586, 0);
             this.btnSql.Name = "btnSql";
-            this.btnSql.Size = new System.Drawing.Size(140, 149);
+            this.btnSql.Size = new System.Drawing.Size(120, 149);
             this.btnSql.TabIndex = 5;
             this.btnSql.Text = "SQL";
             this.btnSql.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1498,7 +1508,7 @@
             this.btnManual.Image = ((System.Drawing.Image)(resources.GetObject("btnManual.Image")));
             this.btnManual.Location = new System.Drawing.Point(730, 0);
             this.btnManual.Name = "btnManual";
-            this.btnManual.Size = new System.Drawing.Size(140, 149);
+            this.btnManual.Size = new System.Drawing.Size(120, 149);
             this.btnManual.TabIndex = 6;
             this.btnManual.Text = "Manual";
             this.btnManual.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1511,22 +1521,12 @@
             this.btnMtto.Image = ((System.Drawing.Image)(resources.GetObject("btnMtto.Image")));
             this.btnMtto.Location = new System.Drawing.Point(839, 0);
             this.btnMtto.Name = "btnMtto";
-            this.btnMtto.Size = new System.Drawing.Size(140, 149);
+            this.btnMtto.Size = new System.Drawing.Size(120, 149);
             this.btnMtto.TabIndex = 7;
             this.btnMtto.Text = "Mtto";
             this.btnMtto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
-            // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(680, 243);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(128, 31);
-            this.label32.TabIndex = 98;
-            this.label32.Text = "Dias Elim";
             // 
             // Configurar
             // 

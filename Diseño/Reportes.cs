@@ -455,6 +455,16 @@ namespace Senga
             dataGridSQLResultados.DataSource = null;
             dataGridSQLResultados.DataSource = dt2;
 
+            switch (comboBoxOpciones.SelectedIndex)
+            {
+                case 0:                    
+                    dataGridSQLResultados.Columns["dif"].ToolTipText = "Realidad-Planeado";
+                    dataGridSQLResultados.Columns["basfcarg"].ToolTipText = "BasFin-Carga";
+                    dataGridSQLResultados.Columns["carga"].ToolTipText = "Carga(Anterior)-Realidad";
+                    dataGridSQLResultados.Columns["ajuste"].ToolTipText = "BasIni-BasFin(Anterior)";
+                    break;
+
+            }
 
             foreach (DataGridViewColumn item in dataGridSQLResultados.Columns)
             {

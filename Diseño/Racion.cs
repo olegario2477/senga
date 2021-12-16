@@ -37,6 +37,7 @@ namespace Senga
         string vzeros = "";
         string vpeso = "";
         int cantAjustes = 1;
+        int cantPesos = 1;
         bool beepOn = true;
         char c = (char)02;
         char r = '\r';
@@ -111,7 +112,10 @@ namespace Senga
             IniciaPesoOpc2();
             colorPantalla();
 
-            datos.p_sql = "SELECT racion, planeado, cargado, servido, falta, carga, bascula FROM raciones WHERE idd = " + vidd;
+            this.Refresh();
+
+            //datos.p_sql = "SELECT racion, planeado, cargado, servido, falta, carga, bascula FROM raciones WHERE idd = " + vidd;
+            datos.p_sql = "SELECT * FROM raciones WHERE idd = " + vidd;
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -128,7 +132,7 @@ namespace Senga
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
                     txtCargaIni.Text = cadenaCero(row["Carga"].ToString());
-                    txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
+                    //txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
 
@@ -633,6 +637,7 @@ namespace Senga
 
             if (Convert.ToInt32(txtBasculaIni.Text) >= Convert.ToInt32(txtBruto.Text))
             {
+                Comun.mensajeVer("No ha Recibido Carga", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
                 return;
             }
 
@@ -767,6 +772,11 @@ namespace Senga
 
             //if (dato.Equals("")) { return; }
 
+            if (cantPesos < 4) //peso despues de 4 lecturas
+            {
+                cantPesos++;
+                return;
+            }
 
             dator = dato; //comm.p_dato;
 
@@ -923,39 +933,41 @@ namespace Senga
 
 
             //----------------------------------------------------------------------------------------
-            resultado = Convert.ToInt32(txtBruto.Text) - Convert.ToInt32(txtBasculaIni.Text);
-            if (resultado < 0)
-            {
-                if (vestable && cantAjustes <= 1) //(resultado > -100)
-                {
+            //resultado = Convert.ToInt32(txtBruto.Text) - Convert.ToInt32(txtBasculaIni.Text);
+            //if (resultado < 0)
+            //{
+            //    if (vestable && cantAjustes <= 1) //(resultado > -100)
+            //    {
 
-                    //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
-                    //--------------
-                    txtBasculaIni.Text = txtBruto.Text; //AJUSTAR
-                    cantAjustes++;
-                    llenaSolicitar();
-                    Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
-                    //--------------
-                    
-                }
+            //        //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
+            //        //--------------
+            //        txtBasculaIni.Text = txtBruto.Text; //AJUSTAR
+            //        cantAjustes++;
+            //        llenaSolicitar();
+            //        Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+            //        //--------------
 
-                //resultado = 0;
-            }
+            //    }
+
+            //    //resultado = 0;
+            //}
             //----------------------------------------------------------------------------------------
 
-            //if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
-            //{
-            //txtBasculaIni.Text = txtBruto.Text;
+            if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
+            {
+                txtBasculaIni.Text = txtBruto.Text;
+                llenaSolicitar();
 
-            //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
-            //if (resultado < 0)
-            //{ 
-            //    resultado = 0; 
-            //}
-            //txtSolicitar.Text = resultado.ToString();
+                //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+                //if (resultado < 0)
+                //{
+                //    resultado = 0;
+                //}
+                //txtSolicitar.Text = resultado.ToString();
 
 
-            //}
+
+            }
 
             //calcularPeso();
             //barra(pbFisico, txtCapacidad, txtFisico, txtFisico);
@@ -1118,7 +1130,8 @@ namespace Senga
                         //    serialPort1.DiscardInBuffer();
                         //}
 
-                        //recibeData = serialPort1.ReadLine();                    
+                        //recibeData = serialPort1.ReadLine();
+                        
 
                         if (recibeData.Contains("\r"))
                         {
@@ -1127,21 +1140,24 @@ namespace Senga
 
                             string[] string_array = stringTemp.Split('\r');
 
-                            //for (int i = 0; i < string_array.Length; i++)
-                            for (int i = string_array.Length - 1; i >= 0; i--) //desc
+                            for (int i = 0; i < string_array.Length; i++)
+                            //for (int i = string_array.Length - 1; i >= 0; i--) //desc
                             {
+                                //if (string_array[i].Contains(c.ToString()))
+                                //{
 
-                                stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
+                                    stringTemp = string_array[i].Replace(c.ToString(), "").Replace(" ", "").Trim();
 
-                                Console.WriteLine(string_array.Length.ToString() + "-" + i.ToString() + "-" + stringTemp);
+                                    Console.WriteLine(string_array.Length.ToString() + "-" + i.ToString() + "-" + stringTemp);
 
-                                long number1 = 0;
-                                if (long.TryParse(stringTemp, out number1))
-                                {
-                                    this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
-                                    break;
-                                }
+                                    long number1 = 0;
+                                    if (long.TryParse(stringTemp, out number1))
+                                    {
+                                        this.BeginInvoke(new DelegaAcceso(si_DataReceived), new object[] { stringTemp });
+                                        break;
+                                    }
 
+                                //}
                             }
 
                             recibeData = "";

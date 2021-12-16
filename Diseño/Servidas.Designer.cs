@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -479,25 +479,23 @@
             this.txtCargaV.BackColor = System.Drawing.Color.White;
             this.txtCargaV.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargaV.ForeColor = System.Drawing.Color.Black;
-            this.txtCargaV.Location = new System.Drawing.Point(380, 118);
+            this.txtCargaV.Location = new System.Drawing.Point(299, 118);
             this.txtCargaV.Name = "txtCargaV";
             this.txtCargaV.ReadOnly = true;
-            this.txtCargaV.Size = new System.Drawing.Size(22, 30);
+            this.txtCargaV.Size = new System.Drawing.Size(103, 30);
             this.txtCargaV.TabIndex = 65;
             this.txtCargaV.Text = "88,888";
             this.txtCargaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCargaV.Visible = false;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(335, 93);
+            this.label8.Location = new System.Drawing.Point(316, 93);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(65, 24);
             this.label8.TabIndex = 64;
             this.label8.Text = "Carga";
-            this.label8.Visible = false;
             // 
             // txtIdDr
             // 
@@ -603,7 +601,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(252, 93);
+            this.label12.Location = new System.Drawing.Point(204, 93);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(83, 24);
             this.label12.TabIndex = 82;
@@ -617,7 +615,7 @@
             this.txtBasculaV.Location = new System.Drawing.Point(199, 118);
             this.txtBasculaV.Name = "txtBasculaV";
             this.txtBasculaV.ReadOnly = true;
-            this.txtBasculaV.Size = new System.Drawing.Size(204, 30);
+            this.txtBasculaV.Size = new System.Drawing.Size(94, 30);
             this.txtBasculaV.TabIndex = 81;
             this.txtBasculaV.Text = "88,888";
             this.txtBasculaV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -648,16 +646,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea2);
+            chartArea1.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea1);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series2.IsValueShownAsLabel = true;
-            series2.IsVisibleInLegend = false;
-            series2.Name = "Series1";
-            this.chartServidas.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series1.IsValueShownAsLabel = true;
+            series1.IsVisibleInLegend = false;
+            series1.Name = "Series1";
+            this.chartServidas.Series.Add(series1);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";

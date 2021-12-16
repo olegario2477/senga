@@ -103,10 +103,15 @@ namespace Senga
             //vrutared = rutared();
             //vrutaarchivos = rutaarchivos();
 
-            activar();
-
             DGRaciones.Visible = true;
             DGCargas.Visible = true;
+            
+            this.Refresh();
+            activar();
+
+
+
+            tiempoServido();
 
             this.Refresh();
 
@@ -114,6 +119,7 @@ namespace Senga
             usuarioiWs();
             vrutared = rutared();
             vrutaarchivos = rutaarchivos();
+
 
 
         }
@@ -135,7 +141,7 @@ namespace Senga
                 
                 refrescaGrid();
                 
-                tiempoServido();
+                //tiempoServido();
 
 
                 //var th = new Thread(refrescaGrid);
@@ -186,6 +192,7 @@ namespace Senga
             btnServida.Top = 0;
             btnPlanta.Top = 0;
             btnJornadas.Top = 0;
+            btnReportes.Top = 0;
 
             //oculta boton
             btnExplorer.Width = 0;
@@ -209,6 +216,7 @@ namespace Senga
             btnServida.Left = btnWsRecibir.Left - btnServida.Width;
             btnPlanta.Left = btnServida.Left - btnPlanta.Width;
             btnJornadas.Left = btnPlanta.Left - btnJornadas.Width;
+            btnReportes.Left = btnJornadas.Left - btnReportes.Width;
 
 
 
@@ -413,7 +421,8 @@ namespace Senga
             bool primero = true;
 
 
-            datos.p_sql = "SELECT Racion,Cantidad,HechoC,Planeado,Cargado,Servido,Falta,Carga,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+            //datos.p_sql = "SELECT Racion,Cantidad,HechoC,Planeado,Cargado,Servido,Falta,Carga,IdD FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
+            datos.p_sql = "SELECT * FROM raciones WHERE num = " + txtServida.Text + " and id = " + vjornada; //" " and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -469,7 +478,8 @@ namespace Senga
                 //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
 
-            datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc";
+            //datos.p_sql = "SELECT Hora,Racion,Solicito,Carga,Tolva,BasculaIni,CargaIni,IdD FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc";
+            datos.p_sql = "SELECT * FROM Cargas WHERE num = " + txtServida.Text + " and id = " + vjornada + " and racion = '" + txtRacion.Text + "' order by IdD asc";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -695,7 +705,8 @@ namespace Senga
                 //int filas = 0;
                 int rowIndex = -1;
 
-                datos.p_sql = "SELECT iddr FROM operacion";
+                //datos.p_sql = "SELECT iddr FROM operacion";
+                datos.p_sql = "SELECT * FROM operacion";
 
                 if (!datos.consultaSQL(ref dt, true))
                 {
@@ -743,7 +754,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT TOP 1 * FROM operacion";
+            datos.p_sql = "SELECT * FROM operacion";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -799,7 +810,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+            datos.p_sql = "SELECT * FROM configuracion";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -2315,9 +2326,9 @@ namespace Senga
             {
                 //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
 
-                DGRaciones.Visible = false;
-                DGCargas.Visible = false;
-                this.Refresh();
+                //DGRaciones.Visible = false;
+                //DGCargas.Visible = false;
+                //this.Refresh();
 
                 if (DGRaciones.RowCount == 0) //SAP>>Tablet
                 {
@@ -2362,9 +2373,9 @@ namespace Senga
 
                 }
 
-                DGRaciones.Visible = true;
-                DGCargas.Visible = true;
-                this.Refresh();
+                //DGRaciones.Visible = true;
+                //DGCargas.Visible = true;
+                //this.Refresh();
 
                 if (mok == "OK")
                 {
@@ -2418,9 +2429,9 @@ namespace Senga
             else
             {
 
-                DGRaciones.Visible = false;
-                DGCargas.Visible = false;
-                this.Refresh();
+                //DGRaciones.Visible = false;
+                //DGCargas.Visible = false;
+                //this.Refresh();
 
                 //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
 
@@ -2471,9 +2482,9 @@ namespace Senga
 
                 //}
 
-                DGRaciones.Visible = true;
-                DGCargas.Visible = true;
-                this.Refresh();
+                //DGRaciones.Visible = true;
+                //DGCargas.Visible = true;
+                //this.Refresh();
 
                 if (mok == "OK")
                 {
@@ -3225,7 +3236,11 @@ namespace Senga
 
         }
 
-
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            Reportes frm = new Reportes(txtJornada.Text);
+            frm.Show();
+        }
     }
     
 }

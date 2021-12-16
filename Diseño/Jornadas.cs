@@ -86,6 +86,7 @@ namespace Senga
             btnLimpiar.Top = 0;
 
             btnCerrar.Width = 0;
+            btnReportes.Width = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnAbrir.Left = btnCerrar.Left - btnAbrir.Width;

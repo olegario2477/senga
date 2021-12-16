@@ -694,7 +694,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT Id FROM configuracion";
+            datos.p_sql = "SELECT * FROM configuracion";
 
             if (!datos.consultaSQL(ref dt, true))
             {

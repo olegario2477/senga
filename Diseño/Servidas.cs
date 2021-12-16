@@ -84,8 +84,6 @@ namespace Senga
             propiedadesGrid();
             seleccionarFila2();
 
-
-
             DGServidas.Height = 590;
             txtCaptura.Text = "";
 
@@ -93,22 +91,21 @@ namespace Senga
             formatoGrid();
             
             tablaUbicTemp();
-            tablaUbicTempg();
+            tablaUbicTempg();            
+
+            btnServir.Visible = true;
+            this.Refresh();
 
             cargaMapa();
+            DGServidas.Visible = true;
 
+            this.Refresh();
             activar();
 
-
-
-
             panelServida.Visible = true;
-            DGServidas.Visible = true;
-            //pbServido.Visible = true;
-            btnServir.Visible = true;
 
+            //pbServido.Visible = true;
             txtCorrales.Visible = true;
-            panelMapa.Visible = true;
 
             //txtLatitud.Visible = true;
             //txtLongitud.Visible = true;
@@ -118,7 +115,15 @@ namespace Senga
 
             panelSimular.Visible = Principal.instance.panelGps.Visible;
 
-            gMapControl1.Refresh();
+            this.Refresh();
+
+
+
+
+            gMapControl1.Refresh();               
+            this.Refresh();
+            panelMapa.Visible = true;
+
 
         }
 

@@ -46,7 +46,7 @@ namespace Senga
             this.btnCerrar.Image = ((System.Drawing.Image)(resources.GetObject("btnCerrar.Image")));
             this.btnCerrar.Location = new System.Drawing.Point(1234, 12);
             this.btnCerrar.Name = "btnCerrar";
-            this.btnCerrar.Size = new System.Drawing.Size(140, 149);
+            this.btnCerrar.Size = new System.Drawing.Size(120, 149);
             this.btnCerrar.TabIndex = 10;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -111,9 +111,9 @@ namespace Senga
             this.btnCalculadora.Image = ((System.Drawing.Image)(resources.GetObject("btnCalculadora.Image")));
             this.btnCalculadora.Location = new System.Drawing.Point(1068, 12);
             this.btnCalculadora.Name = "btnCalculadora";
-            this.btnCalculadora.Size = new System.Drawing.Size(140, 149);
+            this.btnCalculadora.Size = new System.Drawing.Size(120, 149);
             this.btnCalculadora.TabIndex = 14;
-            this.btnCalculadora.Text = "Calculadora";
+            this.btnCalculadora.Text = "Calculador";
             this.btnCalculadora.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCalculadora.UseVisualStyleBackColor = true;
             this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);

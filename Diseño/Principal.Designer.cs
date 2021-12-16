@@ -695,11 +695,11 @@
             // 
             // btnRecorrido
             // 
-            this.btnRecorrido.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecorrido.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecorrido.Image = ((System.Drawing.Image)(resources.GetObject("btnRecorrido.Image")));
-            this.btnRecorrido.Location = new System.Drawing.Point(521, 0);
+            this.btnRecorrido.Location = new System.Drawing.Point(537, 0);
             this.btnRecorrido.Name = "btnRecorrido";
-            this.btnRecorrido.Size = new System.Drawing.Size(149, 149);
+            this.btnRecorrido.Size = new System.Drawing.Size(120, 149);
             this.btnRecorrido.TabIndex = 4;
             this.btnRecorrido.Text = "Recorrido";
             this.btnRecorrido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -708,11 +708,11 @@
             // 
             // btnConfigurar
             // 
-            this.btnConfigurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfigurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfigurar.Image = ((System.Drawing.Image)(resources.GetObject("btnConfigurar.Image")));
             this.btnConfigurar.Location = new System.Drawing.Point(663, 0);
             this.btnConfigurar.Name = "btnConfigurar";
-            this.btnConfigurar.Size = new System.Drawing.Size(149, 149);
+            this.btnConfigurar.Size = new System.Drawing.Size(120, 149);
             this.btnConfigurar.TabIndex = 1;
             this.btnConfigurar.Text = "Configurar";
             this.btnConfigurar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -732,11 +732,11 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
             this.btnSalir.Location = new System.Drawing.Point(1095, 0);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(149, 149);
+            this.btnSalir.Size = new System.Drawing.Size(120, 149);
             this.btnSalir.TabIndex = 3;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1089,11 +1089,11 @@
             // btnPlanes
             // 
             this.btnPlanes.Enabled = false;
-            this.btnPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanes.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanes.Image")));
             this.btnPlanes.Location = new System.Drawing.Point(938, 0);
             this.btnPlanes.Name = "btnPlanes";
-            this.btnPlanes.Size = new System.Drawing.Size(149, 149);
+            this.btnPlanes.Size = new System.Drawing.Size(120, 149);
             this.btnPlanes.TabIndex = 61;
             this.btnPlanes.Text = "Inicio";
             this.btnPlanes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
