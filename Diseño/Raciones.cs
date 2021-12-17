@@ -27,6 +27,7 @@ namespace Senga
         String contrasena = "";
         String camion = "";
         //Boolean wsactivo = false;
+        String msgProceso = "Espere ...";
 
         private string vrutared;
         private string vrutaarchivos;
@@ -59,6 +60,7 @@ namespace Senga
 
         private void Raciones_Load(object sender, EventArgs e)
         {
+                       
 
             posicionbotones();
 
@@ -105,11 +107,13 @@ namespace Senga
 
             DGRaciones.Visible = true;
             DGCargas.Visible = true;
-            
+            lblCantidad.Text = msgProceso;
+
             this.Refresh();
+
             activar();
 
-
+            lblCantidad.Text = "";
 
             tiempoServido();
 
@@ -120,7 +124,8 @@ namespace Senga
             vrutared = rutared();
             vrutaarchivos = rutaarchivos();
 
-
+            
+            this.Refresh();
 
         }
 
@@ -333,13 +338,14 @@ namespace Senga
             table.Columns.Add("Servido", typeof(long));
             //table.Columns.Add("Carga", typeof(long));
             table.Columns.Add("Falta", typeof(long));
+            table.Columns.Add("Neto", typeof(long));
             table.Columns.Add("IdD", typeof(string));
 
             DGRaciones.DataSource = table;
 
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                DGRaciones.Columns[i].Width = 130;
+                DGRaciones.Columns[i].Width = 125;
                 DGRaciones.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DGRaciones.Columns[i].HeaderCell.Style.Font = new Font("Tahoma", 15.00F, FontStyle.Bold);
                 DGRaciones.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -359,6 +365,7 @@ namespace Senga
             DGRaciones.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
             //DGRaciones.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Falta"].DefaultCellStyle.Format = "#,0.###";
+            DGRaciones.Columns["Neto"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
 
@@ -373,17 +380,17 @@ namespace Senga
             //table.Columns.Add("Hora", typeof(string));
             //table.Columns.Add("Tolva", typeof(string));
             table.Columns.Add("Solicito", typeof(long));
-            table.Columns.Add("Anterior", typeof(long));
+            //table.Columns.Add("Anterior", typeof(long));
             table.Columns.Add("Recibio", typeof(long));
             //table.Columns.Add("Servido", typeof(long));
-            table.Columns.Add("Carga", typeof(long));
+            //table.Columns.Add("Carga", typeof(long));
 
 
             DGCargas.DataSource = table;
 
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                DGCargas.Columns[i].Width = 130;
+                DGCargas.Columns[i].Width = 125;
                 DGCargas.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DGCargas.Columns[i].HeaderCell.Style.Font = new Font("Tahoma", 15.00F, FontStyle.Bold);
                 DGCargas.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -397,10 +404,10 @@ namespace Senga
             //DGCargas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             //DGCargas.Columns["Tolva"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Solicito"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
+            //DGCargas.Columns["Anterior"].DefaultCellStyle.Format = "#,0.###";
             DGCargas.Columns["Recibio"].DefaultCellStyle.Format = "#,0.###";
             //DGCargas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
-            DGCargas.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
+            //DGCargas.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
 
             //DGRaciones.DataSource = table;
 
@@ -435,7 +442,9 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {                
 
-                    table.Rows.Add(row["Racion"], (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), row["IdD"].ToString());
+                    long neto = long.Parse(row["Cargado"].ToString()) - long.Parse(row["Servido"].ToString());
+
+                    table.Rows.Add(row["Racion"], (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), neto, row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -516,7 +525,7 @@ namespace Senga
                     //------------------------------------
 
                     //Convert.ToInt32(row["Cargado"]) - Convert.ToInt32(row["Planeado"])
-                    table.Rows.Add(row["IdD"].ToString(),/* row["Hora"].ToString(), row["Tolva"].ToString(),*/ row["Solicito"].ToString(), anterior.ToString(), row["Carga"].ToString(), /*realidad.ToString(),*/ carga.ToString());
+                    table.Rows.Add(row["IdD"].ToString(),/* row["Hora"].ToString(), row["Tolva"].ToString(),*/ row["Solicito"].ToString(), /*anterior.ToString(),*/ row["Carga"].ToString()/*, carga.ToString()*//*realidad.ToString(),*/ );
 
                     difant = dif;
 
@@ -1008,7 +1017,7 @@ namespace Senga
                 string targetproc = rutaarchivos() + nameruta + namea + namec;
 
                 lblCantidad.Visible = true;
-                lblCantidad.Text = "Espere ...";
+                lblCantidad.Text = msgProceso;
 
                 int registros_ins = 0;
                 int tipof = 0;

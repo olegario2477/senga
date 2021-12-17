@@ -146,6 +146,7 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
+            this.btnCambio = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -741,6 +742,7 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox2.Controls.Add(this.btnCambio);
             this.groupBox2.Controls.Add(this.label26);
             this.groupBox2.Controls.Add(this.chkWs);
             this.groupBox2.Controls.Add(this.label23);
@@ -1528,6 +1530,17 @@
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
             // 
+            // btnCambio
+            // 
+            this.btnCambio.Location = new System.Drawing.Point(574, 215);
+            this.btnCambio.Name = "btnCambio";
+            this.btnCambio.Size = new System.Drawing.Size(268, 77);
+            this.btnCambio.TabIndex = 98;
+            this.btnCambio.Text = "button4";
+            this.btnCambio.UseVisualStyleBackColor = true;
+            this.btnCambio.Visible = false;
+            this.btnCambio.Click += new System.EventHandler(this.btnCambio_Click);
+            // 
             // Configurar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1703,5 +1716,6 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Button btnCambio;
     }
 }

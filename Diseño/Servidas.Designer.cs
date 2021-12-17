@@ -158,6 +158,8 @@
             this.txtBascula = new System.Windows.Forms.TextBox();
             this.txtServidoExtraV = new System.Windows.Forms.TextBox();
             this.btnCargar = new System.Windows.Forms.Button();
+            this.lblMsgRequierecarga = new System.Windows.Forms.Label();
+            this.panelMsgRequiereCarga = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -171,6 +173,7 @@
             this.panelCaptura.SuspendLayout();
             this.panelSimular.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panelMsgRequiereCarga.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnServida
@@ -317,6 +320,7 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 42;
             this.picLogo.TabStop = false;
+            this.picLogo.Visible = false;
             // 
             // btnServir
             // 
@@ -324,9 +328,9 @@
             this.btnServir.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServir.ForeColor = System.Drawing.Color.White;
             this.btnServir.Image = ((System.Drawing.Image)(resources.GetObject("btnServir.Image")));
-            this.btnServir.Location = new System.Drawing.Point(3, 465);
+            this.btnServir.Location = new System.Drawing.Point(3, 490);
             this.btnServir.Name = "btnServir";
-            this.btnServir.Size = new System.Drawing.Size(247, 276);
+            this.btnServir.Size = new System.Drawing.Size(247, 251);
             this.btnServir.TabIndex = 0;
             this.btnServir.Text = "SERVIR";
             this.btnServir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -419,9 +423,9 @@
             // pbServido
             // 
             this.pbServido.BackColor = System.Drawing.SystemColors.Control;
-            this.pbServido.Location = new System.Drawing.Point(3, 465);
+            this.pbServido.Location = new System.Drawing.Point(6, 45);
             this.pbServido.Name = "pbServido";
-            this.pbServido.Size = new System.Drawing.Size(209, 24);
+            this.pbServido.Size = new System.Drawing.Size(23, 24);
             this.pbServido.TabIndex = 58;
             this.pbServido.Value = 40;
             this.pbServido.Visible = false;
@@ -491,11 +495,11 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(316, 93);
+            this.label8.Location = new System.Drawing.Point(320, 93);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(65, 24);
+            this.label8.Size = new System.Drawing.Size(54, 24);
             this.label8.TabIndex = 64;
-            this.label8.Text = "Carga";
+            this.label8.Text = "Neto";
             // 
             // txtIdDr
             // 
@@ -601,11 +605,11 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(204, 93);
+            this.label12.Location = new System.Drawing.Point(213, 93);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(83, 24);
+            this.label12.Size = new System.Drawing.Size(65, 24);
             this.label12.TabIndex = 82;
-            this.label12.Text = "Bascula";
+            this.label12.Text = "Carga";
             // 
             // txtBasculaV
             // 
@@ -1431,6 +1435,7 @@
             this.panel2.Controls.Add(this.txtVariacionC);
             this.panel2.Controls.Add(this.txtBascula);
             this.panel2.Controls.Add(this.txtServidoExtraV);
+            this.panel2.Controls.Add(this.pbServido);
             this.panel2.Location = new System.Drawing.Point(661, 31);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(32, 105);
@@ -1553,6 +1558,27 @@
             this.btnCargar.UseVisualStyleBackColor = true;
             this.btnCargar.Click += new System.EventHandler(this.btnCargar_Click);
             // 
+            // lblMsgRequierecarga
+            // 
+            this.lblMsgRequierecarga.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMsgRequierecarga.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgRequierecarga.Location = new System.Drawing.Point(0, 0);
+            this.lblMsgRequierecarga.Name = "lblMsgRequierecarga";
+            this.lblMsgRequierecarga.Size = new System.Drawing.Size(234, 25);
+            this.lblMsgRequierecarga.TabIndex = 103;
+            this.lblMsgRequierecarga.Text = "Requiere Carga";
+            this.lblMsgRequierecarga.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelMsgRequiereCarga
+            // 
+            this.panelMsgRequiereCarga.BackColor = System.Drawing.Color.Yellow;
+            this.panelMsgRequiereCarga.Controls.Add(this.lblMsgRequierecarga);
+            this.panelMsgRequiereCarga.Location = new System.Drawing.Point(10, 465);
+            this.panelMsgRequiereCarga.Name = "panelMsgRequiereCarga";
+            this.panelMsgRequiereCarga.Size = new System.Drawing.Size(234, 25);
+            this.panelMsgRequiereCarga.TabIndex = 104;
+            this.panelMsgRequiereCarga.Visible = false;
+            // 
             // Servidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1562,6 +1588,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1281, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.panelMsgRequiereCarga);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.DGServidas);
             this.Controls.Add(this.panelCaptura);
@@ -1586,7 +1613,6 @@
             this.Controls.Add(this.txtCantidadT);
             this.Controls.Add(this.txtCamion);
             this.Controls.Add(this.txtIdDr);
-            this.Controls.Add(this.pbServido);
             this.Controls.Add(this.btnHecho);
             this.Controls.Add(this.btnQuitar);
             this.Controls.Add(this.pbAgregar);
@@ -1626,6 +1652,7 @@
             this.panelSimular.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panelMsgRequiereCarga.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1759,5 +1786,7 @@
         private System.Windows.Forms.ToolStripButton btnConectar;
         private System.Windows.Forms.PictureBox picGpsDesconectado;
         private System.Windows.Forms.TextBox txtCargado;
+        private System.Windows.Forms.Label lblMsgRequierecarga;
+        private System.Windows.Forms.Panel panelMsgRequiereCarga;
     }
 }

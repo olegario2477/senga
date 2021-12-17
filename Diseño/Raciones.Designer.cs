@@ -401,7 +401,6 @@
             this.panelRacion.Controls.Add(this.label6);
             this.panelRacion.Controls.Add(this.txtPlanta);
             this.panelRacion.Controls.Add(this.label3);
-            this.panelRacion.Controls.Add(this.lblCantidad);
             this.panelRacion.Controls.Add(this.label1);
             this.panelRacion.Controls.Add(this.txtServida);
             this.panelRacion.Controls.Add(this.label4);
@@ -530,16 +529,15 @@
             // 
             // lblCantidad
             // 
-            this.lblCantidad.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblCantidad.BackColor = System.Drawing.Color.White;
             this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidad.ForeColor = System.Drawing.Color.Black;
-            this.lblCantidad.Location = new System.Drawing.Point(0, 345);
+            this.lblCantidad.Location = new System.Drawing.Point(678, 266);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(316, 32);
+            this.lblCantidad.Size = new System.Drawing.Size(244, 32);
             this.lblCantidad.TabIndex = 73;
-            this.lblCantidad.Text = "0/0";
+            this.lblCantidad.Text = "...";
             this.lblCantidad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblCantidad.Visible = false;
             // 
             // btnSincroniza
             // 
@@ -1024,6 +1022,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1285, 788);
             this.ControlBox = false;
+            this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.txtCarga);

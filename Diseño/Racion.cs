@@ -132,7 +132,9 @@ namespace Senga
                     txtTamano.Text = row["Planeado"].ToString();
                     txtServido.Text = row["Servido"].ToString();
                     txtCargaIni.Text = cadenaCero(row["Carga"].ToString());
-                    //txtBasculaIni.Text = cadenaCero(row["Bascula"].ToString());
+                    //----------------------------------------------------------------------
+                    txtBasculaIni.Text = "0";//cadenaCero(row["Bascula"].ToString());
+                    //----------------------------------------------------------------------
 
                     //txtTamanoAct.Text = Convert.ToString(Convert.ToInt32(txtTamano.Text) - Convert.ToInt32(txtServido.Text));
 
@@ -684,7 +686,7 @@ namespace Senga
 
                     foreach (DataRow row in dt.Rows)
                     {
-                        cargado = long.Parse(row["Carga"].ToString()) + long.Parse(row["CargaIni"].ToString()); //+long.Parse(row["BasculaIni"].ToString());
+                        cargado = long.Parse(row["Carga"].ToString()); //+ long.Parse(row["CargaIni"].ToString()); //+long.Parse(row["BasculaIni"].ToString());
                     }
 
                 }
@@ -772,11 +774,13 @@ namespace Senga
 
             //if (dato.Equals("")) { return; }
 
-            if (cantPesos < 4) //peso despues de 4 lecturas
-            {
-                cantPesos++;
-                return;
-            }
+            //----------------------------------------------------------------
+            //if (cantPesos < 4) //peso despues de 4 lecturas
+            //{
+            //    cantPesos++;
+            //    return;
+            //}
+            //----------------------------------------------------------------
 
             dator = dato; //comm.p_dato;
 
@@ -953,21 +957,20 @@ namespace Senga
             //}
             //----------------------------------------------------------------------------------------
 
-            if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
-            {
-                txtBasculaIni.Text = txtBruto.Text;
-                llenaSolicitar();
+            //if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
+            //{
+            //    txtBasculaIni.Text = txtBruto.Text;
+            //    llenaSolicitar();
 
-                //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
-                //if (resultado < 0)
-                //{
-                //    resultado = 0;
-                //}
-                //txtSolicitar.Text = resultado.ToString();
+            //    //resultado = Convert.ToInt32(txtTamanoAct.Text) - Convert.ToInt32(txtBasculaIni.Text);
+            //    //if (resultado < 0)
+            //    //{
+            //    //    resultado = 0;
+            //    //}
+            //    //txtSolicitar.Text = resultado.ToString();
 
-
-
-            }
+            //}
+            //----------------------------------------------------------------------------------------
 
             //calcularPeso();
             //barra(pbFisico, txtCapacidad, txtFisico, txtFisico);
@@ -2027,6 +2030,7 @@ namespace Senga
             }
 
         }
+
         private void llenaSolicitar() 
         {
 

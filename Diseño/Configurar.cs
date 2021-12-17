@@ -1988,8 +1988,65 @@ namespace Senga
 
         }
 
+        private void btnCambio_Click(object sender, EventArgs e)
+        {
 
 
+            try
+            {
+                //using (StreamReader objReader = new StreamReader(Directory.GetCurrentDirectory() + "\\Senga.exe.config"))
+                //{
+                //    using (StreamWriter objWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\Senga.exe.config"))   
+                //    {
+                //        string sLine = "";
+
+                //        while ((sLine = objReader.ReadLine()) != null)
+                //        {
+                //            if (sLine.Contains("grupogusi.com.mx"))
+                //            {
+                //                objWriter.WriteLine(sLine+"test");
+                //            }
+                //        }
+
+                //    }
+
+                //}
+
+                int line_to_edit = 0;
+
+                using (StreamReader objReader = new StreamReader(Directory.GetCurrentDirectory() + "\\Senga.exe.config"))
+                {
+
+                    string sLine = "";
+                    while ((sLine = objReader.ReadLine()) != null)
+                    {
+                        line_to_edit++;
+                        if (sLine.Contains("grupogusi.com.mx"))
+                        {
+                            break;
+                        }
+                    }
+
+                }
+
+                using (StreamWriter objWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\Senga.exe.config")) 
+                { 
+                
+                
+                
+                }
+
+
+            }
+            catch { }
+
+
+        }
+    
+
+
+
+    
     }
 
 }

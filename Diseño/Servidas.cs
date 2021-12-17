@@ -2549,6 +2549,31 @@ namespace Senga
 
             btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
 
+            if (long.Parse(Comun.cadenaCero(txtBascula.Text)) < 500)
+            {
+                panelMsgRequiereCarga.Visible = true;
+
+                if (panelMsgRequiereCarga.BackColor == Color.Yellow)
+                {
+                    panelMsgRequiereCarga.BackColor = Color.White;
+                    txtBasculaV.BackColor = Color.White;
+                }
+                else if (panelMsgRequiereCarga.BackColor == Color.White)
+                {
+                    panelMsgRequiereCarga.BackColor = Color.Yellow;
+                    txtBasculaV.BackColor = Color.Yellow;
+                }
+
+
+            }
+            else 
+            {
+                panelMsgRequiereCarga.Visible = false;
+                txtBasculaV.BackColor = Color.White;
+            }
+
+
+
         }
         
         private void ubicServir(DataTable dt)

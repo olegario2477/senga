@@ -1579,22 +1579,22 @@ namespace Senga
             }
 
             //-----------------------------------------------------
-            if (resultado < 0)
-            {
-                if (vestable && cantAjustes <= 1) //(resultado > -100)
-                {
+            //if (resultado < 0)
+            //{
+            //    if (vestable && cantAjustes <= 1) //(resultado > -100)
+            //    {
 
-                    //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
-                    //--------------
-                    txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
-                    cantAjustes++;
-                    Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
-                    //--------------                    
+            //        //txtServirIni.Text = txtServirFin.Text; //AJUSTAR
+            //        //--------------
+            //        txtBasculaIni.Text = txtServirFin.Text; //AJUSTAR
+            //        cantAjustes++;
+            //        Console.WriteLine("AUTO AJUSTE CARGA INICIO < FINAL" + " " + DateTime.Now.ToString());
+            //        //--------------                    
                     
-                }
+            //    }
 
-                //resultado = 0;
-            }
+            //    //resultado = 0;
+            //}
             //-----------------------------------------------------
 
 

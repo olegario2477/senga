@@ -47,6 +47,7 @@ namespace Senga
             comboBoxOpciones.Items.Add("Servidas Resumen Por Racion");
             comboBoxOpciones.Items.Add("Cargas y Servidas Detalle");
             comboBoxOpciones.Items.Add("Cargas Detalle");
+            comboBoxOpciones.Items.Add("Saldos");
             comboBoxOpciones.SelectedIndex = 0;
 
         }
@@ -87,7 +88,7 @@ namespace Senga
 
                 TimeSpan ts;
 
-                txtReporte.Text += "Hora" + '\t' + "Tiempo" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "%" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
+                txtReporte.Text += "Corral" + '\t' + "Racion" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Hora" + '\t' + "Tiempo" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "%" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
                 
                 int i = 0;
 
@@ -121,7 +122,7 @@ namespace Senga
                     double porc = ( Double.Parse(row["Realidad"].ToString()) / Double.Parse(row["Planeado"].ToString()) * 100 ) - 100;
                     porc = Math.Round(porc,1);
 
-                    txtReporte.Text += row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\t' + porc.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + difvalor3.ToString() + '\t' + difvalor4.ToString() + '\t' + difvalor5.ToString() + '\r' + '\n';
+                    txtReporte.Text += row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\t' + porc.ToString() + '\t' + formatoDecimal(row["BasculaIni"].ToString()) + '\t' + formatoDecimal(row["BasculaFin"].ToString()) /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + formatoDecimal(difvalor3.ToString()) + '\t' + formatoDecimal(difvalor4.ToString()) + '\t' + formatoDecimal(difvalor5.ToString()) + '\r' + '\n';
 
                     basfinAnt = Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
                     horaAnt = DateTime.Parse(row["Hora"].ToString());
@@ -200,6 +201,8 @@ namespace Senga
 
             dt = table;
 
+
+
         }
 
         private void consulta2()
@@ -224,7 +227,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
-                    txtReporte.Text += row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\r' + '\n';
+                    txtReporte.Text += "Serv " + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\r' + '\n';
                 }
             }
 
@@ -252,7 +255,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
-                    txtReporte.Text += row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Planeado"].ToString() + '\t' + row["Realidad"].ToString() + '\t' + difvalor.ToString() + '\r' + '\n';
+                    txtReporte.Text += "Serv "+row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Corral"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\r' + '\n';
                 }
             }
 
@@ -300,7 +303,7 @@ namespace Senga
                         if (!antCarga.Equals("")) 
                         {
                             linea();
-                            txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + acumcarga.ToString() + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
+                            txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(acumcarga.ToString()) + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
                         }
 
                         linea(); 
@@ -319,7 +322,7 @@ namespace Senga
                   
                     acumcarga = acumcarga + long.Parse(row["Realidad"].ToString());
                   
-                    txtReporte.Text += "Serv" + '\t' + row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString()  + '\t' + row["Realidad"].ToString() + /*'\t' + acumcarga.ToString() + '\t' + acumrac.ToString() +*/ '\r' + '\n';
+                    txtReporte.Text += "Serv" + '\t' + row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString()  + '\t' + formatoDecimal(row["Realidad"].ToString()) + /*'\t' + acumcarga.ToString() + '\t' + acumrac.ToString() +*/ '\r' + '\n';
 
 
 
@@ -331,7 +334,7 @@ namespace Senga
                 }
 
                 linea();
-                txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + acumcarga.ToString() + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
+                txtReporte.Text += "Total" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(acumcarga.ToString()) + /*'\t' + acumrac.ToString() +*/ '\r' + '\n';
                 linea();
 
 
@@ -357,7 +360,7 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Hora" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Racion" + '\t' + "Solicito" + '\t' + "Anterior" + '\t' + "Recibio"  + '\t' + "Carga"+ '\t' + "SolCarg" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "BasFCarg" + '\r' + '\n'; ;
+                txtReporte.Text += "#Carga" + '\t' + "Servida" + '\t' + "Hora" + '\t' + "Racion" + '\t' + "Solicito" + '\t' + "Anterior" + '\t' + "Recibio"  + '\t' + "Carga"+ '\t' + "SolCarg" + '\t' + "BasIni" + '\t' + "BasFin" + '\t' + "BasDif" + '\t' + "CargaIni" + '\t' + "BasFCarg" + '\r' + '\n'; 
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -367,9 +370,92 @@ namespace Senga
                     int carga = Int32.Parse(row["CargaIni"].ToString()) + Int32.Parse(row["Carga"].ToString());
 
                     int difvalor4 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - carga;//difvalor2;
-                    txtReporte.Text += row["Hora"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["IdD"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Solicito"].ToString() + '\t' + row["CargaIni"].ToString() + '\t' + row["Carga"].ToString() + '\t' + carga.ToString()  + '\t' + difvalor.ToString() + '\t' + row["BasculaIni"].ToString() + '\t' + row["BasculaFin"].ToString() + '\t' + difvalor2.ToString() + '\t' + row["CargaIni"].ToString() + '\t' + difvalor4.ToString() + '\r' + '\n';
+                    txtReporte.Text += row["IdD"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Hora"].ToString() + '\t' + row["Racion"].ToString() + '\t' + formatoDecimal(row["Solicito"].ToString()) + '\t' + formatoDecimal(row["CargaIni"].ToString()) + '\t' + formatoDecimal(row["Carga"].ToString()) + '\t' + formatoDecimal(carga.ToString())  + '\t' + formatoDecimal(difvalor.ToString()) + '\t' + formatoDecimal(row["BasculaIni"].ToString()) + '\t' + formatoDecimal(row["BasculaFin"].ToString()) + '\t' + formatoDecimal(difvalor2.ToString()) + '\t' + formatoDecimal(row["CargaIni"].ToString()) + '\t' + formatoDecimal(difvalor4.ToString()) + '\r' + '\n';
                 }
             }
+
+        }
+
+        private void consulta6()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            txtReporte.Text = "";
+
+            datos.p_sql = "SELECT * FROM Raciones WHERE Id = " + vjornada;
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                txtReporte.Text += "Concepto" + '\t' + "Valor" + '\r' + '\n';
+
+                foreach (DataRow row in dt.Rows)
+                {
+
+
+                    txtReporte.Text += "Racion" + '\t' + row["Racion"].ToString() + '\r' + '\n';
+                    txtReporte.Text += "Servida" + '\t' + row["Num"].ToString() + '\r' + '\n';
+                    txtReporte.Text += "Corrales" + '\t' + row["Cantidad"].ToString() + '\r' + '\n';
+                    txtReporte.Text += "Hechos" + '\t' + row["HechoC"].ToString() + '\r' + '\n';
+                    txtReporte.Text += "Planeado" + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\r' + '\n';
+                    txtReporte.Text += "Cargado" + '\t' + formatoDecimal(row["Cargado"].ToString()) + '\r' + '\n';
+                    txtReporte.Text += "Servido" + '\t' + formatoDecimal(row["Servido"].ToString()) + '\r' + '\n';
+                    txtReporte.Text += "Falta" + '\t' + formatoDecimal(row["Falta"].ToString()) + '\r' + '\n';
+
+                    long neto = long.Parse(row["Cargado"].ToString()) - long.Parse(row["Servido"].ToString());
+
+                    txtReporte.Text += "Neto" + '\t' + formatoDecimal(neto.ToString()) + '\r' + '\n';
+
+
+                    txtReporte.Text += "" + '\t' + "" +'\r' + '\n';
+
+
+
+
+                }
+
+
+            }
+
+
+
+        }
+
+        private String formatoDecimal(String valor) 
+        {
+
+            //double number = 1234.56;
+            //string.Format("{0:0.000}", number)      // 1234.560
+            //string.Format("{0:#,0.00}", number)     // 1,234.56 
+            //string.Format("{0:#,0.####}", number)   // 1,234.56
+            //// Thousand separator and number scaling    
+            //string.Format("{0:#,0}", 123000000)     // 123,000,000
+            //string.Format("{0:#,0, K}", 123000000)  // 123,000 K
+            //string.Format("{0:#,0,, M}", 123000000) // 123 M
+            //double number = 1234.56;
+            //double numberNeg = -1234.56;
+            //double numberZero = 0;
+            //string.Format("{0:0.00}", number)               // 1234.56
+            //string.Format("{0:0.00}", numberNeg)            // -1234.56
+            //string.Format("{0:0.00}", numberZero)           // 0.00
+            //string.Format("{0:0.00;(0.00);0}", number)      // 1234.56
+            //string.Format("{0:0.00;(0.00);0}", numberNeg)   // (1234.56)
+            //string.Format("{0:0.00;(0.00);0}", numberZero)  // 0
+            //string.Format("{0:0.00;'neg: '-0.00;zero}", numberNeg)   // neg: -1234.56
+            //string.Format("{0:0.00;'neg: '-0.00;zero}", numberZero)  // zero
+            //double numberNeg = -1234.56;
+            //// unescaped text
+            //string.Format("{0:0.00 Number}", number)         // 1234.56 Number
+            //string.Format("{0:0.00 #Num.}", number)          // 1234.56 Num
+            //// escaped text
+            //string.Format("{0:0.00 '#Num.'}", number)        // 1234.56 #Num.
+
+            return String.Format("{0:#,0}", long.Parse(valor)); 
 
         }
 
@@ -443,8 +529,11 @@ namespace Senga
                 case 3:
                     consulta4();
                     break;
-                case 4:
+                case 4:                    
                     consulta5();
+                    break;                    
+                case 5:
+                    consulta6();
                     break;
 
             }
@@ -468,7 +557,18 @@ namespace Senga
 
             foreach (DataGridViewColumn item in dataGridSQLResultados.Columns)
             {
-                item.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                if (item.Index == 0)
+                {
+                    item.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                }
+                if (item.Index != 0)
+                {
+                    item.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+
+
+ 
+
             }
 
             //--------------------------------------------------------------
@@ -522,6 +622,7 @@ namespace Senga
             dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             //DGServidas.RowTemplate.Height = 50;
 
+            
 
         }
 

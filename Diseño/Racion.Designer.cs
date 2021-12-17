@@ -890,7 +890,7 @@
             // 
             this.panelVariacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelVariacion.Controls.Add(this.lblFisico);
-            this.panelVariacion.Location = new System.Drawing.Point(492, 618);
+            this.panelVariacion.Location = new System.Drawing.Point(491, 529);
             this.panelVariacion.Name = "panelVariacion";
             this.panelVariacion.Size = new System.Drawing.Size(175, 83);
             this.panelVariacion.TabIndex = 98;
@@ -903,6 +903,7 @@
             this.panelBascula.Name = "panelBascula";
             this.panelBascula.Size = new System.Drawing.Size(178, 83);
             this.panelBascula.TabIndex = 99;
+            this.panelBascula.Visible = false;
             // 
             // panelTolva
             // 
@@ -970,6 +971,7 @@
             this.panelBasculaIni.Name = "panelBasculaIni";
             this.panelBasculaIni.Size = new System.Drawing.Size(176, 83);
             this.panelBasculaIni.TabIndex = 108;
+            this.panelBasculaIni.Visible = false;
             // 
             // lblBasculaIni
             // 
@@ -1005,10 +1007,11 @@
             // 
             this.panelRecibio.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelRecibio.Controls.Add(this.lblRecibio);
-            this.panelRecibio.Location = new System.Drawing.Point(491, 529);
+            this.panelRecibio.Location = new System.Drawing.Point(492, 621);
             this.panelRecibio.Name = "panelRecibio";
-            this.panelRecibio.Size = new System.Drawing.Size(176, 83);
+            this.panelRecibio.Size = new System.Drawing.Size(177, 83);
             this.panelRecibio.TabIndex = 114;
+            this.panelRecibio.Visible = false;
             // 
             // lblRecibio
             // 
@@ -1031,6 +1034,7 @@
             this.btnAjustar.Text = "AJUSTAR BASCULA";
             this.btnAjustar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAjustar.UseVisualStyleBackColor = true;
+            this.btnAjustar.Visible = false;
             this.btnAjustar.Click += new System.EventHandler(this.btnAjustar_Click);
             // 
             // timerBotonAlerta
@@ -1047,6 +1051,7 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(294, 83);
             this.panel3.TabIndex = 118;
+            this.panel3.Visible = false;
             // 
             // txtBasculaIniV
             // 
@@ -1083,10 +1088,11 @@
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel4.Controls.Add(this.txtCargadoV);
-            this.panel4.Location = new System.Drawing.Point(673, 530);
+            this.panel4.Location = new System.Drawing.Point(676, 621);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(294, 83);
+            this.panel4.Size = new System.Drawing.Size(292, 83);
             this.panel4.TabIndex = 120;
+            this.panel4.Visible = false;
             // 
             // txtCargadoV
             // 
@@ -1094,7 +1100,7 @@
             this.txtCargadoV.Font = new System.Drawing.Font("Microsoft Sans Serif", 50F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCargadoV.Location = new System.Drawing.Point(0, 0);
             this.txtCargadoV.Name = "txtCargadoV";
-            this.txtCargadoV.Size = new System.Drawing.Size(290, 79);
+            this.txtCargadoV.Size = new System.Drawing.Size(288, 79);
             this.txtCargadoV.TabIndex = 75;
             this.txtCargadoV.Text = "-88,888";
             this.txtCargadoV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1103,7 +1109,7 @@
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel5.Controls.Add(this.txtFaltaV);
-            this.panel5.Location = new System.Drawing.Point(673, 618);
+            this.panel5.Location = new System.Drawing.Point(673, 530);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(294, 83);
             this.panel5.TabIndex = 121;
@@ -1183,6 +1189,7 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(294, 83);
             this.panel8.TabIndex = 124;
+            this.panel8.Visible = false;
             // 
             // lblRecibePeso
             // 
