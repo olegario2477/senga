@@ -107,13 +107,14 @@ namespace Senga
 
             DGRaciones.Visible = true;
             DGCargas.Visible = true;
+            lblCantidad.Visible = true;
             lblCantidad.Text = msgProceso;
 
             this.Refresh();
 
             activar();
 
-            lblCantidad.Text = "";
+            lblCantidad.Visible = false;//Text = "";
 
             tiempoServido();
 
@@ -205,6 +206,7 @@ namespace Senga
             btnWsEnviar.Width = 0;
             btnLista.Width = 0;
             btnArchivos.Width = 0;
+            btnSincroniza.Width = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnServir.Left = btnCerrar.Left - btnServir.Width;
@@ -220,8 +222,9 @@ namespace Senga
 
             btnServida.Left = btnWsRecibir.Left - btnServida.Width;
             btnPlanta.Left = btnServida.Left - btnPlanta.Width;
-            btnJornadas.Left = btnPlanta.Left - btnJornadas.Width;
-            btnReportes.Left = btnJornadas.Left - btnReportes.Width;
+
+            btnReportes.Left = btnPlanta.Left - btnReportes.Width;
+            btnJornadas.Left = btnReportes.Left - btnJornadas.Width;
 
 
 

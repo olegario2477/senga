@@ -202,13 +202,16 @@ namespace Senga
                 //ServicioGPS servicioGPS = new ServicioGPS();
                 //servicioGPS.InitializeLifetimeService();
 
+
+                txtError.Visible = true;
+                btnPlanes.Enabled = true;
+                panelInicio.Visible = false;
+                btnPlanes.Focus();
+
             }
 
 
-            txtError.Visible = true;
-            btnPlanes.Enabled = true;
-            panelInicio.Visible = false;
-            btnPlanes.Focus();
+
 
         }
 

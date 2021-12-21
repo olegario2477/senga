@@ -28,8 +28,9 @@ namespace Senga
 
         private void Jornadas_Load(object sender, EventArgs e)
         {
-            propiedadesGrid();
+
             posicionbotones();
+            propiedadesGrid();
 
             activado = true;
             formatoGrid();
@@ -87,6 +88,8 @@ namespace Senga
 
             btnCerrar.Width = 0;
             btnReportes.Width = 0;
+            btnLimpiar.Width = 0;
+            btnEliminar.Width = 0;
 
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnAbrir.Left = btnCerrar.Left - btnAbrir.Width;
@@ -545,15 +548,15 @@ namespace Senga
             }
 
 
-            if (valorf != 0)
-            {
+            //if (valorf != 0)
+            //{
 
-                //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-            }
+            //    //MessageBox.Show("No se permite con fecha de Hoy", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    Comun.mensajeVer("Ya existe con fecha de Hoy", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            //}
 
-            else
-            {
+            //else
+            //{
 
                 Datos datos = new Datos();
                 DataTable dt = new DataTable();
@@ -612,7 +615,7 @@ namespace Senga
 
                 }
 
-            }
+            //}
 
         }
 

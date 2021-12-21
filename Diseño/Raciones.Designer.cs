@@ -643,7 +643,7 @@
             // 
             this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
-            this.btnReportes.Location = new System.Drawing.Point(40, 0);
+            this.btnReportes.Location = new System.Drawing.Point(146, 0);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(120, 148);
             this.btnReportes.TabIndex = 87;
@@ -656,7 +656,7 @@
             // 
             this.btnJornadas.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJornadas.Image = ((System.Drawing.Image)(resources.GetObject("btnJornadas.Image")));
-            this.btnJornadas.Location = new System.Drawing.Point(142, 0);
+            this.btnJornadas.Location = new System.Drawing.Point(49, 0);
             this.btnJornadas.Name = "btnJornadas";
             this.btnJornadas.Size = new System.Drawing.Size(120, 148);
             this.btnJornadas.TabIndex = 86;

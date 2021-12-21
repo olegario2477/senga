@@ -73,7 +73,7 @@ namespace Senga
             //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
             txtReporte.Text = "";
 
-            datos.p_sql = "SELECT Servidas.Num, Servidas.Racion, Servidas.Corral, Servidas.NumCarga, Servidas.Planeado, Servidas.Realidad, Servidas.BasculaIni, Servidas.BasculaFin, Servidas.CargaIni, Servidas.Hora, Cargas.BasculaFin AS BasculaFinCarga FROM Servidas LEFT Join Cargas ON Servidas.NumCarga = Cargas.IdD WHERE (Servidas.Hecho = 'S' OR Servidas.Hecho = 'X') AND Servidas.Id = " + vjornada + " ORDER BY Servidas.NumCarga, Servidas.Hora";
+            datos.p_sql = "SELECT Servidas.Num, Servidas.Racion, Servidas.Corral, Servidas.NumCarga, Servidas.Planeado, Servidas.Realidad, Servidas.BasculaIni, Servidas.BasculaFin, Servidas.CargaIni, Servidas.Hora, Cargas.BasculaFin AS BasculaFinCarga, Servidas.Bascula FROM Servidas LEFT Join Cargas ON Servidas.NumCarga = Cargas.IdD WHERE (Servidas.Hecho = 'S' OR Servidas.Hecho = 'X') AND Servidas.Id = " + vjornada + " ORDER BY Servidas.NumCarga, Servidas.Hora";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -88,9 +88,17 @@ namespace Senga
 
                 TimeSpan ts;
 
-                txtReporte.Text += "Corral" + '\t' + "Racion" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "Hora" + '\t' + "Tiempo" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "%" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste" + '\r' + '\n'; ;
+                txtReporte.Text += "Corral" + '\t' + "Racion" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "HoraServ" + '\t' + "TiempoS" + '\t' + "Planeado" + '\t' + "Servido" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "Porcen%" + '\t' + "BasApe" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste"  + '\t' + "BApeBIni" + '\r' + '\n'; ;
                 
                 int i = 0;
+                long total1 = 0;
+                long total2 = 0;
+                long total3 = 0;
+                long total4 = 0;
+                long total1a = 0;
+                long total2a = 0;
+                long total3a = 0;
+                long total4a = 0;
 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -101,8 +109,6 @@ namespace Senga
                     string duracion = ts.ToString();
 
                     if (i == 0) { duracion = "00:00:00"; }
-
-
 
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
                     int difvalor2 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
@@ -119,20 +125,51 @@ namespace Senga
                         difvalor5 = Int32.Parse(cadenaCero(row["BasculaIni"].ToString())) - basfinAnt;
                     }
 
+                    int difvalor6 = Int32.Parse(cadenaCero(row["Bascula"].ToString())) - Int32.Parse(cadenaCero(row["BasculaIni"].ToString()));
+                    int difvalor7 = Int32.Parse(cadenaCero(row["Bascula"].ToString())) - Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
+
+
+                    if (!antCarga.Equals(row["NumCarga"].ToString()))
+                    {
+                        txtReporte.Text += "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total4a.ToString()) + '\t' + formatoDecimal(total3a.ToString()) + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total2a.ToString()) + '\t' + formatoDecimal(total1a.ToString()) + '\r' + '\n';
+                        total1a = 0;
+                        total2a = 0;
+                        total3a = 0;
+                        total4a = 0;
+                    }
+
+
                     double porc = ( Double.Parse(row["Realidad"].ToString()) / Double.Parse(row["Planeado"].ToString()) * 100 ) - 100;
                     porc = Math.Round(porc,1);
 
-                    txtReporte.Text += row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\t' + porc.ToString() + '\t' + formatoDecimal(row["BasculaIni"].ToString()) + '\t' + formatoDecimal(row["BasculaFin"].ToString()) /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + formatoDecimal(difvalor3.ToString()) + '\t' + formatoDecimal(difvalor4.ToString()) + '\t' + formatoDecimal(difvalor5.ToString()) + '\r' + '\n';
+                    txtReporte.Text += row["Corral"].ToString().Trim() + '\t' + row["Racion"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Hora"].ToString() + '\t' + duracion.ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + formatoDecimal(difvalor7.ToString()) + '\t' + difvalor.ToString() + '\t' + porc.ToString() + '\t' + formatoDecimal(row["Bascula"].ToString()) + '\t' + formatoDecimal(row["BasculaIni"].ToString()) + '\t' + formatoDecimal(row["BasculaFin"].ToString()) /*+ '\t' + difvalor2.ToString()*//* + '\t' + row["CargaIni"].ToString()*/ + '\t' + formatoDecimal(difvalor3.ToString()) + '\t' + formatoDecimal(difvalor4.ToString()) + '\t' + formatoDecimal(difvalor5.ToString()) + '\t' + formatoDecimal(difvalor6.ToString()) + '\r' + '\n';
+
+
+                    total1a = total1a + difvalor6;
+                    total2a = total2a + difvalor5;
+                    total3a = total3a + difvalor7;
+                    total4a = total4a + long.Parse(row["Realidad"].ToString());
+
+
+
+                    total1 = total1 + difvalor6;
+                    total2 = total2 + difvalor5;
+                    total3 = total3 + difvalor7;
+                    total4 = total4 + long.Parse(row["Realidad"].ToString());
+
 
                     basfinAnt = Int32.Parse(cadenaCero(row["BasculaFin"].ToString()));
                     horaAnt = DateTime.Parse(row["Hora"].ToString());
                     antCarga = row["NumCarga"].ToString();
                     i++;
+
                 }
+
+                txtReporte.Text += "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total4a.ToString()) + '\t' + formatoDecimal(total3a.ToString()) + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total2a.ToString()) + '\t' + formatoDecimal(total1a.ToString()) + '\r' + '\n';
+
+                txtReporte.Text += "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total4.ToString()) + '\t' + formatoDecimal(total3.ToString()) + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + "" + '\t' + formatoDecimal(total2.ToString()) + '\t' + formatoDecimal(total1.ToString()) + '\r' + '\n';
+
             }
-
-
-
 
             ////--------------------------------------------------------------
             //DataTable dt2 = new DataTable();
@@ -214,7 +251,7 @@ namespace Senga
             //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
             txtReporte.Text = "";
 
-            datos.p_sql = "SELECT Num, NumCarga,COUNT(*) as Corral,Racion,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,NumCarga,Racion";
+            datos.p_sql = "SELECT Num, NumCarga,COUNT(*) as Corral,Racion,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad, SUM(Bascula-BasculaIni) as BasApeBasIni FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,NumCarga,Racion";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -222,12 +259,12 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\r' + '\n'; ;
+                txtReporte.Text += "Servida" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Racion" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BApeBIni" + '\r' + '\n'; ;
 
                 foreach (DataRow row in dt.Rows)
                 {
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
-                    txtReporte.Text += "Serv " + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\r' + '\n';
+                    txtReporte.Text += "Serv " + row["Num"].ToString() + '\t' + row["NumCarga"].ToString() + '\t' + row["Corral"].ToString() + '\t' + row["Racion"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\t' + formatoDecimal(row["BasApeBasIni"].ToString()) + '\r' + '\n';
                 }
             }
 
@@ -242,7 +279,7 @@ namespace Senga
             //txtReporte.Text = "Jornada " + vjornada + '\r' + '\n';
             txtReporte.Text = "";
 
-            datos.p_sql = "SELECT Num, Racion,COUNT(*) as Corral,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,Racion";
+            datos.p_sql = "SELECT Num, Racion,COUNT(*) as Corral,SUM(Planeado) as Planeado,SUM(Realidad) as Realidad, SUM(Bascula-BasculaIni) as BasApeBasIni FROM Servidas WHERE (Hecho = 'S' OR Hecho = 'X') AND Id = " + vjornada + " GROUP BY Num,Racion";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -250,12 +287,12 @@ namespace Senga
             }
             else
             {
-                txtReporte.Text += "Servida" + '\t' + "Racion" + '\t' + "Corral" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\r' + '\n'; ;
+                txtReporte.Text += "Servida" + '\t' + "Racion" + '\t' + "Corral" + '\t' + "Planeado" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "BApeBIni" + '\r' + '\n'; ;
 
                 foreach (DataRow row in dt.Rows)
                 {
                     int difvalor = Int32.Parse(row["Realidad"].ToString()) - Int32.Parse(row["Planeado"].ToString());
-                    txtReporte.Text += "Serv "+row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Corral"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\r' + '\n';
+                    txtReporte.Text += "Serv "+row["Num"].ToString() + '\t' + row["Racion"].ToString() + '\t' + row["Corral"].ToString() + '\t' + formatoDecimal(row["Planeado"].ToString()) + '\t' + formatoDecimal(row["Realidad"].ToString()) + '\t' + difvalor.ToString() + '\t' + formatoDecimal(row["BasApeBasIni"].ToString()) + '\r' + '\n';
                 }
             }
 
@@ -286,7 +323,7 @@ namespace Senga
                 string antCarga = "";
 
 
-                txtReporte.Text += "Accion" + '\t' + "Hora" + '\t' + "Servida" + '\t' + "Racion" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Cantidad" + /*'\t' + "SumCarga" + '\t' + "SumRac" +*/ '\r' + '\n';
+                txtReporte.Text += "Accion" + '\t' + "HoraServ" + '\t' + "Servida" + '\t' + "Racion" + '\t' + "#Carga" + '\t' + "Corral" + '\t' + "Cantidad" + /*'\t' + "SumCarga" + '\t' + "SumRac" +*/ '\r' + '\n';
                 
                 foreach (DataRow row in dt.Rows)
                 {
@@ -455,7 +492,8 @@ namespace Senga
             //// escaped text
             //string.Format("{0:0.00 '#Num.'}", number)        // 1234.56 #Num.
 
-            return String.Format("{0:#,0}", long.Parse(valor)); 
+
+            return String.Format("{0:#,0}", long.Parse(Comun.cadenaCero(valor))); 
 
         }
 
@@ -544,6 +582,13 @@ namespace Senga
             dataGridSQLResultados.DataSource = null;
             dataGridSQLResultados.DataSource = dt2;
 
+
+            for (int i = 0; i < dt2.Columns.Count; i++)
+            {
+                dataGridSQLResultados.Columns[i].Width = dataGridSQLResultados.Columns[i].HeaderText.Length*10;
+            }
+
+
             switch (comboBoxOpciones.SelectedIndex)
             {
                 case 0:                    
@@ -564,16 +609,13 @@ namespace Senga
                 if (item.Index != 0)
                 {
                     item.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                }
-
-
- 
+                }                
 
             }
 
             //--------------------------------------------------------------
 
-            dataGridSQLResultados.AutoResizeRows();
+
 
             this.Cursor = Cursors.Default;
 
@@ -610,19 +652,22 @@ namespace Senga
             dataGridSQLResultados.AllowUserToResizeColumns = false;
             dataGridSQLResultados.AllowUserToResizeRows = false;
             dataGridSQLResultados.MultiSelect = false;
-
-            dataGridSQLResultados.AutoResizeRows();
-            
+                        
             //DGServidas.ColumnHeadersVisible = false;
             dataGridSQLResultados.RowHeadersVisible = false;
             //dataGridSQLResultados.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridSQLResultados.DefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
             dataGridSQLResultados.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
+            
+            //dataGridSQLResultados.AutoResizeColumns();
+            dataGridSQLResultados.AutoResizeRows();
 
-            dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
+            //dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridSQLResultados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             //DGServidas.RowTemplate.Height = 50;
 
-            
+
 
         }
 

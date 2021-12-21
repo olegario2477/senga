@@ -52,6 +52,8 @@ namespace Senga
         string recibeData = "";
         int vcontLeerGps = 0;
         //private string RxString;
+        string bascula = "0";
+        int cantPesos = 1;
 
         //public delegate void AddDataDelegate(String myString);
         //public AddDataDelegate myDelegate;
@@ -1156,7 +1158,7 @@ namespace Senga
                     //    hecho = "M";
                     //}
 
-                    datos.p_sql = "UPDATE servidas SET corralgps = '" + vcorralgps + "', latitudi = "+ vlat + ", longitudi = " + vlng + ", realidad = '" + servido.ToString() + "', hecho = '" + hecho.ToString() + "', fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', numcarga = " + txtNumCarga.Text + " , BasculaIni = " + txtBasculaIni.Text + " , BasculaFin = " + txtServirFin.Text + " , CargaIni = " + txtServirIni.Text + " WHERE idd = " + vidd;
+                    datos.p_sql = "UPDATE servidas SET corralgps = '" + vcorralgps + "', latitudi = "+ vlat + ", longitudi = " + vlng + ", realidad = '" + servido.ToString() + "', hecho = '" + hecho.ToString() + "', fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', numcarga = " + txtNumCarga.Text + " , BasculaIni = " + txtBasculaIni.Text + " , BasculaFin = " + txtServirFin.Text + " , CargaIni = " + txtServirIni.Text + " , bascula = " + bascula + " WHERE idd = " + vidd;
 
                     if (!datos.consultaSQL(ref dt, false))
                     {
@@ -1553,9 +1555,15 @@ namespace Senga
 
             //lblEstable.Visible = comm.p_estable;
             //if (vestable) { txtServirFin.Text = dator; }       
-            
+
 
             //---------------------------------------------------------------------------------
+            
+            if (bascula== "0" && cantPesos > 3) 
+            {
+                bascula = txtServirFin.Text;
+            }
+            cantPesos++;
 
             //if (txtServirIni.Text == "" || txtServirIni.Text == "0")
             if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
@@ -1597,6 +1605,7 @@ namespace Senga
             //}
             //-----------------------------------------------------
 
+       
 
             txtServir.Text = resultado.ToString();
 
@@ -1617,10 +1626,15 @@ namespace Senga
 
                 resultado = Convert.ToInt32(Math.Round(porc1));
                 barrar(resultado);
-
+                
                 //-------------------------------------------------------------------
 
-                tomaCoordenada(resultado);
+                tomaCoordenada(resultado, false);
+
+                if (resultado > 90 && Int32.Parse(txtPlan.Text) < 50)
+                {
+                    tomaCoordenada(0, true);
+                }
 
                 //-------------------------------------------------------------------
 
@@ -1646,10 +1660,10 @@ namespace Senga
 
         }
 
-        public void tomaCoordenada(int resultado) 
+        public void tomaCoordenada(int porc, Boolean tome) 
         {
 
-            if (resultado >= 40 && resultado < 70)
+            if ((porc >= 40 && porc < 70) || tome)
             {
 
                 if ((vlat == 0 && vlng == 0) || (vlat != 0 && vlng != 0 && vcontLeerGps < 3))
