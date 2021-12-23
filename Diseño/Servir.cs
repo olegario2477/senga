@@ -94,11 +94,11 @@ namespace Senga
             txtPorc.Text = "0";
             txtVarCab.Text = "0";
             txtNumCarga.Text = "0";
-
+            txtCorralGps.Text = "0000";
 
 
             //manejoDePrincipal(false);
-            
+
             manejoTimerDePrincipal(false);
             manejoTimerDeServidas(false);
 
@@ -1562,6 +1562,7 @@ namespace Senga
             if (bascula== "0" && cantPesos > 3) 
             {
                 bascula = txtServirFin.Text;
+                txtBasculaPeso.Text = bascula;
             }
             cantPesos++;
 
@@ -1631,7 +1632,7 @@ namespace Senga
 
                 tomaCoordenada(resultado, false);
 
-                if (resultado > 90 && Int32.Parse(txtPlan.Text) < 50)
+                if (resultado > 90 /*porcent*/ && Int32.Parse(txtPlan.Text) < 95 /*kilos*/)
                 {
                     tomaCoordenada(0, true);
                 }
@@ -1684,18 +1685,18 @@ namespace Senga
                     //lblGps.ForeColor = Color.Lime;
                     vcorralgps = Servidas.instance.leeCorralUbicacion(vlat, vlng);
 
-                    lblCorralGps.Text = vcorralgps;
-                    lblCorralGps.ForeColor = Color.Lime;
+                    txtCorralGps.Text = vcorralgps;
+                    txtCorralGps.ForeColor = Color.Lime;
 
                     if (txtCorral.Text.Equals(vcorralgps))
                     {
                         //panel1.BackColor = Color.Green;
-                        lblCorralGps.ForeColor = Color.Lime;
+                        txtCorralGps.ForeColor = Color.Lime;
                     }
                     else
                     {
                         //panel1.BackColor = Color.Red;
-                        lblCorralGps.ForeColor = Color.Orange;
+                        txtCorralGps.ForeColor = Color.Orange;
                     }
 
                 }
@@ -2403,6 +2404,9 @@ namespace Senga
             txtCorral.BackColor = colorFondo;
             txtCorral.ForeColor = colorLetraH;
 
+            txtCorralGps.BackColor = colorFondo;
+            txtCorralGps.ForeColor = colorLetraH;
+
             txtRacion.BackColor = colorFondo;
             txtRacion.ForeColor = colorLetraH;
 
@@ -2443,6 +2447,7 @@ namespace Senga
             panelBarra.BackColor = colorFondo;
 
             panelCorral.BackColor = colorFondoP;
+            panelCorralGps.BackColor = colorFondoP;
             panelRacion.BackColor = colorFondoP;
             panelNumCarga.BackColor = colorFondoP;
 
@@ -2457,6 +2462,7 @@ namespace Senga
             panelFaltaCorral.BackColor = colorFondoP;
 
             lblCorral.ForeColor = colorLetraT;
+            lblCorralGpsNombre.ForeColor = colorLetraT;
             lblRacion.ForeColor = colorLetraT;
             lblNumCarga.ForeColor = colorLetraT;
 
@@ -2481,13 +2487,23 @@ namespace Senga
         private void btnAjustar_Click(object sender, EventArgs e)
         {
             funcionAjustar(1,false);
-            funcionAjustar(2,true);
+
+            if (Int32.Parse(Comun.cadenaCero(txtServir.Text)) < 25)
+            {
+                funcionAjustar(2,false);            
+            }
+            else 
+            {
+                funcionAjustar(2, true);
+            }
+
+
 
             Console.Beep(1400, 25);
 
         }
 
-        void funcionAjustar(int opc, Boolean msg) 
+        private void funcionAjustar(int opc, Boolean msg) 
         {
 
             switch (opc) 
@@ -2495,8 +2511,20 @@ namespace Senga
                 case 1:
                     if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtServirFin.Text))
                     {
-                        //txtServirIni.Text = txtServirFin.Text;
-                        txtBasculaIni.Text = txtServirFin.Text;
+
+                        if (msg)
+                        {
+                            if (Comun.mensajeVer("¿ Desea Ajustar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+                            {
+                                //txtServirIni.Text = txtServirFin.Text;
+                                txtBasculaIni.Text = txtServirFin.Text;
+                            }
+                        }
+                        else
+                        {
+                            txtBasculaIni.Text = txtServirFin.Text;
+                        }
+
                     }                    
                     break;
                 case 2:
