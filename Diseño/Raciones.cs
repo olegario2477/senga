@@ -985,7 +985,7 @@ namespace Senga
 
         }
 
-        private void lista(Boolean vmsg)
+        private void listaPlanes(Boolean vmsg, Boolean recibe)
         {
 
             string vservida = "1";
@@ -1023,6 +1023,7 @@ namespace Senga
                 lblCantidad.Text = msgProceso;
 
                 int registros_ins = 0;
+                int registros_mod = 0;
                 int tipof = 0;
                 string linea = "";
 
@@ -1190,11 +1191,31 @@ namespace Senga
                                         //datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) values(" + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + ")";
 
 
-                                        datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) select top 1 " + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + " from jornadas where not exists ( select * from servidas where num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada + ")";
+                                        //datos.p_sql = "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) select top 1 " + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + " from jornadas where not exists ( select * from servidas where num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and racion = '" + lines[3].Trim() + "' and id = " + vjornada + ")";
+                                        
+                                        datos.p_sql = 
+                                            "insert into servidas (id,fecha,num,corral,racion,cabezas,planeado,realidad,hora,horaplan,plandia) " + 
+                                            " select top 1 " + vjornada.ToString() + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[1].Trim()) + ",'" + lines[2].Trim() + "','" + lines[3].Trim() + "'," + Convert.ToInt32(lines[4].Trim()) + "," + Convert.ToInt32(lines[5].Trim()) + "," + "0" + ",'" + "00:00:00" + "','" + lines[6].Trim() + "'," + Convert.ToInt32(lines[7].Trim()) + 
+                                            " from jornadas where not exists ( select * from servidas where num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and id = " + vjornada + ")";
 
                                         vservida = lines[1].Trim();
                                         dbOperations.Add(datos.p_sql);
                                         registros_ins = registros_ins + 1;
+
+
+                                        //------------------------------------------------
+                                        if (recibe)
+                                        {
+                                            datos.p_sql =
+                                            "update servidas set planeado = " + Convert.ToInt32(lines[5].Trim()) + ", cabezas = " + Convert.ToInt32(lines[4].Trim()) + ", racion ='" + lines[3].Trim() + "', plandia = " + Convert.ToInt32(lines[7].Trim()) + ", horaplan ='" + lines[6].Trim() + "'" +
+                                            " where realidad = 0 and num = " + lines[1].Trim() + " and corral = '" + lines[2].Trim() + "' and id = " + vjornada;
+
+                                            dbOperations.Add(datos.p_sql);
+                                            registros_mod = registros_mod + 1;
+                                        }
+                                        //------------------------------------------------
+
+
 
                                         //if (!datos.consultaSQL(ref dt, false))
                                         //{
@@ -1290,10 +1311,20 @@ namespace Senga
 
                                 }
 
+                                //------------------------------------------------
+                                if (recibe)
+                                {
+                                    datos.p_sql = "delete from raciones where id = " + vjornada + " and num = " + txtServida.Text + " and racion not in (select racion from servidas where id = " + vjornada + " and num =" + txtServida.Text + ")";
+
+                                    if (!datos.consultaSQL(ref dt2, false))
+                                    {
+                                        //MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                                    }
+                                }
+                                //------------------------------------------------
+
                             }
-
-
-
+                             
 
                         }
                         catch (Exception msgerror)
@@ -1392,7 +1423,7 @@ namespace Senga
         private void btnLista_Click(object sender, EventArgs e)
         {
 
-            lista(true);
+            listaPlanes(true,false);
 
         }
 
@@ -1791,7 +1822,7 @@ namespace Senga
                     //mok = pmsge;
                     if (vcantidad != 0)
                     {
-                        lista(false);
+                        listaPlanes(false, false);
                     }
                     else
                     {
@@ -1870,7 +1901,7 @@ namespace Senga
                     //mok = pmsge;
                     if (vcantidad != 0)
                     {
-                        lista(false);
+                        listaPlanes(false, false);
                     }
                     else
                     {
@@ -2351,7 +2382,7 @@ namespace Senga
                     merror = pmsgerr;
                     mok = pmsge;
 
-                    lista(false);
+                    listaPlanes(false, false);
                 }
                 else  //SAP<<Tablet
                 {
@@ -2456,7 +2487,7 @@ namespace Senga
                     merror = pmsgerr;
                     mok = pmsge;
 
-                    lista(false);
+                listaPlanes(false, true);
                 //}
                 //else 
                 //{

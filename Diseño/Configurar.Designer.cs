@@ -81,6 +81,7 @@
             this.lblProcesadores = new System.Windows.Forms.Label();
             this.ws = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCambio = new System.Windows.Forms.Button();
             this.label26 = new System.Windows.Forms.Label();
             this.chkWs = new System.Windows.Forms.CheckBox();
             this.imageListCheck = new System.Windows.Forms.ImageList(this.components);
@@ -146,7 +147,6 @@
             this.btnSql = new System.Windows.Forms.Button();
             this.btnManual = new System.Windows.Forms.Button();
             this.btnMtto = new System.Windows.Forms.Button();
-            this.btnCambio = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -760,6 +760,17 @@
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             // 
+            // btnCambio
+            // 
+            this.btnCambio.Location = new System.Drawing.Point(574, 215);
+            this.btnCambio.Name = "btnCambio";
+            this.btnCambio.Size = new System.Drawing.Size(268, 77);
+            this.btnCambio.TabIndex = 98;
+            this.btnCambio.Text = "button4";
+            this.btnCambio.UseVisualStyleBackColor = true;
+            this.btnCambio.Visible = false;
+            this.btnCambio.Click += new System.EventHandler(this.btnCambio_Click);
+            // 
             // label26
             // 
             this.label26.AutoSize = true;
@@ -891,7 +902,7 @@
             this.btnListPuertos.Name = "btnListPuertos";
             this.btnListPuertos.Size = new System.Drawing.Size(142, 103);
             this.btnListPuertos.TabIndex = 59;
-            this.btnListPuertos.Text = "Lista";
+            this.btnListPuertos.Text = "Puertos";
             this.btnListPuertos.UseVisualStyleBackColor = true;
             this.btnListPuertos.Click += new System.EventHandler(this.btnListPuertos_Click);
             // 
@@ -1529,17 +1540,6 @@
             this.btnMtto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMtto.UseVisualStyleBackColor = true;
             this.btnMtto.Click += new System.EventHandler(this.btnMtto_Click);
-            // 
-            // btnCambio
-            // 
-            this.btnCambio.Location = new System.Drawing.Point(574, 215);
-            this.btnCambio.Name = "btnCambio";
-            this.btnCambio.Size = new System.Drawing.Size(268, 77);
-            this.btnCambio.TabIndex = 98;
-            this.btnCambio.Text = "button4";
-            this.btnCambio.UseVisualStyleBackColor = true;
-            this.btnCambio.Visible = false;
-            this.btnCambio.Click += new System.EventHandler(this.btnCambio_Click);
             // 
             // Configurar
             // 
