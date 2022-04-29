@@ -125,7 +125,8 @@ namespace Senga
             vrutared = rutared();
             vrutaarchivos = rutaarchivos();
 
-            
+            estadoBotones();
+
             this.Refresh();
 
         }
@@ -178,6 +179,8 @@ namespace Senga
 
                 //cantplanes();
                 //cantservidos();
+
+                estadoBotones();
 
             }
 
@@ -610,7 +613,7 @@ namespace Senga
         private void btnServida_Click(object sender, EventArgs e)
         {
             Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 1);
-            frm.Show();
+            frm.ShowDialog();
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
@@ -1809,62 +1812,68 @@ namespace Senga
             }
             else
             {
-                //sincronizar(vrutaarchivos + nameruta, vunidad, Constants.FILE_USB, true, true);
 
-                if (DGRaciones.RowCount == 0) //USB>>Tablet
+                if (Comun.mensajeVer("¿ Desea Transferir por USB ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
                 {
-                    textomsg = "Recibio";
-                    quitaArchivosde("P");
 
-                    moverArchivos(vunidad, vrutaarchivos + nameruta + namea, ref vcantidad, false, false);
-                    //leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
-                    //merror = pmsgerr;
-                    //mok = pmsge;
-                    if (vcantidad != 0)
-                    {
-                        listaPlanes(false, false);
-                    }
-                    else
-                    {
-                        merror = "Ningun Registro";
-                    }
-                }
-                else  //USB<<Tablet
-                {
-                    textomsg = "Envio";
+                    //sincronizar(vrutaarchivos + nameruta, vunidad, Constants.FILE_USB, true, true);
 
-                    if (!hayServidos())
+                    if (DGRaciones.RowCount == 0) //USB>>Tablet
                     {
-                        Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                        return;
-                    }
-                    else
-                    {
-                        quitaArchivosde("S");
-                        grabar(false, ref file);
+                        textomsg = "Recibio";
+                        quitaArchivosde("P");
 
-                        if (!file.Equals(""))
+                        moverArchivos(vunidad, vrutaarchivos + nameruta + namea, ref vcantidad, false, false);
+                        //leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
+                        //merror = pmsgerr;
+                        //mok = pmsge;
+                        if (vcantidad != 0)
                         {
-                            moverArchivo(vrutaarchivos + nameruta + nameb + "\\" + file, vunidad, false);
-                            cantservidos();
-
+                            listaPlanes(false, false);
                         }
                         else
                         {
-                            //merror = "Error generar informacion";
+                            merror = "Ningun Registro";
+                        }
+                    }
+                    else  //USB<<Tablet
+                    {
+                        textomsg = "Envio";
+
+                        if (!hayServidos())
+                        {
+                            Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                            return;
+                        }
+                        else
+                        {
+                            quitaArchivosde("S");
+                            grabar(false, ref file);
+
+                            if (!file.Equals(""))
+                            {
+                                moverArchivo(vrutaarchivos + nameruta + nameb + "\\" + file, vunidad, false);
+                                cantservidos();
+
+                            }
+                            else
+                            {
+                                //merror = "Error generar informacion";
+                            }
+
                         }
 
                     }
 
-                }
+                    if (merror.Equals(""))
+                    {
+                        Comun.mensajeVer(textomsg + " Informacion Dispositivo USB", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    {
+                        Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
 
-                if (merror.Equals(""))
-                {
-                    Comun.mensajeVer(textomsg + " Informacion Dispositivo USB", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-                }
-                else
-                {
-                    Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
                 }
 
             }
@@ -2294,7 +2303,7 @@ namespace Senga
         private void btnPlanta_Click(object sender, EventArgs e)
         {
             Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 4);
-            frm.Show();
+            frm.ShowDialog();
         }
 
         private void sincronizarWS()
@@ -2328,9 +2337,7 @@ namespace Senga
 
         private void btnNube_Click(object sender, EventArgs e)
         {
-
             nubeTransferencia();
-        
         }
 
         private void btnWsRecibir_Click(object sender, EventArgs e)
@@ -2345,8 +2352,6 @@ namespace Senga
 
         private void nubeTransferencia()
         {
-
-
 
             DataTable dt = new DataTable();
             DataTable dt2 = new DataTable();
@@ -2367,84 +2372,99 @@ namespace Senga
             }
             else
             {
-                //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
 
-                //DGRaciones.Visible = false;
-                //DGCargas.Visible = false;
-                //this.Refresh();
-
-                if (DGRaciones.RowCount == 0) //SAP>>Tablet
+                if (DGRaciones.RowCount == 0)
                 {
-                    textomsg = "Recibio";
-
-                    quitaArchivosde("P");
-                    leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
-                    merror = pmsgerr;
-                    mok = pmsge;
-
-                    listaPlanes(false, false);
+                    textomsg = "Recibir";
                 }
-                else  //SAP<<Tablet
+                else 
                 {
-                    textomsg = "Envio";
+                    textomsg = "Enviar";
+                }
 
-                    if (!hayServidos())
-                    //if (txtServido.Text.Equals("0"))
+                if (Comun.mensajeVer("¿ Desea " + textomsg + " por Ws ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                {
+
+                    //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                    //DGRaciones.Visible = false;
+                    //DGCargas.Visible = false;
+                    //this.Refresh();
+
+                    if (DGRaciones.RowCount == 0) //SAP>>Tablet
                     {
-                        Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                        return;
+                        textomsg = "Recibio";
+
+                        quitaArchivosde("P");
+                        leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
+                        merror = pmsgerr;
+                        mok = pmsge;
+
+                        listaPlanes(false, false);
                     }
-                    else
+                    else  //SAP<<Tablet
                     {
-                        quitaArchivosde("S");
-                        grabar(false, ref file);
+                        textomsg = "Envio";
 
-                        if (!file.Equals(""))
+                        if (!hayServidos())
+                        //if (txtServido.Text.Equals("0"))
                         {
-                            leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
-                            //if (smsge.Equals("REP")) { smsge = "Envio repetido"; }
-
-                            merror = smsgerr;
-                            mok = smsge;
+                            Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                            return;
                         }
                         else
                         {
-                            merror = "Falla Obtener Informacion";
+                            quitaArchivosde("S");
+                            grabar(false, ref file);
+
+                            if (!file.Equals(""))
+                            {
+                                leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
+                                //if (smsge.Equals("REP")) { smsge = "Envio repetido"; }
+
+                                merror = smsgerr;
+                                mok = smsge;
+                            }
+                            else
+                            {
+                                merror = "Falla Obtener Informacion";
+                            }
+
                         }
 
                     }
 
+                    //DGRaciones.Visible = true;
+                    //DGCargas.Visible = true;
+                    //this.Refresh();
+
+                    if (mok == "OK")
+                    {
+                        Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    {
+                        Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
+
+                    //if (merror.Equals(""))
+                    //{
+                    //    if (mok == "OK")
+                    //    {
+                    //        Comun.mensajeVer(textomsg + " Informacion por Ws\n\r" + mok, Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    //    }
+                    //    else
+                    //    {
+                    //        Comun.mensajeVer("Error " + textomsg + " Informacion por Ws\n\r" + mok, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    //    }
+                    //}
+                    //else
+                    //{ 
+                    //    Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);         
+                    //}               
+
                 }
-
-                //DGRaciones.Visible = true;
-                //DGCargas.Visible = true;
-                //this.Refresh();
-
-                if (mok == "OK")
-                {
-                    Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-                }
-                else
-                {
-                    Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                }
-
-                //if (merror.Equals(""))
-                //{
-                //    if (mok == "OK")
-                //    {
-                //        Comun.mensajeVer(textomsg + " Informacion por Ws\n\r" + mok, Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-                //    }
-                //    else
-                //    {
-                //        Comun.mensajeVer("Error " + textomsg + " Informacion por Ws\n\r" + mok, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                //    }
-                //}
-                //else
-                //{ 
-                //    Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);         
-                //}               
-
+            
             }
 
         }
@@ -2465,6 +2485,7 @@ namespace Senga
             String merror = "";
             String mok = "";
 
+
             if (!redConectado())
             {
                 Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
@@ -2472,70 +2493,75 @@ namespace Senga
             else
             {
 
-                //DGRaciones.Visible = false;
-                //DGCargas.Visible = false;
-                //this.Refresh();
+                if (Comun.mensajeVer("¿ Desea Agregar y Actualizar Planes ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                {
 
-                //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                    //DGRaciones.Visible = false;
+                    //DGCargas.Visible = false;
+                    //this.Refresh();
 
-                //if (DGRaciones.RowCount != 0) //SAP>>Tablet
-                //{
-                textomsg = "Recibio";
+                    //Comun.mensajeVer("No disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                    //if (DGRaciones.RowCount != 0) //SAP>>Tablet
+                    //{
+                    textomsg = "Recibio";
 
                     quitaArchivosde("P");
                     leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
                     merror = pmsgerr;
                     mok = pmsge;
 
-                listaPlanes(false, true);
-                //}
-                //else 
-                //{
+                    listaPlanes(false, true);
+                    //}
+                    //else 
+                    //{
 
-                //    Comun.mensajeVer("Debe haber Registros", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                //    return;
+                    //    Comun.mensajeVer("Debe haber Registros", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    //    return;
 
-                //}
-                //else  //SAP<<Tablet
-                //{
-                //textomsg = "Envio";
+                    //}
+                    //else  //SAP<<Tablet
+                    //{
+                    //textomsg = "Envio";
 
-                //if (!hayServidos())
-                //{
-                //    Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                //    return;
-                //}
-                //else
-                //{
-                //quitaArchivosde("S");
-                //grabar(false, ref file);
+                    //if (!hayServidos())
+                    //{
+                    //    Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    //    return;
+                    //}
+                    //else
+                    //{
+                    //quitaArchivosde("S");
+                    //grabar(false, ref file);
 
-                //if (!file.Equals(""))
-                //{
-                //    leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
-                //    merror = smsgerr;
-                //    mok = smsge;
-                //}
-                //else
-                //{
-                //    merror = "Falla Obtener Informacion";
-                //}
+                    //if (!file.Equals(""))
+                    //{
+                    //    leerArchivoServ(ref file, ref dt2, ref smsgerr, ref smsge);
+                    //    merror = smsgerr;
+                    //    mok = smsge;
+                    //}
+                    //else
+                    //{
+                    //    merror = "Falla Obtener Informacion";
+                    //}
 
-                //}
+                    //}
 
-                //}
+                    //}
 
-                //DGRaciones.Visible = true;
-                //DGCargas.Visible = true;
-                //this.Refresh();
+                    //DGRaciones.Visible = true;
+                    //DGCargas.Visible = true;
+                    //this.Refresh();
 
-                if (mok == "OK")
-                {
-                    Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
-                }
-                else
-                {
-                    Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    if (mok == "OK")
+                    {
+                        Comun.mensajeVer("Correcto " + textomsg + " Informacion por Ws" + "\n\r", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    {
+                        Comun.mensajeVer("Error " + textomsg + " Informacion por Ws" + "\n\r" + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
+
                 }
 
             }
@@ -3117,6 +3143,8 @@ namespace Senga
             lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
 
             btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
+            //lblRed.Text = Principal.instance.lblRed.Text;
+            
             //if (wsactivo && lblConectadoF.Value == 1)
             //{
             //    focoWs();
@@ -3174,6 +3202,11 @@ namespace Senga
 
             lblLatitud.Text = lat.ToString();
             lblLongitud.Text = lng.ToString();
+
+            lblLatitud.ForeColor = Principal.instance.lblLatitud.ForeColor;
+            lblLongitud.ForeColor = Principal.instance.lblLongitud.ForeColor;
+            toolStripLabel1.ForeColor = Principal.instance.toolStripLabel1.ForeColor;
+            toolStripLabel2.ForeColor = Principal.instance.toolStripLabel2.ForeColor;
 
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
@@ -3283,6 +3316,29 @@ namespace Senga
         {
             Reportes frm = new Reportes(txtJornada.Text);
             frm.Show();
+        }
+
+        private void estadoBotones() 
+        {
+
+            if (DGRaciones.Rows.Count == 0)
+            {
+                btnWsRecibir.Enabled = false;
+                btnServir.Enabled = false;
+            }
+            else
+            {
+                btnWsRecibir.Enabled = true;
+                btnServir.Enabled = true;
+            }
+
+
+
+        }
+
+        private void lblRed_Click(object sender, EventArgs e)
+        {
+            lblRed.Text = Principal.instance.fNet();
         }
     }
     

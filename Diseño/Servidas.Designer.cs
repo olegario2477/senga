@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Servidas));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.btnServida = new System.Windows.Forms.Button();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -85,6 +85,8 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblRed = new System.Windows.Forms.ToolStripLabel();
+            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
@@ -650,16 +652,16 @@
             // chartServidas
             // 
             this.chartServidas.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.Name = "ChartArea1";
-            this.chartServidas.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chartServidas.ChartAreas.Add(chartArea2);
             this.chartServidas.Location = new System.Drawing.Point(562, 332);
             this.chartServidas.Name = "chartServidas";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
-            series1.IsValueShownAsLabel = true;
-            series1.IsVisibleInLegend = false;
-            series1.Name = "Series1";
-            this.chartServidas.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Doughnut;
+            series2.IsValueShownAsLabel = true;
+            series2.IsVisibleInLegend = false;
+            series2.Name = "Series1";
+            this.chartServidas.Series.Add(series2);
             this.chartServidas.Size = new System.Drawing.Size(87, 84);
             this.chartServidas.TabIndex = 81;
             this.chartServidas.Text = "chart1";
@@ -798,6 +800,8 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblRed,
+            this.lblConectadoF,
             this.lblBateria,
             this.pbBateria,
             this.toolStripLabel9,
@@ -832,6 +836,21 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(6, 44);
+            // 
+            // lblRed
+            // 
+            this.lblRed.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lblRed.Name = "lblRed";
+            this.lblRed.Size = new System.Drawing.Size(45, 41);
+            this.lblRed.Text = "Red";
+            this.lblRed.Click += new System.EventHandler(this.lblRed_Click);
+            // 
+            // lblConectadoF
+            // 
+            this.lblConectadoF.MarqueeAnimationSpeed = 1;
+            this.lblConectadoF.Maximum = 1;
+            this.lblConectadoF.Name = "lblConectadoF";
+            this.lblConectadoF.Size = new System.Drawing.Size(10, 41);
             // 
             // lblBateria
             // 
@@ -1788,5 +1807,7 @@
         private System.Windows.Forms.TextBox txtCargado;
         private System.Windows.Forms.Label lblMsgRequierecarga;
         private System.Windows.Forms.Panel panelMsgRequiereCarga;
+        private System.Windows.Forms.ToolStripLabel lblRed;
+        private System.Windows.Forms.ToolStripProgressBar lblConectadoF;
     }
 }

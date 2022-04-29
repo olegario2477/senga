@@ -92,6 +92,7 @@
             this.panelBascula = new System.Windows.Forms.Panel();
             this.panelCorral = new System.Windows.Forms.Panel();
             this.panelRacion = new System.Windows.Forms.Panel();
+            this.btnLocaliza = new System.Windows.Forms.Button();
             this.panelNumCarga = new System.Windows.Forms.Panel();
             this.panelBasculaIni = new System.Windows.Forms.Panel();
             this.lblBasculaIni = new System.Windows.Forms.Label();
@@ -107,13 +108,13 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.txtPorc = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtBasculaPeso = new System.Windows.Forms.Label();
             this.lblDifGps = new System.Windows.Forms.Label();
             this.lblTolerable = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtVariacionV = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.lblRecibePeso = new System.Windows.Forms.Label();
             this.txtServirFinV = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.txtCorral = new System.Windows.Forms.Label();
@@ -845,11 +846,22 @@
             // panelRacion
             // 
             this.panelRacion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelRacion.Controls.Add(this.btnLocaliza);
             this.panelRacion.Controls.Add(this.lblRacion);
             this.panelRacion.Location = new System.Drawing.Point(705, 13);
             this.panelRacion.Name = "panelRacion";
             this.panelRacion.Size = new System.Drawing.Size(154, 109);
             this.panelRacion.TabIndex = 105;
+            // 
+            // btnLocaliza
+            // 
+            this.btnLocaliza.Location = new System.Drawing.Point(102, 79);
+            this.btnLocaliza.Name = "btnLocaliza";
+            this.btnLocaliza.Size = new System.Drawing.Size(35, 19);
+            this.btnLocaliza.TabIndex = 89;
+            this.btnLocaliza.UseVisualStyleBackColor = true;
+            this.btnLocaliza.Visible = false;
+            this.btnLocaliza.Click += new System.EventHandler(this.btnLocaliza_Click);
             // 
             // panelNumCarga
             // 
@@ -997,6 +1009,7 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.lblRecibePeso);
             this.panel7.Controls.Add(this.txtBasculaPeso);
             this.panel7.Controls.Add(this.lblDifGps);
             this.panel7.Controls.Add(this.lblTolerable);
@@ -1008,6 +1021,18 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(1123, 309);
             this.panel7.TabIndex = 119;
+            // 
+            // lblRecibePeso
+            // 
+            this.lblRecibePeso.AutoSize = true;
+            this.lblRecibePeso.BackColor = System.Drawing.Color.Black;
+            this.lblRecibePeso.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecibePeso.ForeColor = System.Drawing.Color.Lime;
+            this.lblRecibePeso.Location = new System.Drawing.Point(39, 283);
+            this.lblRecibePeso.Name = "lblRecibePeso";
+            this.lblRecibePeso.Size = new System.Drawing.Size(42, 25);
+            this.lblRecibePeso.TabIndex = 83;
+            this.lblRecibePeso.Text = "    .";
             // 
             // txtBasculaPeso
             // 
@@ -1074,26 +1099,12 @@
             // panel8
             // 
             this.panel8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel8.Controls.Add(this.lblRecibePeso);
             this.panel8.Controls.Add(this.lblZero);
             this.panel8.Controls.Add(this.txtServirFinV);
             this.panel8.Location = new System.Drawing.Point(194, 536);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(268, 83);
             this.panel8.TabIndex = 120;
-            // 
-            // lblRecibePeso
-            // 
-            this.lblRecibePeso.AutoSize = true;
-            this.lblRecibePeso.BackColor = System.Drawing.Color.Black;
-            this.lblRecibePeso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRecibePeso.ForeColor = System.Drawing.Color.Lime;
-            this.lblRecibePeso.Location = new System.Drawing.Point(3, 30);
-            this.lblRecibePeso.Name = "lblRecibePeso";
-            this.lblRecibePeso.Size = new System.Drawing.Size(17, 17);
-            this.lblRecibePeso.TabIndex = 83;
-            this.lblRecibePeso.Text = ">";
-            this.lblRecibePeso.Visible = false;
             // 
             // txtServirFinV
             // 
@@ -1501,5 +1512,6 @@
         private System.Windows.Forms.Panel panelCorralGps;
         private System.Windows.Forms.Label lblCorralGpsNombre;
         private System.Windows.Forms.Label txtBasculaPeso;
+        private System.Windows.Forms.Button btnLocaliza;
     }
 }

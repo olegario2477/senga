@@ -43,6 +43,7 @@ namespace Senga
         char r = '\r';
         char n = '\n';
         string recibeData = "";
+        string vcamion = "";
 
         public Racion(string idd, string id)
         {
@@ -107,6 +108,8 @@ namespace Senga
             txtCargaIni.Text = "0";
             txtSolicitar.Text = "0";
             txtTamanoAct.Text = "0";
+
+            vcamion = camionConfig();
 
             //IniciaPesoOpc1();
             IniciaPesoOpc2();
@@ -219,8 +222,10 @@ namespace Senga
 
 
             //panelAnimacion.Visible = true;
-            
+
             //this.Visible = true;
+
+            manejoTimerDePrincipal2(true);
 
         }
 
@@ -383,6 +388,7 @@ namespace Senga
 
         private void Raciones_FormClosed(object sender, EventArgs e)
         {
+
             //if (!comm.cerrarPuerto()) 
             //{
             //    MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -394,9 +400,10 @@ namespace Senga
             //------------------------------------
             manejoDePrincipal(true);
 
+            manejoTimerDePrincipal2(false);
             manejoTimerDePrincipal(true);
             manejoTimerDeRaciones(true);
-            
+
             serialPort1.Close();
             serialPort1.Dispose();
 
@@ -534,6 +541,32 @@ namespace Senga
 
         }
 
+        private string camionConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string camion = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    camion = row["NumCamion"].ToString();
+                }
+            }
+
+            return camion;
+
+        }
+
         private void posicionBotones()
         {
 
@@ -630,6 +663,9 @@ namespace Senga
         private void btnHecho_Click(object sender, EventArgs e)
         {
             btnGrabar();
+
+            //Principal.instance.enviarLocaliza();
+
         }
 
         private void btnGrabar()
@@ -821,7 +857,39 @@ namespace Senga
             //if (!dator.Equals("0")) { txtBruto.Text = dator; }
             txtBruto.Text = dator;
 
-            lblRecibePeso.Visible = ! lblRecibePeso.Visible;
+            //----------------------------------------------------
+            //if (lblRecibePeso.ForeColor == Color.Gray)
+            //{
+            //    lblRecibePeso.ForeColor = Color.Lime;
+            //}
+            //else
+            //{
+            //    lblRecibePeso.ForeColor = Color.Gray;
+            //}
+
+            switch(lblRecibePeso.Text)
+            {
+                case ".    ":
+                    lblRecibePeso.Text = " .   ";
+                    break;
+                case " .   ":
+                    lblRecibePeso.Text = "  .  ";
+                    break;
+                case "  .  ":
+                    lblRecibePeso.Text = "   . ";
+                    break;
+                case "   . ":
+                    lblRecibePeso.Text = "    .";
+                    break;
+                case "    .":
+                    lblRecibePeso.Text = ".    ";
+                    break;
+            }
+
+            //----------------------------------------------------
+
+
+            //lblRecibePeso.Visible = ! lblRecibePeso.Visible;
 
             //if (dator.Equals("0") && vzeros.Length == maxzeros) { txtBruto.Text = dator; }            
             //if (pesoant != 0 || vzeros.Length > maxzeros) { vzeros = ""; }
@@ -1401,6 +1469,25 @@ namespace Senga
                 Principal.instance.timerBateria.Stop();
             }
 
+        }
+
+        private void manejoTimerDePrincipal2(Boolean activar)
+        {
+
+            if (vcamion == "4" || vcamion == "3")
+            {
+
+                if (activar)
+                {
+                    Principal.instance.timerWs2.Start();
+                }
+                else
+                {
+                    Principal.instance.timerWs2.Stop();
+                }
+            
+            }
+        
         }
 
         private void manejoTimerDeRaciones(Boolean activar)
@@ -2135,8 +2222,10 @@ namespace Senga
 
         }
 
-
-
+        private void btnLocaliza_Click(object sender, EventArgs e)
+        {            
+            Principal.instance.enviarLocaliza();
+        }
     }
 
 }

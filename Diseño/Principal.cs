@@ -14,6 +14,7 @@ using System.Threading;
 using System.Net.NetworkInformation;
 using System.Management;
 using System.ServiceProcess;
+using System.Linq;
 
 namespace Senga
 {
@@ -31,8 +32,8 @@ namespace Senga
         private string nameappnom = "\\senga";
         private string vrutared;
 
-        string servida = "";
-        string racion = "";
+        public string gServida = "";
+        public string gRacion = "";
         //string ip = "";
         string recibidos = "";
 
@@ -209,9 +210,44 @@ namespace Senga
                 btnPlanes.Focus();
 
             }
+            
+        }
 
+        public String fNet()
+        {
 
+            var process = new Process
+            {
+                StartInfo =
+                    {
+                    FileName = "netsh.exe",
+                    Arguments = "wlan show interfaces",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                    }
+            };
+            process.Start();
 
+            var output = process.StandardOutput.ReadToEnd();
+            var line = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("SSID") && !l.Contains("BSSID"));
+            var line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Signal")); 
+            if (line2 == null)
+            {
+                line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Se¤al")); 
+            }
+            if (line == null)
+            {
+                return "Red";
+            }
+            var ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+
+            if (line2 == null)
+            {
+                return "Red";
+            }
+            var signal = line2.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+            return ssid + " " + signal;
 
         }
 
@@ -252,15 +288,10 @@ namespace Senga
 
                     }
 
-
-
                 }
-
 
             }
             catch { }
-
-
 
         }
 
@@ -269,13 +300,13 @@ namespace Senga
 
             if (redConectado())
             {
-                lblConectado.Text = "ON";
+                //lblConectado.Text = "ON";
                 lblConectadoF.Value = 1;
-                enviarWsdl();
+                //enviarWsdl();
             }
             else
             {
-                lblConectado.Text = "OFF";
+                //lblConectado.Text = "OFF";
                 lblConectadoF.Value = 0;
             }
 
@@ -380,6 +411,8 @@ namespace Senga
             dtCamiontmp.Columns.Add("longitud");
             dtCamiontmp.Columns.Add("servida");
             dtCamiontmp.Columns.Add("racion");
+            dtCamiontmp.Columns.Add("pila");
+            dtCamiontmp.Columns.Add("red");
             dtCamiontmp.Columns.Add("idd");
 
         }
@@ -875,33 +908,36 @@ namespace Senga
                 //}
 
 
-
-
-
-
         }
 
-    private void btnConfigurar_Click(object sender, EventArgs e)
-    {
-        Senga.Configurar frm = new Senga.Configurar();
-        frm.Show();
-    }
+        private void btnConfigurar_Click(object sender, EventArgs e)
+        {
+
+            Captura frm2 = new Captura(0, 6);
+            frm2.ShowDialog();
+
+            if (frm2.result == 1234)
+            {
+                Senga.Configurar frm = new Senga.Configurar();
+                frm.Show();
+            }
+            else 
+            {
+                Comun.mensajeVer("Contraseña incorrecta", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+
+        }
 
         private void timerWs_Tick(object sender, EventArgs e)
         {
 
             //panelGPS.Visible = true;
-
-
             //luzStatus(timer1.Enabled);
-
             //leerGps();
-
             //lblLatitud.Text = gLatitud.ToString();
             //lblLongitud.Text = gLongitud.ToString();
 
             guardaLecturaGps();
-
 
             if (redConectado())
             {
@@ -915,10 +951,9 @@ namespace Senga
                 lblConectadoF.Value = 0;
             }
 
-            redEstado();
-             
+            //redEstado();
+            //lblRed.Text = fNet();
             //velocidadRed();
-
             //enviarWs();
             //picPunto.Visible = ! picPunto.Visible;
 
@@ -934,12 +969,14 @@ namespace Senga
 
             if (wsactivo)
             {
+                enviarWsdlLocaliza();
+                enviarWsdlReparto();
 
-                consultaLocalizaCamion(dtCamiontmp);
-                enviarWsdlLocalizaCamion(dtCamiontmp);
+                //consultaLocalizaCamion(dtCamiontmp);
+                //enviarWsdlLocalizaCamion(dtCamiontmp);
 
-                consultaRepartoCorral(dtRepartotmp);
-                enviarWsdlRepartoCorral(dtRepartotmp);
+                //consultaRepartoCorral(dtRepartotmp);
+                //enviarWsdlRepartoCorral(dtRepartotmp);
 
                 //consultaRecorridoCamion(dtCamiontmp);
                 //enviarWsdlRecorridoCamion(dtCamiontmp);     
@@ -948,9 +985,23 @@ namespace Senga
 
         }
 
+        public void enviarWsdlLocaliza() 
+        {
+            consultaLocalizaCamion(dtCamiontmp);
+            enviarWsdlLocalizaCamion(dtCamiontmp);
+        }
+
+        public void enviarWsdlReparto()
+        {
+            //datosOperacion();
+
+            consultaRepartoCorral(dtRepartotmp);
+            enviarWsdlRepartoCorral(dtRepartotmp);
+        }
+
         private Boolean redConectado()
         {
-            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();;
         }
 
         private void consultaLocalizaCamion(DataTable dtsalida)
@@ -993,6 +1044,9 @@ namespace Senga
 
                     newRow["servida"] = row["servida"];
                     newRow["racion"] = row["racion"];
+                    
+                    newRow["pila"] = lblBateria.Text + " " + lblBateriaTiempo.Text;
+                    newRow["red"] = lblRed.Text;
 
                     dtsalida.Rows.Add(newRow);
 
@@ -1049,7 +1103,7 @@ namespace Senga
             DataTable dt2 = new DataTable();
 
 
-            datos.p_sql = "SELECT corral, SUM(realidad) AS servidodia FROM servidas WHERE (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) GROUP BY corral";
+            datos.p_sql = "SELECT corral, SUM(realidad) AS servidodia FROM servidas WHERE (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) AND Num = (SELECT TOP 1 servida FROM operacion) GROUP BY corral";
 
             if (!datos.consultaSQL(ref dt2, true))
             {
@@ -1058,7 +1112,7 @@ namespace Senga
                 txtError.Text = datos.p_error;
             }
 
-            datos.p_sql = "SELECT * FROM servidas WHERE realidad > 0 AND (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ORDER BY corral, fecha, idd";
+            datos.p_sql = "SELECT * FROM servidas WHERE realidad > 0 AND (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) AND Num = (SELECT TOP 1 servida FROM operacion) ORDER BY corral, fecha, idd";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1136,7 +1190,9 @@ namespace Senga
                             row["latitud"].ToString() + "|" +
                             row["longitud"].ToString() + "|" +
                             row["servida"].ToString() + "|" +
-                            row["racion"].ToString()
+                            row["racion"].ToString() + "|" +
+                            row["pila"].ToString() + "|" +
+                            row["red"].ToString()
 
                         );
 
@@ -1144,12 +1200,23 @@ namespace Senga
 
 
                     //lista.Add(txtTransferir.Text+" 2");
+                    
 
                     Thread t = new Thread(() => { transferirWSDLSel(seleccion, lista); });
                     t.IsBackground = true;
-                    t.Name = seleccion;
+                    t.Name = seleccion;  
                     t.Start();
-          
+
+                    //-------------------------
+                    //TimeSpan timeout = TimeSpan.FromSeconds(30);
+                    //DateTime timeStarted = DateTime.UtcNow;
+                    //TimeSpan span = DateTime.UtcNow - timeStarted; 
+                    //TimeSpan wait = timeout - span; 
+                    //if (!t.Join(wait))
+                    //{
+                    //    t.Abort(); 
+                    //}
+                    //-------------------------
 
                     Console.WriteLine("WS "+t.Name + " " + t.ManagedThreadId.ToString() + " " + DateTime.Now.ToString());
 
@@ -2181,8 +2248,8 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    servida = row["Servida"].ToString();
-                    racion = row["Racion"].ToString();
+                    gServida = row["Servida"].ToString();
+                    gRacion = row["Racion"].ToString();
                 }
             }
 
@@ -2433,7 +2500,6 @@ namespace Senga
 
             //lblContWs.Text = System.Diagnostics.Process.GetCurrentProcess().Threads.Count.ToString();
 
-
             if (wsactivo && lblConectadoF.Value==1)
             {
                 focoWs();
@@ -2451,6 +2517,34 @@ namespace Senga
             {
                 lblGpsActivoF.Value = 0;
             }
+
+            if (lblLatitud.Text == "0")
+            {
+                if (lblLatitud.ForeColor == Color.Black)
+                {
+                    lblLatitud.ForeColor = Color.Red; 
+                    lblLongitud.ForeColor = Color.Red;
+                    toolStripLabel1.ForeColor = Color.Red;
+                    toolStripLabel2.ForeColor = Color.Red; 
+                }
+                else
+                {
+                    lblLatitud.ForeColor = Color.Black;
+                    lblLongitud.ForeColor = Color.Black;
+                    toolStripLabel1.ForeColor = Color.Black; 
+                    toolStripLabel2.ForeColor = Color.Black; 
+                }
+            }
+            else
+            {
+                lblLatitud.ForeColor = Color.Black;
+                lblLongitud.ForeColor = Color.Black;
+                toolStripLabel1.ForeColor = Color.Black;
+                toolStripLabel2.ForeColor = Color.Black;
+            }
+            
+
+
 
         }
 
@@ -2680,10 +2774,10 @@ namespace Senga
 
         private void btnRecorrido_Click(object sender, EventArgs e)
         {
-
+             
             
             listBoxRecorridos.Visible = !listBoxRecorridos.Visible;
-            
+             
 
             Cursor = Cursors.WaitCursor;
 
@@ -3545,6 +3639,12 @@ namespace Senga
                 try
                 {
 
+                    if (!serialPortGps.IsOpen) 
+                    {
+                        btnConectar_Click(new object(), new EventArgs());
+                    }
+
+
                     //if (!sdata.Equals(""))
                     if (serialPortGps.BytesToRead > 0)
                     {
@@ -3568,8 +3668,7 @@ namespace Senga
                             string stringTemp = string_array[i];//.Replace("\n","").Replace("\r","");
 
                             Console.WriteLine(string_array.Length.ToString() +"-"+ i.ToString()+"-"+stringTemp);
-
-
+                            
                             string[] line_array = stringTemp.Split(',');
 
                             if (line_array.Length >= 7)
@@ -3593,60 +3692,71 @@ namespace Senga
                                             if (chkWarning.Checked) { validos = "V"; }
 
                                             Console.WriteLine("GPS " + inData + DateTime.Now.ToString());
-                                        
+
                                             int colLat = 3;
                                             int colLng = 5;
 
-                                            //if (line_array[0] == "GPRMC") {
-                                            //    colLat = 3;
-                                            //    colLng = 5;
-                                            //} 
-                                            //if (line_array[0] == "GPGGA")
-                                            //{
-                                            //    colLat = 2;
-                                            //    colLng = 4;
-                                            //}
+                                        //if (line_array[0] == "GPRMC") {
+                                        //    colLat = 3;
+                                        //    colLng = 5;
+                                        //} 
+                                        //if (line_array[0] == "GPGGA")
+                                        //{
+                                        //    colLat = 2;
+                                        //    colLng = 4;
+                                        //}
 
-                                           
+                                            txtLectura.Text = inData;
 
                                             gLatitudgps = separaNMEA(inData, validos, colLat);
                                             gLongitudgps = separaNMEA(inData, validos, colLng);
 
-                                            lblLatitud.Text = gLatitudgps.ToString();
-                                            lblLongitud.Text = gLongitudgps.ToString();
 
-                                            gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
-                                            ghoragps = DateTime.Now.ToString("HH:mm:ss");
+                                            if (gLatitudgps.ToString().Contains("21.") && gLongitudgps.ToString().Contains("-98."))
+                                            {
 
+                                                lblLatitud.Text = gLatitudgps.ToString();
+                                                lblLongitud.Text = gLongitudgps.ToString();
 
-                                            
-                                        //---------------------------------
-                                            string[] words = inData.Split(',');
-                                            string ghoragps2 = words[1].ToString();
-                                            
-                                            ghoragps2 = ghoragps2.Substring(0, 2)+":"+ghoragps2.Substring(2, 2)+":"+ghoragps2.Substring(4, 2);
+                                                gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                                                ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
-                                            DateTime fecha1 = Convert.ToDateTime(tiempomas);
-                                            DateTime fecha2 = Convert.ToDateTime(ghoragps2);
+                                                //---------------------------------
+                                                string[] words = inData.Split(',');
+                                                string ghoragps2 = words[1].ToString();
+
+                                                ghoragps2 = ghoragps2.Substring(0, 2) + ":" + ghoragps2.Substring(2, 2) + ":" + ghoragps2.Substring(4, 2);
+
+                                                DateTime fecha1 = Convert.ToDateTime(tiempomas);
+                                                DateTime fecha2 = Convert.ToDateTime(ghoragps2);
+
+                                                TimeSpan diferenciaHoras = new TimeSpan();
+                                                diferenciaHoras = fecha1 - fecha2;
+                                                int horas = diferenciaHoras.Hours;
+                                                int minutos = diferenciaHoras.Minutes;
+                                                int segundos = diferenciaHoras.Seconds;
+
+                                                lblDifGps.Text = horas.ToString() + ":" + minutos.ToString() + ":" + segundos.ToString();
+
+                                                Console.WriteLine("GPS Hora " + tiempomas + "-" + ghoragps2 + " - " + lblDifGps.Text);
+
+                                            //---------------------------------
+                                                btnConectarGps.Visible = false;
+
+                                                break;
+                     
+                                            }
+                                            else 
+                                            { 
+                                                gLatitudgps = 0;
+                                                gLongitudgps = 0;
+                                                lblLatitud.Text = gLatitudgps.ToString();
+                                                lblLongitud.Text = gLongitudgps.ToString();
+                                                //txtLectura.Text = "";
+                                            }
+
                                         
-                                            TimeSpan diferenciaHoras = new TimeSpan();
-                                            diferenciaHoras = fecha1 - fecha2;
-                                            int horas = diferenciaHoras.Hours;                                      
-                                            int minutos = diferenciaHoras.Minutes;                    
-                                            int segundos = diferenciaHoras.Seconds;
-
-                                            lblDifGps.Text = horas.ToString() + ":" + minutos.ToString() + ":" + segundos.ToString();
-
-                                            Console.WriteLine("GPS Hora " + tiempomas + "-" + ghoragps2+" - "+ lblDifGps.Text);
-
-                                        //---------------------------------
-
-
-                                        txtLectura.Text = inData;
-
                                             Console.WriteLine("GPS " + gLatitudgps + "-" + gLongitudgps);
-
-                                            break;
 
                                         //}
                                     
@@ -3804,15 +3914,55 @@ namespace Senga
 
             //Close();
 
+        }
 
+        private void btnRed2_Click(object sender, EventArgs e)
+        {
 
         }
 
+        private void btnNet_Click(object sender, EventArgs e)
+        {
+            lblNet.Text = fNet();
+        }
 
+        private void lblRed_Click(object sender, EventArgs e)
+        {
+            lblRed.Text = fNet();
+        }
 
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            toolStripDropDownButton1.Text = toolStripMenuItem1.Text;
+        }
 
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            toolStripDropDownButton1.Text = toolStripMenuItem2.Text;
+        }
 
+        private void timerWs2_Tick(object sender, EventArgs e)
+        {
+            enviarLocaliza();
+        }
 
+        public void enviarLocaliza()
+        {
+
+            if (wsactivo)
+            {
+                if (redConectado())
+                {
+                    leerGPS();
+                    guardaLecturaGps();
+                    enviarWsdlLocaliza();
+                }
+            }
+
+        }
+   
+    
+    
     }
 
 }

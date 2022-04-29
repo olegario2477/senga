@@ -82,6 +82,14 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblRed = new System.Windows.Forms.ToolStripLabel();
+            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
+            this.lblWsActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.lblGpsActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
@@ -97,14 +105,6 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.timerReloj = new System.Windows.Forms.Timer(this.components);
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
-            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
-            this.lblWsActivoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.lblGpsActivoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
-            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.timerGPS = new System.Windows.Forms.Timer(this.components);
             this.DGCargas = new System.Windows.Forms.DataGridView();
             this.txtNumCarga = new System.Windows.Forms.TextBox();
@@ -116,7 +116,6 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             this.toolStrip1.SuspendLayout();
-            this.toolStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGCargas)).BeginInit();
             this.SuspendLayout();
             // 
@@ -292,7 +291,6 @@
             // 
             // btnServir
             // 
-            this.btnServir.BackColor = System.Drawing.SystemColors.Control;
             this.btnServir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnServir.Image = ((System.Drawing.Image)(resources.GetObject("btnServir.Image")));
             this.btnServir.Location = new System.Drawing.Point(1045, 0);
@@ -301,7 +299,7 @@
             this.btnServir.TabIndex = 8;
             this.btnServir.Text = "Servidas";
             this.btnServir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnServir.UseVisualStyleBackColor = false;
+            this.btnServir.UseVisualStyleBackColor = true;
             this.btnServir.Click += new System.EventHandler(this.btnServir_Click);
             // 
             // label1
@@ -529,15 +527,15 @@
             // 
             // lblCantidad
             // 
-            this.lblCantidad.BackColor = System.Drawing.Color.White;
-            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantidad.BackColor = System.Drawing.Color.Yellow;
+            this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCantidad.ForeColor = System.Drawing.Color.Black;
             this.lblCantidad.Location = new System.Drawing.Point(678, 266);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(244, 32);
+            this.lblCantidad.Size = new System.Drawing.Size(244, 67);
             this.lblCantidad.TabIndex = 73;
             this.lblCantidad.Text = "...";
-            this.lblCantidad.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblCantidad.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnSincroniza
             // 
@@ -748,6 +746,14 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblRed,
+            this.lblConectadoF,
+            this.toolStripLabel5,
+            this.lblWsActivoF,
+            this.toolStripLabel4,
+            this.lblGpsActivoF,
+            this.toolStripLabel8,
+            this.lblBateriaActivoF,
             this.lblBateria,
             this.pbBateria,
             this.toolStripLabel9,
@@ -778,6 +784,65 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(6, 44);
+            // 
+            // lblRed
+            // 
+            this.lblRed.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lblRed.Name = "lblRed";
+            this.lblRed.Size = new System.Drawing.Size(45, 41);
+            this.lblRed.Text = "Red";
+            this.lblRed.Click += new System.EventHandler(this.lblRed_Click);
+            // 
+            // lblConectadoF
+            // 
+            this.lblConectadoF.MarqueeAnimationSpeed = 1;
+            this.lblConectadoF.Maximum = 1;
+            this.lblConectadoF.Name = "lblConectadoF";
+            this.lblConectadoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel5
+            // 
+            this.toolStripLabel5.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel5.Name = "toolStripLabel5";
+            this.toolStripLabel5.Size = new System.Drawing.Size(39, 41);
+            this.toolStripLabel5.Text = "Ws";
+            // 
+            // lblWsActivoF
+            // 
+            this.lblWsActivoF.MarqueeAnimationSpeed = 1;
+            this.lblWsActivoF.Maximum = 1;
+            this.lblWsActivoF.Name = "lblWsActivoF";
+            this.lblWsActivoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(46, 41);
+            this.toolStripLabel4.Text = "Gps";
+            // 
+            // lblGpsActivoF
+            // 
+            this.lblGpsActivoF.MarqueeAnimationSpeed = 1;
+            this.lblGpsActivoF.Maximum = 1;
+            this.lblGpsActivoF.Name = "lblGpsActivoF";
+            this.lblGpsActivoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(43, 41);
+            this.toolStripLabel8.Text = "Pila";
+            this.toolStripLabel8.Visible = false;
+            // 
+            // lblBateriaActivoF
+            // 
+            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
+            this.lblBateriaActivoF.Maximum = 1;
+            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
+            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 41);
+            this.lblBateriaActivoF.Visible = false;
             // 
             // lblBateria
             // 
@@ -880,76 +945,12 @@
             // toolStrip2
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel7,
-            this.lblConectadoF,
-            this.toolStripLabel5,
-            this.lblWsActivoF,
-            this.toolStripLabel4,
-            this.lblGpsActivoF,
-            this.toolStripLabel8,
-            this.lblBateriaActivoF});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 710);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 719);
             this.toolStrip2.Name = "toolStrip2";
-            this.toolStrip2.Size = new System.Drawing.Size(1285, 34);
+            this.toolStrip2.Size = new System.Drawing.Size(1285, 25);
             this.toolStrip2.TabIndex = 87;
             this.toolStrip2.Text = "toolStrip2";
-            // 
-            // toolStripLabel7
-            // 
-            this.toolStripLabel7.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(45, 31);
-            this.toolStripLabel7.Text = "Red";
-            // 
-            // lblConectadoF
-            // 
-            this.lblConectadoF.MarqueeAnimationSpeed = 1;
-            this.lblConectadoF.Maximum = 1;
-            this.lblConectadoF.Name = "lblConectadoF";
-            this.lblConectadoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel5
-            // 
-            this.toolStripLabel5.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(39, 31);
-            this.toolStripLabel5.Text = "Ws";
-            // 
-            // lblWsActivoF
-            // 
-            this.lblWsActivoF.MarqueeAnimationSpeed = 1;
-            this.lblWsActivoF.Maximum = 1;
-            this.lblWsActivoF.Name = "lblWsActivoF";
-            this.lblWsActivoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel4
-            // 
-            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(46, 31);
-            this.toolStripLabel4.Text = "Gps";
-            // 
-            // lblGpsActivoF
-            // 
-            this.lblGpsActivoF.MarqueeAnimationSpeed = 1;
-            this.lblGpsActivoF.Maximum = 1;
-            this.lblGpsActivoF.Name = "lblGpsActivoF";
-            this.lblGpsActivoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel8
-            // 
-            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(43, 31);
-            this.toolStripLabel8.Text = "Pila";
-            // 
-            // lblBateriaActivoF
-            // 
-            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
-            this.lblBateriaActivoF.Maximum = 1;
-            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
-            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 31);
+            this.toolStrip2.Visible = false;
             // 
             // timerGPS
             // 
@@ -1002,6 +1003,7 @@
             this.label9.Size = new System.Drawing.Size(284, 25);
             this.label9.TabIndex = 91;
             this.label9.Text = "Boton se movio dentro servidas";
+            this.label9.Visible = false;
             // 
             // label10
             // 
@@ -1012,6 +1014,7 @@
             this.label10.Size = new System.Drawing.Size(299, 25);
             this.label10.TabIndex = 92;
             this.label10.Text = "esta en la parte superior \"Cargar\"";
+            this.label10.Visible = false;
             // 
             // Raciones
             // 
@@ -1028,7 +1031,6 @@
             this.Controls.Add(this.txtCarga);
             this.Controls.Add(this.txtNumCarga);
             this.Controls.Add(this.DGCargas);
-            this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.txtPlaneado);
@@ -1043,6 +1045,7 @@
             this.Controls.Add(this.txtIdDr);
             this.Controls.Add(this.btnCargar);
             this.Controls.Add(this.DGRaciones);
+            this.Controls.Add(this.toolStrip2);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1062,8 +1065,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.toolStrip2.ResumeLayout(false);
-            this.toolStrip2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGCargas)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1125,18 +1126,10 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Timer timerReloj;
         private System.Windows.Forms.ToolStrip toolStrip2;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel7;
-        private System.Windows.Forms.ToolStripProgressBar lblConectadoF;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
-        private System.Windows.Forms.ToolStripProgressBar lblWsActivoF;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
-        private System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
         public System.Windows.Forms.Timer timerGPS;
         private System.Windows.Forms.DataGridView DGCargas;
         private System.Windows.Forms.TextBox txtNumCarga;
         private System.Windows.Forms.TextBox txtCarga;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
-        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
         private System.Windows.Forms.ToolStripLabel lblBateria;
         private System.Windows.Forms.ToolStripProgressBar pbBateria;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -1153,5 +1146,13 @@
         private System.Windows.Forms.TextBox txtFechaJornada;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnReportes;
+        private System.Windows.Forms.ToolStripProgressBar lblConectadoF;
+        private System.Windows.Forms.ToolStripLabel lblRed;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+        private System.Windows.Forms.ToolStripProgressBar lblWsActivoF;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
+        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
     }
 }

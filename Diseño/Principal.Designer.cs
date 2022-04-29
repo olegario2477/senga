@@ -53,6 +53,14 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblRed = new System.Windows.Forms.ToolStripLabel();
+            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
+            this.lblWsActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.lblGpsActivoF = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
+            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.lblBateria = new System.Windows.Forms.ToolStripLabel();
             this.pbBateria = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripLabel9 = new System.Windows.Forms.ToolStripLabel();
@@ -67,17 +75,12 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLongitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
             this.lblConectado = new System.Windows.Forms.ToolStripLabel();
-            this.lblConectadoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
             this.lblWsActivo = new System.Windows.Forms.ToolStripLabel();
-            this.lblWsActivoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
-            this.lblGpsActivoF = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripLabel8 = new System.Windows.Forms.ToolStripLabel();
-            this.lblBateriaActivoF = new System.Windows.Forms.ToolStripProgressBar();
             this.txtError = new System.Windows.Forms.ToolStripTextBox();
             this.lblContWs = new System.Windows.Forms.ToolStripLabel();
             this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
@@ -116,6 +119,10 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lblNet = new System.Windows.Forms.Label();
+            this.btnNet = new System.Windows.Forms.Button();
+            this.lblWifiPorcentaje = new System.Windows.Forms.Label();
+            this.btnRed2 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.lblDescripcionRed = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -132,6 +139,7 @@
             this.btnPlanes = new System.Windows.Forms.Button();
             this.panelInicio = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
+            this.timerWs2 = new System.Windows.Forms.Timer(this.components);
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -356,6 +364,14 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblHora,
             this.toolStripSeparator13,
+            this.lblRed,
+            this.lblConectadoF,
+            this.toolStripLabel5,
+            this.lblWsActivoF,
+            this.toolStripLabel4,
+            this.lblGpsActivoF,
+            this.toolStripLabel8,
+            this.lblBateriaActivoF,
             this.lblBateria,
             this.pbBateria,
             this.toolStripLabel9,
@@ -369,7 +385,8 @@
             this.lblLatitud,
             this.toolStripSeparator2,
             this.lblLongitud,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.toolStripDropDownButton1});
             this.toolStrip1.Location = new System.Drawing.Point(0, 657);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1244, 44);
@@ -387,6 +404,65 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(6, 44);
+            // 
+            // lblRed
+            // 
+            this.lblRed.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lblRed.Name = "lblRed";
+            this.lblRed.Size = new System.Drawing.Size(45, 41);
+            this.lblRed.Text = "Red";
+            this.lblRed.Click += new System.EventHandler(this.lblRed_Click);
+            // 
+            // lblConectadoF
+            // 
+            this.lblConectadoF.MarqueeAnimationSpeed = 1;
+            this.lblConectadoF.Maximum = 1;
+            this.lblConectadoF.Name = "lblConectadoF";
+            this.lblConectadoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel5
+            // 
+            this.toolStripLabel5.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel5.Name = "toolStripLabel5";
+            this.toolStripLabel5.Size = new System.Drawing.Size(39, 41);
+            this.toolStripLabel5.Text = "Ws";
+            // 
+            // lblWsActivoF
+            // 
+            this.lblWsActivoF.MarqueeAnimationSpeed = 1;
+            this.lblWsActivoF.Maximum = 1;
+            this.lblWsActivoF.Name = "lblWsActivoF";
+            this.lblWsActivoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(46, 41);
+            this.toolStripLabel4.Text = "Gps";
+            // 
+            // lblGpsActivoF
+            // 
+            this.lblGpsActivoF.MarqueeAnimationSpeed = 1;
+            this.lblGpsActivoF.Maximum = 1;
+            this.lblGpsActivoF.Name = "lblGpsActivoF";
+            this.lblGpsActivoF.Size = new System.Drawing.Size(10, 41);
+            // 
+            // toolStripLabel8
+            // 
+            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel8.Name = "toolStripLabel8";
+            this.toolStripLabel8.Size = new System.Drawing.Size(43, 41);
+            this.toolStripLabel8.Text = "Pila";
+            this.toolStripLabel8.Visible = false;
+            // 
+            // lblBateriaActivoF
+            // 
+            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
+            this.lblBateriaActivoF.Maximum = 1;
+            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
+            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 41);
+            this.lblBateriaActivoF.Visible = false;
             // 
             // lblBateria
             // 
@@ -431,8 +507,8 @@
             this.btnIniciaGps.Image = ((System.Drawing.Image)(resources.GetObject("btnIniciaGps.Image")));
             this.btnIniciaGps.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnIniciaGps.Name = "btnIniciaGps";
-            this.btnIniciaGps.Size = new System.Drawing.Size(116, 41);
-            this.btnIniciaGps.Text = "ON GPS";
+            this.btnIniciaGps.Size = new System.Drawing.Size(113, 41);
+            this.btnIniciaGps.Text = "ON GPs";
             this.btnIniciaGps.ToolTipText = "ON GPS";
             this.btnIniciaGps.Visible = false;
             this.btnIniciaGps.Click += new System.EventHandler(this.btnIniciaGps_Click);
@@ -472,7 +548,9 @@
             // 
             // lblLatitud
             // 
+            this.lblLatitud.BackColor = System.Drawing.Color.White;
             this.lblLatitud.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblLatitud.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblLatitud.Name = "lblLatitud";
             this.lblLatitud.Size = new System.Drawing.Size(32, 41);
             this.lblLatitud.Text = "0";
@@ -494,38 +572,54 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
             // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+            this.toolStripDropDownButton1.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(79, 41);
+            this.toolStripDropDownButton1.Text = "RED";
+            this.toolStripDropDownButton1.Visible = false;
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(195, 42);
+            this.toolStripMenuItem1.Text = "RCGGCE";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 42);
+            this.toolStripMenuItem2.Text = "GGC1";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
             // toolStrip2
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel7,
             this.lblConectado,
-            this.lblConectadoF,
-            this.toolStripLabel5,
             this.lblWsActivo,
-            this.lblWsActivoF,
-            this.toolStripLabel4,
-            this.lblGpsActivoF,
-            this.toolStripLabel8,
-            this.lblBateriaActivoF,
             this.txtError,
             this.lblContWs,
             this.toolStripLabel3,
             this.lblServer,
             this.toolStripLabel6,
             this.lblMandante});
-            this.toolStrip2.Location = new System.Drawing.Point(0, 623);
+            this.toolStrip2.Location = new System.Drawing.Point(0, 667);
             this.toolStrip2.Name = "toolStrip2";
             this.toolStrip2.Size = new System.Drawing.Size(1244, 34);
             this.toolStrip2.TabIndex = 50;
             this.toolStrip2.Text = "toolStrip2";
-            // 
-            // toolStripLabel7
-            // 
-            this.toolStripLabel7.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel7.Name = "toolStripLabel7";
-            this.toolStripLabel7.Size = new System.Drawing.Size(45, 31);
-            this.toolStripLabel7.Text = "Red";
+            this.toolStrip2.Visible = false;
             // 
             // lblConectado
             // 
@@ -535,20 +629,6 @@
             this.lblConectado.Text = "OFF";
             this.lblConectado.Visible = false;
             // 
-            // lblConectadoF
-            // 
-            this.lblConectadoF.MarqueeAnimationSpeed = 1;
-            this.lblConectadoF.Maximum = 1;
-            this.lblConectadoF.Name = "lblConectadoF";
-            this.lblConectadoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel5
-            // 
-            this.toolStripLabel5.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(39, 31);
-            this.toolStripLabel5.Text = "Ws";
-            // 
             // lblWsActivo
             // 
             this.lblWsActivo.Font = new System.Drawing.Font("Segoe UI", 15F);
@@ -556,41 +636,6 @@
             this.lblWsActivo.Size = new System.Drawing.Size(47, 31);
             this.lblWsActivo.Text = "OFF";
             this.lblWsActivo.Visible = false;
-            // 
-            // lblWsActivoF
-            // 
-            this.lblWsActivoF.MarqueeAnimationSpeed = 1;
-            this.lblWsActivoF.Maximum = 1;
-            this.lblWsActivoF.Name = "lblWsActivoF";
-            this.lblWsActivoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel4
-            // 
-            this.toolStripLabel4.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(46, 31);
-            this.toolStripLabel4.Text = "Gps";
-            // 
-            // lblGpsActivoF
-            // 
-            this.lblGpsActivoF.MarqueeAnimationSpeed = 1;
-            this.lblGpsActivoF.Maximum = 1;
-            this.lblGpsActivoF.Name = "lblGpsActivoF";
-            this.lblGpsActivoF.Size = new System.Drawing.Size(10, 31);
-            // 
-            // toolStripLabel8
-            // 
-            this.toolStripLabel8.Font = new System.Drawing.Font("Segoe UI", 15F);
-            this.toolStripLabel8.Name = "toolStripLabel8";
-            this.toolStripLabel8.Size = new System.Drawing.Size(43, 31);
-            this.toolStripLabel8.Text = "Pila";
-            // 
-            // lblBateriaActivoF
-            // 
-            this.lblBateriaActivoF.MarqueeAnimationSpeed = 1;
-            this.lblBateriaActivoF.Maximum = 1;
-            this.lblBateriaActivoF.Name = "lblBateriaActivoF";
-            this.lblBateriaActivoF.Size = new System.Drawing.Size(10, 31);
             // 
             // txtError
             // 
@@ -947,6 +992,10 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.lblNet);
+            this.tabPage3.Controls.Add(this.btnNet);
+            this.tabPage3.Controls.Add(this.lblWifiPorcentaje);
+            this.tabPage3.Controls.Add(this.btnRed2);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.lblDescripcionRed);
             this.tabPage3.Controls.Add(this.label13);
@@ -967,6 +1016,44 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Red";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lblNet
+            // 
+            this.lblNet.AutoSize = true;
+            this.lblNet.Location = new System.Drawing.Point(138, 225);
+            this.lblNet.Name = "lblNet";
+            this.lblNet.Size = new System.Drawing.Size(13, 13);
+            this.lblNet.TabIndex = 20;
+            this.lblNet.Text = "0";
+            // 
+            // btnNet
+            // 
+            this.btnNet.Location = new System.Drawing.Point(172, 246);
+            this.btnNet.Name = "btnNet";
+            this.btnNet.Size = new System.Drawing.Size(69, 22);
+            this.btnNet.TabIndex = 19;
+            this.btnNet.Text = "Red";
+            this.btnNet.UseVisualStyleBackColor = true;
+            this.btnNet.Click += new System.EventHandler(this.btnNet_Click);
+            // 
+            // lblWifiPorcentaje
+            // 
+            this.lblWifiPorcentaje.AutoSize = true;
+            this.lblWifiPorcentaje.Location = new System.Drawing.Point(332, 163);
+            this.lblWifiPorcentaje.Name = "lblWifiPorcentaje";
+            this.lblWifiPorcentaje.Size = new System.Drawing.Size(13, 13);
+            this.lblWifiPorcentaje.TabIndex = 18;
+            this.lblWifiPorcentaje.Text = "0";
+            // 
+            // btnRed2
+            // 
+            this.btnRed2.Location = new System.Drawing.Point(326, 191);
+            this.btnRed2.Name = "btnRed2";
+            this.btnRed2.Size = new System.Drawing.Size(69, 22);
+            this.btnRed2.TabIndex = 17;
+            this.btnRed2.Text = "Red";
+            this.btnRed2.UseVisualStyleBackColor = true;
+            this.btnRed2.Click += new System.EventHandler(this.btnRed2_Click);
             // 
             // label8
             // 
@@ -1121,6 +1208,11 @@
             this.label10.TabIndex = 0;
             this.label10.Text = "Iniciando...";
             // 
+            // timerWs2
+            // 
+            this.timerWs2.Interval = 10000;
+            this.timerWs2.Tick += new System.EventHandler(this.timerWs2_Tick);
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1140,7 +1232,6 @@
             this.Controls.Add(this.listBoxRecorridos);
             this.Controls.Add(this.btnReparto);
             this.Controls.Add(this.btnRecorrido);
-            this.Controls.Add(this.toolStrip2);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.btnConfigurar);
             this.Controls.Add(this.picLogo);
@@ -1148,6 +1239,7 @@
             this.Controls.Add(this.btnJornadas);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSQL);
+            this.Controls.Add(this.toolStrip2);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1196,18 +1288,13 @@
         private System.Windows.Forms.CheckBox chkWarning;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel lblLatitud;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripLabel lblLongitud;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel2;
         private System.Windows.Forms.ToolStrip toolStrip2;
         private System.Windows.Forms.ToolStripLabel toolStripLabel3;
         private System.Windows.Forms.ToolStripLabel lblServer;
         private System.Windows.Forms.ToolStripLabel toolStripLabel6;
         private System.Windows.Forms.ToolStripLabel lblMandante;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
         private System.Windows.Forms.ToolStripTextBox txtError;
         private System.Windows.Forms.ToolStripLabel lblHora;
         private System.Windows.Forms.Timer timerReloj;
@@ -1215,19 +1302,14 @@
         private System.Windows.Forms.Button btnRecorrido;
         private System.Windows.Forms.ToolStripLabel lblWsActivo;
         private System.Windows.Forms.Button btnReparto;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel7;
         private System.Windows.Forms.ToolStripLabel lblConectado;
         private System.Windows.Forms.Timer timerError;
         private System.Windows.Forms.ListBox listBoxRecorridos;
         private System.Windows.Forms.ToolStripButton btnIniciaGps;
         private System.Windows.Forms.ToolStripLabel lblContWs;
         private System.Windows.Forms.Label lblVersion;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
         public System.Windows.Forms.Timer timerWs;
         public System.Windows.Forms.Timer timerRecorrido;
-        public System.Windows.Forms.ToolStripProgressBar lblWsActivoF;
-        public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
-        public System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelBateria;
@@ -1237,8 +1319,6 @@
         private System.Windows.Forms.TextBox txtCharge;
         private System.Windows.Forms.TextBox txtFullLifetime;
         private System.Windows.Forms.Button btnBateria;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
-        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
         public System.Windows.Forms.Timer timerBateria;
         public System.Windows.Forms.ToolStripLabel lblBateria;
         public System.Windows.Forms.ToolStripProgressBar pbBateria;
@@ -1289,6 +1369,26 @@
         private System.Windows.Forms.Button btnPlanes;
         private System.Windows.Forms.Panel panelInicio;
         private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
+        public System.Windows.Forms.ToolStripProgressBar lblWsActivoF;
+        public System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
+        public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel8;
+        private System.Windows.Forms.Label lblWifiPorcentaje;
+        private System.Windows.Forms.Button btnRed2;
+        private System.Windows.Forms.Button btnNet;
+        private System.Windows.Forms.Label lblNet;
+        private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        public System.Windows.Forms.ToolStripLabel lblRed;
+        public System.Windows.Forms.Timer timerWs2;
+        public System.Windows.Forms.ToolStripLabel lblLatitud;
+        public System.Windows.Forms.ToolStripLabel toolStripLabel2;
+        public System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        public System.Windows.Forms.ToolStripLabel lblLongitud;
     }
 }
 

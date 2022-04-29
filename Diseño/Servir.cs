@@ -54,7 +54,8 @@ namespace Senga
         //private string RxString;
         string bascula = "0";
         int cantPesos = 1;
-
+        bool activaEnv = true;
+        string vcamion = "";
         //public delegate void AddDataDelegate(String myString);
         //public AddDataDelegate myDelegate;
 
@@ -96,7 +97,7 @@ namespace Senga
             txtNumCarga.Text = "0";
             txtCorralGps.Text = "0000";
 
-
+            vcamion = camionConfig();
             //manejoDePrincipal(false);
 
             manejoTimerDePrincipal(false);
@@ -277,6 +278,7 @@ namespace Senga
 
             manejoDePrincipal(true);
 
+            manejoTimerDePrincipal2(false);
             manejoTimerDePrincipal(true);
             manejoTimerDeServidas(true);
 
@@ -1468,7 +1470,26 @@ namespace Senga
             //}
 
             txtServirFin.Text = dator;
-            lblRecibePeso.Visible = !lblRecibePeso.Visible;
+            //lblRecibePeso.Visible = !lblRecibePeso.Visible;
+
+            switch (lblRecibePeso.Text)
+            {
+                case ".    ":
+                    lblRecibePeso.Text = " .   ";
+                    break;
+                case " .   ":
+                    lblRecibePeso.Text = "  .  ";
+                    break;
+                case "  .  ":
+                    lblRecibePeso.Text = "   . ";
+                    break;
+                case "   . ":
+                    lblRecibePeso.Text = "    .";
+                    break;
+                case "    .":
+                    lblRecibePeso.Text = ".    ";
+                    break;
+            }
 
             //---------------------------------------------------------------------------------
             //estable servirfin
@@ -1637,6 +1658,12 @@ namespace Senga
                     tomaCoordenada(0, true);
                 }
 
+                if (vcamion == "4" || vcamion == "3")
+                {
+                    enviarUbic(resultado, Int32.Parse(txtPlan.Text));
+                }
+
+
                 //-------------------------------------------------------------------
 
                 //if (porc1 > 100)
@@ -1644,8 +1671,7 @@ namespace Senga
                 //    porc1 = 100 - porc1;
                 //}
 
-                txtPorc.Text = Math.Round(porc1, 0).ToString(); //+ " %";
-
+                txtPorc.Text = Math.Round(porc1, 0).ToString(); //+ " %";                                
            
             }
             else
@@ -1657,7 +1683,39 @@ namespace Senga
 
             pesoant = pesoact;
 
+        }
 
+        void enviarUbic(int porc, int kilos)
+        {
+
+            if (kilos < 95)
+            {
+                //if (activaEnv)
+                //{
+                //    Principal.instance.enviarLocaliza();
+                //    activaEnv = false;
+                //}
+            }
+            else
+            {
+                if (activaEnv)
+                {
+                    if (porc >= 40 && porc < 70)
+                    {
+                        Principal.instance.enviarLocaliza();
+                        manejoTimerDePrincipal2(true);
+                        activaEnv = false;
+                    }
+                }
+                else
+                {
+                    if (porc < 40 || porc >= 70)
+                    {
+                        manejoTimerDePrincipal2(false);
+                        activaEnv = true;
+                    }
+                }
+            }
 
         }
 
@@ -1866,6 +1924,32 @@ namespace Senga
 
         }
 
+        private string camionConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            string camion = "";
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    camion = row["NumCamion"].ToString();
+                }
+            }
+
+            return camion;
+
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -1986,7 +2070,7 @@ namespace Senga
                         string stringTemp = recibeData;
 
                         string[] string_array = stringTemp.Split('\r');
-
+                        
                         for (int i = 0; i < string_array.Length; i++)
                         {
 
@@ -2307,7 +2391,18 @@ namespace Senga
             }
 
 
+        }
 
+        private void manejoTimerDePrincipal2(Boolean activar)
+        {
+            if (activar)
+            {
+                Principal.instance.timerWs2.Start();
+            }
+            else
+            {
+                Principal.instance.timerWs2.Stop();
+            }
         }
 
         private void manejoTimerDeServidas(Boolean activar)
@@ -2326,10 +2421,7 @@ namespace Senga
 
         private void timerBeep_Tick(object sender, EventArgs e)
         {
-
-
-                 
-
+            
             double porc = barra(pbServido, txtPlan, txtServirV, txtVariacionV);
 
             //long variacion = long.Parse(txtVariacion.Text);
@@ -2549,13 +2641,10 @@ namespace Senga
         
         }
 
- 
-
-
-
-
-
-
+        private void btnLocaliza_Click(object sender, EventArgs e)
+        {
+            Principal.instance.enviarLocaliza();
+        }
     }
 
 }

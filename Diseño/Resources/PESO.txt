@@ -18,3 +18,16 @@ PRNT-2  (ENCENDIDO)
 ..
 ..
 ON GUARDAR (Finaliza)
+----------------------------------------------------------------------
+"TMR4610
+MENU  (presiona largo)
+FUNTION (presiona y mantener)
+SELECT (elejir menu 1,2,3,4,5,6 o calibrar)
+..
+MENU-2
+..
+COM 1 BAUD RATE (C1 BD) 9600
+COM 1 DATA BITS (C1DATA) 7
+COM 1 PARITY (C1 PA) EVEN
+COM 1 DELAY (C1 DLY) .10
+..

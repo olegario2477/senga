@@ -103,6 +103,7 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 69;
             this.picLogo.TabStop = false;
+            this.picLogo.Visible = false;
             // 
             // btnNuevo
             // 

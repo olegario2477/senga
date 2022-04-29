@@ -194,7 +194,9 @@ namespace Senga
                 barra();
 
                 txtCorrales.Text = DGServidas.RowCount.ToString();
-                
+
+                //estadoBotones();
+
             }
         
         }
@@ -1062,6 +1064,8 @@ namespace Senga
 
                 ubicaCorralMapa();
 
+                //estadoBotones();
+
             }
         }
 
@@ -1075,8 +1079,25 @@ namespace Senga
 
                 ubicaCorralMapa();
 
+                //estadoBotones();
+
             }
         }
+
+        //private void estadoBotones() 
+        //{        
+            //if (DGServidas.CurrentRow.Cells["Servido"].Value.ToString() == "0")
+            //{
+            //    btnQuitar.Enabled = true;
+            //    btnHecho.Enabled = false;
+            //}
+            //else
+            //{
+            //    btnQuitar.Enabled = false;
+            //    btnHecho.Enabled = true;
+            //}
+
+        //}
 
         private void filaAct() 
         {
@@ -1629,7 +1650,7 @@ namespace Senga
                     //if (MessageBox.Show("¿ Desea Quitar Corral " + corral.ToString() + " ?", "Mensaje", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
 
-                        datos.p_sql = "UPDATE servidas SET hecho = 'X' WHERE idd = " + idd.ToString();
+                        datos.p_sql = "UPDATE servidas SET hecho = 'X', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "' WHERE idd = " + idd.ToString();
 
                         if (!datos.consultaSQL(ref dt, false))
                         {
@@ -2011,6 +2032,11 @@ namespace Senga
 
             lblLatitud.Text = lat.ToString();
             lblLongitud.Text = lng.ToString();
+
+            lblLatitud.ForeColor = Principal.instance.lblLatitud.ForeColor;
+            lblLongitud.ForeColor = Principal.instance.lblLongitud.ForeColor;
+            toolStripLabel1.ForeColor = Principal.instance.toolStripLabel1.ForeColor;
+            toolStripLabel2.ForeColor = Principal.instance.toolStripLabel2.ForeColor;
 
             lblCorral.Text = corralUbicacion(dtUbictmp, lat, lng, gmindist);
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
@@ -2542,12 +2568,13 @@ namespace Senga
         private void timerH_Tick(object sender, EventArgs e)
         {
             lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
-
+            lblConectadoF.Value = Principal.instance.lblConectadoF.Value;
             lblBateria.Text = Principal.instance.lblBateria.Text;
             pbBateria.Value = Principal.instance.pbBateria.Value;
             lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
-
             btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
+            //lblRed.Text = Principal.instance.lblRed.Text;
+
 
             if (long.Parse(Comun.cadenaCero(txtBascula.Text)) < 500)
             {
@@ -3238,6 +3265,11 @@ namespace Senga
         private void btnConectar_Click(object sender, EventArgs e)
         {
             Principal.instance.btnConectarGps.PerformClick();
+        }
+
+        private void lblRed_Click(object sender, EventArgs e)
+        {
+           lblRed.Text =  Principal.instance.fNet();// .btnConectarGps.PerformClick();
         }
     }
 

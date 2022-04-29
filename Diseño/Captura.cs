@@ -15,6 +15,8 @@ namespace Senga
         int vventana;
         int vjornada;
 
+        public int result { get; set; }
+
         public Captura(int jornada, int ventana)
         {
             InitializeComponent();
@@ -41,6 +43,10 @@ namespace Senga
                     break;
                 case 5:
                     this.Text = "NUMERO TOLVA";
+                    break;
+                case 6:
+                    this.Text = "CONTRASEÑA";
+                    txtCaptura.PasswordChar = '*';
                     break;
                 default:
 
@@ -131,13 +137,19 @@ namespace Senga
                 case 5:
                     guardarTolva();
                     break;
+                case 6:
+                    if (txtCaptura.Text!="") 
+                    { 
+                        result = Int32.Parse(txtCaptura.Text);
+                    }
+                    break;
                 default:
                     
                     break;
             }
 
-
             Close();
+
         }
 
         private void elejirRacion() 

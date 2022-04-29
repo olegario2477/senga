@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Senga
@@ -13,9 +14,26 @@ namespace Senga
         static void Main()
         {
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Principal());
+            bool instanceCountOne = false;
+
+            using (Mutex mtex = new Mutex(true, "MyRunningApp01", out instanceCountOne))
+            {
+                if (instanceCountOne)
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Application.Run(new Principal());
+                    mtex.ReleaseMutex();
+                }
+                else
+                {
+                    //Comun.mensajeVer("La aplicacion ya esta ejecutandose", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                }
+            }
+
+            //Application.EnableVisualStyles();
+            //Application.SetCompatibleTextRenderingDefault(false);
+            //Application.Run(new Principal());
 
             //try
             //{
