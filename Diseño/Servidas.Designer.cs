@@ -104,6 +104,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.lblLongitud = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.lblVelocidad = new System.Windows.Forms.ToolStripLabel();
             this.timerH = new System.Windows.Forms.Timer(this.components);
             this.gMapControl1 = new GMap.NET.WindowsForms.GMapControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -162,6 +163,10 @@
             this.btnCargar = new System.Windows.Forms.Button();
             this.lblMsgRequierecarga = new System.Windows.Forms.Label();
             this.panelMsgRequiereCarga = new System.Windows.Forms.Panel();
+            this.lblVel = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel7 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGServidas)).BeginInit();
             this.panelServida.SuspendLayout();
@@ -818,7 +823,8 @@
             this.lblLatitud,
             this.toolStripSeparator4,
             this.lblLongitud,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.lblVelocidad});
             this.toolStrip1.Location = new System.Drawing.Point(0, 744);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1281, 44);
@@ -968,6 +974,13 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
             // 
+            // lblVelocidad
+            // 
+            this.lblVelocidad.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblVelocidad.Name = "lblVelocidad";
+            this.lblVelocidad.Size = new System.Drawing.Size(32, 41);
+            this.lblVelocidad.Text = "0";
+            // 
             // timerH
             // 
             this.timerH.Enabled = true;
@@ -1067,7 +1080,11 @@
             this.toolStripSeparator7,
             this.lblDistancia,
             this.toolStripSeparator15,
-            this.toolStripLabel6});
+            this.toolStripLabel6,
+            this.toolStripSeparator2,
+            this.toolStripLabel7,
+            this.toolStripSeparator10,
+            this.lblVel});
             this.toolStrip3.Location = new System.Drawing.Point(0, 419);
             this.toolStrip3.Name = "toolStrip3";
             this.toolStrip3.Size = new System.Drawing.Size(655, 31);
@@ -1598,6 +1615,30 @@
             this.panelMsgRequiereCarga.TabIndex = 104;
             this.panelMsgRequiereCarga.Visible = false;
             // 
+            // lblVel
+            // 
+            this.lblVel.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.lblVel.Name = "lblVel";
+            this.lblVel.Size = new System.Drawing.Size(23, 28);
+            this.lblVel.Text = "0";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // toolStripLabel7
+            // 
+            this.toolStripLabel7.Font = new System.Drawing.Font("Segoe UI", 15F);
+            this.toolStripLabel7.Name = "toolStripLabel7";
+            this.toolStripLabel7.Size = new System.Drawing.Size(38, 28);
+            this.toolStripLabel7.Text = "Vel";
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 31);
+            // 
             // Servidas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1809,5 +1850,10 @@
         private System.Windows.Forms.Panel panelMsgRequiereCarga;
         private System.Windows.Forms.ToolStripLabel lblRed;
         private System.Windows.Forms.ToolStripProgressBar lblConectadoF;
+        public System.Windows.Forms.ToolStripLabel lblVelocidad;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripLabel lblVel;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel7;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
     }
 }

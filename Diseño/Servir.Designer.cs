@@ -898,7 +898,7 @@
             this.btnAjustar.Image = ((System.Drawing.Image)(resources.GetObject("btnAjustar.Image")));
             this.btnAjustar.Location = new System.Drawing.Point(9, 447);
             this.btnAjustar.Name = "btnAjustar";
-            this.btnAjustar.Size = new System.Drawing.Size(451, 351);
+            this.btnAjustar.Size = new System.Drawing.Size(451, 268);
             this.btnAjustar.TabIndex = 113;
             this.btnAjustar.Text = "AJUSTAR BASCULA";
             this.btnAjustar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;

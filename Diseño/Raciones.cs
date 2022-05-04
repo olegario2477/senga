@@ -3208,6 +3208,8 @@ namespace Senga
             toolStripLabel1.ForeColor = Principal.instance.toolStripLabel1.ForeColor;
             toolStripLabel2.ForeColor = Principal.instance.toolStripLabel2.ForeColor;
 
+            lblVelocidad.Text = Principal.instance.lblVelocidad.Text;
+
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
             //gLatitud = lat;

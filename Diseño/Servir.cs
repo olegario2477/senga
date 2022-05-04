@@ -1658,10 +1658,10 @@ namespace Senga
                     tomaCoordenada(0, true);
                 }
 
-                if (vcamion == "4" || vcamion == "3")
-                {
+                //if (vcamion == "4" || vcamion == "3" || vcamion == "12" || vcamion == "8" || vcamion == "5")
+                //{
                     enviarUbic(resultado, Int32.Parse(txtPlan.Text));
-                }
+                //}
 
 
                 //-------------------------------------------------------------------

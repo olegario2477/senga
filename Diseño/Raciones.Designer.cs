@@ -111,6 +111,7 @@
             this.txtCarga = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.lblVelocidad = new System.Windows.Forms.ToolStripLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DGRaciones)).BeginInit();
             this.panelRacion.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -766,7 +767,8 @@
             this.lblLatitud,
             this.toolStripSeparator4,
             this.lblLongitud,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.lblVelocidad});
             this.toolStrip1.Location = new System.Drawing.Point(0, 744);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1285, 44);
@@ -1016,6 +1018,13 @@
             this.label10.Text = "esta en la parte superior \"Cargar\"";
             this.label10.Visible = false;
             // 
+            // lblVelocidad
+            // 
+            this.lblVelocidad.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblVelocidad.Name = "lblVelocidad";
+            this.lblVelocidad.Size = new System.Drawing.Size(32, 41);
+            this.lblVelocidad.Text = "0";
+            // 
             // Raciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1154,5 +1163,6 @@
         private System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
         private System.Windows.Forms.ToolStripLabel toolStripLabel8;
         public System.Windows.Forms.ToolStripProgressBar lblBateriaActivoF;
+        public System.Windows.Forms.ToolStripLabel lblVelocidad;
     }
 }

@@ -1009,7 +1009,7 @@
             // 
             this.panelCargaIni.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panelCargaIni.Controls.Add(this.lblCargaIni);
-            this.panelCargaIni.Location = new System.Drawing.Point(103, 709);
+            this.panelCargaIni.Location = new System.Drawing.Point(109, 619);
             this.panelCargaIni.Name = "panelCargaIni";
             this.panelCargaIni.Size = new System.Drawing.Size(25, 83);
             this.panelCargaIni.TabIndex = 111;
@@ -1039,9 +1039,9 @@
             // 
             this.btnAjustar.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAjustar.Image = ((System.Drawing.Image)(resources.GetObject("btnAjustar.Image")));
-            this.btnAjustar.Location = new System.Drawing.Point(11, 619);
+            this.btnAjustar.Location = new System.Drawing.Point(11, 439);
             this.btnAjustar.Name = "btnAjustar";
-            this.btnAjustar.Size = new System.Drawing.Size(472, 171);
+            this.btnAjustar.Size = new System.Drawing.Size(472, 274);
             this.btnAjustar.TabIndex = 117;
             this.btnAjustar.Text = "AJUSTAR BASCULA";
             this.btnAjustar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1174,7 +1174,7 @@
             // 
             this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel7.Controls.Add(this.txtCargaIniV);
-            this.panel7.Location = new System.Drawing.Point(206, 709);
+            this.panel7.Location = new System.Drawing.Point(212, 619);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(28, 83);
             this.panel7.TabIndex = 123;

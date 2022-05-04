@@ -78,6 +78,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblVelocidad = new System.Windows.Forms.ToolStripLabel();
             this.toolStrip2 = new System.Windows.Forms.ToolStrip();
             this.lblConectado = new System.Windows.Forms.ToolStripLabel();
             this.lblWsActivo = new System.Windows.Forms.ToolStripLabel();
@@ -386,7 +387,8 @@
             this.toolStripSeparator2,
             this.lblLongitud,
             this.toolStripSeparator3,
-            this.toolStripDropDownButton1});
+            this.toolStripDropDownButton1,
+            this.lblVelocidad});
             this.toolStrip1.Location = new System.Drawing.Point(0, 657);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1244, 44);
@@ -601,6 +603,13 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(195, 42);
             this.toolStripMenuItem2.Text = "GGC1";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // lblVelocidad
+            // 
+            this.lblVelocidad.Font = new System.Drawing.Font("Segoe UI", 20F);
+            this.lblVelocidad.Name = "lblVelocidad";
+            this.lblVelocidad.Size = new System.Drawing.Size(32, 41);
+            this.lblVelocidad.Text = "0";
             // 
             // toolStrip2
             // 
@@ -1389,6 +1398,7 @@
         public System.Windows.Forms.ToolStripLabel toolStripLabel2;
         public System.Windows.Forms.ToolStripLabel toolStripLabel1;
         public System.Windows.Forms.ToolStripLabel lblLongitud;
+        public System.Windows.Forms.ToolStripLabel lblVelocidad;
     }
 }
 

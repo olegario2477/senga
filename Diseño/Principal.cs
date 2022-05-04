@@ -15,6 +15,7 @@ using System.Net.NetworkInformation;
 using System.Management;
 using System.ServiceProcess;
 using System.Linq;
+using NativeWifi;
 
 namespace Senga
 {
@@ -214,7 +215,7 @@ namespace Senga
         }
 
         public String fNet()
-        {
+        {            
 
             var process = new Process
             {
@@ -251,6 +252,36 @@ namespace Senga
 
         }
 
+        public String fNet2()
+        {
+
+            string valor = "Red";
+
+            WlanClient client = new WlanClient();
+
+            foreach (WlanClient.WlanInterface wlanIface in client.Interfaces)
+            {
+
+                Wlan.WlanAvailableNetwork[] wlanBssEntries = wlanIface.GetAvailableNetworkList(0);
+
+                foreach (Wlan.WlanAvailableNetwork network in wlanBssEntries)
+                {
+
+                    ListViewItem listItemWiFi = new ListViewItem();
+
+                    listItemWiFi.Text = System.Text.ASCIIEncoding.ASCII.GetString(network.dot11Ssid.SSID).Trim((char)0);
+
+                    valor = listItemWiFi.Text + " " + network.wlanSignalQuality.ToString() + "%";
+
+                    break;
+
+                }
+
+            }
+
+            return valor;
+        }
+        
         private void velocidadRed()
         {
 
@@ -413,6 +444,7 @@ namespace Senga
             dtCamiontmp.Columns.Add("racion");
             dtCamiontmp.Columns.Add("pila");
             dtCamiontmp.Columns.Add("red");
+            dtCamiontmp.Columns.Add("velocidad");
             dtCamiontmp.Columns.Add("idd");
 
         }
@@ -1047,6 +1079,7 @@ namespace Senga
                     
                     newRow["pila"] = lblBateria.Text + " " + lblBateriaTiempo.Text;
                     newRow["red"] = lblRed.Text;
+                    newRow["velocidad"] = lblVelocidad.Text;
 
                     dtsalida.Rows.Add(newRow);
 
@@ -1192,7 +1225,8 @@ namespace Senga
                             row["servida"].ToString() + "|" +
                             row["racion"].ToString() + "|" +
                             row["pila"].ToString() + "|" +
-                            row["red"].ToString()
+                            row["red"].ToString() + "|" +
+                            row["velocidad"].ToString()
 
                         );
 
@@ -3725,6 +3759,14 @@ namespace Senga
                                                 string[] words = inData.Split(',');
                                                 string ghoragps2 = words[1].ToString();
 
+                                                string velocidad = "0";
+                                                if (words.Length>=9)
+                                                {
+                                                    velocidad = words[7].ToString();
+                                                    if (velocidad == "") { velocidad = "0"; }
+                                                }
+                                                lblVelocidad.Text = velocidad; //* 1.852;
+
                                                 ghoragps2 = ghoragps2.Substring(0, 2) + ":" + ghoragps2.Substring(2, 2) + ":" + ghoragps2.Substring(4, 2);
 
                                                 DateTime fecha1 = Convert.ToDateTime(tiempomas);
@@ -3752,6 +3794,7 @@ namespace Senga
                                                 gLongitudgps = 0;
                                                 lblLatitud.Text = gLatitudgps.ToString();
                                                 lblLongitud.Text = gLongitudgps.ToString();
+                                                lblVelocidad.Text = "0";
                                                 //txtLectura.Text = "";
                                             }
 
@@ -3775,6 +3818,7 @@ namespace Senga
                         gLongitudgps = 0;
                         lblLatitud.Text = gLatitudgps.ToString();
                         lblLongitud.Text = gLongitudgps.ToString();
+                        lblVelocidad.Text = "0";
                         txtLectura.Text = "";
                     }
 
@@ -3791,6 +3835,7 @@ namespace Senga
                     gLongitudgps = 0;
                     lblLatitud.Text = gLatitudgps.ToString();
                     lblLongitud.Text = gLongitudgps.ToString();
+                    lblVelocidad.Text = "0";
                     txtLectura.Text = "";
 
                 }
@@ -3929,6 +3974,7 @@ namespace Senga
         private void lblRed_Click(object sender, EventArgs e)
         {
             lblRed.Text = fNet();
+            //lblRed.Text = fNet2();
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)

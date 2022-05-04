@@ -1474,8 +1474,8 @@ namespace Senga
         private void manejoTimerDePrincipal2(Boolean activar)
         {
 
-            if (vcamion == "4" || vcamion == "3")
-            {
+            //if (vcamion == "4" || vcamion == "3" || vcamion == "12" || vcamion == "8" || vcamion == "5")
+            //{
 
                 if (activar)
                 {
@@ -1486,7 +1486,7 @@ namespace Senga
                     Principal.instance.timerWs2.Stop();
                 }
             
-            }
+            //}
         
         }
 
