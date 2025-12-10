@@ -21,3 +21,22 @@ alter table Servidas add column CargaFin long DEFAULT 0;
 alter table Servidas add column Bascula long DEFAULT 0;
 alter table Servidas add column LatitudF double;
 alter table Servidas add column LongitudF double;
+--v2023.07.04.0;
+alter table Configuracion add column Puerto2 text DEFAULT 'COM2';
+alter table Configuracion add column BaudRate2 long;
+alter table Configuracion add column DataBits2 long;
+alter table Configuracion add column Parity2 text;
+alter table Configuracion add column StopBits2 text;
+update Configuracion set Puerto2 = '', BaudRate2 = 9600, DataBits2 = 7, Parity2 = 'Even', StopBits2 = 'One';
+
+alter table Configuracion add column RutaFija text(1) DEFAULT "N";
+alter table Configuracion add column ToleranciaMax text(1) DEFAULT "N";
+alter table Configuracion add column ToleranciaMin text(1) DEFAULT "N";
+update Configuracion set RutaFija = "N", ToleranciaMax = "N", ToleranciaMin = "N";
+
+
+--v2025.08.14.0;
+alter table Configuracion add column NumCamionFis long;
+
+
+

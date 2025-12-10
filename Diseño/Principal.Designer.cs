@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             this.timerWs = new System.Windows.Forms.Timer(this.components);
             this.panelGps = new System.Windows.Forms.Panel();
+            this.lblMsgGpsError = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.lblDifGps = new System.Windows.Forms.Label();
             this.btnServicio = new System.Windows.Forms.Button();
             this.btnDesconecta = new System.Windows.Forms.Button();
@@ -51,6 +53,9 @@
             this.picRojo = new System.Windows.Forms.PictureBox();
             this.chkWarning = new System.Windows.Forms.CheckBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.lblCamion = new System.Windows.Forms.ToolStripLabel();
+            this.lblServ = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.lblHora = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.lblRed = new System.Windows.Forms.ToolStripLabel();
@@ -101,7 +106,6 @@
             this.btnJornadas = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnActualizar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelBateria = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.txtBascula = new System.Windows.Forms.TextBox();
@@ -138,9 +142,48 @@
             this.label6 = new System.Windows.Forms.Label();
             this.lblSpeed = new System.Windows.Forms.Label();
             this.btnPlanes = new System.Windows.Forms.Button();
-            this.panelInicio = new System.Windows.Forms.Panel();
-            this.label10 = new System.Windows.Forms.Label();
             this.timerWs2 = new System.Windows.Forms.Timer(this.components);
+            this.Greloj = new System.Windows.Forms.PictureBox();
+            this.panelNombre = new System.Windows.Forms.Panel();
+            this.lblNombre = new System.Windows.Forms.Label();
+            this.picSalir = new System.Windows.Forms.PictureBox();
+            this.picPlanes = new System.Windows.Forms.PictureBox();
+            this.picConfigurar = new System.Windows.Forms.PictureBox();
+            this.picRecorrido = new System.Windows.Forms.PictureBox();
+            this.lblBateriaHoras = new System.Windows.Forms.Label();
+            this.picConectadoLuz = new System.Windows.Forms.PictureBox();
+            this.pbBaterial = new System.Windows.Forms.ProgressBar();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblBateriaPorc = new System.Windows.Forms.Label();
+            this.panelHoral = new System.Windows.Forms.Panel();
+            this.lblPuertoGps = new System.Windows.Forms.Label();
+            this.lblPuerto = new System.Windows.Forms.Label();
+            this.lblSenal = new System.Windows.Forms.Label();
+            this.panelUbic = new System.Windows.Forms.Panel();
+            this.lblLong = new System.Windows.Forms.Label();
+            this.lblLat = new System.Windows.Forms.Label();
+            this.lblHoral = new System.Windows.Forms.Label();
+            this.picWifi = new System.Windows.Forms.PictureBox();
+            this.picPuertos = new System.Windows.Forms.PictureBox();
+            this.lblNumCamion = new System.Windows.Forms.Label();
+            this.lblIniciandoApp = new System.Windows.Forms.Label();
+            this.picOpciones = new System.Windows.Forms.PictureBox();
+            this.lblPortGPS = new System.Windows.Forms.Label();
+            this.lblPortGPS2 = new System.Windows.Forms.Label();
+            this.panelGPS2 = new System.Windows.Forms.Panel();
+            this.lblMsgGPS = new System.Windows.Forms.Label();
+            this.lblMsgGPS2 = new System.Windows.Forms.Label();
+            this.lblNomMaq = new System.Windows.Forms.Label();
+            this.lblPortGPS3 = new System.Windows.Forms.Label();
+            this.picNumero = new System.Windows.Forms.PictureBox();
+            this.picConfigurarT = new System.Windows.Forms.PictureBox();
+            this.picPlanta = new System.Windows.Forms.PictureBox();
+            this.lblNumCamionFis = new System.Windows.Forms.Label();
+            this.picIniGps = new System.Windows.Forms.PictureBox();
+            this.picConectGps = new System.Windows.Forms.PictureBox();
+            this.panelCristal = new System.Windows.Forms.Panel();
+            this.panelCristal2 = new System.Windows.Forms.Panel();
+            this.lblAdvertencia = new System.Windows.Forms.Label();
             this.panelGps.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picRojo)).BeginInit();
@@ -153,7 +196,24 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.panelInicio.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Greloj)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSalir)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlanes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigurar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRecorrido)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConectadoLuz)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panelHoral.SuspendLayout();
+            this.panelUbic.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picWifi)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPuertos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picOpciones)).BeginInit();
+            this.panelGPS2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picNumero)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigurarT)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlanta)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIniGps)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConectGps)).BeginInit();
             this.SuspendLayout();
             // 
             // timerWs
@@ -164,6 +224,8 @@
             // panelGps
             // 
             this.panelGps.BackColor = System.Drawing.Color.White;
+            this.panelGps.Controls.Add(this.lblMsgGpsError);
+            this.panelGps.Controls.Add(this.button1);
             this.panelGps.Controls.Add(this.lblDifGps);
             this.panelGps.Controls.Add(this.btnServicio);
             this.panelGps.Controls.Add(this.btnDesconecta);
@@ -184,13 +246,34 @@
             this.panelGps.Controls.Add(this.chkWarning);
             this.panelGps.Location = new System.Drawing.Point(6, 6);
             this.panelGps.Name = "panelGps";
-            this.panelGps.Size = new System.Drawing.Size(875, 272);
+            this.panelGps.Size = new System.Drawing.Size(754, 181);
             this.panelGps.TabIndex = 48;
+            // 
+            // lblMsgGpsError
+            // 
+            this.lblMsgGpsError.AutoSize = true;
+            this.lblMsgGpsError.Location = new System.Drawing.Point(7, 7);
+            this.lblMsgGpsError.Name = "lblMsgGpsError";
+            this.lblMsgGpsError.Size = new System.Drawing.Size(11, 13);
+            this.lblMsgGpsError.TabIndex = 123;
+            this.lblMsgGpsError.Text = "*";
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Yellow;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(172, 77);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(87, 19);
+            this.button1.TabIndex = 122;
+            this.button1.Text = "GPS INT";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lblDifGps
             // 
             this.lblDifGps.AutoSize = true;
-            this.lblDifGps.Location = new System.Drawing.Point(245, 38);
+            this.lblDifGps.Location = new System.Drawing.Point(7, 31);
             this.lblDifGps.Name = "lblDifGps";
             this.lblDifGps.Size = new System.Drawing.Size(11, 13);
             this.lblDifGps.TabIndex = 121;
@@ -199,19 +282,21 @@
             // btnServicio
             // 
             this.btnServicio.BackColor = System.Drawing.Color.Transparent;
-            this.btnServicio.Location = new System.Drawing.Point(743, 63);
+            this.btnServicio.Location = new System.Drawing.Point(629, 81);
             this.btnServicio.Name = "btnServicio";
-            this.btnServicio.Size = new System.Drawing.Size(97, 35);
+            this.btnServicio.Size = new System.Drawing.Size(83, 21);
             this.btnServicio.TabIndex = 120;
             this.btnServicio.Text = "Servicio";
             this.btnServicio.UseVisualStyleBackColor = false;
+            this.btnServicio.Visible = false;
             this.btnServicio.Click += new System.EventHandler(this.btnServicio_Click);
             // 
             // btnDesconecta
             // 
-            this.btnDesconecta.Location = new System.Drawing.Point(109, 63);
+            this.btnDesconecta.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDesconecta.Location = new System.Drawing.Point(10, 77);
             this.btnDesconecta.Name = "btnDesconecta";
-            this.btnDesconecta.Size = new System.Drawing.Size(97, 35);
+            this.btnDesconecta.Size = new System.Drawing.Size(73, 20);
             this.btnDesconecta.TabIndex = 119;
             this.btnDesconecta.Text = "DESCONECTA";
             this.btnDesconecta.UseVisualStyleBackColor = true;
@@ -219,9 +304,10 @@
             // 
             // btnConecta
             // 
-            this.btnConecta.Location = new System.Drawing.Point(6, 63);
+            this.btnConecta.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConecta.Location = new System.Drawing.Point(10, 53);
             this.btnConecta.Name = "btnConecta";
-            this.btnConecta.Size = new System.Drawing.Size(97, 35);
+            this.btnConecta.Size = new System.Drawing.Size(73, 20);
             this.btnConecta.TabIndex = 118;
             this.btnConecta.Text = "CONECTA";
             this.btnConecta.UseVisualStyleBackColor = true;
@@ -229,9 +315,10 @@
             // 
             // btnOFFGps
             // 
-            this.btnOFFGps.Location = new System.Drawing.Point(341, 63);
+            this.btnOFFGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOFFGps.Location = new System.Drawing.Point(89, 77);
             this.btnOFFGps.Name = "btnOFFGps";
-            this.btnOFFGps.Size = new System.Drawing.Size(97, 34);
+            this.btnOFFGps.Size = new System.Drawing.Size(73, 19);
             this.btnOFFGps.TabIndex = 117;
             this.btnOFFGps.Text = "PAUSE";
             this.btnOFFGps.UseVisualStyleBackColor = true;
@@ -239,9 +326,10 @@
             // 
             // btnONGps
             // 
-            this.btnONGps.Location = new System.Drawing.Point(238, 62);
+            this.btnONGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnONGps.Location = new System.Drawing.Point(89, 54);
             this.btnONGps.Name = "btnONGps";
-            this.btnONGps.Size = new System.Drawing.Size(97, 34);
+            this.btnONGps.Size = new System.Drawing.Size(73, 19);
             this.btnONGps.TabIndex = 116;
             this.btnONGps.Text = "ACTIVA";
             this.btnONGps.UseVisualStyleBackColor = true;
@@ -250,7 +338,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(418, 19);
+            this.label4.Location = new System.Drawing.Point(418, 40);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 115;
@@ -259,7 +347,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(444, 63);
+            this.label3.Location = new System.Drawing.Point(444, 84);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(25, 13);
             this.label3.TabIndex = 114;
@@ -268,7 +356,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(444, 41);
+            this.label2.Location = new System.Drawing.Point(444, 62);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(22, 13);
             this.label2.TabIndex = 113;
@@ -276,30 +364,30 @@
             // 
             // txtSimularLatLng
             // 
-            this.txtSimularLatLng.Location = new System.Drawing.Point(470, 16);
+            this.txtSimularLatLng.Location = new System.Drawing.Point(470, 37);
             this.txtSimularLatLng.Name = "txtSimularLatLng";
             this.txtSimularLatLng.Size = new System.Drawing.Size(244, 20);
             this.txtSimularLatLng.TabIndex = 112;
             // 
             // txtSimularLongitud
             // 
-            this.txtSimularLongitud.Location = new System.Drawing.Point(470, 60);
+            this.txtSimularLongitud.Location = new System.Drawing.Point(470, 81);
             this.txtSimularLongitud.Name = "txtSimularLongitud";
             this.txtSimularLongitud.Size = new System.Drawing.Size(153, 20);
             this.txtSimularLongitud.TabIndex = 111;
             // 
             // txtSimularLatitud
             // 
-            this.txtSimularLatitud.Location = new System.Drawing.Point(470, 38);
+            this.txtSimularLatitud.Location = new System.Drawing.Point(470, 58);
             this.txtSimularLatitud.Name = "txtSimularLatitud";
             this.txtSimularLatitud.Size = new System.Drawing.Size(153, 20);
             this.txtSimularLatitud.TabIndex = 110;
             // 
             // btnSimularGps
             // 
-            this.btnSimularGps.Location = new System.Drawing.Point(629, 42);
+            this.btnSimularGps.Location = new System.Drawing.Point(629, 58);
             this.btnSimularGps.Name = "btnSimularGps";
-            this.btnSimularGps.Size = new System.Drawing.Size(85, 38);
+            this.btnSimularGps.Size = new System.Drawing.Size(83, 21);
             this.btnSimularGps.TabIndex = 109;
             this.btnSimularGps.Text = "Simular";
             this.btnSimularGps.UseVisualStyleBackColor = true;
@@ -320,17 +408,16 @@
             this.txtLectura.Location = new System.Drawing.Point(3, 104);
             this.txtLectura.Multiline = true;
             this.txtLectura.Name = "txtLectura";
-            this.txtLectura.Size = new System.Drawing.Size(851, 148);
+            this.txtLectura.Size = new System.Drawing.Size(742, 68);
             this.txtLectura.TabIndex = 68;
-            this.txtLectura.Text = "~°|¬";
             // 
             // picVerde
             // 
             this.picVerde.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picVerde.Image = ((System.Drawing.Image)(resources.GetObject("picVerde.Image")));
-            this.picVerde.Location = new System.Drawing.Point(746, 3);
+            this.picVerde.Location = new System.Drawing.Point(718, 46);
             this.picVerde.Name = "picVerde";
-            this.picVerde.Size = new System.Drawing.Size(38, 36);
+            this.picVerde.Size = new System.Drawing.Size(25, 22);
             this.picVerde.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picVerde.TabIndex = 106;
             this.picVerde.TabStop = false;
@@ -340,9 +427,9 @@
             // 
             this.picRojo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.picRojo.Image = ((System.Drawing.Image)(resources.GetObject("picRojo.Image")));
-            this.picRojo.Location = new System.Drawing.Point(802, 3);
+            this.picRojo.Location = new System.Drawing.Point(718, 75);
             this.picRojo.Name = "picRojo";
-            this.picRojo.Size = new System.Drawing.Size(38, 36);
+            this.picRojo.Size = new System.Drawing.Size(25, 22);
             this.picRojo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picRojo.TabIndex = 107;
             this.picRojo.TabStop = false;
@@ -351,7 +438,7 @@
             // chkWarning
             // 
             this.chkWarning.AutoSize = true;
-            this.chkWarning.Location = new System.Drawing.Point(3, 28);
+            this.chkWarning.Location = new System.Drawing.Point(297, 81);
             this.chkWarning.Name = "chkWarning";
             this.chkWarning.Size = new System.Drawing.Size(96, 17);
             this.chkWarning.TabIndex = 57;
@@ -362,7 +449,11 @@
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.lblCamion,
+            this.lblServ,
+            this.toolStripSeparator4,
             this.lblHora,
             this.toolStripSeparator13,
             this.lblRed,
@@ -391,9 +482,30 @@
             this.lblVelocidad});
             this.toolStrip1.Location = new System.Drawing.Point(0, 657);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStrip1.Size = new System.Drawing.Size(1244, 44);
             this.toolStrip1.TabIndex = 49;
             this.toolStrip1.Text = "toolStrip1";
+            this.toolStrip1.Visible = false;
+            // 
+            // lblCamion
+            // 
+            this.lblCamion.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblCamion.Name = "lblCamion";
+            this.lblCamion.Size = new System.Drawing.Size(17, 41);
+            this.lblCamion.Text = "0";
+            // 
+            // lblServ
+            // 
+            this.lblServ.Font = new System.Drawing.Font("Segoe UI", 11F);
+            this.lblServ.Name = "lblServ";
+            this.lblServ.Size = new System.Drawing.Size(17, 41);
+            this.lblServ.Text = "0";
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
             // 
             // lblHora
             // 
@@ -614,6 +726,7 @@
             // toolStrip2
             // 
             this.toolStrip2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip2.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblConectado,
             this.lblWsActivo,
@@ -625,6 +738,7 @@
             this.lblMandante});
             this.toolStrip2.Location = new System.Drawing.Point(0, 667);
             this.toolStrip2.Name = "toolStrip2";
+            this.toolStrip2.Padding = new System.Windows.Forms.Padding(0, 0, 2, 0);
             this.toolStrip2.Size = new System.Drawing.Size(1244, 34);
             this.toolStrip2.TabIndex = 50;
             this.toolStrip2.Text = "toolStrip2";
@@ -716,9 +830,9 @@
             this.listBoxRecorridos.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxRecorridos.FormattingEnabled = true;
             this.listBoxRecorridos.ItemHeight = 46;
-            this.listBoxRecorridos.Location = new System.Drawing.Point(921, 231);
+            this.listBoxRecorridos.Location = new System.Drawing.Point(922, 301);
             this.listBoxRecorridos.Name = "listBoxRecorridos";
-            this.listBoxRecorridos.Size = new System.Drawing.Size(319, 372);
+            this.listBoxRecorridos.Size = new System.Drawing.Size(319, 234);
             this.listBoxRecorridos.TabIndex = 52;
             this.listBoxRecorridos.Visible = false;
             this.listBoxRecorridos.SelectedIndexChanged += new System.EventHandler(this.listBoxRecorridos_SelectedIndexChanged);
@@ -726,19 +840,20 @@
             // lblVersion
             // 
             this.lblVersion.AutoSize = true;
-            this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.ForeColor = System.Drawing.Color.Black;
-            this.lblVersion.Location = new System.Drawing.Point(59, 144);
+            this.lblVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblVersion.Font = new System.Drawing.Font("Courier", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVersion.ForeColor = System.Drawing.Color.Silver;
+            this.lblVersion.Location = new System.Drawing.Point(814, 502);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(35, 13);
+            this.lblVersion.Size = new System.Drawing.Size(47, 16);
             this.lblVersion.TabIndex = 53;
-            this.lblVersion.Text = "label1";
+            this.lblVersion.Text = "0.0.0";
             // 
             // btnReparto
             // 
             this.btnReparto.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReparto.Image = ((System.Drawing.Image)(resources.GetObject("btnReparto.Image")));
-            this.btnReparto.Location = new System.Drawing.Point(402, 0);
+            this.btnReparto.Location = new System.Drawing.Point(382, 0);
             this.btnReparto.Name = "btnReparto";
             this.btnReparto.Size = new System.Drawing.Size(149, 149);
             this.btnReparto.TabIndex = 5;
@@ -758,6 +873,7 @@
             this.btnRecorrido.Text = "Recorrido";
             this.btnRecorrido.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRecorrido.UseVisualStyleBackColor = true;
+            this.btnRecorrido.Visible = false;
             this.btnRecorrido.Click += new System.EventHandler(this.btnRecorrido_Click);
             // 
             // btnConfigurar
@@ -771,6 +887,7 @@
             this.btnConfigurar.Text = "Configurar";
             this.btnConfigurar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnConfigurar.UseVisualStyleBackColor = true;
+            this.btnConfigurar.Visible = false;
             this.btnConfigurar.Click += new System.EventHandler(this.btnConfigurar_Click);
             // 
             // picLogo
@@ -783,18 +900,20 @@
             this.picLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picLogo.TabIndex = 45;
             this.picLogo.TabStop = false;
+            this.picLogo.Visible = false;
             // 
             // btnSalir
             // 
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSalir.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(1095, 0);
+            this.btnSalir.Location = new System.Drawing.Point(887, -8);
             this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(120, 149);
+            this.btnSalir.Size = new System.Drawing.Size(32, 157);
             this.btnSalir.TabIndex = 3;
             this.btnSalir.Text = "Salir";
             this.btnSalir.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Visible = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // btnJornadas
@@ -803,7 +922,7 @@
             this.btnJornadas.Image = ((System.Drawing.Image)(resources.GetObject("btnJornadas.Image")));
             this.btnJornadas.Location = new System.Drawing.Point(783, 0);
             this.btnJornadas.Name = "btnJornadas";
-            this.btnJornadas.Size = new System.Drawing.Size(149, 149);
+            this.btnJornadas.Size = new System.Drawing.Size(55, 149);
             this.btnJornadas.TabIndex = 2;
             this.btnJornadas.Text = "Jornada";
             this.btnJornadas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -813,14 +932,14 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Location = new System.Drawing.Point(651, 298);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1244, 701);
+            this.pictureBox1.Size = new System.Drawing.Size(77, 38);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 46;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // btnActualizar
             // 
@@ -835,17 +954,6 @@
             this.btnActualizar.UseVisualStyleBackColor = true;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(17, 144);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
-            this.label1.TabIndex = 54;
-            this.label1.Text = "SENGA";
-            // 
             // panelBateria
             // 
             this.panelBateria.Controls.Add(this.label5);
@@ -859,7 +967,7 @@
             this.panelBateria.Controls.Add(this.txtChargeStatus);
             this.panelBateria.Location = new System.Drawing.Point(95, 6);
             this.panelBateria.Name = "panelBateria";
-            this.panelBateria.Size = new System.Drawing.Size(216, 198);
+            this.panelBateria.Size = new System.Drawing.Size(405, 172);
             this.panelBateria.TabIndex = 55;
             // 
             // label5
@@ -882,7 +990,7 @@
             // 
             // btnBateria
             // 
-            this.btnBateria.Location = new System.Drawing.Point(105, 165);
+            this.btnBateria.Location = new System.Drawing.Point(208, 137);
             this.btnBateria.Name = "btnBateria";
             this.btnBateria.Size = new System.Drawing.Size(69, 22);
             this.btnBateria.TabIndex = 5;
@@ -943,9 +1051,9 @@
             // 
             // lblSQL
             // 
-            this.lblSQL.Location = new System.Drawing.Point(17, 192);
+            this.lblSQL.Location = new System.Drawing.Point(187, 222);
             this.lblSQL.Name = "lblSQL";
-            this.lblSQL.Size = new System.Drawing.Size(307, 411);
+            this.lblSQL.Size = new System.Drawing.Size(75, 48);
             this.lblSQL.TabIndex = 56;
             // 
             // timerGps
@@ -955,7 +1063,7 @@
             // 
             // btnVerGps
             // 
-            this.btnVerGps.BackColor = System.Drawing.Color.Black;
+            this.btnVerGps.BackColor = System.Drawing.Color.DimGray;
             this.btnVerGps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnVerGps.Location = new System.Drawing.Point(0, 329);
             this.btnVerGps.Name = "btnVerGps";
@@ -970,10 +1078,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(20, 281);
+            this.tabControl1.Location = new System.Drawing.Point(20, 280);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(895, 322);
+            this.tabControl1.Size = new System.Drawing.Size(771, 217);
             this.tabControl1.TabIndex = 60;
             this.tabControl1.Visible = false;
             // 
@@ -983,7 +1091,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(887, 296);
+            this.tabPage1.Size = new System.Drawing.Size(763, 191);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "GPS";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -994,7 +1102,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(887, 296);
+            this.tabPage2.Size = new System.Drawing.Size(763, 191);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Bateria";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1021,7 +1129,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(887, 296);
+            this.tabPage3.Size = new System.Drawing.Size(763, 191);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Red";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1029,7 +1137,7 @@
             // lblNet
             // 
             this.lblNet.AutoSize = true;
-            this.lblNet.Location = new System.Drawing.Point(138, 225);
+            this.lblNet.Location = new System.Drawing.Point(520, 151);
             this.lblNet.Name = "lblNet";
             this.lblNet.Size = new System.Drawing.Size(13, 13);
             this.lblNet.TabIndex = 20;
@@ -1037,7 +1145,7 @@
             // 
             // btnNet
             // 
-            this.btnNet.Location = new System.Drawing.Point(172, 246);
+            this.btnNet.Location = new System.Drawing.Point(523, 167);
             this.btnNet.Name = "btnNet";
             this.btnNet.Size = new System.Drawing.Size(69, 22);
             this.btnNet.TabIndex = 19;
@@ -1048,7 +1156,7 @@
             // lblWifiPorcentaje
             // 
             this.lblWifiPorcentaje.AutoSize = true;
-            this.lblWifiPorcentaje.Location = new System.Drawing.Point(332, 163);
+            this.lblWifiPorcentaje.Location = new System.Drawing.Point(626, 151);
             this.lblWifiPorcentaje.Name = "lblWifiPorcentaje";
             this.lblWifiPorcentaje.Size = new System.Drawing.Size(13, 13);
             this.lblWifiPorcentaje.TabIndex = 18;
@@ -1056,7 +1164,7 @@
             // 
             // btnRed2
             // 
-            this.btnRed2.Location = new System.Drawing.Point(326, 191);
+            this.btnRed2.Location = new System.Drawing.Point(629, 167);
             this.btnRed2.Name = "btnRed2";
             this.btnRed2.Size = new System.Drawing.Size(69, 22);
             this.btnRed2.TabIndex = 17;
@@ -1156,7 +1264,7 @@
             // 
             // btnRed
             // 
-            this.btnRed.Location = new System.Drawing.Point(172, 191);
+            this.btnRed.Location = new System.Drawing.Point(81, 167);
             this.btnRed.Name = "btnRed";
             this.btnRed.Size = new System.Drawing.Size(69, 22);
             this.btnRed.TabIndex = 6;
@@ -1187,67 +1295,546 @@
             this.btnPlanes.Enabled = false;
             this.btnPlanes.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlanes.Image = ((System.Drawing.Image)(resources.GetObject("btnPlanes.Image")));
-            this.btnPlanes.Location = new System.Drawing.Point(938, 0);
+            this.btnPlanes.Location = new System.Drawing.Point(842, 0);
             this.btnPlanes.Name = "btnPlanes";
-            this.btnPlanes.Size = new System.Drawing.Size(120, 149);
+            this.btnPlanes.Size = new System.Drawing.Size(39, 149);
             this.btnPlanes.TabIndex = 61;
             this.btnPlanes.Text = "Inicio";
             this.btnPlanes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPlanes.UseVisualStyleBackColor = true;
+            this.btnPlanes.Visible = false;
             this.btnPlanes.Click += new System.EventHandler(this.btnPlanes_Click);
-            // 
-            // panelInicio
-            // 
-            this.panelInicio.BackColor = System.Drawing.Color.White;
-            this.panelInicio.Controls.Add(this.label10);
-            this.panelInicio.Location = new System.Drawing.Point(350, 155);
-            this.panelInicio.Name = "panelInicio";
-            this.panelInicio.Size = new System.Drawing.Size(418, 142);
-            this.panelInicio.TabIndex = 62;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.BackColor = System.Drawing.Color.Transparent;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.Red;
-            this.label10.Location = new System.Drawing.Point(135, 57);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(147, 31);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Iniciando...";
             // 
             // timerWs2
             // 
             this.timerWs2.Interval = 10000;
             this.timerWs2.Tick += new System.EventHandler(this.timerWs2_Tick);
             // 
+            // Greloj
+            // 
+            this.Greloj.BackColor = System.Drawing.Color.Transparent;
+            this.Greloj.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Greloj.Location = new System.Drawing.Point(20, 179);
+            this.Greloj.Name = "Greloj";
+            this.Greloj.Size = new System.Drawing.Size(112, 59);
+            this.Greloj.TabIndex = 63;
+            this.Greloj.TabStop = false;
+            this.Greloj.Visible = false;
+            this.Greloj.Paint += new System.Windows.Forms.PaintEventHandler(this.Greloj_Paint);
+            // 
+            // panelNombre
+            // 
+            this.panelNombre.Location = new System.Drawing.Point(158, 188);
+            this.panelNombre.Name = "panelNombre";
+            this.panelNombre.Size = new System.Drawing.Size(157, 26);
+            this.panelNombre.TabIndex = 64;
+            // 
+            // lblNombre
+            // 
+            this.lblNombre.AutoSize = true;
+            this.lblNombre.BackColor = System.Drawing.Color.Transparent;
+            this.lblNombre.Font = new System.Drawing.Font("Courier", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombre.ForeColor = System.Drawing.Color.Silver;
+            this.lblNombre.Location = new System.Drawing.Point(362, 179);
+            this.lblNombre.Name = "lblNombre";
+            this.lblNombre.Size = new System.Drawing.Size(317, 30);
+            this.lblNombre.TabIndex = 55;
+            this.lblNombre.Text = "Reparto de Alimento";
+            // 
+            // picSalir
+            // 
+            this.picSalir.Image = ((System.Drawing.Image)(resources.GetObject("picSalir.Image")));
+            this.picSalir.Location = new System.Drawing.Point(1159, 12);
+            this.picSalir.Name = "picSalir";
+            this.picSalir.Size = new System.Drawing.Size(67, 65);
+            this.picSalir.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picSalir.TabIndex = 65;
+            this.picSalir.TabStop = false;
+            this.picSalir.Click += new System.EventHandler(this.picSalir_Click);
+            // 
+            // picPlanes
+            // 
+            this.picPlanes.Enabled = false;
+            this.picPlanes.Image = ((System.Drawing.Image)(resources.GetObject("picPlanes.Image")));
+            this.picPlanes.Location = new System.Drawing.Point(1086, 12);
+            this.picPlanes.Name = "picPlanes";
+            this.picPlanes.Size = new System.Drawing.Size(67, 65);
+            this.picPlanes.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPlanes.TabIndex = 66;
+            this.picPlanes.TabStop = false;
+            this.picPlanes.Click += new System.EventHandler(this.picPlanes_Click);
+            // 
+            // picConfigurar
+            // 
+            this.picConfigurar.Image = ((System.Drawing.Image)(resources.GetObject("picConfigurar.Image")));
+            this.picConfigurar.Location = new System.Drawing.Point(1159, 601);
+            this.picConfigurar.Name = "picConfigurar";
+            this.picConfigurar.Size = new System.Drawing.Size(67, 65);
+            this.picConfigurar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picConfigurar.TabIndex = 67;
+            this.picConfigurar.TabStop = false;
+            this.picConfigurar.Click += new System.EventHandler(this.picConfigurar_Click);
+            // 
+            // picRecorrido
+            // 
+            this.picRecorrido.Image = ((System.Drawing.Image)(resources.GetObject("picRecorrido.Image")));
+            this.picRecorrido.Location = new System.Drawing.Point(487, 602);
+            this.picRecorrido.Name = "picRecorrido";
+            this.picRecorrido.Size = new System.Drawing.Size(67, 65);
+            this.picRecorrido.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picRecorrido.TabIndex = 68;
+            this.picRecorrido.TabStop = false;
+            this.picRecorrido.Click += new System.EventHandler(this.picRecorrido_Click);
+            // 
+            // lblBateriaHoras
+            // 
+            this.lblBateriaHoras.BackColor = System.Drawing.Color.Transparent;
+            this.lblBateriaHoras.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBateriaHoras.ForeColor = System.Drawing.Color.Silver;
+            this.lblBateriaHoras.Location = new System.Drawing.Point(136, 50);
+            this.lblBateriaHoras.Name = "lblBateriaHoras";
+            this.lblBateriaHoras.Size = new System.Drawing.Size(71, 21);
+            this.lblBateriaHoras.TabIndex = 74;
+            this.lblBateriaHoras.Text = ".";
+            this.lblBateriaHoras.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // picConectadoLuz
+            // 
+            this.picConectadoLuz.Image = ((System.Drawing.Image)(resources.GetObject("picConectadoLuz.Image")));
+            this.picConectadoLuz.Location = new System.Drawing.Point(112, 48);
+            this.picConectadoLuz.Name = "picConectadoLuz";
+            this.picConectadoLuz.Size = new System.Drawing.Size(19, 20);
+            this.picConectadoLuz.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picConectadoLuz.TabIndex = 74;
+            this.picConectadoLuz.TabStop = false;
+            this.picConectadoLuz.Visible = false;
+            // 
+            // pbBaterial
+            // 
+            this.pbBaterial.Location = new System.Drawing.Point(71, 50);
+            this.pbBaterial.Name = "pbBaterial";
+            this.pbBaterial.Size = new System.Drawing.Size(24, 13);
+            this.pbBaterial.TabIndex = 57;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(60, 32);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(50, 49);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 71;
+            this.pictureBox2.TabStop = false;
+            // 
+            // lblBateriaPorc
+            // 
+            this.lblBateriaPorc.BackColor = System.Drawing.Color.Transparent;
+            this.lblBateriaPorc.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBateriaPorc.ForeColor = System.Drawing.Color.Silver;
+            this.lblBateriaPorc.Location = new System.Drawing.Point(35, 0);
+            this.lblBateriaPorc.Name = "lblBateriaPorc";
+            this.lblBateriaPorc.Size = new System.Drawing.Size(107, 30);
+            this.lblBateriaPorc.TabIndex = 56;
+            this.lblBateriaPorc.Text = "0 %";
+            this.lblBateriaPorc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelHoral
+            // 
+            this.panelHoral.Controls.Add(this.lblPuertoGps);
+            this.panelHoral.Controls.Add(this.lblBateriaHoras);
+            this.panelHoral.Controls.Add(this.lblPuerto);
+            this.panelHoral.Controls.Add(this.lblSenal);
+            this.panelHoral.Controls.Add(this.pbBaterial);
+            this.panelHoral.Controls.Add(this.picConectadoLuz);
+            this.panelHoral.Controls.Add(this.pictureBox2);
+            this.panelHoral.Controls.Add(this.panelUbic);
+            this.panelHoral.Controls.Add(this.lblBateriaPorc);
+            this.panelHoral.Controls.Add(this.lblHoral);
+            this.panelHoral.Controls.Add(this.picWifi);
+            this.panelHoral.Location = new System.Drawing.Point(118, 586);
+            this.panelHoral.Name = "panelHoral";
+            this.panelHoral.Size = new System.Drawing.Size(278, 86);
+            this.panelHoral.TabIndex = 70;
+            this.panelHoral.Visible = false;
+            // 
+            // lblPuertoGps
+            // 
+            this.lblPuertoGps.BackColor = System.Drawing.Color.Transparent;
+            this.lblPuertoGps.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPuertoGps.ForeColor = System.Drawing.Color.Silver;
+            this.lblPuertoGps.Location = new System.Drawing.Point(297, 27);
+            this.lblPuertoGps.Name = "lblPuertoGps";
+            this.lblPuertoGps.Size = new System.Drawing.Size(81, 21);
+            this.lblPuertoGps.TabIndex = 78;
+            this.lblPuertoGps.Text = ".";
+            this.lblPuertoGps.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblPuerto
+            // 
+            this.lblPuerto.BackColor = System.Drawing.Color.Transparent;
+            this.lblPuerto.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPuerto.ForeColor = System.Drawing.Color.Silver;
+            this.lblPuerto.Location = new System.Drawing.Point(297, 3);
+            this.lblPuerto.Name = "lblPuerto";
+            this.lblPuerto.Size = new System.Drawing.Size(81, 21);
+            this.lblPuerto.TabIndex = 77;
+            this.lblPuerto.Text = ".";
+            this.lblPuerto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblSenal
+            // 
+            this.lblSenal.BackColor = System.Drawing.Color.Transparent;
+            this.lblSenal.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSenal.ForeColor = System.Drawing.Color.Silver;
+            this.lblSenal.Location = new System.Drawing.Point(671, 3);
+            this.lblSenal.Name = "lblSenal";
+            this.lblSenal.Size = new System.Drawing.Size(121, 41);
+            this.lblSenal.TabIndex = 72;
+            this.lblSenal.Text = "Wifi";
+            this.lblSenal.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // panelUbic
+            // 
+            this.panelUbic.Controls.Add(this.lblLong);
+            this.panelUbic.Controls.Add(this.lblLat);
+            this.panelUbic.Location = new System.Drawing.Point(411, 0);
+            this.panelUbic.Name = "panelUbic";
+            this.panelUbic.Size = new System.Drawing.Size(241, 81);
+            this.panelUbic.TabIndex = 76;
+            // 
+            // lblLong
+            // 
+            this.lblLong.BackColor = System.Drawing.Color.Transparent;
+            this.lblLong.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblLong.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLong.ForeColor = System.Drawing.Color.Silver;
+            this.lblLong.Location = new System.Drawing.Point(0, 45);
+            this.lblLong.Name = "lblLong";
+            this.lblLong.Size = new System.Drawing.Size(241, 36);
+            this.lblLong.TabIndex = 75;
+            this.lblLong.Text = "Lng 00.0";
+            this.lblLong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblLat
+            // 
+            this.lblLat.BackColor = System.Drawing.Color.Transparent;
+            this.lblLat.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblLat.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLat.ForeColor = System.Drawing.Color.Silver;
+            this.lblLat.Location = new System.Drawing.Point(0, 0);
+            this.lblLat.Name = "lblLat";
+            this.lblLat.Size = new System.Drawing.Size(241, 41);
+            this.lblLat.TabIndex = 74;
+            this.lblLat.Text = "Lat 00.0";
+            this.lblLat.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblHoral
+            // 
+            this.lblHoral.BackColor = System.Drawing.Color.Transparent;
+            this.lblHoral.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHoral.ForeColor = System.Drawing.Color.Silver;
+            this.lblHoral.Location = new System.Drawing.Point(182, 1);
+            this.lblHoral.Name = "lblHoral";
+            this.lblHoral.Size = new System.Drawing.Size(119, 29);
+            this.lblHoral.TabIndex = 56;
+            this.lblHoral.Text = ".";
+            this.lblHoral.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // picWifi
+            // 
+            this.picWifi.Image = ((System.Drawing.Image)(resources.GetObject("picWifi.Image")));
+            this.picWifi.Location = new System.Drawing.Point(714, 47);
+            this.picWifi.Name = "picWifi";
+            this.picWifi.Size = new System.Drawing.Size(34, 36);
+            this.picWifi.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picWifi.TabIndex = 71;
+            this.picWifi.TabStop = false;
+            this.picWifi.Click += new System.EventHandler(this.picWifi_Click);
+            // 
+            // picPuertos
+            // 
+            this.picPuertos.Image = ((System.Drawing.Image)(resources.GetObject("picPuertos.Image")));
+            this.picPuertos.Location = new System.Drawing.Point(1013, 601);
+            this.picPuertos.Name = "picPuertos";
+            this.picPuertos.Size = new System.Drawing.Size(67, 65);
+            this.picPuertos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPuertos.TabIndex = 69;
+            this.picPuertos.TabStop = false;
+            this.picPuertos.Click += new System.EventHandler(this.picPuertos_Click);
+            // 
+            // lblNumCamion
+            // 
+            this.lblNumCamion.BackColor = System.Drawing.Color.Transparent;
+            this.lblNumCamion.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumCamion.ForeColor = System.Drawing.Color.Yellow;
+            this.lblNumCamion.Location = new System.Drawing.Point(814, 434);
+            this.lblNumCamion.Name = "lblNumCamion";
+            this.lblNumCamion.Size = new System.Drawing.Size(17, 101);
+            this.lblNumCamion.TabIndex = 73;
+            this.lblNumCamion.Text = "#";
+            this.lblNumCamion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lblIniciandoApp
+            // 
+            this.lblIniciandoApp.AutoSize = true;
+            this.lblIniciandoApp.BackColor = System.Drawing.Color.Transparent;
+            this.lblIniciandoApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIniciandoApp.ForeColor = System.Drawing.Color.Silver;
+            this.lblIniciandoApp.Location = new System.Drawing.Point(428, 557);
+            this.lblIniciandoApp.Name = "lblIniciandoApp";
+            this.lblIniciandoApp.Size = new System.Drawing.Size(253, 26);
+            this.lblIniciandoApp.TabIndex = 71;
+            this.lblIniciandoApp.Text = "Iniciando Aplicacion ...";
+            // 
+            // picOpciones
+            // 
+            this.picOpciones.Image = ((System.Drawing.Image)(resources.GetObject("picOpciones.Image")));
+            this.picOpciones.Location = new System.Drawing.Point(419, 602);
+            this.picOpciones.Name = "picOpciones";
+            this.picOpciones.Size = new System.Drawing.Size(60, 65);
+            this.picOpciones.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picOpciones.TabIndex = 72;
+            this.picOpciones.TabStop = false;
+            this.picOpciones.Visible = false;
+            this.picOpciones.Click += new System.EventHandler(this.picOpciones_Click);
+            // 
+            // lblPortGPS
+            // 
+            this.lblPortGPS.BackColor = System.Drawing.Color.Transparent;
+            this.lblPortGPS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPortGPS.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblPortGPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPortGPS.ForeColor = System.Drawing.Color.Silver;
+            this.lblPortGPS.Location = new System.Drawing.Point(0, 0);
+            this.lblPortGPS.Name = "lblPortGPS";
+            this.lblPortGPS.Size = new System.Drawing.Size(71, 23);
+            this.lblPortGPS.TabIndex = 74;
+            this.lblPortGPS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPortGPS.Visible = false;
+            // 
+            // lblPortGPS2
+            // 
+            this.lblPortGPS2.BackColor = System.Drawing.Color.Transparent;
+            this.lblPortGPS2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPortGPS2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblPortGPS2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPortGPS2.ForeColor = System.Drawing.Color.Silver;
+            this.lblPortGPS2.Location = new System.Drawing.Point(0, 101);
+            this.lblPortGPS2.Name = "lblPortGPS2";
+            this.lblPortGPS2.Size = new System.Drawing.Size(71, 30);
+            this.lblPortGPS2.TabIndex = 75;
+            this.lblPortGPS2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPortGPS2.Visible = false;
+            // 
+            // panelGPS2
+            // 
+            this.panelGPS2.Controls.Add(this.lblPortGPS);
+            this.panelGPS2.Controls.Add(this.lblMsgGPS);
+            this.panelGPS2.Controls.Add(this.lblMsgGPS2);
+            this.panelGPS2.Controls.Add(this.lblPortGPS2);
+            this.panelGPS2.Location = new System.Drawing.Point(20, 536);
+            this.panelGPS2.Margin = new System.Windows.Forms.Padding(2);
+            this.panelGPS2.Name = "panelGPS2";
+            this.panelGPS2.Size = new System.Drawing.Size(71, 131);
+            this.panelGPS2.TabIndex = 76;
+            // 
+            // lblMsgGPS
+            // 
+            this.lblMsgGPS.BackColor = System.Drawing.Color.Yellow;
+            this.lblMsgGPS.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMsgGPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgGPS.ForeColor = System.Drawing.Color.Red;
+            this.lblMsgGPS.Location = new System.Drawing.Point(0, 56);
+            this.lblMsgGPS.Name = "lblMsgGPS";
+            this.lblMsgGPS.Size = new System.Drawing.Size(71, 45);
+            this.lblMsgGPS.TabIndex = 76;
+            this.lblMsgGPS.Text = "ACTIVAR GPS EXT";
+            this.lblMsgGPS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMsgGPS.Visible = false;
+            this.lblMsgGPS.Click += new System.EventHandler(this.lblMsgGPS_Click);
+            // 
+            // lblMsgGPS2
+            // 
+            this.lblMsgGPS2.BackColor = System.Drawing.Color.Yellow;
+            this.lblMsgGPS2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblMsgGPS2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgGPS2.ForeColor = System.Drawing.Color.Red;
+            this.lblMsgGPS2.Location = new System.Drawing.Point(0, 101);
+            this.lblMsgGPS2.Name = "lblMsgGPS2";
+            this.lblMsgGPS2.Size = new System.Drawing.Size(71, 0);
+            this.lblMsgGPS2.TabIndex = 77;
+            this.lblMsgGPS2.Text = "ACTIVAR GPS INT";
+            this.lblMsgGPS2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblMsgGPS2.Click += new System.EventHandler(this.lblMsgGPS2_Click);
+            // 
+            // lblNomMaq
+            // 
+            this.lblNomMaq.AutoSize = true;
+            this.lblNomMaq.Location = new System.Drawing.Point(129, 682);
+            this.lblNomMaq.Name = "lblNomMaq";
+            this.lblNomMaq.Size = new System.Drawing.Size(24, 13);
+            this.lblNomMaq.TabIndex = 95;
+            this.lblNomMaq.Text = "No.";
+            this.lblNomMaq.Visible = false;
+            // 
+            // lblPortGPS3
+            // 
+            this.lblPortGPS3.BackColor = System.Drawing.Color.Transparent;
+            this.lblPortGPS3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPortGPS3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPortGPS3.ForeColor = System.Drawing.Color.Silver;
+            this.lblPortGPS3.Location = new System.Drawing.Point(107, 525);
+            this.lblPortGPS3.Name = "lblPortGPS3";
+            this.lblPortGPS3.Size = new System.Drawing.Size(35, 16);
+            this.lblPortGPS3.TabIndex = 96;
+            this.lblPortGPS3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblPortGPS3.Visible = false;
+            // 
+            // picNumero
+            // 
+            this.picNumero.Image = ((System.Drawing.Image)(resources.GetObject("picNumero.Image")));
+            this.picNumero.Location = new System.Drawing.Point(932, 601);
+            this.picNumero.Name = "picNumero";
+            this.picNumero.Size = new System.Drawing.Size(67, 65);
+            this.picNumero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picNumero.TabIndex = 97;
+            this.picNumero.TabStop = false;
+            this.picNumero.Click += new System.EventHandler(this.picNumero_Click);
+            this.picNumero.Paint += new System.Windows.Forms.PaintEventHandler(this.picNumero_Paint);
+            // 
+            // picConfigurarT
+            // 
+            this.picConfigurarT.Image = ((System.Drawing.Image)(resources.GetObject("picConfigurarT.Image")));
+            this.picConfigurarT.Location = new System.Drawing.Point(560, 602);
+            this.picConfigurarT.Name = "picConfigurarT";
+            this.picConfigurarT.Size = new System.Drawing.Size(67, 65);
+            this.picConfigurarT.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picConfigurarT.TabIndex = 98;
+            this.picConfigurarT.TabStop = false;
+            this.picConfigurarT.Click += new System.EventHandler(this.picConfigurarT_Click);
+            // 
+            // picPlanta
+            // 
+            this.picPlanta.Image = ((System.Drawing.Image)(resources.GetObject("picPlanta.Image")));
+            this.picPlanta.Location = new System.Drawing.Point(1086, 601);
+            this.picPlanta.Name = "picPlanta";
+            this.picPlanta.Size = new System.Drawing.Size(67, 65);
+            this.picPlanta.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picPlanta.TabIndex = 99;
+            this.picPlanta.TabStop = false;
+            this.picPlanta.Click += new System.EventHandler(this.picPlanta_Click);
+            this.picPlanta.Paint += new System.Windows.Forms.PaintEventHandler(this.picPlanta_Paint);
+            // 
+            // lblNumCamionFis
+            // 
+            this.lblNumCamionFis.BackColor = System.Drawing.Color.Transparent;
+            this.lblNumCamionFis.Font = new System.Drawing.Font("Microsoft Sans Serif", 70F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNumCamionFis.ForeColor = System.Drawing.Color.Yellow;
+            this.lblNumCamionFis.Location = new System.Drawing.Point(849, 440);
+            this.lblNumCamionFis.Name = "lblNumCamionFis";
+            this.lblNumCamionFis.Size = new System.Drawing.Size(17, 101);
+            this.lblNumCamionFis.TabIndex = 101;
+            this.lblNumCamionFis.Text = "#";
+            this.lblNumCamionFis.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // picIniGps
+            // 
+            this.picIniGps.Image = ((System.Drawing.Image)(resources.GetObject("picIniGps.Image")));
+            this.picIniGps.Location = new System.Drawing.Point(700, 604);
+            this.picIniGps.Name = "picIniGps";
+            this.picIniGps.Size = new System.Drawing.Size(67, 65);
+            this.picIniGps.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picIniGps.TabIndex = 102;
+            this.picIniGps.TabStop = false;
+            this.picIniGps.Click += new System.EventHandler(this.picIniGps_Click);
+            this.picIniGps.Paint += new System.Windows.Forms.PaintEventHandler(this.picIniGps_Paint);
+            // 
+            // picConectGps
+            // 
+            this.picConectGps.Image = ((System.Drawing.Image)(resources.GetObject("picConectGps.Image")));
+            this.picConectGps.Location = new System.Drawing.Point(773, 604);
+            this.picConectGps.Name = "picConectGps";
+            this.picConectGps.Size = new System.Drawing.Size(67, 65);
+            this.picConectGps.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picConectGps.TabIndex = 103;
+            this.picConectGps.TabStop = false;
+            this.picConectGps.Click += new System.EventHandler(this.picConectGps_Click);
+            this.picConectGps.Paint += new System.Windows.Forms.PaintEventHandler(this.picConectGps_Paint);
+            // 
+            // panelCristal
+            // 
+            this.panelCristal.Location = new System.Drawing.Point(818, 449);
+            this.panelCristal.Name = "panelCristal";
+            this.panelCristal.Size = new System.Drawing.Size(74, 31);
+            this.panelCristal.TabIndex = 104;
+            // 
+            // panelCristal2
+            // 
+            this.panelCristal2.Location = new System.Drawing.Point(818, 400);
+            this.panelCristal2.Name = "panelCristal2";
+            this.panelCristal2.Size = new System.Drawing.Size(74, 31);
+            this.panelCristal2.TabIndex = 105;
+            // 
+            // lblAdvertencia
+            // 
+            this.lblAdvertencia.BackColor = System.Drawing.Color.Yellow;
+            this.lblAdvertencia.Font = new System.Drawing.Font("Courier", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdvertencia.ForeColor = System.Drawing.Color.Red;
+            this.lblAdvertencia.Location = new System.Drawing.Point(873, 188);
+            this.lblAdvertencia.Name = "lblAdvertencia";
+            this.lblAdvertencia.Size = new System.Drawing.Size(237, 35);
+            this.lblAdvertencia.TabIndex = 106;
+            this.lblAdvertencia.Text = "Advertencia:";
+            this.lblAdvertencia.Visible = false;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1244, 701);
             this.ControlBox = false;
-            this.Controls.Add(this.panelInicio);
-            this.Controls.Add(this.btnPlanes);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.btnVerGps);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btnActualizar);
+            this.Controls.Add(this.lblAdvertencia);
+            this.Controls.Add(this.lblNombre);
+            this.Controls.Add(this.panelCristal2);
             this.Controls.Add(this.lblVersion);
+            this.Controls.Add(this.panelCristal);
+            this.Controls.Add(this.picConectGps);
+            this.Controls.Add(this.picIniGps);
+            this.Controls.Add(this.lblNumCamionFis);
+            this.Controls.Add(this.picPlanta);
+            this.Controls.Add(this.picConfigurarT);
+            this.Controls.Add(this.picNumero);
+            this.Controls.Add(this.lblPortGPS3);
+            this.Controls.Add(this.lblNomMaq);
             this.Controls.Add(this.listBoxRecorridos);
+            this.Controls.Add(this.panelGPS2);
+            this.Controls.Add(this.picOpciones);
+            this.Controls.Add(this.lblIniciandoApp);
+            this.Controls.Add(this.picPuertos);
+            this.Controls.Add(this.panelHoral);
+            this.Controls.Add(this.picPlanes);
+            this.Controls.Add(this.picRecorrido);
+            this.Controls.Add(this.picSalir);
+            this.Controls.Add(this.lblNumCamion);
+            this.Controls.Add(this.panelNombre);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.Greloj);
+            this.Controls.Add(this.btnPlanes);
+            this.Controls.Add(this.btnVerGps);
+            this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.btnReparto);
             this.Controls.Add(this.btnRecorrido);
-            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.picConfigurar);
             this.Controls.Add(this.btnConfigurar);
             this.Controls.Add(this.picLogo);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.btnJornadas);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblSQL);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.toolStrip2);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -1262,6 +1849,7 @@
             this.Activated += new System.EventHandler(this.Principal_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Principal_FormClosed);
             this.Load += new System.EventHandler(this.Principal_Load);
+            this.Click += new System.EventHandler(this.Principal_Click);
             this.panelGps.ResumeLayout(false);
             this.panelGps.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picVerde)).EndInit();
@@ -1279,8 +1867,24 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panelInicio.ResumeLayout(false);
-            this.panelInicio.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Greloj)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picSalir)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlanes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigurar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picRecorrido)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConectadoLuz)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panelHoral.ResumeLayout(false);
+            this.panelUbic.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picWifi)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPuertos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picOpciones)).EndInit();
+            this.panelGPS2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picNumero)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConfigurarT)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picPlanta)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picIniGps)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picConectGps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1316,11 +1920,9 @@
         private System.Windows.Forms.ListBox listBoxRecorridos;
         private System.Windows.Forms.ToolStripButton btnIniciaGps;
         private System.Windows.Forms.ToolStripLabel lblContWs;
-        private System.Windows.Forms.Label lblVersion;
         public System.Windows.Forms.Timer timerWs;
         public System.Windows.Forms.Timer timerRecorrido;
         private System.Windows.Forms.Button btnActualizar;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelBateria;
         private System.Windows.Forms.TextBox txtChargeStatus;
         private System.Windows.Forms.TextBox txtLineStatus;
@@ -1373,11 +1975,8 @@
         private System.Windows.Forms.Label lblPacketReceived;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lblDescripcionRed;
-        private System.Windows.Forms.TextBox txtLectura;
         public System.Windows.Forms.Label lblDifGps;
         private System.Windows.Forms.Button btnPlanes;
-        private System.Windows.Forms.Panel panelInicio;
-        private System.Windows.Forms.Label label10;
         public System.Windows.Forms.ToolStripProgressBar lblConectadoF;
         public System.Windows.Forms.ToolStripProgressBar lblWsActivoF;
         public System.Windows.Forms.ToolStripProgressBar lblGpsActivoF;
@@ -1399,6 +1998,54 @@
         public System.Windows.Forms.ToolStripLabel toolStripLabel1;
         public System.Windows.Forms.ToolStripLabel lblLongitud;
         public System.Windows.Forms.ToolStripLabel lblVelocidad;
+        public System.Windows.Forms.PictureBox Greloj;
+        private System.Windows.Forms.ToolStripLabel lblCamion;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripLabel lblServ;
+        private System.Windows.Forms.Label lblNombre;
+        private System.Windows.Forms.Label lblBateriaPorc;
+        private System.Windows.Forms.Label lblHoral;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox picWifi;
+        private System.Windows.Forms.Label lblSenal;
+		private System.Windows.Forms.PictureBox picConectadoLuz;
+		private System.Windows.Forms.Label lblBateriaHoras;
+		private System.Windows.Forms.Label lblLat;
+		private System.Windows.Forms.Label lblLong;
+		private System.Windows.Forms.Panel panelUbic;
+		public System.Windows.Forms.ProgressBar pbBaterial;
+        public System.Windows.Forms.Label lblIniciandoApp;
+        public System.Windows.Forms.Panel panelHoral;
+        public System.Windows.Forms.Panel panelNombre;
+        public System.Windows.Forms.PictureBox picSalir;
+        public System.Windows.Forms.PictureBox picPlanes;
+        private System.Windows.Forms.Label lblPuerto;
+        private System.Windows.Forms.Panel panelGPS2;
+        public System.Windows.Forms.Label lblMsgGPS;
+        private System.Windows.Forms.Label lblNomMaq;
+        public System.Windows.Forms.PictureBox picConfigurar;
+        public System.Windows.Forms.PictureBox picOpciones;
+        public System.Windows.Forms.Label lblVersion;
+        public System.Windows.Forms.Label lblMsgGPS2;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Label lblMsgGpsError;
+        public System.Windows.Forms.TextBox txtLectura;
+        public System.Windows.Forms.Label lblPuertoGps;
+        public System.Windows.Forms.Label lblPortGPS2;
+        public System.Windows.Forms.Label lblPortGPS;
+        public System.Windows.Forms.Label lblPortGPS3;
+        public System.Windows.Forms.PictureBox picConfigurarT;
+        public System.Windows.Forms.PictureBox picRecorrido;
+        public System.Windows.Forms.PictureBox picPuertos;
+        public System.Windows.Forms.PictureBox picNumero;
+        public System.Windows.Forms.Label lblNumCamion;
+        public System.Windows.Forms.PictureBox picPlanta;
+        public System.Windows.Forms.Label lblNumCamionFis;
+        public System.Windows.Forms.PictureBox picIniGps;
+        public System.Windows.Forms.PictureBox picConectGps;
+        private System.Windows.Forms.Panel panelCristal;
+        private System.Windows.Forms.Panel panelCristal2;
+        private System.Windows.Forms.Label lblAdvertencia;
     }
 }
 

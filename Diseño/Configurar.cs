@@ -13,6 +13,8 @@ using System.Reflection;
 using System.Threading;
 using System.Xml;
 using System.Management;
+using System.Reflection.Emit;
+using System.Web.Services.Description;
 
 namespace Senga
 {
@@ -35,27 +37,60 @@ namespace Senga
 
         String usuario = "";
         String contrasena = "";
-        
 
-        public Configurar()
+        int gopcion;
+
+        //BackgroundWorker worker = new BackgroundWorker();
+        public static Configurar instance = null;
+
+        public Configurar(int opcion)
         {
+
+            instance = this;
             InitializeComponent();
+            gopcion = opcion;
+            //worker.WorkerSupportsCancellation = true;
+            //worker.WorkerReportsProgress = true;
+            //worker.ProgressChanged += Worker_ProgressChanged;
+            //worker.DoWork += Worker_DoWork;
+
         }
+
+        //private void Worker_DoWork(object sender, DoWorkEventArgs e)
+        //{
+        //    vrutared = rutared();
+        //    string sourcePath = vrutared + nameruta + nameapp + nameappnom + "\\mapa";
+        //    string targetPath = Directory.GetCurrentDirectory() + "\\mapa";
+        //    CopyDirectory(sourcePath, targetPath, true);
+        //}
+
+        //private void Worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        //{
+        //    progressBar1.Value = e.ProgressPercentage;
+        //}
 
         private void Configurar_Load(object sender, EventArgs e)
         {
 
+
+
+            posicionbotones();
+
+            verOpcion(sender, e);
+            this.Refresh();
+
             //inicializa();
             propiedadesGrid();
             propiedadesGrid2();
-            mostrar();
+            mostrarConfig();
             tablaUbicTemp();
-            posicionbotones();
+
 
             comboPuertos();
+            comboPuertos2();
             comboPuertosGps();
             comboBaud();
-
+ 
             usuarioiWs();
 
             lbInfoArchivo.Items.Add(Application.ExecutablePath);
@@ -64,10 +99,90 @@ namespace Senga
             Acercade();
             verConfig();
 
-
             lblProcesadores.Text = Environment.ProcessorCount.ToString();
             lblNomMaq.Text = Environment.MachineName.ToString();
 
+            lblFramework.Text = Environment.Version.ToString();
+            lblWindows.Text = Environment.OSVersion.ToString();
+
+            lblTestPeso.Text = "";
+            lblTestPeso2.Text = "";
+
+
+            tabControl1.Visible = true;
+
+            operacionRacion();
+            btnConfigPeso_Click(sender, e);
+
+        }
+
+        void verOpcion(object sender, EventArgs e)
+        {
+
+            switch(gopcion)
+            {
+                case 0: //todo
+                    break;
+
+                case 1: //COM
+
+                    btnBasic.Visible = false;
+                    btnWs.Visible = false;                    
+                    btnCom.Visible = true;
+                    //grpBxGPS.Visible = false;
+                    btnZone.Visible = false;
+                    btnSql.Visible = false;
+                    btnManual.Visible = true;
+                    btnMtto.Visible = false;
+
+                    btnCom_Click(sender,e);
+                    break;
+
+                case 2: //num camion
+
+                    grpPlanta.Visible = false;
+                    btnBasic.Visible = true;
+                    btnWs.Visible = false;
+                    btnCom.Visible = false;
+                    grpParametros.Visible = false;
+                    btnZone.Visible = false;
+                    btnSql.Visible = false;
+                    btnManual.Visible = false;
+                    btnMtto.Visible = false;
+
+                    btnBasic_Click(sender, e);
+                    break;
+
+                case 3: //supervisor
+
+                    grpCamion.Visible = false;                    
+                    btnCom.Visible = false;
+                    btnWs.Visible = false;
+                    btnZone.Visible = true; button2.Visible = false;
+
+                    btnSql.Visible = false;
+                    btnManual.Visible = true;
+                    btnMtto.Visible = true;
+
+                    btnBasic_Click(sender, e);
+                    break;
+
+                case 4: //num planta
+
+                    grpCamion.Visible = false;
+                    btnBasic.Visible = true;
+                    btnWs.Visible = false;
+                    btnCom.Visible = false;
+                    grpParametros.Visible = false;
+                    btnZone.Visible = false;
+                    btnSql.Visible = false;
+                    btnManual.Visible = false;
+                    btnMtto.Visible = false;
+
+                    btnBasic_Click(sender, e);
+                    break;
+
+            }
 
         }
 
@@ -84,8 +199,6 @@ namespace Senga
             btnGrabar.Top = 0;
             btnCerrar.Top = 0;
 
-
-
             btnCerrar.Left = this.Width - btnCerrar.Width;
             btnGrabar.Left = btnCerrar.Left - btnGrabar.Width;
 
@@ -93,32 +206,26 @@ namespace Senga
             btnManual.Left = btnMtto.Left - btnManual.Width;
             btnSql.Left = btnManual.Left - btnSql.Width;
             btnZone.Left = btnSql.Left - btnZone.Width;
-            btnCom.Left = btnZone.Left - btnCom.Width;
-            btnWs.Left = btnCom.Left - btnWs.Width;
-            btnBasic.Left = btnWs.Left - btnBasic.Width;
-
-
+            btnWs.Left = btnZone.Left - btnWs.Width;            
+            btnCom.Left = btnWs.Left - btnCom.Width;
+            
+            btnBasic.Left = btnCom.Left - btnBasic.Width;
 
             btnEjecutar.Top = 0;
             btnLimpia.Top = btnEjecutar.Top + btnLimpia.Height;
             btnRecursos.Top = btnLimpia.Top + btnRecursos.Height;
             btnTablas.Top = btnRecursos.Top + btnTablas.Height;
 
-
-
-            btnEjecutar.Left = this.Width - btnEjecutar.Width - 10;
-            btnLimpia.Left = btnEjecutar.Left;
-            btnRecursos.Left = btnEjecutar.Left;
-            btnTablas.Left = btnEjecutar.Left;
-
+            btnEjecutar.Left = 8; //this.Width - btnEjecutar.Width - 10;
+            btnLimpia.Left = 8; //btnEjecutar.Left;
+            btnRecursos.Left = 8; //btnEjecutar.Left;
+            btnTablas.Left = 8; //btnEjecutar.Left;
 
             splitContainer1.Width = this.Width - btnEjecutar.Width - 50;
 
             btnBasic.Focus();
 
-
         }
-
 
         private void comboPuertos() 
         {
@@ -130,13 +237,10 @@ namespace Senga
             cmbPuertos.Items.Clear();
             cmbParity.Items.Clear();
             cmbStop.Items.Clear();
-
             
             foreach (string value in puertos)
             {
-
                 cmbPuertos.Items.Add(value);
-
             }
 
             cmbParity.Items.Add(System.IO.Ports.Parity.Even);
@@ -145,7 +249,6 @@ namespace Senga
             cmbParity.Items.Add(System.IO.Ports.Parity.Odd);
             cmbParity.Items.Add(System.IO.Ports.Parity.Space);
 
-
             cmbStop.Items.Add(System.IO.Ports.StopBits.None);
             cmbStop.Items.Add(System.IO.Ports.StopBits.One);
             cmbStop.Items.Add(System.IO.Ports.StopBits.OnePointFive);
@@ -153,8 +256,36 @@ namespace Senga
             
         }
 
+		private void comboPuertos2()
+		{
 
-        private void portDescripcion() 
+			//portDescripcion();
+
+			string[] puertos = System.IO.Ports.SerialPort.GetPortNames();
+
+			cmbPuertos2.Items.Clear();
+			cmbParity2.Items.Clear();
+			cmbStop2.Items.Clear();
+
+			foreach (string value in puertos)
+			{
+				cmbPuertos2.Items.Add(value);
+			}
+
+			cmbParity2.Items.Add(System.IO.Ports.Parity.Even);
+			cmbParity2.Items.Add(System.IO.Ports.Parity.Mark);
+			cmbParity2.Items.Add(System.IO.Ports.Parity.None);
+			cmbParity2.Items.Add(System.IO.Ports.Parity.Odd);
+			cmbParity2.Items.Add(System.IO.Ports.Parity.Space);
+
+			cmbStop2.Items.Add(System.IO.Ports.StopBits.None);
+			cmbStop2.Items.Add(System.IO.Ports.StopBits.One);
+			cmbStop2.Items.Add(System.IO.Ports.StopBits.OnePointFive);
+			cmbStop2.Items.Add(System.IO.Ports.StopBits.Two);
+
+		}
+
+		private void portDescripcion() 
         {
 
             Cursor = Cursors.WaitCursor;
@@ -185,10 +316,62 @@ namespace Senga
                     //Console.WriteLine(ManObj["Status"].ToString());
 
                     //listPuertos.Items.Add(ManObj["DeviceID"].ToString() + " " + ManObj["Description"].ToString());
-                    listPuertos.Items.Add(ManObj["Caption"].ToString());
+
+                    string port = ManObj["Caption"].ToString();
+
+                    //string deviceID = ManObj["DeviceID"]?.ToString() ?? "N/A";
+                    //string name = ManObj["Name"]?.ToString() ?? "N/A";
+                    //string description = ManObj["Description"]?.ToString() ?? "N/A";
+                    //string manufacturer = ManObj["Manufacturer"]?.ToString() ?? "N/A";
+                    //string status = ManObj["Status"]?.ToString() ?? "N/A";
+                    //string service = ManObj["Service"]?.ToString() ?? "N/A";
+                    //string classGuid = ManObj["ClassGuid"]?.ToString() ?? "N/A";
+
+                    //string deviceInfo = $"Puerto: {name}\n" +
+                    //                    $"ID: {deviceID}\n" +
+                    //                    $"Descripción: {description}\n" +
+                    //                    $"Fabricante: {manufacturer}\n" +
+                    //                    $"Estado: {status}\n" +
+                    //                    $"Servicio: {service}\n" +
+                    //                    $"GUID Clase: {classGuid}";
+
+
+                    //if (port.ToLower().Contains("comm port")
+                    //    || port.ToLower().Contains("usb port")
+                    //    || port.ToLower().Contains("serial port"))
+                    //{
+
+                    //    if (port.ToLower().Contains(cmbPuertos.Text.ToLower()) && cmbPuertos.Text != "")
+                    //    {
+                    //        port += " [PESO] ";
+                    //    }
+                    //    if (port.ToLower().Contains(cmbPuertosGps.Text.ToLower()) && cmbPuertosGps.Text != "")
+                    //    {
+                    //        port += " [GPS] ";
+                    //    }
+
+                    if (port.ToLower().Contains("sierra".ToLower()) || port.ToLower().Contains("intel".ToLower()))
+                    {
+                        continue;
+                    }
+
+                    if (port.ToLower().Contains("prolific usb".ToLower()) || port.ToLower().Contains("aten usb".ToLower()))
+                    {
+                        port += " [PESO] ";
+                    }
+
+                    if (port.ToLower().Contains("usb serial port".ToLower()))
+                    {
+                        port += " [GPS] ";
+                    }
+
+                    listPuertos.Items.Add(port);
+
+                    //}
 
 
                 }
+
             }
             catch (Exception e)
             {
@@ -225,25 +408,22 @@ namespace Senga
         private void comboBaud()
         {
 
-
             int[] valores = new[] { 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 57600, 115200, 128000, 256000 };
 
             cmbBaud.Items.Clear();
+            cmbBaud2.Items.Clear();
             cmbBaudGps.Items.Clear();
 
             foreach (int value in valores)
             {
-
                 cmbBaud.Items.Add(value.ToString());
+                cmbBaud2.Items.Add(value.ToString());
                 cmbBaudGps.Items.Add(value.ToString());
-
             }
-
-
 
         }
 
-        private void comboPuertosGps()
+		private void comboPuertosGps()
         {
 
             string[] puertos = System.IO.Ports.SerialPort.GetPortNames();
@@ -318,15 +498,11 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-
             if (cmbPuertos.Text.Equals( cmbPuertosGps.Text)) 
             {             
                 Comun.mensajeVer("COM: Puertos GPS y Peso no deben ser iguales.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
                 return;
             }
-            
-
-
 
             if (txtCapacidad.Text == "")
             {
@@ -336,12 +512,14 @@ namespace Senga
             {
                 txtNumCamion.Text = "999";
             }
-
+            if (txtMinutosTolerancia.Text == "")
+            {
+                txtMinutosTolerancia.Text = "0";
+            }
             if (txtRutaLocal.Text == "")
             {
                 txtRutaLocal.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            }
-            
+            }            
             if (txtRutaRed.Text == "")
             {
                 txtRutaRed.Text = namerutas;
@@ -349,6 +527,14 @@ namespace Senga
 
             String activarws = "N";
             if (chkWs.Checked) { activarws = "S"; } else { activarws = "N"; }
+            String activarrf = "N";
+            if (chkRuta.Checked) { activarrf = "S"; } else { activarrf = "N"; }
+            String activartmax = "N";
+            if (chkToleranciaMax.Checked) { activartmax = "S"; } else { activartmax = "N"; }
+            String activartmin = "N";
+            if (chkToleranciaMin.Checked) { activartmin = "S"; } else { activartmin = "N"; }
+
+
 
             datos.p_sql = "UPDATE configuracion SET "
                 + " numcamion = '" + txtNumCamion.Text
@@ -362,7 +548,13 @@ namespace Senga
                 + ", parity = '" + cmbParity.Text
                 + "', stopbits = '" + cmbStop.Text
 
-                + "', puertogps = '" + cmbPuertosGps.Text
+                + "', puerto2 = '" + cmbPuertos2.Text
+				+ "', baudrate2 = " + cmbBaud2.Text
+				+ ", databits2 = " + cmbData2.Text
+				+ ", parity2 = '" + cmbParity2.Text
+				+ "', stopbits2 = '" + cmbStop2.Text
+
+				+ "', puertogps = '" + cmbPuertosGps.Text
                 + "', baudrategps = " + cmbBaudGps.Text
                 + ", databitsgps = " + cmbDataGps.Text
                 + ", paritygps = '" + cmbParityGps.Text
@@ -375,6 +567,9 @@ namespace Senga
                 + ", usuario = '" + txtUsuario.Text.Trim()
                 + "', contrasena = '" + txtContrasena.Text.Trim()                 
                 + "', ws = '" + activarws
+                + "', RutaFija = '" + activarrf
+                + "', ToleranciaMax = '" + activartmax
+                + "', ToleranciaMin = '" + activartmin
                 + "' ";
 
 
@@ -524,7 +719,7 @@ namespace Senga
 
         }
 
-        private void mostrar() 
+        private void mostrarConfig() 
         { 
         
             Datos datos = new Datos();
@@ -538,6 +733,9 @@ namespace Senga
             }
             else
             {
+
+				DataColumnCollection columns = dt.Columns;
+                
                 foreach (DataRow row in dt.Rows)
                 {
                     txtNumCamion.Text = row["NumCamion"].ToString();
@@ -551,7 +749,16 @@ namespace Senga
                     cmbParity.Text = row["Parity"].ToString();
                     cmbStop.Text = row["StopBits"].ToString();
 
-                    cmbPuertosGps.Text = row["PuertoGps"].ToString();
+					if (columns.Contains("Puerto2"))
+					{
+					    cmbPuertos2.Text = row["Puerto2"].ToString();
+					    cmbBaud2.Text = row["BaudRate2"].ToString();
+					    cmbData2.Text = row["DataBits2"].ToString();
+					    cmbParity2.Text = row["Parity2"].ToString();
+					    cmbStop2.Text = row["StopBits2"].ToString();	
+	                }
+
+					cmbPuertosGps.Text = row["PuertoGps"].ToString();
                     cmbBaudGps.Text = row["BaudRateGps"].ToString();
                     cmbDataGps.Text = row["DataBitsGps"].ToString();
                     cmbParityGps.Text = row["ParityGps"].ToString();
@@ -566,8 +773,20 @@ namespace Senga
                     txtContrasena.Text = row["Contrasena"].ToString();
                     
                     if (row["Ws"].ToString().Equals("S")) { chkWs.Checked = true; } else { chkWs.Checked = false; };
-
                     checkValores(chkWs);
+
+                    if (columns.Contains("RutaFija"))
+                    {
+
+                        if (row["RutaFija"].ToString().Equals("S")) { chkRuta.Checked = true; } else { chkRuta.Checked = false; };
+                        if (row["ToleranciaMax"].ToString().Equals("S")) { chkToleranciaMax.Checked = true; } else { chkToleranciaMax.Checked = false; };
+                        if (row["ToleranciaMin"].ToString().Equals("S")) { chkToleranciaMin.Checked = true; } else { chkToleranciaMin.Checked = false; };
+                        
+                        checkValores(chkRuta);
+                        checkValores(chkToleranciaMax);
+                        checkValores(chkToleranciaMin);
+                        
+                    }
 
                 }
             }
@@ -584,9 +803,11 @@ namespace Senga
             }
             else 
             {
+                nombreBtnMtto();
                 //MessageBox.Show("Listo", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
             }
+
 
 
         }
@@ -1342,7 +1563,14 @@ namespace Senga
 
         private void btnEjecutar_Click(object sender, EventArgs e)
         {
-                       
+
+            ejecutarSQL();
+
+        }
+
+        void ejecutarSQL()
+        {
+
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
@@ -1402,7 +1630,7 @@ namespace Senga
                             }
                             else
                             {
-                                lblSQLStatus.Text = "Correcto";
+                                lblSQLStatus.Text = "Correcto " + DateTime.Now.ToString("HH:mm:ss");
                             }
 
                         }
@@ -1433,6 +1661,7 @@ namespace Senga
             //}
 
             //-----------------------------------------------------
+
 
 
         }
@@ -1611,60 +1840,109 @@ namespace Senga
 
         private void btnTestPeso_Click(object sender, EventArgs e)
         {
+            btnTestPeso.BackColor = Color.Orange;
+            var nombre = btnTestPeso.Text;
+            btnTestPeso.Text = "Testeando...";
+            testpeso(1);
+            if (lblTestPeso.Text != "0" && lblTestPeso.Text != "")
+            {
+                btnTestPeso.Text = lblTestPeso.Text;//nombre;
+                btnTestPeso.BackColor = Color.Lime;
+            }
+            else
+            {
+                btnTestPeso.Text = "Sin Peso";
+                btnTestPeso.BackColor = Color.Yellow;
+            }
+
+        }
+
+        void testpeso(int bascula)
+        {
 
             Comm comm = new Comm();
             SerialPort serialPort1 = new SerialPort();
             string dator = "";
 
-            this.Cursor = Cursors.WaitCursor;
-            btnTestPeso.Enabled = false;
+			lblTestPeso.Text = dator;
+			lblTestPeso2.Text = dator;
+            lblTestPeso.Refresh();
+            lblTestPeso2.Refresh();
+			//System.Threading.Thread.Sleep(1000);
 
-            comm.p_comm = cmbPuertos.Text;
-            comm.p_baudrate = Int32.Parse(cmbBaud.Text);
-            comm.p_databits = Int32.Parse(cmbData.Text);
-            comm.p_parity = cmbParity.Text;
-            comm.p_stopbits = cmbStop.Text;
-            comm.p_sp = serialPort1;
-
-            if (!comm.abrirPuerto())
-            {
-                //MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Comun.mensajeVer(comm.p_error + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
-
-            }
-            else
+			try
             {
 
-                for (int i = 0; i < 10; i++)
+                this.Cursor = Cursors.WaitCursor;
+
+                switch (bascula)
+                {
+                    case 1:
+                        btnTestPeso.Enabled = false;
+
+                        comm.p_comm = cmbPuertos.Text;
+                        comm.p_baudrate = Int32.Parse(cmbBaud.Text);
+                        comm.p_databits = Int32.Parse(cmbData.Text);
+                        comm.p_parity = cmbParity.Text;
+                        comm.p_stopbits = cmbStop.Text;
+                        break;
+
+                    case 2:
+                        btnTestPeso2.Enabled = false;
+
+                        comm.p_comm = cmbPuertos2.Text;
+                        comm.p_baudrate = Int32.Parse(cmbBaud2.Text);
+                        comm.p_databits = Int32.Parse(cmbData2.Text);
+                        comm.p_parity = cmbParity2.Text;
+                        comm.p_stopbits = cmbStop2.Text;
+                        break;
+                }
+
+                comm.p_sp = serialPort1;
+
+                if (!comm.abrirPuerto())
+                {
+                    //MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    Comun.mensajeVer(comm.p_error + "\n\rVerifique Cable Peso o \n\rConfiguracion del Puerto COM", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                }
+                else
                 {
 
-                    if (!comm.recibePuerto())
+                    for (int i = 0; i < 10; i++)
                     {
-                        //break;
-                    }
-                    else
-                    {
-                        Thread.Sleep(50);
-                        dator = comm.p_dato;
-                        
-                        if (!dator.Equals("0"))
+
+                        if (!comm.recibePuerto())
                         {
-                            break;
+                            //break;
                         }
+                        else
+                        {
+                            Thread.Sleep(50);
+                            dator = comm.p_dato;
+
+                            if (!dator.Equals("0"))
+                            {
+                                break;
+                            }
+                        }
+
                     }
 
-                    
+                    lblTestPeso.Text = dator;
+                    lblTestPeso2.Text = dator;
+                    comm.cerrarPuerto();
 
                 }
 
-                lblTestPeso.Text = dator;
-                comm.cerrarPuerto();
-                
-
             }
+            catch { }
 
             this.Cursor = Cursors.Default;
             btnTestPeso.Enabled = true;
+            btnTestPeso2.Enabled = true;
+
+
 
         }
 
@@ -1698,17 +1976,21 @@ namespace Senga
             
         private void verConfig()
         {
+            try
+            {
 
-            Senga.Properties.Settings setting = Senga.Properties.Settings.Default;
+                Senga.Properties.Settings setting = Senga.Properties.Settings.Default;
 
-            string[] cadena = setting.Senga_getSAPData_zwsdl_gps.Split('/');            
-            string[] cadena2 = cadena[2].ToString().Split('.');
+                string[] cadena = setting.Senga_getSAPData_zwsdl_gps.Split('/');
+                string[] cadena2 = cadena[2].ToString().Split(':');
 
-            txtMandante.Text = cadena[9].ToString();
-            txtServer.Text = cadena2[0].ToString();
+                txtMandante.Text = cadena[9].ToString();
+                txtServer.Text = cadena2[0].ToString();
 
-            //Properties.Settings.Default.Save();
-            //Properties.Settings.Default.Reload();
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
+            }
+            catch { }
 
         }
 
@@ -1801,6 +2083,8 @@ namespace Senga
         private void btnCom_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabControl1.TabPages["com"];
+            btnListPuertos_Click(sender, e);
+            validaPuertos();
         }
 
         private void btnZone_Click(object sender, EventArgs e)
@@ -1821,6 +2105,7 @@ namespace Senga
         private void btnMtto_Click(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tabControl1.TabPages["mtto"];
+            nombreBtnMtto();
         }
 
         private void btnTablas_Click(object sender, EventArgs e) 
@@ -1861,13 +2146,24 @@ namespace Senga
             portDescripcion();
         }
 
-        private void btnActualizar_Click(object sender, EventArgs e)
+        public void btnActualizar_Click(object sender, EventArgs e)
         {
+            this.Visible = false;
+            Comun.actualizarApp(true, Constants.OPC_REINICIO);
 
+        }
+
+        /*
+        public void actualizarApp(Boolean fondo)
+        {
+            
             if (!redConectado())
             {
                 //MessageBox.Show("Sin red disponible.", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1);
-                Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                if (!fondo)
+                {
+                    Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                }
             }
             else
             {
@@ -1904,14 +2200,37 @@ namespace Senga
                     //if (sourcedt == actualdt)
                     if (vsourcePath == vactualPath)
                     {
-                        Comun.mensajeVer("No hay actualizaciones a una nueva version de la App", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                        if (!fondo)
+                        {
+                            Comun.mensajeVer("No hay actualizaciones a una nueva version de la App", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+                        }
                     }
                     else
                     {
-                        if (Comun.mensajeVer("¿ Desea actualizar nueva version " + vsourcePath + " ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                        if (
+
+                            (!fondo) ? 
+
+                            Comun.mensajeVer(
+                            "¿ Desea actualizar nueva version " + vsourcePath + " ?", 
+                            Constants.MSG_BOTON_SINO, 
+                            Constants.MSG_IMG_QUESTION
+                            ) == Constants.MSG_BOTON_SI
+                            
+                            : true
+
+                            )
                         {
 
+                            Principal.instance.Greloj.Visible = false;
                             Principal.instance.pictureBox1.Visible = false;
+                            Principal.instance.lblIniciandoApp.Visible = true;
+                            Principal.instance.panelHoral.Visible = false;
+                            Principal.instance.panelNombre.Visible = false;
+                            Principal.instance.picSalir.Visible = false;
+                            Principal.instance.picPlanes.Visible = false;
+                            Principal.instance.lblIniciandoApp.Text = "Actualizando...";
+
                             Principal.instance.Refresh();
                             this.Visible = false;
 
@@ -1925,7 +2244,14 @@ namespace Senga
 
                             File.Copy(sourcePath, targetPath, true);
 
-                            Application.Restart();
+                            if (!fondo)
+                            {
+                                Application.Restart();
+                            }
+                            else 
+                            { 
+                            
+                            }
 
                             //Comun.mensajeVer("Listo reinciar aplicacion", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
 
@@ -1936,7 +2262,10 @@ namespace Senga
                 }
                 catch (Exception ec)
                 {
-                    Comun.mensajeVer(ec.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    if (!fondo)
+                    {
+                        Comun.mensajeVer(ec.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
                 }
 
                 //}
@@ -1944,12 +2273,14 @@ namespace Senga
             }
 
         }
+        */
 
-        private Boolean redConectado()
-        {
-            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
-        }
+        //private Boolean redConectado()
+        //{
+        //    return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        //}
 
+        /*
         public void Rename(string filePath, string newFileName)
         {
 
@@ -1961,7 +2292,8 @@ namespace Senga
             }
 
         }
-
+        */
+        /*
         private string rutared()
         {
 
@@ -1987,7 +2319,7 @@ namespace Senga
             return valor;
 
         }
-
+        */
         private void btnCambio_Click(object sender, EventArgs e)
         {
 
@@ -2040,13 +2372,479 @@ namespace Senga
             }
             catch { }
 
+        }
+
+        private void btnActualizarMapa_Click(object sender, EventArgs e)
+        {
+
+            if (!Comun.redConectado())
+            {
+                Comun.mensajeVer("Sin red disponible.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+            }
+            else
+            {
+
+                try
+                {
+
+                    vrutared = Comun.rutared();
+
+                    string sourcePath = vrutared + nameruta + nameapp + nameappnom + "\\mapa";
+                    string targetPath = Directory.GetCurrentDirectory() + "\\mapa";
+
+                    if (Comun.mensajeVer("¿ Desea actualizar mapa ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                    {
+                        //CopyDirectory(@".\", @".\copytest", true);
+                        lblEspereMapa.Visible = true;
+                        this.Refresh();
+                        Cursor = Cursors.WaitCursor;
+                        CopyDirectory(sourcePath, targetPath, true);
+                        Cursor = Cursors.Default;
+                        lblEspereMapa.Visible = false;
+                        this.Refresh();
+                        //worker.RunWorkerAsync();
+                        Comun.mensajeVer("Listo mapa actualizado", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+
+                }
+                catch (Exception ec)
+                {
+                    Cursor = Cursors.Default;
+                    Comun.mensajeVer(ec.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
+                      
+            }
 
         }
-    
 
 
+        private void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
+        {
+            // Get information about the source directory
+            var dir = new DirectoryInfo(sourceDir);
 
-    
+            // Check if the source directory exists
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+            // Cache directories before we start copying
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // Create the destination directory
+            Directory.CreateDirectory(destinationDir);
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string targetFilePath = Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath, true);
+                //worker.ReportProgress(50);   
+            }
+
+            // If recursive and copying subdirectories, recursively call this method
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
+        }
+
+        private void btnRedes_Click(object sender, EventArgs e)
+        {
+
+            ProcessStartInfo startInfo = new ProcessStartInfo("NCPA.cpl");
+            startInfo.UseShellExecute = true;
+
+            Process.Start(startInfo);
+
+            //System.Diagnostics.Process.Start("NCPA.cpl");
+
+
+        }
+
+		private void btnTeclado_Click_1(object sender, EventArgs e)
+		{
+            try
+            {
+    			System.Diagnostics.Process.Start("osk.exe");
+            }catch (Exception ex)
+            {
+				Comun.mensajeVer(ex.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+			}
+
+		}
+
+		private void btnDispositivos_Click(object sender, EventArgs e)
+		{
+			ProcessStartInfo startInfo = new ProcessStartInfo();
+			startInfo.FileName = "devmgmt.msc";
+			startInfo.Arguments = "/n";
+			startInfo.WorkingDirectory = @"C:\Windows\System32";
+			startInfo.WindowStyle = ProcessWindowStyle.Normal;
+
+			Process.Start(startInfo);
+		}
+
+		private void btnR2_Click(object sender, EventArgs e)
+		{
+			comboPuertos2();
+		}
+
+		private void btnDefault2_Click(object sender, EventArgs e)
+		{
+			cmbBaud2.Text = "9600";
+			cmbData2.Text = "7";
+
+			cmbParity2.Text = "Even";
+			cmbStop2.Text = "One";
+		}
+
+		private void btnTestPeso2_Click(object sender, EventArgs e)
+		{
+			testpeso(2);
+		}
+
+        private void btnLimpiaPuerto2_Click(object sender, EventArgs e)
+        {
+            if (Comun.mensajeVer("¿ Desea desactivar puerto ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+            {
+                cmbPuertos2.Text = "";
+                cmbBaud2.Text = "0";
+                cmbData2.Text = "0";
+                cmbParity2.Text = "";
+                cmbStop2.Text = "";
+            }
+        }
+
+        private void chkRuta_CheckedChanged(object sender, EventArgs e)
+        {
+            checkValores(chkRuta);
+        }
+
+        private void chkToleranciaMax_CheckedChanged(object sender, EventArgs e)
+        {
+            checkValores(chkToleranciaMax);
+        }
+
+        private void chkToleranciaMin_CheckedChanged(object sender, EventArgs e)
+        {
+            checkValores(chkToleranciaMin);
+        }
+
+        private void btnExe_Click(object sender, EventArgs e)
+        {
+            ejecutarSQL();
+        }
+
+        private void grpBxGPS_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        void nombreBtnMtto()
+        {
+            txtCompact.Text = "Cmp y Rep BD " + Comun.archivoTamanoDB().ToString() + " MB";
+        }
+
+
+        private void operacionRacion()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT * FROM operacion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    txtPlanta.Text = row["Planta"].ToString();
+                }
+            }
+
+        }
+
+        private void guardarPlanta(string campo, string valor)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            if (valor.Length > 0)
+            {
+                datos.p_sql = "UPDATE operacion SET " + campo + " = '" + valor + "'";
+
+                if (!datos.consultaSQL(ref dt, false))
+                {
+                    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+            }
+
+        }
+
+        void capParametros(TextBox pTextBox)
+        {
+            Captura frm2 = new Captura(0, 0);
+            frm2.ShowDialog();
+
+            if (frm2.result != 0)
+            {
+                pTextBox.Text = frm2.result.ToString();
+            }
+        }
+
+        private void txtNumCamion_Click(object sender, EventArgs e)
+        {
+            capParametros(txtNumCamion);
+        }
+
+        private void picNumCamion_Click(object sender, EventArgs e)
+        {
+            capParametros(txtNumCamion);
+        }
+
+        private void txtCapacidad_Click(object sender, EventArgs e)
+        {
+            capParametros(txtCapacidad);
+        }
+
+        private void picCapacidad_Click(object sender, EventArgs e)
+        {
+            capParametros(txtCapacidad);
+        }
+
+        private void txtMinVariacion_Click(object sender, EventArgs e)
+        {
+            capParametros(txtMinVariacion);
+        }
+
+        private void picMinVariacion_Click(object sender, EventArgs e)
+        {
+            capParametros(txtMinVariacion);
+        }
+
+        private void txtPlanta_Click(object sender, EventArgs e)
+        {
+            capParametros(txtPlanta);
+            guardarPlanta("planta",txtPlanta.Text);
+        }
+
+        private void picPlanta_Click(object sender, EventArgs e)
+        {
+            capParametros(txtPlanta);
+            guardarPlanta("planta", txtPlanta.Text);
+        }
+
+        private void btn_NET_Click(object sender, EventArgs e)
+        {
+            //Comun.mensajeVer(Principal.instance.fNetV(), Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+
+            MessageBox.Show(Principal.instance.fNetV(), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+
+        }
+
+        private void btnLocation_Click(object sender, EventArgs e)
+        {
+            Process.Start("ms-settings:privacy-location");
+        }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            //Principal.instance.fNetFiltar("Combustibles");
+            MessageBox.Show(Principal.instance.fNetFiltar("Combustibles"), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+        }
+
+        private void btnQuitarFiltrar_Click(object sender, EventArgs e)
+        {
+            //Principal.instance.fNetQuitarFiltro("Combustibles");
+            MessageBox.Show(Principal.instance.fNetQuitarFiltro("Combustibles"), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+            //Comun.mensajeVer("Listo", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            label6.Visible = !label6.Visible;
+            label7.Visible = !label7.Visible;
+            label11.Visible = !label11.Visible;
+            label12.Visible = !label12.Visible;
+            cmbBaud.Visible = !cmbBaud.Visible;
+            cmbData.Visible = !cmbData.Visible;
+            cmbParity.Visible = !cmbParity.Visible;
+            cmbStop.Visible = !cmbStop.Visible;
+            btnDefault.Visible = !btnDefault.Visible;
+            button4.Visible = false;
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            label17.Visible = !label17.Visible;
+            label18.Visible = !label18.Visible;
+            label19.Visible = !label19.Visible;
+            label20.Visible = !label20.Visible;
+            cmbBaudGps.Visible = !cmbBaudGps.Visible;
+            cmbDataGps.Visible = !cmbDataGps.Visible;
+            cmbParityGps.Visible = !cmbParityGps.Visible;
+            cmbStopGps.Visible = !cmbStopGps.Visible;
+            btnDefaultGps.Visible = !btnDefaultGps.Visible;
+            button5.Visible = false;
+        }
+
+        private void btnPesoPortAuto_Click(object sender, EventArgs e)
+        {
+            btnPesoPortAuto.BackColor = Color.Orange;
+            var nombre = btnPesoPortAuto.Text;
+            btnPesoPortAuto.Text = "Buscando...";
+            if (AutoConfigPort(1))
+            {
+                btnPesoPortAuto.Text = "Listo";
+                btnPesoPortAuto.BackColor = Color.Lime;
+            }
+            else
+            {
+                btnPesoPortAuto.Text = "No encontro";
+                btnPesoPortAuto.BackColor = Color.Yellow;
+            }
+
+        }
+
+        private void btnGpsPortAuto_Click(object sender, EventArgs e)
+        {
+            btnGpsPortAuto.BackColor = Color.Orange;
+            var nombre = btnGpsPortAuto.Text;
+            btnGpsPortAuto.Text = "Buscando...";
+            if (AutoConfigPort(2))
+            {
+                btnGpsPortAuto.Text = "Listo";
+                btnGpsPortAuto.BackColor = Color.Lime;
+            }
+            else
+            {
+                btnGpsPortAuto.Text = "No encontro";
+                btnGpsPortAuto.BackColor = Color.Yellow;
+            }
+
+
+        }
+
+        bool AutoConfigPort(int opc)
+        {
+
+            Cursor = Cursors.WaitCursor;
+            var resultado = false;
+
+            switch (opc)
+            {
+                case 1:
+                    var v1 = Comun.ExtraerEntreParentesis(Comun.fportDescripcion("prolific usb".ToLower()));
+                    if (v1.Length != 0)
+                    {
+                        cmbPuertos.Text = v1;
+                        resultado = true;
+                    }
+                    var v11 = Comun.ExtraerEntreParentesis(Comun.fportDescripcion("aten usb".ToLower()));
+                    if (v11.Length != 0)
+                    {
+                        cmbPuertos.Text = v11;
+                        resultado = true;
+                    }
+                    break;
+                case 2:
+                    var v2 = Comun.ExtraerEntreParentesis(Comun.fportDescripcion("usb serial port"));
+                    if (v2.Length != 0)
+                    {
+                        cmbPuertosGps.Text = v2;
+                        resultado = true;
+                    }
+                    break;
+            }
+
+            Cursor = Cursors.Default;
+
+            return resultado;
+        }
+
+        void validaPuertos() 
+        {
+            
+
+        }
+
+        private void btnActivarRedes_Click(object sender, EventArgs e)
+        {
+            if (Comun.mensajeVer("¿ Desea Habilitar Todas redes Wifi ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+            {
+                string outMsg;
+                //if (Principal.instance.BlockSsid(wifiName, out outMsg))
+                //if (Principal.instance.RemoveBlockSsid(wifiName, out outMsg))
+                //if (Principal.instance.AllowOnlySsid(wifiName, out outMsg))
+                if (Principal.instance.RemoveAllFilters(out outMsg))
+                    //Console.WriteLine("SSID correctamente.");
+                    { 
+                        verWifis();
+                        Comun.mensajeVer("Listo, Todas Wifis Habilitadas correctamente.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    Comun.mensajeVer("Error SSID: " + outMsg, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+        }
+
+        private void btnBloquearRedes_Click(object sender, EventArgs e)
+        {
+            if (Comun.mensajeVer("¿ Desea Bloquear Otras redes Wifi ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+            {
+                var wifiName = Constants.RED_WIFI_DEFAULT;
+                string outMsg;
+                //if (Principal.instance.BlockSsid(wifiName, out outMsg))
+                //if (Principal.instance.RemoveBlockSsid(wifiName, out outMsg))
+                if (Principal.instance.AllowOnlySsid(wifiName, out outMsg))
+                    //if (Principal.instance.RemoveAllFilters(out outMsg))
+                    //Console.WriteLine("SSID correctamente.");
+                    {
+                        verWifis();
+                        Comun.mensajeVer("Listo, Solo " + wifiName + " Wifi Activado correctamente.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                else
+                    Comun.mensajeVer("Error SSID: " + outMsg, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+        }
+        private void lblNomRed_Click(object sender, EventArgs e)
+        {
+            verWifis();
+        }
+
+        void verWifis()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            var nameWifi = Principal.instance.GetCurrentWiFiName();
+            lblNomRed.Text = nameWifi + " [" + Principal.instance.fNetLista().Replace(nameWifi, "") + "]"; //fNet();
+            lblNomRed.Text = lblNomRed.Text.Replace("[ . ]", "").Trim();
+            Principal.instance.lblRed.Text = lblNomRed.Text;
+            this.Cursor = Cursors.Default;
+        }
+
+        private void btnBorrarRedes_Click(object sender, EventArgs e)
+        {
+            if (Comun.mensajeVer("¿ Desea Borrar Otras redes Wifi ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
+            { 
+                var wifiName = Constants.RED_WIFI_DEFAULT;
+                Principal.instance.ConnectToWiFi(wifiName);
+                Principal.instance.RemoveAllWifiExcept(wifiName);
+                verWifis();
+                Comun.mensajeVer("Listo, Wifis Borrados correctamente.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                verWifis();
+            }
+        }
     }
 
 }

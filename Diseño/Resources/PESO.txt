@@ -9,16 +9,15 @@ ON v (siguientes opcion)
 MENU 2
 ..
 ..
-1 LINEA -> Select (ENCENDIDO)
-SCOREM  -> 24 (10/SEG)    23 (3/SEG)
-COM IN	-> EZ2CMD (9600)   EZ CMD (1200) BaudRate
-WT ONLY
-PRNT-2  (ENCENDIDO)
-7E1
+1 PRINT LINE -> Select (ENCENDIDO)
+SCOREM  ->      24 (10/SEG)        23 (3/SEG)
+COM IN	->      EZ2CMD (9600)      EZ CMD (1200) BaudRate
 ..
 ..
 ON GUARDAR (Finaliza)
+
 ----------------------------------------------------------------------
+
 "TMR4610
 MENU  (presiona largo)
 FUNTION (presiona y mantener)

@@ -60,6 +60,12 @@ namespace Senga
 
             btnCalculadora.Left = btnCerrar.Left - btnCalculadora.Width;
 
+            btnInfo.Top = 0;
+            btnInfo.Left = btnCalculadora.Left - btnInfo.Width;
+
+
+
+
             panel1.Height = this.Height - btnCerrar.Height - 20;
 
         }
@@ -88,7 +94,7 @@ namespace Senga
 
                 TimeSpan ts;
 
-                txtReporte.Text += "Corral" + '\t' + "Racion" + '\t' + "Servida" + '\t' + "#Carga" + '\t' + "HoraServ" + '\t' + "TiempoS" + '\t' + "Planeado" + '\t' + "Servido" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "Porcen%" + '\t' + "BasApe" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste"  + '\t' + "BApeBIni" + '\r' + '\n'; ;
+                txtReporte.Text += "Corral" + '\t' + "Racion" + '\t' + "#Srv" + '\t' + "#Carga" + '\t' + "HoraServ" + '\t' + "TiempoS" + '\t' + "Planeado" + '\t' + "Servido" + '\t' + "Realidad" + '\t' + "Dif" + '\t' + "Porcen%" + '\t' + "BasApe" + '\t' + "BasIni" + '\t' + "BasFin" /*+ '\t' + "BasDif" *//*+ '\t' + "CargaIni"*/ + '\t' + "Carga" + '\t' + "BasFCarg" + '\t' + "Ajuste"  + '\t' + "BApeBIni" + '\r' + '\n'; ;
                 
                 int i = 0;
                 long total1 = 0;
@@ -404,7 +410,7 @@ namespace Senga
                     int difvalor = Int32.Parse(row["Solicito"].ToString()) - Int32.Parse(row["Carga"].ToString());
                     int difvalor2 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - Int32.Parse(cadenaCero(row["BasculaIni"].ToString()));
                     //int difvalor3 = difvalor2 + Int32.Parse(cadenaCero(row["CargaIni"].ToString())) ;
-                    int carga = Int32.Parse(row["CargaIni"].ToString()) + Int32.Parse(row["Carga"].ToString());
+                    int carga = Int32.Parse(cadenaCero(row["CargaIni"].ToString())) + Int32.Parse(cadenaCero(row["Carga"].ToString()));
 
                     int difvalor4 = Int32.Parse(cadenaCero(row["BasculaFin"].ToString())) - carga;//difvalor2;
                     txtReporte.Text += row["IdD"].ToString() + '\t' + row["Num"].ToString() + '\t' + row["Hora"].ToString() + '\t' + row["Racion"].ToString() + '\t' + formatoDecimal(row["Solicito"].ToString()) + '\t' + formatoDecimal(row["CargaIni"].ToString()) + '\t' + formatoDecimal(row["Carga"].ToString()) + '\t' + formatoDecimal(carga.ToString())  + '\t' + formatoDecimal(difvalor.ToString()) + '\t' + formatoDecimal(row["BasculaIni"].ToString()) + '\t' + formatoDecimal(row["BasculaFin"].ToString()) + '\t' + formatoDecimal(difvalor2.ToString()) + '\t' + formatoDecimal(row["CargaIni"].ToString()) + '\t' + formatoDecimal(difvalor4.ToString()) + '\r' + '\n';
@@ -585,17 +591,20 @@ namespace Senga
 
             for (int i = 0; i < dt2.Columns.Count; i++)
             {
-                dataGridSQLResultados.Columns[i].Width = dataGridSQLResultados.Columns[i].HeaderText.Length*10;
+                dataGridSQLResultados.Columns[i].Width = dataGridSQLResultados.Columns[i].HeaderText.Length*11;
             }
 
 
             switch (comboBoxOpciones.SelectedIndex)
             {
                 case 0:                    
-                    dataGridSQLResultados.Columns["dif"].ToolTipText = "Realidad-Planeado";
+                    dataGridSQLResultados.Columns["dif"].ToolTipText = "Servido-Planeado";
                     dataGridSQLResultados.Columns["basfcarg"].ToolTipText = "BasFin-Carga";
-                    dataGridSQLResultados.Columns["carga"].ToolTipText = "Carga(Anterior)-Realidad";
+                    dataGridSQLResultados.Columns["carga"].ToolTipText = "Carga(Anterior)-Servido";
                     dataGridSQLResultados.Columns["ajuste"].ToolTipText = "BasIni-BasFin(Anterior)";
+                    dataGridSQLResultados.Columns["realidad"].ToolTipText = "BasApe-BasFin";
+                    dataGridSQLResultados.Columns["bapebini"].ToolTipText = "BasApe-BasIni";
+                    dataGridSQLResultados.Columns["servido"].ToolTipText = "BasIni-BasFin";
                     break;
 
             }
@@ -656,14 +665,14 @@ namespace Senga
             //DGServidas.ColumnHeadersVisible = false;
             dataGridSQLResultados.RowHeadersVisible = false;
             //dataGridSQLResultados.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dataGridSQLResultados.DefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
-            dataGridSQLResultados.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 10.00F, FontStyle.Bold);
+            dataGridSQLResultados.DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
+            dataGridSQLResultados.ColumnHeadersDefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
             
             //dataGridSQLResultados.AutoResizeColumns();
             dataGridSQLResultados.AutoResizeRows();
 
 
-            //dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dataGridSQLResultados.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             dataGridSQLResultados.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             //DGServidas.RowTemplate.Height = 50;
 
@@ -671,8 +680,30 @@ namespace Senga
 
         }
 
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+
+            var mensaje =
+            "servido  " + "BasIni-BasFin" + "\r\n" +
+            "realidad " + "BasApe-BasFin" + "\r\n" +
+            "dif      " + "Servido-Planeado" + "\r\n" +
+            "basfcarg " + "BasFin-Carga" + "\r\n" +
+            "carga    " + "Carga(Anterior)-Servido" + "\r\n" +
+            "ajuste   " + "BasIni-BasFin(Anterior)" + "\r\n" +
+            "bapebini " + "BasApe-BasIni" + "\r\n" +
+ 
+            "\r\n" +
+            "BasApe   " + "Bascula (tabla)" + "\r\n" +
+            "BasIni   " + "BasculaIni (tabla)" + "\r\n" +
+            "BasFin   " + "BasculaFin (tabla)"; 
+
+    MessageBox.Show(mensaje);
 
 
 
+
+
+
+        }
     }
 }

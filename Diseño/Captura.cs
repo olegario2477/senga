@@ -26,11 +26,22 @@ namespace Senga
 
         private void Captura_Load(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
+            limpiaEtiquetaBoton();
+
+            tableLayoutPanel2.Height = 0;
+            tableLayoutPanel1.Height = 400;
 
             switch (vventana)
             {
+                case 0:
+
+                    break;
                 case 1:
                     this.Text = "NUMERO SERVIDA";
+                    etiquetaBotonServidas();
+                    tableLayoutPanel2.Height = 180;
+                    tableLayoutPanel1.Height = 220;
                     break;
                 case 2:
                     this.Text = "BUSCAR CORRAL";
@@ -46,7 +57,18 @@ namespace Senga
                     break;
                 case 6:
                     this.Text = "CONTRASEÑA";
-                    txtCaptura.PasswordChar = '*';
+                    //txtCaptura.PasswordChar = '*';
+                    txtCaptura.ForeColor = Color.FromArgb(28,28,28);
+                    lblContraseña.Visible = true;
+
+                    //for (int i = 0; i < tableLayoutPanel1.RowCount; i++)
+                    //    tableLayoutPanel1.RowStyles[i] = new RowStyle(SizeType.Percent, 33.33F);
+
+                    //for (int i = 0; i < tableLayoutPanel1.ColumnCount; i++)
+                    //    tableLayoutPanel1.ColumnStyles[i] = new ColumnStyle(SizeType.Percent, 25F);
+
+                    //tableLayoutPanel1.PerformLayout();
+
                     break;
                 default:
 
@@ -56,65 +78,199 @@ namespace Senga
 
         }
         
+        private void etiquetaBotonServidas()
+        {
+
+            visibleEtiquetaBoton(true);
+
+            lbl1.Text = "AM";
+            lbl2.Text = "PM";
+
+            lbl3.Text = "AM2";
+            lbl4.Text = "PM2";
+            
+            lbl5.Text = "AM0";
+            lbl6.Text = "PM0";
+            
+            lbl7.Text = "AM3";
+            lbl8.Text = "PM3";
+            
+            lbl9.Text = "";
+            lbl0.Text = "";
+
+        }
+
+        private void limpiaEtiquetaBoton()
+        {
+            visibleEtiquetaBoton(false);
+
+            lbl1.Text = "";
+            lbl2.Text = "";
+
+            lbl3.Text = "";
+            lbl4.Text = "";
+
+            lbl5.Text = "";
+            lbl6.Text = "";
+
+            lbl7.Text = "";
+            lbl8.Text = "";
+
+            lbl9.Text = "";
+            lbl0.Text = "";
+
+        }
+
+        private void visibleEtiquetaBoton(Boolean valor)
+        {
+
+            lbl1.Visible = valor;
+            lbl2.Visible = valor;
+
+            lbl3.Visible = valor;
+            lbl4.Visible = valor;
+
+            lbl5.Visible = valor;
+            lbl6.Visible = valor;
+
+            lbl7.Visible = valor;
+            lbl8.Visible = valor;
+
+            lbl9.Visible = valor;
+            lbl0.Visible = valor;
+
+        }
+
         private void agregaDigito(string digito) 
         {
             string valor = txtCaptura.Text;
 
-            if (valor.Length < txtCaptura.MaxLength)
+            if (valor.Length < 10)//txtCaptura.MaxLength)
             {
                 txtCaptura.Text = valor + digito;
+
+
+                if (vventana == 6)
+                {
+					lblContraseña.Text = lblContraseña.Text + "*";
+				}
+
             }
-                        
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("1");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl1.Text;
+            }
         }
 
         private void btnDos_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("2");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl2.Text;
+            }
         }
 
         private void btnTres_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("3");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl3.Text;
+            }
         }
 
         private void btnCuatro_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("4");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl4.Text;
+            }
         }
 
         private void btnCinco_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("5");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl5.Text;
+            }
         }
 
         private void btnSeis_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("6");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl6.Text;
+            }
         }
 
         private void btnSiete_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("7");
+            if (txtCaptura.Text.Length==1) 
+            { 
+                lblTexto.Text = lbl7.Text; 
+            }
+
         }
 
         private void btnOcho_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("8");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl8.Text;
+            }
         }
 
         private void btnNueve_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             agregaDigito("9");
+            if (txtCaptura.Text.Length == 1)
+            {
+                lblTexto.Text = lbl9.Text;
+            }
         }
 
         private void btnCero_Click(object sender, EventArgs e)
         {
-            agregaDigito("0");
+            lblTexto.Text = "";
+            if (txtCaptura.Text.Length > 0)
+            {
+                agregaDigito("0");
+                if (txtCaptura.Text.Length == 1)
+                {
+                    lblTexto.Text = lbl0.Text;
+                }
+            }
+        }
+
+        private void btn3Ceros_Click(object sender, EventArgs e)
+        {
+
+            if (txtCaptura.Text.Length > 0)
+            {
+                agregaDigito("000");
+            }
+
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -122,6 +278,12 @@ namespace Senga
 
             switch (vventana)
             {
+                case 0:
+                    if (txtCaptura.Text != "")
+                    {
+                        result = Int32.Parse(txtCaptura.Text);
+                    }
+                    break;
                 case 1:
                     guardarServida();
                     break;
@@ -138,8 +300,8 @@ namespace Senga
                     guardarTolva();
                     break;
                 case 6:
-                    if (txtCaptura.Text!="") 
-                    { 
+                    if (txtCaptura.Text != "")
+                    {
                         result = Int32.Parse(txtCaptura.Text);
                     }
                     break;
@@ -305,6 +467,7 @@ namespace Senga
 
         private void btnBorrar_Click(object sender, EventArgs e)
         {
+            lblTexto.Text = "";
             txtCaptura.Text = cortarCadena(1,txtCaptura.Text);
         }
 
@@ -320,9 +483,149 @@ namespace Senga
             }
 
             return resultado; 
+
         }
 
+        private void lbl1_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);
+        }
 
+        private void lbl2_Click(object sender, EventArgs e)
+        {
+            btnDos_Click(sender, e);
+        }
 
+        private void lbl3_Click(object sender, EventArgs e)
+        {
+            btnTres_Click(sender, e);
+        }
+
+        private void lbl4_Click(object sender, EventArgs e)
+        {
+            btnCuatro_Click(sender, e);
+        }
+
+        private void lbl5_Click(object sender, EventArgs e)
+        {
+            btnCinco_Click(sender, e);
+        }
+
+        private void lbl6_Click(object sender, EventArgs e)
+        {
+            btnSeis_Click(sender, e);
+        }
+
+        private void lbl7_Click(object sender, EventArgs e)
+        {
+            btnSiete_Click(sender, e);
+        }
+
+        private void lbl8_Click(object sender, EventArgs e)
+        {
+            btnOcho_Click(sender, e);
+        }
+
+        private void lbl9_Click(object sender, EventArgs e)
+        {
+            btnNueve_Click(sender, e);
+        }
+
+        private void lbl0_Click(object sender, EventArgs e)
+        {
+            btnCero_Click(sender, e);
+        }
+
+        private void lblBorrar_Click(object sender, EventArgs e)
+        {
+            btnBorrar_Click(sender, e);
+        }
+
+        private void lblOK_Click(object sender, EventArgs e)
+        {
+            btnOK_Click(sender, e);
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void lblCerrar_Click(object sender, EventArgs e)
+        {
+            btnCerrar_Click(sender, e);
+        }
+
+		private void picCerrar_Click(object sender, EventArgs e)
+		{
+            btnCerrar_Click(sender, e);
+		}
+
+		private void picCero_Click(object sender, EventArgs e)
+		{
+			btnCero_Click(sender, e);
+		}
+
+		private void picOK_Click(object sender, EventArgs e)
+		{
+			btnOK_Click(sender, e);
+		}
+
+		private void picUno_Click(object sender, EventArgs e)
+		{
+			button1_Click(sender, e);
+		}
+
+		private void picDos_Click(object sender, EventArgs e)
+		{
+			btnDos_Click(sender, e);
+		}
+
+		private void picTres_Click(object sender, EventArgs e)
+		{
+			btnTres_Click(sender, e);
+		}
+
+		private void picCuatro_Click(object sender, EventArgs e)
+		{
+			btnCuatro_Click(sender, e);
+		}
+
+		private void picCinco_Click(object sender, EventArgs e)
+		{
+			btnCinco_Click(sender, e);
+		}
+
+		private void picSeis_Click(object sender, EventArgs e)
+		{
+			btnSeis_Click(sender, e);
+		}
+
+		private void picSiete_Click(object sender, EventArgs e)
+		{
+			btnSiete_Click(sender, e);
+		}
+
+		private void picOcho_Click(object sender, EventArgs e)
+		{
+			btnOcho_Click(sender, e);
+		}
+
+		private void picNueve_Click(object sender, EventArgs e)
+		{
+			btnNueve_Click(sender, e);
+		}
+
+        private void picAm_Click(object sender, EventArgs e)
+        {
+            button1_Click(sender, e);
+            btnOK_Click(sender, e);
+        }
+
+        private void picPm_Click(object sender, EventArgs e)
+        {
+            btnDos_Click(sender, e);
+            btnOK_Click(sender, e);
+        }
     }
 }

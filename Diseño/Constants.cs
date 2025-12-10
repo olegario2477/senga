@@ -29,5 +29,18 @@ namespace Senga
         public const int FILE_RED = 1;
         public const int FILE_USB = 2;
 
+        public const int CONGF_CLAVE_P1 = 482610;
+        public const int CONGF_CLAVE_P2 = 7913;
+
+        public const int CONGF_CLAVE_ADM = 333333;
+
+        public const string RED_WIFI_DEFAULT = "CEGGC1";
+
+
+        public const int OPC_NADA = 0;
+        public const int OPC_REINICIO = 1;
+        public const int OPC_SALIR = 2;
+
+
     }
 }

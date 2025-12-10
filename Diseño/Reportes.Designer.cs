@@ -36,6 +36,7 @@ namespace Senga
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridSQLResultados = new System.Windows.Forms.DataGridView();
             this.btnCalculadora = new System.Windows.Forms.Button();
+            this.btnInfo = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridSQLResultados)).BeginInit();
             this.SuspendLayout();
@@ -118,12 +119,25 @@ namespace Senga
             this.btnCalculadora.UseVisualStyleBackColor = true;
             this.btnCalculadora.Click += new System.EventHandler(this.btnCalculadora_Click);
             // 
+            // btnInfo
+            // 
+            this.btnInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnInfo.Location = new System.Drawing.Point(675, 12);
+            this.btnInfo.Name = "btnInfo";
+            this.btnInfo.Size = new System.Drawing.Size(120, 149);
+            this.btnInfo.TabIndex = 15;
+            this.btnInfo.Text = "Info";
+            this.btnInfo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnInfo.UseVisualStyleBackColor = true;
+            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            // 
             // Reportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1386, 463);
             this.ControlBox = false;
+            this.Controls.Add(this.btnInfo);
             this.Controls.Add(this.btnCalculadora);
             this.Controls.Add(this.txtReporte);
             this.Controls.Add(this.panel1);
@@ -150,5 +164,6 @@ namespace Senga
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnCalculadora;
         private System.Windows.Forms.DataGridView dataGridSQLResultados;
+        private System.Windows.Forms.Button btnInfo;
     }
 }

@@ -27,6 +27,7 @@ namespace Senga
 
         string vidd;
         string vjornada;
+        bool vnuevo;
         int pesoact = 0;
         int pesostop = 0;
         int pesomargen = 0;
@@ -44,20 +45,25 @@ namespace Senga
         char n = '\n';
         string recibeData = "";
         string vcamion = "";
+        double capporc = 0.05;
 
-        public Racion(string idd, string id)
+        public Racion(string idd, string id, bool nuevo)
         {
             InitializeComponent();
             vidd = idd;
             vjornada = id;
+            vnuevo = nuevo;
 
             //displayFunction = displayText;
 
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
-        {
-
+        { 
+        
+        }
+        private void picCerrar_Click(object sender, EventArgs e)
+        {                        
             if (Comun.mensajeVer("¿ Desea Cancelar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
             {
                 Close();
@@ -71,11 +77,15 @@ namespace Senga
             //manejoDePrincipal(false);
 
             manejoTimerDePrincipal(false);
-            manejoTimerDeRaciones(false);
-                       
+            
+            //manejoTimerDeRaciones(false);
+
+
+
+
 
             //posicionBotones();
-            
+
             //datosRacion();
             //datosServida(); 
 
@@ -94,7 +104,8 @@ namespace Senga
             txtCargadoV.Text = "0";
             txtFaltaV.Text = "0";
             txtCapacidadV.Text = "0";
-            txtCargaPorc.Text = "0";
+            txtMaximaV.Text = "0";    
+            txtCargaPorc.Text = "0" + " %"; ;
 
             txtBruto.Text = "0";
             txtTamano.Text = "0";
@@ -222,10 +233,13 @@ namespace Senga
 
 
             //panelAnimacion.Visible = true;
+            panelPlaneado2.Visible = true;
 
             //this.Visible = true;
 
             manejoTimerDePrincipal2(true);
+
+
 
         }
 
@@ -363,7 +377,11 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     txtCapacidad.Text = row["Capacidad"].ToString();
-                    
+
+                    double capacidad = Convert.ToDouble(txtCapacidad.Text);
+                    capacidad = capacidad + (capacidad * capporc);
+                    txtMaxima.Text = capacidad.ToString();
+               
                 }
             }
 
@@ -399,10 +417,10 @@ namespace Senga
             //comm.liberarPuerto();
             //------------------------------------
             manejoDePrincipal(true);
-
             manejoTimerDePrincipal2(false);
             manejoTimerDePrincipal(true);
-            manejoTimerDeRaciones(true);
+            
+            //manejoTimerDeRaciones(true);
 
             serialPort1.Close();
             serialPort1.Dispose();
@@ -563,7 +581,7 @@ namespace Senga
                 }
             }
 
-            return camion;
+            return camion; 
 
         }
 
@@ -599,8 +617,6 @@ namespace Senga
             btnSolicitar.Height = panelAnimacion.Height;
             btnSolicitar.Top = panelAnimacion.Top + panelAnimacion.Height;
             btnSolicitar.Left = panelAnimacion.Left;
-
-
 
             pbFisico.Width = btnCancelar.Width;
             //pbFisico.Height = btnCancelar.Height;
@@ -652,17 +668,43 @@ namespace Senga
             txtFaltaV.Left = izq;
             lblBruto.Left = txtFaltaV.Left + txtFaltaV.Width / 2 - lblBruto.Width / 2;
 
-
             txtStopV.Top = txtBrutoV.Top + 10;
             txtStopV.Left = (txtBrutoV.Left + txtBrutoV.Width) - txtStopV.Width - 10;
-
-
 
         }
 
         private void btnHecho_Click(object sender, EventArgs e)
         {
-            btnGrabar();
+        
+        }
+        private void picHecho_Click(object sender, EventArgs e)
+        {
+
+            
+            //if (vcamion == "1" || vcamion == "2" || vcamion == "8" || vcamion == "10" || vcamion == "15")
+            if (true)
+            {
+
+                double capacidad = Convert.ToDouble(txtCapacidad.Text);
+                double cargado = Convert.ToDouble(txtCargado.Text);
+                
+                capacidad = capacidad + (capacidad * capporc);
+
+                if (cargado <= capacidad)
+                {
+                    btnGrabar();
+                }
+                else
+                {
+                    capacidad = Math.Round(capacidad, 0);
+                    Comun.mensajeVer("Peso Excede Capacidad Camion de " + capacidad.ToString() + " kg.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
+
+            }
+            else 
+            {
+                btnGrabar();
+            }
 
             //Principal.instance.enviarLocaliza();
 
@@ -687,15 +729,26 @@ namespace Senga
 
                 long cargado = 0;
                 long cargadoAct = 0;
+                string maxid = "0";
 
-                datos.p_sql = "insert into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta,basculaini,basculafin,cargaini) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtSolicitarV.Text + "'," + txtPlanta.Text + "," + txtBasculaIni.Text + "," + txtBruto.Text + "," + txtCargaIni.Text + ")";
+                //if (vnuevo)
+                //{
+                    datos.p_sql = "INSERT into cargas (id,fecha,num,racion,carga,hora,tolva,solicito,planta,basculaini,basculafin,cargaini) values(" + vjornada + ",'" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + txtServida.Text + ",'" + btnRacion.Text + "'," + txtCargado.Text + ",'" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "','" + btnTolva.Text + "','" + txtSolicitarV.Text + "'," + txtPlanta.Text + "," + txtBasculaIni.Text + "," + txtBruto.Text + "," + txtCargaIni.Text + ")";
+
+                //}
+                //else
+                //{
+                //    maxid = maxId("cargas");
+                //    datos.p_sql = "UPDATE cargas SET carga=" + txtCargado.Text + ",hora='" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "',tolva='" + btnTolva.Text + "',solicito='" + txtSolicitarV.Text + "',planta=" + txtPlanta.Text + ",basculaini=" + txtBasculaIni.Text + ",basculafin=" + txtBruto.Text + ",cargaini=" + txtCargaIni.Text + " WHERE idd =" + maxid;
+
+                //}
 
                 if (!datos.consultaSQL(ref dt, false))
                 {
                     MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
-                string maxid = maxId("cargas");
+                maxid = maxId("cargas");
 
                 //datos.p_sql = "SELECT idd FROM raciones WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
 
@@ -727,21 +780,41 @@ namespace Senga
 
                 }
 
-                cargadoAct = long.Parse(txtCargado.Text) + long.Parse(txtCargaIni.Text);
+                //if (vnuevo)
+                //{
+                    cargadoAct = long.Parse(txtCargado.Text) + long.Parse(txtCargaIni.Text);
+                //}
+                //else
+                //{
+                //    cargadoAct = long.Parse(txtCargado.Text);
+                //}
 
                 datos.p_sql = "UPDATE raciones SET cargado = " + cargado.ToString() + ", carga = " + cargadoAct.ToString() + ", Bascula = " + txtBruto.Text + " , fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //datos.p_sql = "UPDATE raciones SET cargado = " + txtCargado.Text + ", fecha = '" + DateTime.Now.ToString("dd-MM-yyyy") + "', hora = '" + DateTime.Now.ToString("HH") + ":" + DateTime.Now.ToString("mm") + ":" + DateTime.Now.ToString("ss") + "', NumCarga = " + maxid.ToString() + " WHERE num = " + txtServida.Text + " and racion = '" + btnRacion.Text + "' and id = " + vjornada; //"' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    //}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  //}
 
                 if (!datos.consultaSQL(ref dt, false))
                 {
                     MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
-                Close();
+
+                if (txtRacion.Text.Substring(0, 2) == "R5" && vcamion == "15")
+                {
+                    timerBeep.Enabled = false;
+                    timerBotonAlerta.Enabled = false;
+
+                    Close();
+
+                    Senga.Timer frm = new Senga.Timer();
+                    frm.ShowDialog();
+                }
+                else
+                {
+                    Close();
+                }
 
             }
-        
+
         }
 
         private string maxId(string tabla)
@@ -1057,7 +1130,7 @@ namespace Senga
                 barrar(resultado);
 
                 lblPorcentaje.Text = resultado.ToString() + " %";
-                txtCargaPorc.Text = resultado.ToString();
+                txtCargaPorc.Text = resultado.ToString() + " %";
 
 
                 //calcularEscala();
@@ -1107,6 +1180,7 @@ namespace Senga
             txtFaltaV.Text = string.Format("{0:#,##0}", long.Parse(txtFalta.Text));
             txtStopV.Text = string.Format("{0:#,##0}", long.Parse(txtStop.Text));
             txtCapacidadV.Text = string.Format("{0:#,##0}", long.Parse(txtCapacidad.Text));
+            txtMaximaV.Text = string.Format("{0:#,##0}", Math.Round(double.Parse(txtMaxima.Text)));
             txtBasculaIniV.Text = string.Format("{0:#,##0}", long.Parse(txtBasculaIni.Text));
             txtCargaIniV.Text = string.Format("{0:#,##0}", long.Parse(txtCargaIni.Text));
             txtCargaV.Text = string.Format("{0:#,##0}", long.Parse(txtCarga.Text));
@@ -1513,10 +1587,15 @@ namespace Senga
         {
 
             //barra(pbCargado, txtTamano, txtServido, txtServido);
-            
+
             //fomatoCampos();
 
-            double porc = barra(pbVariacion, txtTamanoV, txtCargaV, txtFaltaV);
+            if (txtRacion.Text.Substring(0, 2) != "R5")
+            {
+                //sonido segun avanza carga
+                double porc = barra(pbVariacion, txtTamanoV, txtCargaV, txtFaltaV);
+            }
+            
             //long variacion = long.Parse(txtFalta.Text);
 
             //if (variacion > 0)
@@ -1578,11 +1657,11 @@ namespace Senga
         {
 
             Color colorFondo = Color.Black;
-            Color colorFondoW = Color.White;
+            Color colorFondoW = Color.FromArgb(28, 28, 28);// .White;
             Color colorFondoP = Color.Brown;
             Color colorLetra = Color.Lime;
             Color colorLetraH = Color.Yellow;
-            Color colorLetraT = Color.White;
+            Color colorLetraT = Color.Silver;// White;
 
             this.BackColor = colorFondoW;
 
@@ -1600,11 +1679,14 @@ namespace Senga
             txtFaltaV.BackColor = colorFondo;
             txtFaltaV.ForeColor = colorLetra;
 
-            txtCargaPorc.BackColor = colorFondo;
-            txtCargaPorc.ForeColor = colorLetra;
+            //txtCargaPorc.BackColor = colorFondo;
+            //txtCargaPorc.ForeColor = colorLetra;
 
             txtCapacidadV.BackColor = colorFondo;
             txtCapacidadV.ForeColor = colorLetra;
+
+            txtMaximaV.BackColor = colorFondo;
+            txtMaximaV.ForeColor = colorLetra;
 
             txtBasculaIniV.BackColor = colorFondo;
             txtBasculaIniV.ForeColor = colorLetra;
@@ -1624,10 +1706,11 @@ namespace Senga
             panelSolicitar.BackColor = colorFondoP;
             panelVariacion.BackColor = colorFondoP;
             panelBascula.BackColor = colorFondoP;
-            panelRacion.BackColor = colorFondoP;
-            panelTolva.BackColor = colorFondoP;
+            //panelRacion.BackColor = colorFondoP;
+            //panelTolva.BackColor = colorFondoP;
             panelCargaPorc.BackColor = colorFondoP;
             panelCapacidad.BackColor = colorFondoP;
+            panelMaxima.BackColor = colorFondoP;
             panelBasculaIni.BackColor = colorFondoP;
             panelCargaIni.BackColor = colorFondoP;
             panelRecibio.BackColor = colorFondoP;
@@ -1639,6 +1722,7 @@ namespace Senga
             lblTolva.ForeColor = colorLetraT;
             lblCargaPorc.ForeColor = colorLetraT;
             lblCapacidad.ForeColor = colorLetraT;
+            lblMaxima.ForeColor = colorLetraT;
             lblBasculaIni.ForeColor = colorLetraT;
             lblCargaIni.ForeColor = colorLetraT;
             lblRecibio.ForeColor = colorLetraT;
@@ -1920,6 +2004,17 @@ namespace Senga
                 //pic10.Visible = true;
             }
 
+            if (porc < 101)
+            {
+                //panelServido1.Height = panelPlaneado1.Height * porc / 100;
+                panelServido2.Height = panelPlaneado2.Height * porc / 100;
+            }
+            else
+            {
+                //panelServido1.Height = panelPlaneado1.Height - panelInd1.Height;
+                panelServido2.Height = panelPlaneado2.Height - panelInd2.Height;
+            }
+
             //if (porc <= 0)
             //{
             //    pic1.Visible = false;
@@ -2095,6 +2190,12 @@ namespace Senga
 
         private void btnAjustar_Click(object sender, EventArgs e)
         {
+        
+        }
+
+        private void picAjustar_Click(object sender, EventArgs e)
+        {
+            
             Console.Beep(1400, 25);
 
             if (Convert.ToInt32(txtBasculaIni.Text) < Convert.ToInt32(txtBruto.Text))
@@ -2225,6 +2326,16 @@ namespace Senga
         private void btnLocaliza_Click(object sender, EventArgs e)
         {            
             Principal.instance.enviarLocaliza();
+        }
+
+        private void lblRacion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtRacion_Click(object sender, EventArgs e)
+        {
+
         }
     }
 

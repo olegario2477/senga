@@ -19,7 +19,7 @@ namespace Senga.Properties {
     // a través de una herramienta como ResGen o Visual Studio.
     // Para agregar o quitar un miembro, edite el archivo .ResX y, a continuación, vuelva a ejecutar ResGen
     // con la opción /str o recompile su proyecto de VS.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -90,14 +90,14 @@ namespace Senga.Properties {
         
         /// <summary>
         ///   Busca una cadena traducida similar a “SERIAL PORT COMM”
-        ///
+        ///...
         ///NET/GROSS  +  ON (oprimir juntos)
-        ///
-        ///NET/GROSS (muestra siguientes opciones)
+        ///...
+        ///NET/GROSS &gt; (elejir opcion)
+        ///...
+        ///ON v (siguientes opcion)
         ///..
-        ///MENU 2 + ON
-        ///..
-        ///NET/GROSS (muestra siguientes opciones)
+        ///MENU 2
         ///..
         ///..
         ///1 LINEA -&gt; Select (ENCENDIDO)
@@ -108,7 +108,13 @@ namespace Senga.Properties {
         ///7E1
         ///..
         ///..
-        ///ON GUARDAR (Finaliza).
+        ///ON GUARDAR (Finaliza)
+        ///----------------------------------------------------------------------
+        ///&quot;TMR4610
+        ///MENU  (presiona largo)
+        ///FUNTION (presiona y mantener)
+        ///SELECT (elejir menu 1,2,3,4,5,6 o calibrar)
+        /// [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string PESO {
             get {
@@ -117,13 +123,15 @@ namespace Senga.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a alter table configuracion alter column BaudRateGps long;
-        ///alter table servidas add column CorralGPS text(10);
-        ///alter table servidas add column LatitudI double;
-        ///alter table servidas add column LongitudI double;
+        ///   Busca una cadena traducida similar a --v2021.1.1.0;
+        ///alter table Configuracion alter column BaudRateGps long;
+        ///alter table Servidas add column CorralGPS text(10);
+        ///alter table Servidas add column LatitudI double;
+        ///alter table Servidas add column LongitudI double;
+        ///--v2021.1.2.0;
         ///CREATE TABLE Cargas ( Id LONG, Fecha DATE , Hora TEXT(8), Planta LONG, Racion TEXT(10), Num LONG, Tolva LONG, Letra TEXT(10), Solicito LONG, Carga LONG, IdD AUTOINCREMENT(1,1) PRIMARY KEY );
-        ///alter table servidas add column NumCarga long;
-        ///alter table raciones add column NumCarga long;.
+        ///alter table Servidas add column NumCarga long;
+        ///alter table Raciones add col [resto de la cadena truncado]&quot;;.
         /// </summary>
         internal static string SQL {
             get {

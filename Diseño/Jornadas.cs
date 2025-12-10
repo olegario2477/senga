@@ -791,10 +791,40 @@ namespace Senga
 
         }
 
+        private void DGJornadas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            if (DGJornadas.Rows[e.RowIndex].Selected)
+            {
+                using (Pen pen = new Pen(Color.Red))
+                {
+                    int penWidth = 3;
 
+                    pen.Width = penWidth;
 
+                    int x = e.RowBounds.Left + (penWidth / 2);
+                    int y = e.RowBounds.Top + (penWidth / 2);
+                    int width = e.RowBounds.Width - penWidth;
+                    int height = e.RowBounds.Height - penWidth;
 
+                    e.Graphics.DrawRectangle(pen, x, y, width, height);
+                }
+            }
+        }
 
+        private void DGJornadas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 &&
+            this.DGJornadas.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected)
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
+                e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
+            }
+            else
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Regular);
+            }
+        }
     }
 
 }

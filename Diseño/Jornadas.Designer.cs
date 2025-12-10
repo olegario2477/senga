@@ -67,6 +67,8 @@
             this.DGJornadas.Size = new System.Drawing.Size(1264, 464);
             this.DGJornadas.TabIndex = 58;
             this.DGJornadas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGJornadas_CellContentClick);
+            this.DGJornadas.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.DGJornadas_CellFormatting);
+            this.DGJornadas.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.DGJornadas_RowPostPaint);
             this.DGJornadas.SelectionChanged += new System.EventHandler(this.DGJornadas_SelectionChanged);
             // 
             // txtId

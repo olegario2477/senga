@@ -17,7 +17,10 @@ using GMap.NET.WindowsForms.Markers;
 using System.Linq;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms.DataVisualization.Charting;
-
+using NativeWifi;
+using System.Diagnostics.Eventing.Reader;
+using System.Management;
+using System.Web.Services.Description;
 
 namespace Senga
 {
@@ -36,6 +39,25 @@ namespace Senga
         double gLongitud = -98.745503;
         double gmindist = 0.035;//0.02;
         string gCoordenadas = "";
+        int alarmaKilosRecarga = 500;
+        int vMinutostolerancia = 0;
+        int vRetraso = 0;
+        int vTolerancia = 0;
+        bool vHoraPlan = true;
+        int vcantBasculas = 1;
+
+        bool vRutaFija = false;
+        bool vToleranciaMax = false;
+        bool vToleranciaMin = false;
+
+        int vAlturaLista = 430;
+        int vAlturaLista2 = 250;
+        string vComGps="";
+        Boolean vCargoMapa = false;
+        string vPlanta;
+
+        ArrayList listaPuertos = new ArrayList();
+
         private List<PointLatLng> _points;
 
         GMarkerGoogle markerRecorrer;
@@ -78,25 +100,61 @@ namespace Senga
         private void Servidas_Load(object sender, EventArgs e)
         {
 
+            //DGServidas.DefaultCellStyle.BackColor = Color.Transparent;            
+            //DGServidas.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            //DGServidas.DefaultCellStyle.SelectionForeColor = DGServidas.ForeColor;
+
+            
+            verMapa(false);
+
+            panelServido.Height = 0;
+            lblMsgRequierecarga.ForeColor = Color.FromArgb(28, 28, 28);
+
+
             posicionbotones();
             this.Refresh();
 
             propiedadesGrid();
             seleccionarFila2();
 
-            DGServidas.Height = 590;
+            DGServidas.Height = vAlturaLista;//590;
             txtCaptura.Text = "";
 
             activado = true;
             formatoGrid();
             
             tablaUbicTemp();
-            tablaUbicTempg();            
+            tablaUbicTempg();
 
-            btnServir.Visible = true;
+            vcantBasculas = cantBasculas();
+
+            obtieneConfig();
+            rutaFija();
+
+            lblToleranciaMax.Visible = vToleranciaMax;
+            lblToleranciaMin.Visible = vToleranciaMin;
+
+
+
+
+            switch (vcantBasculas)
+            {
+                case 1:
+                        picServir.Visible = true;
+                    break;
+				case 2:
+                        btnServirIzq.Visible = true;
+                        btnServirDer.Visible = true;
+
+                        btnCargar.Enabled = false;
+					
+					break;
+			}
+
             this.Refresh();
 
-            cargaMapa();
+            //jjj
+            //cargaMapa();
             DGServidas.Visible = true;
 
             this.Refresh();
@@ -106,6 +164,7 @@ namespace Senga
 
             //pbServido.Visible = true;
             txtCorrales.Visible = true;
+            txtRetraso.Visible = true;
 
             //txtLatitud.Visible = true;
             //txtLongitud.Visible = true;
@@ -114,6 +173,9 @@ namespace Senga
             colorFila();
 
             panelSimular.Visible = Principal.instance.panelGps.Visible;
+            
+            lblMsgGPS.Visible = Principal.instance.lblMsgGPS.Visible;
+            //lblMsgGPS2.Visible = Principal.instance.lblMsgGPS2.Visible;
 
             this.Refresh();
 
@@ -124,6 +186,18 @@ namespace Senga
             this.Refresh();
             panelMapa.Visible = true;
 
+            //toolStrip1.Visible = true;
+
+
+            //grafico(chartServidas);
+
+
+            porcServido();
+            porcCarga();
+
+            lblVersion.Text = Principal.instance.lblVersion.Text;
+
+            DGServidas.Focus();
 
         }
 
@@ -136,33 +210,49 @@ namespace Senga
 
         private void posicionbotones()
         {
-            btnCerrar.Top = 0;
-            btnHecho.Top = 0;
-            btnQuitar.Top = 0;
-            btnBuscar.Top = 0;
-            btnCargar.Top = 0;
+
+            int padBtn = 25;
+            int sepBtn = 30;
+
+            picCerrar.Top = padBtn;
+            picHecho.Top = picCerrar.Top;
+            picQuitar.Top = picCerrar.Top;
+            picBuscar.Top = picCerrar.Top;
+            picMapa.Top = picCerrar.Top;
+            picCargar.Top = picCerrar.Top;
             //btnAgregar.Top = 0;
 
 
 
-            btnCerrar.Left = this.Width - btnCerrar.Width;
-            btnHecho.Left = btnCerrar.Left - btnHecho.Width;
-            btnQuitar.Left = btnHecho.Left - btnQuitar.Width;
-            btnBuscar.Left = btnQuitar.Left - btnBuscar.Width;
-            btnCargar.Left = btnBuscar.Left - btnCargar.Width;
+            //btnCerrar.Left = this.Width - btnCerrar.Width;
+            //btnHecho.Left = btnCerrar.Left - btnHecho.Width;
+            //btnQuitar.Left = btnHecho.Left - btnQuitar.Width;
+            //btnBuscar.Left = btnQuitar.Left - btnBuscar.Width;
+            //btnCargar.Left = btnBuscar.Left - btnCargar.Width;
+
+            picCerrar.Left = padBtn;
+            picBuscar.Left = picCerrar.Left + picBuscar.Width + sepBtn;
+            picQuitar.Left = picBuscar.Left + picQuitar.Width + sepBtn;
+            picHecho.Left = picQuitar.Left + picHecho.Width + sepBtn;
+            picMapa.Left = picHecho.Left + picMapa.Width + sepBtn;
+            picCargar.Left = picMapa.Left + picCargar.Width + sepBtn;
+
+
             //btnAgregar.Left = btnQuitar.Left - btnAgregar.Width;
-
-
 
 
             //DGJornadas.Left = 0;
             //DGJornadas.Width = this.Width;
 
-            picGpsDesconectado.Top = gMapControl1.Height - picGpsDesconectado.Height - toolStrip3.Height;
-            picGpsDesconectado.Left = gMapControl1.Width - picGpsDesconectado.Width;
+            //picGpsDesconectado.Top = 0;// toolStrip3.Height; //gMapControl1.Height - picGpsDesconectado.Height - toolStrip3.Height;
+            //picGpsDesconectado.Left = 0;// gMapControl1.Width - picGpsDesconectado.Width;
 
-
-
+            etiquetaBoton("Cerrar", picCerrar, false);
+            etiquetaBoton("Buscar", picBuscar, false);
+            etiquetaBoton("Quitar", picQuitar, false);
+            etiquetaBoton("Terminar", picHecho, false);
+            etiquetaBoton("Mapa", picMapa, false);
+            etiquetaBoton("Cargar", picCargar, false);
 
         }
 
@@ -176,7 +266,13 @@ namespace Senga
                 
                 limpiarCorral();
                 refrescaGrid();
-                //grafico(chartServidas);
+
+                //if (chartServidas.Visible)
+                //{
+                //    grafico(chartServidas);
+                //}
+                porcServido();
+                porcCarga();
 
                 if (DGServidas.RowCount == 0)
                 {
@@ -231,6 +327,8 @@ namespace Senga
 
         private void cargaMapa()
         {
+
+            vCargoMapa = true;
 
             GMaps.Instance.Mode = modoAcceso(instancia);
             gMapControl1.CacheLocation = @"mapa";
@@ -570,7 +668,11 @@ namespace Senga
             colorFila();
 
             llenaListagrid();
-            ubicServir(dtUbictmpgrid);
+            //jjj
+            if (vCargoMapa)
+            {
+                ubicServir(dtUbictmpgrid);
+            }
             //DGServidas.FirstDisplayedCell = DGServidas.CurrentCell;
 
         }
@@ -692,8 +794,8 @@ namespace Senga
         }
         
         private void propiedadesGrid() 
-        { 
-        
+        {
+
             DGServidas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGServidas.ReadOnly = true;
             DGServidas.AllowUserToAddRows = false;
@@ -705,10 +807,18 @@ namespace Senga
             //DGServidas.ColumnHeadersVisible = false;
             DGServidas.RowHeadersVisible = false;
             DGServidas.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            DGServidas.DefaultCellStyle.Font = new Font("Arial", 25.00F, FontStyle.Bold);
+            DGServidas.DefaultCellStyle.Font = new Font("Arial", 42.00F, FontStyle.Bold); //25.00F
+                      
+            
+
+            DGServidas.RowTemplate.Height = 100;
+            DGServidas.DefaultCellStyle.ForeColor = Color.Black;
+            DGServidas.DefaultCellStyle.BackColor = Color.WhiteSmoke;
             //DGServidas.RowTemplate.Height = 50;
 
-
+            DGServidas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(28, 28, 28);
+            DGServidas.ColumnHeadersDefaultCellStyle.ForeColor = Color.Silver;
+            DGServidas.EnableHeadersVisualStyles = false;
 
 
         }
@@ -730,41 +840,55 @@ namespace Senga
 
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                DGServidas.Columns[i].Width = 130;
+                DGServidas.Columns[i].Width = 192;//130;
                 DGServidas.Columns[i].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DGServidas.Columns[i].HeaderCell.Style.Font = new Font("Tahoma", 15.00F, FontStyle.Bold);
                 DGServidas.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
                 DGServidas.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             
             }
-            
+
+            //DGServidas.Columns["Plan"].DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
+            //DGServidas.Columns["Servido"].DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
+
+
+            //DGServidas.Columns["Corral"].Width = 110;
+            //DGServidas.Columns["Plan"].Width = 110;
+            //DGServidas.Columns["Servido"].Width = 110;
+            //DGServidas.Columns["Variacion"].Width = 120;
+            //DGServidas.Columns["Hora"].Width = 110;
+
+
             DGServidas.Columns["Corral"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             DGServidas.Columns["Racion"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             DGServidas.Columns["Plan"].DefaultCellStyle.Format = "#,0.###";
             DGServidas.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
             DGServidas.Columns["Variacion"].DefaultCellStyle.Format = "#,0.###";
+            DGServidas.Columns["Variacion"].Width = 0;
 
             DGServidas.Columns["Hora"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            DGServidas.Columns["Hora"].Width = 0;
 
             DGServidas.Columns["IdD"].Width = 0;
             DGServidas.Columns["Racion"].Width = 0;
-            DGServidas.Columns["Hora"].Width = 0;
+            //DGServidas.Columns["Hora"].Width = 0;
 
         }
 
         private void colorFila() 
-        {
+        {            
 
-           string horaMin = DateTime.Now.AddMinutes(-30).ToString("HHmm");
+           string horaMin = DateTime.Now.AddMinutes(-vMinutostolerancia).ToString("HHmm");
            string horaAct = DateTime.Now.ToString("HHmm");
-           string horaMax = DateTime.Now.AddMinutes(30).ToString("HHmm");
+           string horaMax = DateTime.Now.AddMinutes(vMinutostolerancia).ToString("HHmm");
 
            int nHoraMin = Convert.ToInt32(horaMin);
            int nHoraActual = Convert.ToInt32(horaAct);
            int nHoraMax = Convert.ToInt32(horaMax);
 
-             
+            vRetraso = 0;
+            vTolerancia = 0;
 
             for (int i = 0; i < DGServidas.Rows.Count; i++)
             {
@@ -775,7 +899,20 @@ namespace Senga
                     horaSel = horaSel.Replace(":", "");
                     int mHoraSel = Convert.ToInt32(horaSel);
 
-                    if (mHoraSel >= nHoraMin && mHoraSel <= nHoraMax)
+                    if (mHoraSel > 0 && mHoraSel < nHoraMin)
+                    {
+                        DGServidas.Rows[i].Cells["Hora"].Style.BackColor = Color.Yellow;
+                        DGServidas.Rows[i].Cells["Hora"].Style.ForeColor = Color.Black;
+                        //DGServidas.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        vRetraso++;
+                    }else if (mHoraSel >= nHoraMin && mHoraSel <= nHoraActual)
+                    {
+                        DGServidas.Rows[i].Cells["Hora"].Style.BackColor = Color.Lime;
+                        DGServidas.Rows[i].Cells["Hora"].Style.ForeColor = Color.Black;
+                        //DGServidas.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        vTolerancia++;
+                    }
+                    else if (mHoraSel > nHoraActual && mHoraSel <= nHoraMax)
                     {
                         DGServidas.Rows[i].Cells["Hora"].Style.BackColor = Color.Green;
                         DGServidas.Rows[i].Cells["Hora"].Style.ForeColor = Color.White;
@@ -783,14 +920,15 @@ namespace Senga
                     }
                     else
                     {
-                        DGServidas.Rows[i].Cells["Hora"].Style.BackColor = Color.White;
-                        DGServidas.Rows[i].Cells["Hora"].Style.ForeColor = Color.Black;
-                        //DGServidas.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                            DGServidas.Rows[i].Cells["Hora"].Style.BackColor = Color.White;
+                            DGServidas.Rows[i].Cells["Hora"].Style.ForeColor = Color.Black;
+                            //DGServidas.Rows[i].DefaultCellStyle.BackColor = Color.White;
                     }
                 }
             }
-            
-        
+
+            txtRetraso.Text = vRetraso.ToString();
+
         }
 
         private void datosGrid()
@@ -832,6 +970,12 @@ namespace Senga
             }
             else
             {
+                if (vHoraPlan) 
+                { 
+                    //Comun.actualizaHoraPlan(dt, "HoraPlan");
+                    vHoraPlan = false;
+                }
+
                 foreach (DataRow row in dt.Rows)
                 {
                     table.Rows.Add(row["Corral"].ToString(), row["Racion"].ToString(), row["Planeado"].ToString(), row["Realidad"].ToString(), Convert.ToInt32(row["Realidad"]) - Convert.ToInt32(row["Planeado"]), row["HoraPlan"].ToString(), row["IdD"].ToString());
@@ -860,183 +1004,189 @@ namespace Senga
 
 
         }
-                
+
         //private void btnLista_Click(object sender, EventArgs e)
         //{
 
-            //Datos datos = new Datos();
-            //DataTable dt = new DataTable();
-            //DataTable dt2 = new DataTable();
+        //Datos datos = new Datos();
+        //DataTable dt = new DataTable();
+        //DataTable dt2 = new DataTable();
 
-            //OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            //openFileDialog1.Filter = "Archivos Txt|*.txt";
-            //openFileDialog1.Title = "Seleccion un Archivo Texto";
+        //OpenFileDialog openFileDialog1 = new OpenFileDialog();
+        //openFileDialog1.Filter = "Archivos Txt|*.txt";
+        //openFileDialog1.Title = "Seleccion un Archivo Texto";
 
-            //int registros_sel = 0;
-            //int registros_ins = 0;
-            //int registrost = 0;
-            
-            //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
+        //int registros_sel = 0;
+        //int registros_ins = 0;
+        //int registrost = 0;
 
-            //    pbAgregar.Value = 0;
-            //    pbAgregar.Visible = true;
-            //    this.Cursor = Cursors.WaitCursor;
-                
-            //    try
-            //    {
-            //        StreamReader objReader = new StreamReader(openFileDialog1.OpenFile());
-            //        string sLine = "";
+        //if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+        //{
 
+        //    pbAgregar.Value = 0;
+        //    pbAgregar.Visible = true;
+        //    this.Cursor = Cursors.WaitCursor;
 
-            //        while (sLine != null)
-            //        {
-            //            sLine = objReader.ReadLine();
-            //            if (sLine != null)
-            //            {
-            //                registrost = registrost + 1;
-            //            }
-            //        }
-
-            //        pbAgregar.Maximum = registrost;
-
-            //        objReader.Close();
+        //    try
+        //    {
+        //        StreamReader objReader = new StreamReader(openFileDialog1.OpenFile());
+        //        string sLine = "";
 
 
-            //        objReader = new StreamReader(openFileDialog1.OpenFile());
-            //        sLine = "";
+        //        while (sLine != null)
+        //        {
+        //            sLine = objReader.ReadLine();
+        //            if (sLine != null)
+        //            {
+        //                registrost = registrost + 1;
+        //            }
+        //        }
 
-            //        //ArrayList arrText = new ArrayList();
-            //        while (sLine != null)
-            //        {
-            //            sLine = objReader.ReadLine();
-            //            if (sLine != null)
-            //            //arrText.Add(sLine);
-            //            {
+        //        pbAgregar.Maximum = registrost;
 
-            //                string[] lines = sLine.Split(',');
-
-            //                try
-            //                {
-                                                                
-            //                    //Datos datos = new Datos();
-            //                    //DataTable dt = new DataTable();
-
-            //                    //datos.p_fecha = DateTime.Now.ToString("dd-MM-yyyy"); //  "2018-12-21";
-            //                    //datos.p_num = Convert.ToInt32(lines[0]);
-            //                    //datos.p_corral = lines[1];
-            //                    //datos.p_racion = lines[2];
-            //                    //datos.p_cabezas = Convert.ToInt32(lines[3]);
-            //                    //datos.p_planeado = Convert.ToInt32(lines[4]);
-            //                    //datos.p_realidad = 0;
-            //                    //datos.p_hora = "00:00"; //"17:30";
-
-            //                    registros_sel = registros_sel + 1;
-            //                    pbAgregar.Value = registros_sel;
-            //                    pbAgregar.PerformStep();
-            //                    pbAgregar.Focus();
-
-            //                    datos.p_sql = "SELECT idd FROM servidas WHERE num = " + lines[0].Trim() + " and corral = '" + lines[1].Trim() + "' and racion = '" + lines[2].Trim() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-
-            //                    if (!datos.consultaSQL(ref dt, true))
-            //                    {
-            //                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //                    }
-
-            //                    if (dt.Rows.Count == 0)
-            //                    {
-                                    
-            //                        datos.p_sql = "insert into servidas (fecha,num,corral,racion,cabezas,planeado,realidad,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[0].Trim()) + ",'" + lines[1].Trim() + "','" + lines[2].Trim() + "'," + Convert.ToInt32(lines[3].Trim()) + "," + Convert.ToInt32(lines[4].Trim()) + "," + "0" + ",'" + "00:00" + "')";
-
-            //                        if (!datos.consultaSQL(ref dt, false))
-            //                        {
-            //                            MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //                        }
-            //                        else 
-            //                        {
-            //                            registros_ins = registros_ins + 1;
-            //                        }
-
-            //                    }
-
-            //                }
-            //                catch (Exception exc)
-            //                {
-            //                    MessageBox.Show(exc.Message);
-            //                }
-
-            //            }
-            //        }
+        //        objReader.Close();
 
 
+        //        objReader = new StreamReader(openFileDialog1.OpenFile());
+        //        sLine = "";
+
+        //        //ArrayList arrText = new ArrayList();
+        //        while (sLine != null)
+        //        {
+        //            sLine = objReader.ReadLine();
+        //            if (sLine != null)
+        //            //arrText.Add(sLine);
+        //            {
+
+        //                string[] lines = sLine.Split(',');
+
+        //                try
+        //                {
+
+        //                    //Datos datos = new Datos();
+        //                    //DataTable dt = new DataTable();
+
+        //                    //datos.p_fecha = DateTime.Now.ToString("dd-MM-yyyy"); //  "2018-12-21";
+        //                    //datos.p_num = Convert.ToInt32(lines[0]);
+        //                    //datos.p_corral = lines[1];
+        //                    //datos.p_racion = lines[2];
+        //                    //datos.p_cabezas = Convert.ToInt32(lines[3]);
+        //                    //datos.p_planeado = Convert.ToInt32(lines[4]);
+        //                    //datos.p_realidad = 0;
+        //                    //datos.p_hora = "00:00"; //"17:30";
+
+        //                    registros_sel = registros_sel + 1;
+        //                    pbAgregar.Value = registros_sel;
+        //                    pbAgregar.PerformStep();
+        //                    pbAgregar.Focus();
+
+        //                    datos.p_sql = "SELECT idd FROM servidas WHERE num = " + lines[0].Trim() + " and corral = '" + lines[1].Trim() + "' and racion = '" + lines[2].Trim() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+        //                    if (!datos.consultaSQL(ref dt, true))
+        //                    {
+        //                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                    }
+
+        //                    if (dt.Rows.Count == 0)
+        //                    {
+
+        //                        datos.p_sql = "insert into servidas (fecha,num,corral,racion,cabezas,planeado,realidad,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + Convert.ToInt32(lines[0].Trim()) + ",'" + lines[1].Trim() + "','" + lines[2].Trim() + "'," + Convert.ToInt32(lines[3].Trim()) + "," + Convert.ToInt32(lines[4].Trim()) + "," + "0" + ",'" + "00:00" + "')";
+
+        //                        if (!datos.consultaSQL(ref dt, false))
+        //                        {
+        //                            MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                        }
+        //                        else 
+        //                        {
+        //                            registros_ins = registros_ins + 1;
+        //                        }
+
+        //                    }
+
+        //                }
+        //                catch (Exception exc)
+        //                {
+        //                    MessageBox.Show(exc.Message);
+        //                }
+
+        //            }
+        //        }
 
 
 
-            //        datos.p_sql = "SELECT num as Num, racion as Racion, count(corral) as Corrales , sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) group by num, racion";
-
-            //        if (!datos.consultaSQL(ref dt, true))
-            //        {
-            //            MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //        }
-            //        else
-            //        {
-            //            foreach (DataRow row in dt.Rows)
-            //            {
-
-            //                if (row["Corrales"].ToString() != "0")
-            //                {
-
-            //                    //datos.p_sql = "SELECT idd FROM raciones WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-
-            //                    //if (!datos.consultaSQL(ref dt2, true))
-            //                    //{
-            //                    //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //                    //}
-
-            //                    //if (dt2.Rows.Count == 0)
-            //                    //{
-            //                        datos.p_sql = "insert into raciones (fecha,num,racion,cantidad,planeado,cargado,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + ",0,'00:00')";
-            //                    //}
-            //                    //else
-            //                    //{
-            //                    //    datos.p_sql = "UPDATE raciones SET planeado = " + row["Planeado"].ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
-            //                    //}
-
-            //                    if (!datos.consultaSQL(ref dt2, false))
-            //                    {
-            //                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //                    }
 
 
-            //                }
+        //        datos.p_sql = "SELECT num as Num, racion as Racion, count(corral) as Corrales , sum(planeado) as Planeado, sum(realidad) as Realidad FROM servidas WHERE ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) group by num, racion";
 
-                        
+        //        if (!datos.consultaSQL(ref dt, true))
+        //        {
+        //            MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //        }
+        //        else
+        //        {
+        //            foreach (DataRow row in dt.Rows)
+        //            {
+
+        //                if (row["Corrales"].ToString() != "0")
+        //                {
+
+        //                    //datos.p_sql = "SELECT idd FROM raciones WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+
+        //                    //if (!datos.consultaSQL(ref dt2, true))
+        //                    //{
+        //                    //    MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                    //}
+
+        //                    //if (dt2.Rows.Count == 0)
+        //                    //{
+        //                        datos.p_sql = "insert into raciones (fecha,num,racion,cantidad,planeado,cargado,hora) values('" + DateTime.Now.ToString("dd-MM-yyyy") + "'," + row["Num"].ToString() + ",'" + row["Racion"].ToString() + "'," + row["Corrales"].ToString() + "," + row["Planeado"].ToString() + ",0,'00:00')";
+        //                    //}
+        //                    //else
+        //                    //{
+        //                    //    datos.p_sql = "UPDATE raciones SET planeado = " + row["Planeado"].ToString() + " WHERE num = " + row["Num"].ToString() + " and racion = '" + row["Racion"].ToString() + "' and ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " )";
+        //                    //}
+
+        //                    if (!datos.consultaSQL(ref dt2, false))
+        //                    {
+        //                        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //                    }
 
 
-                        
-            //            }
+        //                }
 
-            //        }
 
-            //        MessageBox.Show("Listo, Regitros : " + registros_ins.ToString(), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            //        pbAgregar.Visible = false;
-            //        DGServidas.Focus();
 
-            //    }
-            //    catch (Exception)
-            //    {
-            //        MessageBox.Show("El archivo no se puede leer");
-            //    }
-                            
-            //    this.Cursor = Cursors.Default;
-            
-            //}
+
+
+        //            }
+
+        //        }
+
+        //        MessageBox.Show("Listo, Regitros : " + registros_ins.ToString(), "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        //        pbAgregar.Visible = false;
+        //        DGServidas.Focus();
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        MessageBox.Show("El archivo no se puede leer");
+        //    }
+
+        //    this.Cursor = Cursors.Default;
+
+        //}
 
 
         //}
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picCerrar_Click(object sender, EventArgs e)
+        {
+                        
             //Close();
             string vjornada;
             vjornada = txtJornada.Text;
@@ -1058,6 +1208,8 @@ namespace Senga
         {
             if (DGServidas.CurrentRow != null)
             {
+                lblMsgRequierecarga.ForeColor = Color.FromArgb(28, 28, 28);
+
                 txtIdD.Text = (string)DGServidas.CurrentRow.Cells["IdD"].Value;
 
                 filaDatos(txtIdD.Text);
@@ -1080,7 +1232,7 @@ namespace Senga
                 ubicaCorralMapa();
 
                 //estadoBotones();
-
+                
             }
         }
 
@@ -1202,7 +1354,6 @@ namespace Senga
                         resultado = Convert.ToInt32(row["Falta"].ToString());
                         txtFalta.Text = resultado.ToString();
 
-
                         resultado = Convert.ToInt32(row["Falta"].ToString()) - ( Convert.ToInt32(row["Planeado"].ToString()) - Convert.ToInt32(row["Servido"].ToString()) );
                         txtServidoExtra.Text = resultado.ToString();
 
@@ -1217,22 +1368,45 @@ namespace Senga
         
         private void btnServir_Click(object sender, EventArgs e)
         {
+            servir(1);
+		}
 
-            if (txtCargado.Text == "0")
+        private void picServir_Click(object sender, EventArgs e)
+        {
+            servir(1);
+        }
+
+        void servir(int bascula)
+        {
+
+            switch (vcantBasculas)
             {
-                Comun.mensajeVer("Requiere Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-            }
-            else
-            {
+                case 1:
 
-                //if (long.Parse(txtVariacionC.Text.Replace("-","").Trim()) > long.Parse(txtCargado.Text))
-                //{             
-                //    Comun.mensajeVer("Insuficiente Alimento en Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                //}
-                //else
-                //{ 
+                    if (txtCargado.Text == "0")
+                        {
+                            Comun.mensajeVer("Requiere Carga Para Servir", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                        }
+                        else
+                        {
 
-                //txtcorral  y  lblcorral
+                            if (txtIdD.Text != "")
+                            {
+                                txtSirviendo.Text = txtCorral.Text;
+
+                                filaAct();
+
+                                vnumcarga = cargaServida();
+
+                                Senga.Servir frm = new Senga.Servir(bascula, vcantBasculas, txtIdD.Text, txtIdDr.Text, txtJornada.Text, lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text, vPlanta);
+                                frm.Show();
+                            }
+            
+                        }
+
+            break;
+
+                case 2:
 
                 if (txtIdD.Text != "")
                 {
@@ -1240,16 +1414,13 @@ namespace Senga
 
                     filaAct();
 
-                    vnumcarga = cargaServida();
+                    vnumcarga = "0";
 
-                    Senga.Servir frm = new Senga.Servir(txtIdD.Text, txtIdDr.Text, txtJornada.Text, lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text);
+                    Senga.Servir frm = new Senga.Servir(bascula, vcantBasculas, txtIdD.Text, txtIdDr.Text, txtJornada.Text, lblCorral.Text, gLatitud, gLongitud, vnumcarga, txtCorrales.Text, vPlanta);
                     frm.Show();
                 }
 
-                //}
-
-                //guardarOperacion();
-            
+                break;
             }
 
         }
@@ -1473,6 +1644,44 @@ namespace Senga
 
         }
 
+        private void obtieneConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    vRutaFija = (row["RutaFija"].ToString() == "S");
+
+                    vToleranciaMax = (row["ToleranciaMax"].ToString() == "S");
+                    vToleranciaMin = (row["ToleranciaMin"].ToString() == "S");
+
+                    txtCapacidad.Text = row["Capacidad"].ToString();
+                    vComGps = row["puertogps"].ToString();
+                 }
+            }
+
+        }
+
+        void rutaFija()
+        {
+
+            DGServidas.Enabled = !vRutaFija;
+            btnBuscar.Enabled = !vRutaFija;
+
+            lblRutaFija.Visible = vRutaFija;
+
+        }
+
         private void operacionCorral() 
         {
 
@@ -1490,6 +1699,8 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     txtCamion.Text = row["NumCamion"].ToString();
+                    lblCamion.Text = "CAM " + txtCamion.Text;
+                    vMinutostolerancia = Convert.ToInt32(row["minutostolerancia"].ToString());
                 }
             }
 
@@ -1505,6 +1716,7 @@ namespace Senga
                 {
                     txtServida.Text = row["Servida"].ToString();
                     txtJornada.Text = row["Jornada"].ToString();
+                    vPlanta = row["Planta"].ToString();
                 }
             }
 
@@ -1524,7 +1736,34 @@ namespace Senga
         
         }
 
-        private void btnServida_Click(object sender, EventArgs e)
+        int cantBasculas()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+            int resultado = 1;
+
+			datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (row["Puerto2"].ToString()!="")
+                    {
+                        resultado = 2;
+					}
+                }
+            }
+
+            return resultado;
+
+        }
+		private void btnServida_Click(object sender, EventArgs e)
         {
             Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),1);
             frm.Show();
@@ -1532,20 +1771,29 @@ namespace Senga
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picBuscar_Click(object sender, EventArgs e)
+        {
+
+
+
             //Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text),2);
             //frm.Show();
 
-            if (DGServidas.Height == 320)
-            {
-                DGServidas.Height = 590;
-                panelCaptura.Visible = false;
-            }
-            else 
-            { 
-                DGServidas.Height = 320;
-                panelCaptura.Visible = true;
-            }
+            //if (DGServidas.Height == vAlturaLista2)
+            //{
+            //    DGServidas.Height = vAlturaLista;
+            //    panelCaptura.Visible = false;
+            //}
+            //else 
+            //{ 
+            //    DGServidas.Height = vAlturaLista2;
+            //panelCaptura.Visible = true;
+            //}
 
+            panelCaptura.Visible = !panelCaptura.Visible;
 
 
         }
@@ -1612,6 +1860,12 @@ namespace Senga
 
         private void btnQuitar_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void picQuitar_Click(object sender, EventArgs e)
+        {
+                        
 
             //if (DGServidas.RowCount != 0)
             if (txtIdD.Text != "")
@@ -1731,6 +1985,12 @@ namespace Senga
         private void btnHecho_Click(object sender, EventArgs e)
         {
 
+        }
+        
+        private void picHecho_Click(object sender, EventArgs e)
+        {
+
+            
             //if (DGServidas.RowCount != 0)
             if (txtIdD.Text != "")
             {
@@ -1940,16 +2200,23 @@ namespace Senga
                 ubicacionActual(gLatitud, gLongitud);
                 indicaDistancia();
                 picGpsDesconectado.Visible = false;
+                lblComGps.Visible = false;
             }
             else 
-            {             
-                overlayCamion.Markers.Clear();
+            {
+                if (overlayCamion != null)
+                {
+                    //jjj
+                    overlayCamion.Markers.Clear();
+                }
                 picGpsDesconectado.Visible = true;
+                lblComGps.Visible = true;
 
             }
             
 
         }
+
         private void ubicacionActual(double lat, double lng)
         {
 
@@ -2039,7 +2306,14 @@ namespace Senga
             toolStripLabel2.ForeColor = Principal.instance.toolStripLabel2.ForeColor;
 
             lblVelocidad.Text = Principal.instance.lblVelocidad.Text;
-            lblVel.Text = lblVelocidad.Text;
+            //lblVel.Text = lblVelocidad.Text;
+            lblVeloz.Text = lblVelocidad.Text;
+            lblMsgGpsError.Text = Principal.instance.lblMsgGpsError.Text;
+            lblLectura.Text = Principal.instance.txtLectura.Text.Replace("\r\n", " ");
+
+            lblPortGPS.Text = "E "+Principal.instance.lblPortGPS.Text;
+            lblPortGPS2.Text = "A "+Principal.instance.lblPortGPS2.Text;
+            lblPortGPS3.Text = "I "+Principal.instance.lblPortGPS3.Text;
 
             lblCorral.Text = corralUbicacion(dtUbictmp, lat, lng, gmindist);
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
@@ -2570,39 +2844,88 @@ namespace Senga
 
         private void timerH_Tick(object sender, EventArgs e)
         {
-            lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            //lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
+            lblHoral.Text = DateTime.Now.ToString("hh:mm tt");
+
             lblConectadoF.Value = Principal.instance.lblConectadoF.Value;
             lblBateria.Text = Principal.instance.lblBateria.Text;
-            pbBateria.Value = Principal.instance.pbBateria.Value;
-            lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
-            btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
+			lblBateriaPorc.Text = lblBateria.Text;
+			pbBateria.Value = Principal.instance.pbBateria.Value;
+
+			pbBaterial.Value = pbBateria.Value;
+			pbBaterial.Maximum = pbBateria.Maximum;
+
+			lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
+			lblBateriaHoras.Text = lblBateriaTiempo.Text;
+			btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
             //lblRed.Text = Principal.instance.lblRed.Text;
 
+            lblBateria.ForeColor = Principal.instance.lblBateria.ForeColor;
+            lblBateriaTiempo.ForeColor = Principal.instance.lblBateriaTiempo.ForeColor;
 
-            if (long.Parse(Comun.cadenaCero(txtBascula.Text)) < 500)
+            if (picGpsDesconectado.Visible)
             {
-                panelMsgRequiereCarga.Visible = true;
-
-                if (panelMsgRequiereCarga.BackColor == Color.Yellow)
-                {
-                    panelMsgRequiereCarga.BackColor = Color.White;
-                    txtBasculaV.BackColor = Color.White;
-                }
-                else if (panelMsgRequiereCarga.BackColor == Color.White)
-                {
-                    panelMsgRequiereCarga.BackColor = Color.Yellow;
-                    txtBasculaV.BackColor = Color.Yellow;
-                }
-
-
+                lblMsgSinGPS.Visible = !lblMsgSinGPS.Visible;
             }
-            else 
+            else
             {
-                panelMsgRequiereCarga.Visible = false;
-                txtBasculaV.BackColor = Color.White;
+                lblMsgSinGPS.Visible = false;
             }
 
+            switch (vcantBasculas)
+            {
+                case 1:
+                    if (long.Parse(Comun.cadenaCero(txtBascula.Text)) < long.Parse(Comun.cadenaCero(txtPlanC.Text)))//alarmaKilosRecarga)
+                    {
+                        //panelMsgRequiereCarga.Visible = true;
 
+                        if (lblMsgRequierecarga.ForeColor == Color.Yellow)
+                        {
+                            lblMsgRequierecarga.ForeColor = Color.FromArgb(28, 28, 28);
+                            //picCargar.BackColor = Color.FromArgb(28, 28, 28);
+                            //txtBasculaV.BackColor = Color.White;
+                        }
+                        else if (lblMsgRequierecarga.ForeColor == Color.FromArgb(28, 28, 28))
+                        {
+                            lblMsgRequierecarga.ForeColor = Color.Yellow;
+                            //picCargar.BackColor = Color.Yellow;
+                            //txtBasculaV.BackColor = Color.Yellow;
+                        }
+
+                    }
+                    else 
+                    {
+                        lblMsgRequierecarga.ForeColor = Color.FromArgb(28, 28, 28);
+                        //picCargar.BackColor = Color.FromArgb(28, 28, 28);
+                        //panelMsgRequiereCarga.Visible = false;
+                        //txtBasculaV.BackColor = Color.White;
+                    }
+
+            break;
+
+                case 2:
+
+                break;
+            }
+
+
+
+            if (txtRetraso.Text != "0")
+            {
+
+                if (txtRetraso.BackColor == Color.Yellow)
+                {
+                    txtRetraso.BackColor = Color.White;
+                }
+                else if (txtRetraso.BackColor == Color.White)
+                {
+                    txtRetraso.BackColor = Color.Yellow;
+                }
+
+            }
+
+            Greloj.Invalidate();
 
         }
         
@@ -2860,7 +3183,8 @@ namespace Senga
                     vLatitud = gLatitud;
                     vLongitud = gLongitud;
 
-                    lblCorrarCercano.Text = "0";
+                    //lblCorrarCercano.Text = "0";
+                    lblCorralPlan.Text = "0";
                 }
                 else
                 {
@@ -2869,7 +3193,8 @@ namespace Senga
 
                     DataRow[] rows = dtUbictmp.Select("corral = '" + vcorral + "'");
 
-                    lblCorrarCercano.Text = vcorral;
+                    //lblCorrarCercano.Text = vcorral;
+                    lblCorralPlan.Text = vcorral;
 
                     foreach (DataRow row2 in rows)
                     {
@@ -2894,7 +3219,8 @@ namespace Senga
 
                 distance = Math.Round(distance, 2);
 
-                lblDistancia.Text = distance.ToString();
+                //lblDistancia.Text = distance.ToString();
+                lblDist.Text = distance.ToString();
                 //lblDistancia.Visible = true;
 
             }
@@ -2937,22 +3263,34 @@ namespace Senga
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-
+        
+        }
+        
+        private void picModo_Click(object sender, EventArgs e)
+        {
+            
             modomapa = !modomapa;
 
             if (modomapa)
             {
-                toolStripButton1.Text = "NAVEGADOR";
+                //toolStripButton1.Text = "N"; // "NAVEGADOR";
             }
             else
             {
-                toolStripButton1.Text = "EXPLORADOR";
+                //toolStripButton1.Text = "E"; //"EXPLORADOR";
             }
 
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
+        { 
+        
+        }
+        
+        private void picMax_Click(object sender, EventArgs e)
         {
+
+            
             if (gMapControl1.Zoom <= 19)
             {
                 gMapControl1.Zoom += 1;
@@ -2960,7 +3298,14 @@ namespace Senga
         }
 
         private void toolStripButton3_Click(object sender, EventArgs e)
+        { 
+        
+        }
+        
+        private void picMin_Click(object sender, EventArgs e)
         {
+
+            
             if (gMapControl1.Zoom >= 15)
             {
                 gMapControl1.Zoom -= 1;
@@ -2971,35 +3316,184 @@ namespace Senga
         private void grafico(Chart chart)
         {
 
+
             chart.Series[0].IsValueShownAsLabel = true;
             chart.Series[0].IsVisibleInLegend = false;
             chart.Series[0].BorderColor = Color.Black;
             chart.Series[0].LabelBackColor = Color.Transparent;
             chart.Series[0].LabelBorderColor = Color.Transparent;
-            chart.Series[0].LabelForeColor = Color.Black;
+            chart.Series[0].LabelForeColor = Color.Transparent;
             chart.Series[0].Points.Clear();
 
-            Color[] colores = {
-                     Color.Green,
-                     Color.Yellow,
-
-                     Color.Red,
-                     Color.Orange,
-
-                     Color.White,
-                     Color.Gray,
-                     Color.Blue, 
-                     Color.Purple,
-    
-            };
 
             int vPlan = Int32.Parse(txtPlan.Text.Replace(",",""));
             int vServido = Int32.Parse(txtServido.Text.Replace(",", ""));
             int vFalta = Int32.Parse(txtFalta.Text.Replace(",", ""));
-            
-            //int vfalta = vplan - vServido;
 
-            double[] valores = { vPlan, vFalta, 0, 0, 0, 0, 0, 0 };
+
+            ///////////////////////////////        
+
+            //vServido = 1500;
+            //if (vServido > vPlan)            
+            //    vServido = vPlan;
+            //vFalta = vPlan - vServido;
+
+            ///////////////////////////////            
+
+
+            double[] valores = { vServido, vFalta };
+
+            chart.Series[0].Points.AddXY(0.ToString(), valores[0].ToString());
+            chart.Series[0].Points[0].Color = Color.Red;//colores[0];
+
+            chart.Series[0].Points.AddXY(1.ToString(), valores[1].ToString());
+            chart.Series[0].Points[1].Color = Color.Blue;//colores[1];
+
+
+        }
+
+
+        void porcServido()
+        {
+            try
+            {
+                float vPlan = float.Parse(Comun.cadenaCero(txtPlan.Text.Replace(",", "")));
+                float vServido = float.Parse(Comun.cadenaCero(txtServido.Text.Replace(",", "")));
+                float vFalta = float.Parse(Comun.cadenaCero(txtFalta.Text.Replace(",", "")));
+
+                ///////////////////////////////        
+
+                //vServido = 3939.5f;
+                //if (vServido > vPlan)
+                //    vServido = vPlan;
+                //vFalta = vPlan - vServido;
+
+                ///////////////////////////////    
+
+                float porc = 0;
+                if (vPlan != 0)
+                    porc = vServido / vPlan * 100f;
+
+                panelServido.Width = panelPlaneado.Width * Convert.ToInt32(porc) / 100;
+
+                //panelServido.Height = panelServido.Height - txtServido.Height;
+
+                if (panelServido.Width > panelPlaneado.Width)
+                {
+                    panelServido.Width = panelPlaneado.Width;
+                }
+
+
+                Comun.graficoRosca(picProgreso01, true, Color.Orange, Color.FromArgb(28, 28, 28), 10, porc, 100, "%", "Servido");
+                if (vPlan == 0) { picProgreso01.Visible = false; }
+
+            }
+            catch { }
+
+        }
+
+        void porcCarga()
+        {
+
+            try
+            {
+                float vPlan = float.Parse(Comun.cadenaCero(txtPlan.Text.Replace(",", "")));
+                float vMaximo = float.Parse(Comun.cadenaCero(txtCapacidad.Text.Replace(",", "")));
+                float vValor = float.Parse(Comun.cadenaCero(txtBasculaV.Text.Replace(",", "")));
+
+                float porc = 0;
+                if (vMaximo != 0)
+                    porc = vValor / vMaximo * 100f;
+
+                panelCarga.Height = panelCapacidad.Height * Convert.ToInt32(porc) / 100;
+
+                //panelCarga.Height = panelCarga.Height - txtBasculaV.Height;
+
+                if (panelCarga.Height > panelCapacidad.Height)
+                {
+                    panelCarga.Height = panelCapacidad.Height;
+                }
+
+                Comun.graficoRosca(picProgreso02, false, Color.Brown, Color.FromArgb(28, 28, 28), 10, porc, 100, "%", "Carga");
+                if (vPlan == 0) { picProgreso02.Visible = false; }
+
+            }
+            catch { }
+
+        }
+
+        private void grafico2(Chart chart)
+        {
+
+
+            //chart.Series[0].IsValueShownAsLabel = true;
+            //chart.Series[0].IsVisibleInLegend = false;
+            //chart.Series[0].BorderColor = Color.Black;
+            //chart.Series[0].LabelBackColor = Color.Transparent;
+            //chart.Series[0].LabelBorderColor = Color.Transparent;
+            //chart.Series[0].LabelForeColor = Color.White;
+
+            string cadena1 = "Servido";
+            string cadena2 = "Falto";
+
+            chart.Series.Add(cadena1);
+            chart.Series.Add(cadena2);
+
+            chart.Series[cadena1].ChartType = SeriesChartType.RangeColumn;
+            chart.Series[cadena2].ChartType = SeriesChartType.RangeColumn;
+
+            chart.Series[cadena1].Points.Clear();
+            chart.Series[cadena2].Points.Clear();
+
+            chart.Series[cadena1].Color = Color.Red;
+            chart.Series[cadena2].Color = Color.Blue;
+
+            chart.Series[cadena1].IsValueShownAsLabel = true;
+            chart.Series[cadena2].IsValueShownAsLabel = true;
+
+
+
+            //chart.Series[0].Points.Clear();
+
+            //Color[] colores = {
+            //         Color.Green,
+            //         Color.Yellow,
+
+            //         Color.Red,
+            //         Color.Orange,
+
+            //         Color.White,
+            //         Color.Gray,
+            //         Color.Blue, 
+            //         Color.Purple,
+
+            //};
+
+            int vPlan = Int32.Parse(txtPlan.Text.Replace(",", ""));
+            int vServido = Int32.Parse(txtServido.Text.Replace(",", ""));
+            int vFalta = Int32.Parse(txtFalta.Text.Replace(",", ""));
+
+
+            ///////////////////////////////        
+
+            vServido = 450;
+            if (vServido > vPlan)
+                vServido = vPlan;
+            vFalta = vPlan - vServido;
+
+
+            float vServ = vServido;
+            float vFalt = vFalta;
+
+
+            float a = (vServ / (vFalt + vServ)) * 100;
+            float b = (vFalt / (vFalt + vServ)) * 100;
+
+            ///////////////////////////////            
+
+
+            float[] valores = { a, b };
+            //double[] valores = { vFalta, vServido, 0, 0, 0, 0, 0, 0 };
 
             //int totalcapas = overlayCeldas.Polygons.Count;
 
@@ -3020,23 +3514,41 @@ namespace Senga
             //}
 
 
-            
+            ////valores[0] = Math.Round(valores[0] / vplan * 100, 1);
+            //valores[0] = Math.Round(valores[0], 1);
+            //chart.Series[0].Points.AddXY(0.ToString(), valores[0].ToString());
+            //chart.Series[0].Points[0].Color = Color.Red;//colores[0];
 
-            //valores[0] = Math.Round(valores[0] / vplan * 100, 1);
-            valores[0] = Math.Round(valores[0], 1);
-            chart.Series[0].Points.AddXY(0.ToString(), valores[0].ToString());
-            chart.Series[0].Points[0].Color = colores[0];
+            ////valores[1] = Math.Round(valores[1] / vplan * 100, 1);
+            //valores[1] = Math.Round(valores[1], 1);
+            //chart.Series[0].Points.AddXY(1.ToString(), valores[1].ToString());
+            //chart.Series[0].Points[1].Color = Color.Blue;//colores[1];
 
-            //valores[1] = Math.Round(valores[1] / vplan * 100, 1);
-            valores[1] = Math.Round(valores[1], 1);
-            chart.Series[0].Points.AddXY(1.ToString(), valores[1].ToString());
-            chart.Series[0].Points[1].Color = colores[1];
 
+
+
+
+
+
+            chart.Series[cadena1].Points.AddXY("1", Math.Round(valores[0], 1).ToString());
+            chart.Series[cadena2].Points.AddXY("1", Math.Round(valores[1], 1).ToString());
+
+
+            chart.ChartAreas[0].AxisY.Maximum = 100d;
 
         }
 
+
+
+
         private void toolStripButton4_Click(object sender, EventArgs e)
+        { 
+        
+        }
+        private void picGirar_Click(object sender, EventArgs e)
         {
+
+            
             gMapControl1.Bearing += 90;
         }
 
@@ -3075,6 +3587,7 @@ namespace Senga
         {
             buscarCorral(txtCaptura.Text);
             txtCaptura.Text = "";
+            panelCaptura.Visible = false;
         }
 
         private void buscarCorral(string captura) 
@@ -3186,10 +3699,18 @@ namespace Senga
         }
 
         private void btnCargar_Click(object sender, EventArgs e)
+        { 
+        
+        }
+        
+        private void picCargar_Click(object sender, EventArgs e)
         {
 
+            
             if (DGServidas.RowCount != 0)
             {
+
+                vHoraPlan = true;
 
                 //rowIndex = DGServidas.CurrentRow.Index;
 
@@ -3216,9 +3737,20 @@ namespace Senga
 
                     if (txtIdDr.Text != "")
                     {
+                        bool v = true;
+                        
+                        if(long.Parse(Comun.cadenaCero(txtBascula.Text)) < alarmaKilosRecarga)
+                        {
+                            v = true;
+                        }
+                        else
+                        {
+                            v = false;
+                        }
 
-                        Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text);
+                        Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text, v);
                         frm.Show();
+
                     }
 
                 //}
@@ -3272,8 +3804,225 @@ namespace Senga
 
         private void lblRed_Click(object sender, EventArgs e)
         {
-           lblRed.Text =  Principal.instance.fNet();// .btnConectarGps.PerformClick();
+            lblRed.Text = Principal.instance.fNetLista(); //fNet();// .btnConectarGps.PerformClick();
+        }
+
+
+        private void Greloj_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.mostrarReloj2(Greloj, sender, e);
+        }
+
+        private void DGServidas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            if (DGServidas.Rows[e.RowIndex].Selected)
+            {
+                using (Pen pen = new Pen(Color.Red))
+                {
+                    int penWidth = 3;
+
+                    pen.Width = penWidth;
+
+                    int x = e.RowBounds.Left + (penWidth / 2);
+                    int y = e.RowBounds.Top + (penWidth / 2);
+                    int width = e.RowBounds.Width - penWidth;
+                    int height = e.RowBounds.Height - penWidth;
+
+                    e.Graphics.DrawRectangle(pen, x, y, width, height);
+                }
+            }
+        }
+
+        private void DGServidas_RowPrePaint(object sender, DataGridViewRowPrePaintEventArgs e)
+        {
+
+        }
+
+        private void DGServidas_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 &&
+            this.DGServidas.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected)
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor;
+                e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
+            }
+            else
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Regular);
+            }
+
+        }
+
+		private void btnServirIzq_Click(object sender, EventArgs e)
+		{
+			servir(1);
+		}
+
+		private void btnServirDer_Click(object sender, EventArgs e)
+		{
+			servir(2);
+		}
+
+
+        void etiquetaBoton(string texto, PictureBox pic, Boolean arriba)
+        {
+            Label lbl = new Label();
+            this.Controls.Add(lbl);
+            lbl.Text = texto;
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
+            lbl.Font = new Font("Arial", 10);
+            lbl.ForeColor = Color.Silver;
+            lbl.AutoSize = false;
+
+            if (arriba)
+                lbl.Top = pic.Top - lbl.Height;
+            else
+                lbl.Top = pic.Top + pic.Height;
+            
+            lbl.Left = pic.Left;
+            lbl.Width = pic.Width;
+            lbl.BringToFront();
+        }
+
+        private void lblNomRed_Click(object sender, EventArgs e)
+        {
+            //lblNomRed.Text = Principal.instance.fNetLista(); //fNet();
+            //Principal.instance.lblRed.Text = lblNomRed.Text;
+            verListaWifi();
+        }
+
+        void verListaWifi()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            var nameWifi = Principal.instance.GetCurrentWiFiName();
+            lblNomRed.Text = nameWifi + " [" + Principal.instance.fNetLista().Replace(nameWifi, "") + "]"; //fNet();
+            Principal.instance.lblRed.Text = lblNomRed.Text;
+            this.Cursor = Cursors.Default;
+        }
+
+        private void picGpsDesconectado_Click(object sender, EventArgs e)
+        {
+            portDescripcion();
+
+
+        }
+
+        private void portDescripcion()
+        {
+
+            Cursor = Cursors.WaitCursor;
+
+            try
+            {
+                ManagementObjectCollection ManObjReturn;
+                ManagementObjectSearcher ManObjSearch;
+                ManObjSearch = new ManagementObjectSearcher("SELECT * FROM Win32_PnPEntity WHERE Caption like '%(COM%'");
+                //ManObjSearch = new ManagementObjectSearcher("Select * from Win32_SerialPort");
+                ManObjReturn = ManObjSearch.Get();
+
+                listaPuertos.Clear();
+
+                lblComGps.Text = "";
+                foreach (ManagementObject ManObj in ManObjReturn)
+                {
+                    string port = ManObj["Caption"].ToString();
+                    
+                    if (port.ToLower().Contains("comm port") || port.ToLower().Contains("serial port"))
+                    {
+                        listaPuertos.Add(port);
+
+                        if (port.ToLower().Contains(vComGps.ToLower()))
+                        {
+                            lblComGps.Text = "OK";
+                            break;
+                        }
+                    }
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                Cursor = Cursors.Default;
+                Comun.mensajeVer(e.Message, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            finally
+            {
+                Cursor = Cursors.Default;
+            }
+
+            //try
+            //{
+            //    ManagementObjectSearcher searcher =
+            //        new ManagementObjectSearcher("root\\CIMV2",
+            //        "SELECT * FROM Win32_PnPEntity");
+
+            //    foreach (ManagementObject queryObj in searcher.Get())
+            //    {
+            //        if (queryObj["Caption"].ToString().Contains("(COM"))
+            //        {
+            //            Console.WriteLine("serial port : {0}", queryObj["Caption"]);
+            //        }
+
+            //    }
+            //}
+            //catch (ManagementException e)
+            //{
+            //    MessageBox.Show(e.Message);
+            //}
+
+        }
+
+        private void lblMsgGPS_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS_Click(sender, e);
+            lblMsgGPS.Visible = false;
+        }
+
+        private void lblMsgGPS2_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS2_Click(sender, e);
+            lblMsgGPS2.Visible = false;
+            lblMsgGPS3.Visible = true;
+        }
+
+        private void lblMsgGPS3_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS_Click(sender, e);
+            lblMsgGPS3.Visible = false;
+            lblMsgGPS2.Visible = true;
+        }
+
+        void verMapa(Boolean valor)
+        {
+            splitContainerLista.Panel1Collapsed = !valor;
+
+            if (valor)
+            {
+                if (!vCargoMapa) 
+                {
+                    lblMsg.Text = "Cargando Mapa ...";
+                    lblMsg.Visible = true;
+                    lblMsg.Refresh();
+                    DGServidas.Refresh();
+                    cargaMapa();
+                    refrescaGrid();
+                    lblMsg.Visible = false;
+                } 
+            }
+
+        }
+
+        private void picMapa_Click(object sender, EventArgs e)
+        {
+            verMapa(splitContainerLista.Panel1Collapsed);
+        }
+
+        private void picProgreso01_Click(object sender, EventArgs e)
+        {
+          
         }
     }
-
 }

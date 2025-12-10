@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
 using System.Diagnostics;
-using System.Threading;
+using System.Drawing;
+using System.IO;
 using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading;
+using System.Web.Services.Description;
+using System.Windows.Forms;
 
 namespace Senga
 {
@@ -37,6 +38,9 @@ namespace Senga
         private int rowIndex = 0;
 
         public static Raciones instance = null;
+        bool vBtnOprime1 = false;
+        bool vBtnOprime2 = false;
+
 
         public Raciones(string id)
         {
@@ -97,7 +101,7 @@ namespace Senga
             //    //lblWsActivoF.Value = 0;
             //}
 
-            panelRacion.Visible = true;
+            //panelRacion.Visible = true;
             this.Refresh();
 
             //pbServido.Visible = true;
@@ -117,6 +121,12 @@ namespace Senga
             lblCantidad.Visible = false;//Text = "";
 
             tiempoServido();
+            
+            lblMsgGPS.Visible = Principal.instance.lblMsgGPS.Visible;
+            //lblMsgGPS2.Visible = Principal.instance.lblMsgGPS2.Visible;
+
+
+
 
             this.Refresh();
 
@@ -128,6 +138,13 @@ namespace Senga
             estadoBotones();
 
             this.Refresh();
+
+            //toolStrip1.Visible = true;
+
+
+            lblVersion.Text = Principal.instance.lblVersion.Text;
+
+            botonesPrincipal();
 
         }
 
@@ -188,46 +205,54 @@ namespace Senga
 
         private void posicionbotones()
         {
-            btnCerrar.Top = 0;
-            btnServir.Top = 0;
-            btnArchivos.Top = 0;
-            btnLista.Top = 0;
-            btnSincroniza.Top = 0;
-            btnExplorer.Top = 0;
-            btnUSB.Top = 0;
-            btnNube.Top = 0;
-            btnWsRecibir.Top = 0;
-            btnWsEnviar.Top = 0;
-            btnServida.Top = 0;
-            btnPlanta.Top = 0;
-            btnJornadas.Top = 0;
-            btnReportes.Top = 0;
+            int padBtn = 25;
+            int sepBtn = 50;
+
+            int topBtn = padBtn;
+
+            picCerrar.Top = topBtn;
+            picServir.Top = topBtn;
+             btnArchivos.Top = topBtn;
+            btnLista.Top = topBtn;
+            picSincroniza.Top = topBtn;
+             btnExplorer.Top = topBtn;
+            picUSB.Top = topBtn;
+            picNube.Top = topBtn;
+            picWsRecibir.Top = topBtn;
+             btnWsEnviar.Top = topBtn;
+            picServida.Top = topBtn;
+            picPlanta.Top = topBtn;
+            picJornadas.Top = topBtn;
+            picReportes.Top = topBtn;
 
             //oculta boton
             btnExplorer.Width = 0;
             //btnSincroniza.Width = 0;
             btnWsEnviar.Width = 0;
-            btnLista.Width = 0;
+            btnLista.Width = 0;            
             btnArchivos.Width = 0;
-            btnSincroniza.Width = 0;
+            //btnSincroniza.Width = 0;
 
-            btnCerrar.Left = this.Width - btnCerrar.Width;
-            btnServir.Left = btnCerrar.Left - btnServir.Width;
-            btnArchivos.Left = btnServir.Left - btnArchivos.Width;
-            btnLista.Left = btnArchivos.Left - btnLista.Width;
-            btnSincroniza.Left = btnLista.Left - btnSincroniza.Width;
-            btnExplorer.Left = btnSincroniza.Left - btnExplorer.Width;
-            btnUSB.Left = btnExplorer.Left - btnUSB.Width;
-            btnNube.Left = btnUSB.Left - btnNube.Width;
+            picPlanta.Width = 0;
 
-            btnWsEnviar.Left = btnNube.Left - btnWsEnviar.Width;
-            btnWsRecibir.Left = btnWsEnviar.Left - btnWsRecibir.Width;
 
-            btnServida.Left = btnWsRecibir.Left - btnServida.Width;
-            btnPlanta.Left = btnServida.Left - btnPlanta.Width;
+            picCerrar.Left = this.Width - picCerrar.Width - padBtn;
+            picServir.Left = picCerrar.Left - picServir.Width - sepBtn; 
+            //btnArchivos.Left = picServir.Left - btnArchivos.Width;
+            //btnLista.Left = btnArchivos.Left - btnLista.Width;
+            picSincroniza.Left = picServir.Left - picSincroniza.Width - sepBtn; 
+            //btnExplorer.Left = btnSincroniza.Left - btnExplorer.Width;
+            picUSB.Left = picSincroniza.Left - picUSB.Width - sepBtn; 
+            picNube.Left = picUSB.Left - picNube.Width - sepBtn; 
+            //btnWsEnviar.Left = btnNube.Left - btnWsEnviar.Width;
+            picWsRecibir.Left = picNube.Left - picWsRecibir.Width - sepBtn;             
+            picServida.Left = picWsRecibir.Left - picServida.Width - sepBtn; 
+            
+            //picPlanta.Left = picServida.Left - picPlanta.Width - sepBtn; 
+            
+            picReportes.Left = picServida.Left - picReportes.Width - sepBtn; 
 
-            btnReportes.Left = btnPlanta.Left - btnReportes.Width;
-            btnJornadas.Left = btnReportes.Left - btnJornadas.Width;
+            picJornadas.Left = picReportes.Left - picJornadas.Width - sepBtn;
 
 
 
@@ -240,13 +265,66 @@ namespace Senga
             lblPlanes.Visible = false;
             lblServidos.Visible = false;
 
+
+            //etiqueta abajo boton
+            txtJornada.Left = picJornadas.Left;
+            txtJornada.Top = picJornadas.Top + picJornadas.Height + padBtn;
+            txtJornada.Width = picJornadas.Width;
+
+            txtPlanta.Left = picPlanta.Left;
+            txtPlanta.Top = picPlanta.Top + picPlanta.Height + padBtn;
+            txtPlanta.Width = picPlanta.Width;
+
+            txtServida.Left = picServida.Left;
+            txtServida.Top = picServida.Top + picServida.Height + padBtn;
+            txtServida.Width = picServida.Width;
+
+
             //DGJornadas.Left = 0;
             //DGJornadas.Width = this.Width;
 
 
+            etiquetaBoton("Jornadas", picJornadas, false);
+            etiquetaBoton("Reportes", picReportes, false);
+            etiquetaBoton("Planta", picPlanta, false);
+            etiquetaBoton("Servida", picServida, false);
+            etiquetaBoton("Recibe", picWsRecibir, false);
+            etiquetaBoton("WS", picNube, false);
+            etiquetaBoton("USB", picUSB, false);
+            etiquetaBoton("WIFI", picSincroniza, false);
+            etiquetaBoton("Servidas", picServir, false);
+            etiquetaBoton("Cerrar", picCerrar, false);
+
+
+
+
         }
+
+
+        void etiquetaBoton(string texto, PictureBox pic, Boolean arriba)
+        {
+            Label lbl = new Label();
+            panel2.Controls.Add(lbl);
+            lbl.Text = texto;
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
+            lbl.Font = new Font("Arial", 10);
+            lbl.ForeColor = Color.Silver;
+            lbl.AutoSize = false;
+
+            if (arriba)
+                lbl.Top = pic.Top - lbl.Height;
+            else
+                lbl.Top = pic.Top + pic.Height;
+
+            lbl.Left = pic.Left;
+            lbl.Width = pic.Width;
+            lbl.Visible = pic.Visible;
+            lbl.BringToFront();
+        }
+
         private void propiedadesGrid()
         {
+            DGRaciones.Width = this.Width;
 
             DGRaciones.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGRaciones.ReadOnly = true;
@@ -261,12 +339,22 @@ namespace Senga
             DGRaciones.CellBorderStyle = DataGridViewCellBorderStyle.None;
             DGRaciones.DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
             //DGRaciones.RowTemplate.Height = 50;
+            DGRaciones.DefaultCellStyle.ForeColor = Color.Black;
+            DGRaciones.DefaultCellStyle.BackColor = Color.WhiteSmoke;
 
+            DGRaciones.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(28, 28, 28);
+            DGRaciones.ColumnHeadersDefaultCellStyle.ForeColor = Color.Silver;
+            DGRaciones.EnableHeadersVisualStyles = false;
+
+            //DGRaciones.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(28, 28, 28);//.White;
+            //DGRaciones.DefaultCellStyle.SelectionForeColor = Color.White;//.Black;
 
         }
 
         private void propiedadesGrid2()
         {
+
+            DGCargas.Width = 680; // this.Width;
 
             DGCargas.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGCargas.ReadOnly = true;
@@ -281,8 +369,14 @@ namespace Senga
             DGCargas.CellBorderStyle = DataGridViewCellBorderStyle.None;
             DGCargas.DefaultCellStyle.Font = new Font("Arial", 20.00F, FontStyle.Bold);
             //DGRaciones.RowTemplate.Height = 50;
+            DGCargas.DefaultCellStyle.ForeColor = Color.Black;
+            DGCargas.DefaultCellStyle.BackColor = Color.WhiteSmoke;
 
-            DGCargas.RowsDefaultCellStyle.SelectionBackColor = Color.White;
+            DGCargas.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(28, 28, 28);
+            DGCargas.ColumnHeadersDefaultCellStyle.ForeColor = Color.Silver;
+            DGCargas.EnableHeadersVisualStyles = false;
+
+            DGCargas.RowsDefaultCellStyle.SelectionBackColor = Color.WhiteSmoke;
             DGCargas.DefaultCellStyle.SelectionForeColor = Color.Black;
 
         }
@@ -336,6 +430,8 @@ namespace Senga
 
             table.Columns.Add("Racion", typeof(string));
             table.Columns.Add("Corrales", typeof(string));
+            
+            table.Columns.Add("Corr%", typeof(long));
 
             //table.Columns.Add("Hechos", typeof(long));
             table.Columns.Add("Plan", typeof(long));
@@ -343,8 +439,9 @@ namespace Senga
             table.Columns.Add("Cargas", typeof(long));
             table.Columns.Add("Servido", typeof(long));
             //table.Columns.Add("Carga", typeof(long));
-            table.Columns.Add("Falta", typeof(long));
-            table.Columns.Add("Neto", typeof(long));
+            table.Columns.Add("Falta Plan", typeof(long));
+            table.Columns.Add("Carg-Serv", typeof(long));
+
             table.Columns.Add("IdD", typeof(string));
 
             DGRaciones.DataSource = table;
@@ -370,8 +467,12 @@ namespace Senga
             DGRaciones.Columns["Cargas"].DefaultCellStyle.Format = "#,0.###";
             DGRaciones.Columns["Servido"].DefaultCellStyle.Format = "#,0.###";
             //DGRaciones.Columns["Carga"].DefaultCellStyle.Format = "#,0.###";
-            DGRaciones.Columns["Falta"].DefaultCellStyle.Format = "#,0.###";
-            DGRaciones.Columns["Neto"].DefaultCellStyle.Format = "#,0.###";
+            DGRaciones.Columns["Falta Plan"].DefaultCellStyle.Format = "#,0.###";
+            DGRaciones.Columns["Carg-Serv"].DefaultCellStyle.Format = "#,0.###";
+
+
+            //DGRaciones.CellPainting += DGRaciones_CellPainting;
+
 
             //DGRaciones.DataSource = table;
 
@@ -450,7 +551,15 @@ namespace Senga
 
                     long neto = long.Parse(row["Cargado"].ToString()) - long.Parse(row["Servido"].ToString());
 
-                    table.Rows.Add(row["Racion"], (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), neto, row["IdD"].ToString());
+       
+                    long progres = 0;
+                    if (long.Parse(row["Cantidad"].ToString()) != 0)
+                    {
+                        progres = (long)((double.Parse(row["HechoC"].ToString()) / double.Parse(row["Cantidad"].ToString())) * 100);
+                    }
+
+
+                    table.Rows.Add(row["Racion"], (row["HechoC"].ToString() + "/" + row["Cantidad"].ToString()), progres, row["Planeado"].ToString(), row["Cargado"].ToString(), row["Servido"].ToString(), Convert.ToInt32(row["Falta"]), neto, row["IdD"].ToString());
 
                     if (row["Cargado"].ToString() == "0" && primero)
                     //if (primero)
@@ -612,6 +721,12 @@ namespace Senga
 
         private void btnServida_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picServida_Click(object sender, EventArgs e)
+        {
+                        
             Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 1);
             frm.ShowDialog();
         }
@@ -650,7 +765,7 @@ namespace Senga
                     if (txtIdDr.Text != "")
                     {
 
-                        Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text);
+                        Senga.Racion frm = new Senga.Racion(txtIdDr.Text, txtJornada.Text, true);
                         frm.Show();
                     }
                 }
@@ -836,6 +951,7 @@ namespace Senga
                 foreach (DataRow row in dt.Rows)
                 {
                     txtCamion.Text = row["NumCamion"].ToString();
+                    lblCamion.Text = "CAM " + txtCamion.Text;
                     txtCapacidad.Text = row["Capacidad"].ToString();
                 }
             }
@@ -1432,6 +1548,11 @@ namespace Senga
 
         private void btnServir_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picServir_Click(object sender, EventArgs e)
+        {                       
 
             if (DGRaciones.RowCount != 0)
             {
@@ -1629,6 +1750,8 @@ namespace Senga
             String file = "";
             grabar(true, ref file);
 
+            Process.Start("explorer.exe", rutaarchivos() + nameruta);
+
         }
 
         private string rutaarchivos()
@@ -1764,6 +1887,9 @@ namespace Senga
 
         private Boolean redConectado()
         {
+
+            //var interfaces = System.Net.NetworkInformation.PhysicalAddress();
+
             return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
         }
 
@@ -1790,7 +1916,13 @@ namespace Senga
 
         private void btnUSB_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picUSB_Click(object sender, EventArgs e)
+        {
 
+            
             DataTable dt = new DataTable();
 
             string vunidad = "";
@@ -1882,6 +2014,13 @@ namespace Senga
 
         private void btnSincroniza_Click(object sender, EventArgs e)
         {
+        
+        }
+
+        private void picSincroniza_Click(object sender, EventArgs e)
+        {
+
+         
             //sincronizarWS();
             //return;
             String file = "";
@@ -1898,61 +2037,74 @@ namespace Senga
             {
                 //sincronizar(vrutaarchivos + nameruta, vrutared + nameruta, Constants.FILE_RED, true, true);
 
-
-                if (DGRaciones.RowCount == 0) //Wifi>>Tablet
+                if (DGRaciones.RowCount == 0)
                 {
-                    textomsg = "Recibio";
-                    quitaArchivosde("P");
-
-                    moverArchivos(vrutared + nameruta + namea, vrutaarchivos + nameruta + namea, ref vcantidad, true, false);
-                    //leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
-                    //merror = pmsgerr;
-                    //mok = pmsge;
-                    if (vcantidad != 0)
-                    {
-                        listaPlanes(false, false);
-                    }
-                    else
-                    {
-                        merror = "Ningun Registro";
-                    }
-                }
-                else  //Wifi<<Tablet
-                {
-                    textomsg = "Envio";
-
-                    if (!hayServidos())
-                    {
-                        Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
-                        return;
-                    }
-                    else
-                    {
-                        quitaArchivosde("S");
-                        grabar(false, ref file);
-
-                        if (!file.Equals(""))
-                        {
-                            moverArchivo(vrutaarchivos + nameruta + nameb + "\\" + file, vrutared + nameruta + nameb, false);
-                            cantservidos();
-
-                        }
-                        else
-                        {
-                            //merror = "Error generar informacion";
-                        }
-
-                    }
-
-                }
-
-                if (merror.Equals(""))
-                {
-                    Comun.mensajeVer(textomsg + " Informacion Por Wifi", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    textomsg = "Recibir";
                 }
                 else
                 {
-                    Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    textomsg = "Enviar";
+                }
+
+                if (Comun.mensajeVer("¿ Desea " + textomsg + " Archivo por Wifi ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+                {
+
+                    if (DGRaciones.RowCount == 0) //Wifi>>Tablet
+                    {
+                        textomsg = "Recibio";
+                        quitaArchivosde("P");
+
+                        moverArchivos(vrutared + nameruta + namea, vrutaarchivos + nameruta + namea, ref vcantidad, true, false);
+                        //leerWsdlPlan(ref dt, ref pmsgerr, ref pmsge);
+                        //merror = pmsgerr;
+                        //mok = pmsge;
+                        if (vcantidad != 0)
+                        {
+                            listaPlanes(false, false);
+                        }
+                        else
+                        {
+                            merror = "Ningun Registro";
+                        }
+                    }
+                    else  //Wifi<<Tablet
+                    {
+                        textomsg = "Envio";
+
+                        if (!hayServidos())
+                        {
+                            Comun.mensajeVer("Debe haber Servidas", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                            return;
+                        }
+                        else
+                        {
+                            quitaArchivosde("S");
+                            grabar(false, ref file);
+
+                            if (!file.Equals(""))
+                            {
+                                moverArchivo(vrutaarchivos + nameruta + nameb + "\\" + file, vrutared + nameruta + nameb, false);
+                                cantservidos();
+
+                            }
+                            else
+                            {
+                                //merror = "Error generar informacion";
+                            }
+
+                        }
+
+                    }
+
+                    if (merror.Equals(""))
+                    {
+                        Comun.mensajeVer(textomsg + " Archivo Por Wifi", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    }
+                    else
+                    {
+                        Comun.mensajeVer(textomsg + " " + merror, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
+                
                 }
 
             }
@@ -2302,6 +2454,11 @@ namespace Senga
 
         private void btnPlanta_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picPlanta_Click(object sender, EventArgs e)
+        {                        
             Senga.Captura frm = new Senga.Captura(Convert.ToInt32(txtJornada.Text), 4);
             frm.ShowDialog();
         }
@@ -2337,11 +2494,24 @@ namespace Senga
 
         private void btnNube_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picNube_Click(object sender, EventArgs e)
+        {
+
+            
             nubeTransferencia();
         }
 
         private void btnWsRecibir_Click(object sender, EventArgs e)
         {
+        
+        }
+
+        private void picWsRecibir_Click(object sender, EventArgs e)
+        {
+            
             nubeTransferenciaRecibe();
         }
 
@@ -2773,15 +2943,17 @@ namespace Senga
 
             if (emsg.Equals("OK"))
             {
-                crearArchivoPlan(dt);
-            }
 
+                //Comun.actualizaHoraPlan(dt,"Hora");
+
+                crearArchivoPlan(dt);
+            
+            }
 
             if (dt.Rows.Count == 0)
             {
                 msgerr = "Ningun Registro";
             }
-
 
         }
 
@@ -2942,10 +3114,29 @@ namespace Senga
 
                 foreach (DataRow row in dt.Rows)
                 {
-                    objWriter.WriteLine(row["Camion"].ToString() + "," + row["Numservida"].ToString() + "," + row["Corral"].ToString() + "," + row["Racion"].ToString() + "," + int.Parse(row["Cabezas"].ToString()).ToString() + "," + int.Parse(row["Planeado"].ToString()).ToString() + ",00:00," + int.Parse(row["Plandia"].ToString()).ToString());
+                    objWriter.WriteLine(row["Camion"].ToString() + "," + row["Numservida"].ToString() + "," + row["Corral"].ToString() + "," + row["Racion"].ToString() + "," + int.Parse(row["Cabezas"].ToString()).ToString() + "," + int.Parse(row["Planeado"].ToString()).ToString() + "," + row["Hora"].ToString() + "," + int.Parse(row["Plandia"].ToString()).ToString());
                 }
 
                 objWriter.Close();
+
+            }
+
+        }
+
+        private void agregaHoraPlan(DataTable dt)
+        {           
+
+            DateTime date1 = DateTime.Now;
+
+            foreach (DataRow row in dt.Rows)
+            {
+
+                DateTime date2 = date1.AddSeconds(30);//.AddMinutes(1);
+                string currentTime = date2.ToString("HH:mm");
+                
+                row["Hora"] = currentTime;
+                
+                date1 = date2;
 
             }
 
@@ -3132,19 +3323,35 @@ namespace Senga
 
         private void timerReloj_Tick(object sender, EventArgs e)
         {
-            lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            //lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
+            lblHoral.Text = DateTime.Now.ToString("hh:mm tt");
 
             lblWsActivoF.Value = Principal.instance.lblWsActivoF.Value;
             lblConectadoF.Value = Principal.instance.lblConectadoF.Value;
             lblGpsActivoF.Value = Principal.instance.lblGpsActivoF.Value;
             lblBateriaActivoF.Value = Principal.instance.lblBateriaActivoF.Value;
-            lblBateria.Text = Principal.instance.lblBateria.Text;
-            pbBateria.Value = Principal.instance.pbBateria.Value;
-            lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
+
+            picConectadoLuz.Visible = (lblBateriaActivoF.Value == 1);
+
+
+			lblBateria.Text = Principal.instance.lblBateria.Text;
+            lblBateriaPorc.Text = lblBateria.Text;
+			pbBateria.Value = Principal.instance.pbBateria.Value;
+
+			pbBaterial.Value = pbBateria.Value;
+			pbBaterial.Maximum = pbBateria.Maximum;
+
+
+			lblBateriaTiempo.Text = Principal.instance.lblBateriaTiempo.Text;
+            lblBateriaHoras.Text = lblBateriaTiempo.Text;
+
+			lblBateria.ForeColor = Principal.instance.lblBateria.ForeColor;
+            lblBateriaTiempo.ForeColor = Principal.instance.lblBateriaTiempo.ForeColor;
 
             btnConectar.Visible = Principal.instance.btnConectarGps.Visible;
             //lblRed.Text = Principal.instance.lblRed.Text;
-            
+
             //if (wsactivo && lblConectadoF.Value == 1)
             //{
             //    focoWs();
@@ -3162,6 +3369,8 @@ namespace Senga
             //{
             //    lblGpsActivoF.Value = 0;
             //}
+
+            Greloj.Invalidate();
 
         }
 
@@ -3203,12 +3412,53 @@ namespace Senga
             lblLatitud.Text = lat.ToString();
             lblLongitud.Text = lng.ToString();
 
+			lblLat.Text = lblLatitud.Text;
+			lblLong.Text = lblLongitud.Text;
+
+            lblMsg.BackColor = Color.Transparent;
+            lblMsg.Text = "";
+
+            if (lblLat.Text == "0")
+            {
+
+                if (panelGPSPantalla.BackColor == Color.Yellow)
+                {
+                    panelGPSPantalla.BackColor = Color.Red;
+                }
+                else if (panelGPSPantalla.BackColor == Color.Red)
+                {
+                    panelGPSPantalla.BackColor = Color.Yellow;
+                }
+                else if (panelGPSPantalla.BackColor == Color.WhiteSmoke)
+                {
+                    panelGPSPantalla.BackColor = Color.Red;                    
+                }
+
+                lblMsg.BackColor = panelGPSPantalla.BackColor;
+                //Console.Beep(4000, 25);
+                Console.Beep(5000, 200); // chillido agudo
+                Console.Beep(200, 200);  // contraste grave
+                lblMsg.Text = "¡¡¡ SIN GPS !!! ES OBLIGATORIO ACTIVAR FAVOR DE REPORTAR";
+            }
+            else
+            {
+                panelGPSPantalla.BackColor = Color.WhiteSmoke;
+            }
+
+            //this.BackColor = panelGPSPantalla.BackColor;
+
             lblLatitud.ForeColor = Principal.instance.lblLatitud.ForeColor;
             lblLongitud.ForeColor = Principal.instance.lblLongitud.ForeColor;
             toolStripLabel1.ForeColor = Principal.instance.toolStripLabel1.ForeColor;
             toolStripLabel2.ForeColor = Principal.instance.toolStripLabel2.ForeColor;
 
             lblVelocidad.Text = Principal.instance.lblVelocidad.Text;
+            lblMsgGpsError.Text = Principal.instance.lblMsgGpsError.Text;
+            lblLectura.Text = Principal.instance.txtLectura.Text.Replace("\r\n"," ");
+
+            lblPortGPS.Text = Principal.instance.lblPortGPS.Text;
+            lblPortGPS2.Text = Principal.instance.lblPortGPS2.Text;
+            lblPortGPS3.Text = Principal.instance.lblPortGPS3.Text;
 
             //lblCorral.Text = corralUbicacionm(dtUbictmp, lat, lng, gmindist);
 
@@ -3296,7 +3546,11 @@ namespace Senga
         private void btnJornadas_Click(object sender, EventArgs e)
         {
 
+        }
+        private void picJornadas_Click(object sender, EventArgs e)
+        {
 
+        
             //Datos datos = new Datos();
             //DataTable dt = new DataTable();
 
@@ -3316,6 +3570,13 @@ namespace Senga
 
         private void btnReportes_Click(object sender, EventArgs e)
         {
+        
+        }
+        
+        private void picReportes_Click(object sender, EventArgs e)
+        {
+
+            
             Reportes frm = new Reportes(txtJornada.Text);
             frm.Show();
         }
@@ -3327,21 +3588,303 @@ namespace Senga
             {
                 btnWsRecibir.Enabled = false;
                 btnServir.Enabled = false;
+
+                picWsRecibir.Visible = false;
+                picServir.Visible = false;
+
             }
             else
             {
                 btnWsRecibir.Enabled = true;
                 btnServir.Enabled = true;
+
+                picWsRecibir.Visible = true;
+                picServir.Visible = true;
             }
 
 
 
         }
 
+        void botonesPrincipal()
+        {
+            picIniGps.Visible = Principal.instance.picIniGps.Width != 0;
+            picConectGps.Visible = Principal.instance.picConectGps.Width != 0;
+        }
+
         private void lblRed_Click(object sender, EventArgs e)
         {
-            lblRed.Text = Principal.instance.fNet();
+            //lblRed.Text = Principal.instance.fNetLista(); //fNet();
+            lblRed.Text = Principal.instance.GetCurrentWiFiName() + " [" + Principal.instance.fNetLista() + "]"; //fNet();
         }
+
+        private void Greloj_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.mostrarReloj2(Greloj, sender, e);
+        }
+        private void DGRaciones_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            if (DGRaciones.Rows[e.RowIndex].Selected)
+            {
+                using (Pen pen = new Pen(Color.Red))
+                {
+                    int penWidth = 3;
+
+                    pen.Width = penWidth;
+
+                    int x = e.RowBounds.Left + (penWidth / 2);
+                    int y = e.RowBounds.Top + (penWidth / 2);
+                    int width = e.RowBounds.Width - penWidth;
+                    int height = e.RowBounds.Height - penWidth;
+
+                    e.Graphics.DrawRectangle(pen, x, y, width, height);
+                }
+            }
+        }
+
+        private void DGRaciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex >= 0 && e.RowIndex >= 0 &&
+            this.DGRaciones.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected)
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Bold);
+                e.CellStyle.SelectionForeColor = e.CellStyle.ForeColor; //Color.Red;// 
+                e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
+            }
+            else
+            {
+                e.CellStyle.Font = new Font(e.CellStyle.Font, FontStyle.Regular);
+                //e.CellStyle.SelectionBackColor = e.CellStyle.BackColor;
+            }
+        }
+
+        private void Greloj_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picCerrar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void lblMsgGPS_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS_Click(sender, e);
+            lblMsgGPS.Visible = false;
+            //lblMsgGPS2.Visible = true;
+        }
+
+        private void lblNomRed_Click(object sender, EventArgs e)
+        {
+            verListaWifi();
+        }
+
+        void verListaWifi()
+        {
+            this.Cursor = Cursors.WaitCursor;
+            var nameWifi = Principal.instance.GetCurrentWiFiName();
+            lblNomRed.Text = nameWifi + " ["+ Principal.instance.fNetLista().Replace(nameWifi,"") +"]"; //fNet();
+            lblNomRed.Text = lblNomRed.Text.Replace("[ . ]", "").Trim();
+            Principal.instance.lblRed.Text = lblNomRed.Text;
+            this.Cursor = Cursors.Default;
+            if (lblNomRed.Text.Contains("["))
+            {
+                picWifiConnect.Visible = true;
+                //picBlockWifi.Visible = true;
+            }
+        }
+
+        private void lblVersion_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+            Comun.actualizarApp(false, Constants.OPC_REINICIO);
+        }
+
+        private void lblMsgGPS2_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS2_Click(sender, e);
+            lblMsgGPS2.Visible = false;
+            lblMsgGPS3.Visible = true;
+        }
+
+        private void lblMsgGPS3_Click(object sender, EventArgs e)
+        {
+            Principal.instance.lblMsgGPS_Click(sender, e);
+            lblMsgGPS3.Visible = false;
+            lblMsgGPS2.Visible = true;
+        }
+
+        private void Raciones_Resize(object sender, EventArgs e)
+        {
+            lblCantidad.Width = DGRaciones.Width;
+            lblMsg.Width = DGRaciones.Width;
+        }
+
+        private void picServida_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picServida, e, "S"+txtServida.Text);
+        }
+
+        private void txtServida_TextChanged(object sender, EventArgs e)
+        {
+            picServida.Refresh();
+        }
+
+        private void picJornadas_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picJornadas, e, txtJornada.Text);
+        }
+
+        private void txtJornada_TextChanged(object sender, EventArgs e)
+        {
+            picJornadas.Refresh();
+        }
+
+        private void picIniGps_Click(object sender, EventArgs e)
+        {
+            Principal.instance.picIniGps_Click(sender, e);
+            botonesPrincipal();
+
+            if (vBtnOprime1)
+            {
+                picIniGps.Width -= 5;
+                picIniGps.Height -= 5;
+            }
+            else
+            {
+                picIniGps.Width += 5;
+                picIniGps.Height += 5;
+            }
+
+            vBtnOprime1 = !vBtnOprime1;
+
+        }
+
+        private void picConectGps_Click(object sender, EventArgs e)
+        {
+
+            Principal.instance.picConectGps_Click(sender, e);
+            botonesPrincipal();
+            
+            if(vBtnOprime2)
+            {
+                picConectGps.Width -= 5;
+                picConectGps.Height -= 10;   
+            }
+            else
+            {
+                picConectGps.Width += 5;
+                picConectGps.Height += 10;
+            }
+
+            vBtnOprime2 = !vBtnOprime2;
+             
+        }
+
+        private void lblWifiConnect_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picBlockWifi_Click(object sender, EventArgs e)
+        {
+            var wifiName = Constants.RED_WIFI_DEFAULT;
+
+            string outMsg;
+            //if (Principal.instance.BlockSsid(wifiName, out outMsg))
+            //if (Principal.instance.RemoveBlockSsid(wifiName, out outMsg))
+            if (Principal.instance.AllowOnlySsid(wifiName, out outMsg))
+            //if (Principal.instance.RemoveAllFilters(out outMsg))
+                Console.WriteLine("SSID correctamente.");
+            else
+                Console.WriteLine("Error SSID: " + outMsg);
+
+            // Ejemplo: permitir sólo "MiRed" (y bloquear todo lo demás)
+            // bool ok = Principal.instance.AllowOnlySsid(wifiName, out outMsg);
+            // Console.WriteLine(ok ? "Permitir solo MiRed" : "Fallo: " + outMsg);
+
+            verListaWifi();
+            //}
+            picBlockWifi.Visible = false;
+
+        }
+
+        private void picWifiConnect_Click(object sender, EventArgs e)
+        {
+
+            var wifiName = Constants.RED_WIFI_DEFAULT;
+            string outMsg;
+
+            //if (lblNomRed.Text.Contains(wifiName))
+            //{
+            Principal.instance.ConnectToWiFi(wifiName);
+            Principal.instance.RemoveAllWifiExcept(wifiName);
+
+            //Principal.instance.AllowOnlySsid(wifiName, out outMsg);
+
+            verListaWifi();
+            //}
+            picWifiConnect.Visible = false;
+        }
+
+        private void DGRaciones_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            // Cambia e.ColumnIndex == 1 por el índice de tu columna "Progreso"
+            if (e.RowIndex >= 0 && e.ColumnIndex == 2 && e.Value != null && int.TryParse(e.Value.ToString(), out int val))
+            {
+                e.Handled = true;
+                e.PaintBackground(e.CellBounds, true);
+
+                // Normaliza 0–100
+                val = Math.Max(0, Math.Min(100, val));
+
+                // Área de barra con padding
+                var rect = e.CellBounds;
+                rect.Inflate(-6, -6);
+
+                // Fondo de barra
+                using (var back = new SolidBrush(Color.White))
+                    e.Graphics.FillRectangle(back, rect);
+
+                // Progreso
+                var fill = new Rectangle(rect.X, rect.Y, (int)(rect.Width * (val / 100.0)), rect.Height);
+
+                Color barColor = val == 100 ? Color.Lime : Color.Orange;
+                using (var br = new SolidBrush(barColor))
+                    e.Graphics.FillRectangle(br, fill);
+
+                // Bordecito
+                using (var pen = new Pen(Color.Gray))
+                    e.Graphics.DrawRectangle(pen, rect);
+
+                // Texto centrado "xx%"
+                string text = $"{val}%";
+                var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+                using (var txt = new SolidBrush(Color.Black))
+                    e.Graphics.DrawString(text, e.CellStyle.Font ?? Control.DefaultFont, txt, rect, sf);
+            }
+        }
+
+        private void timerPila_Tick(object sender, EventArgs e)
+        {
+            graficoPila();
+        }
+
+        void graficoPila()
+        {
+            Comun.graficoRosca(picProgreso01, true, Color.White, Color.FromArgb(28, 28, 28), 6, pbBaterial.Value, 100, "   %", "BATERIA");
+        }
+
+        private void picWifis_Click(object sender, EventArgs e)
+        {
+
+            verListaWifi();
+            lblNomRed.Visible = true;
+          
+        }
+
+
     }
     
 }

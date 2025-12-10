@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Grupo Gusi")]
 [assembly: AssemblyProduct("SENGA")]
-[assembly: AssemblyCopyright("Copyright ©  2021")]
+[assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("Carnes Gusi")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Número de versión de compilación
 //      Revisión
 //
-[assembly: AssemblyVersion("2022.5.4.0")]
-[assembly: AssemblyFileVersion("2022.5.4.0")]
+[assembly: AssemblyVersion("2025.10.23.0")]
+[assembly: AssemblyFileVersion("2025.10.23.0")]

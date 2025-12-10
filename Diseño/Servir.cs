@@ -8,6 +8,8 @@ using System.Threading;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Media;
+using System.Web;
+using System.Drawing.Drawing2D;
 
 namespace Senga
 {
@@ -27,6 +29,8 @@ namespace Senga
         long servido = 0;
         string vjornada;
         string vcorralgps;
+        int vbascula;
+        int vcantBasculas;
 
         int lv_pos = 0;
         int lv_posr = 0;
@@ -56,17 +60,24 @@ namespace Senga
         int cantPesos = 1;
         bool activaEnv = true;
         string vcamion = "";
+        string vplanta = "";
+
+        bool vToleranciaMax = false; 
+        bool vToleranciaMin = false; 
+
         //public delegate void AddDataDelegate(String myString);
         //public AddDataDelegate myDelegate;
 
         //public static Servir instance = null;
 
-        public Servir(string idd, string iddr, string id, string corralgps, double lat, double lng, string numcarga, string corrales)
+        public Servir(int bascula, int cantBasculas, string idd, string iddr, string id, string corralgps, double lat, double lng, string numcarga, string corrales, string planta)
         {
             InitializeComponent();
             //instance = this;
 
-            vidd = idd;
+            vbascula = bascula;
+            vcantBasculas = cantBasculas;
+			vidd = idd;
             viddr = iddr;
             vjornada = id;
             //----------------------------------------
@@ -76,6 +87,7 @@ namespace Senga
             //----------------------------------------
             vnumcarga = numcarga;
             vcorrales = corrales;
+            vplanta = planta;
         }
 
         private void Servir_Load(object sender, EventArgs e)
@@ -83,7 +95,7 @@ namespace Senga
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
-                     
+            long planeado = 0;
 
             txtBasculaIniV.Text = "0";
             txtServirFinV.Text = "0";
@@ -92,12 +104,14 @@ namespace Senga
             txtVariacion.Text = "0";
             txtPlanV.Text = "0";
             txtPlan.Text = "0";
-            txtPorc.Text = "0";
+            txtPorc.Text = "0 %";
             txtVarCab.Text = "0";
             txtNumCarga.Text = "0";
             txtCorralGps.Text = "0000";
 
             vcamion = camionConfig();
+            obtieneConfig();
+
             //manejoDePrincipal(false);
 
             manejoTimerDePrincipal(false);
@@ -106,6 +120,7 @@ namespace Senga
             //iniciaPesoOpc1();
             iniciaPesoOpc2();
             colorPantalla();
+            barraPeso();
 
             txtNumCarga.Text = vnumcarga;
             
@@ -124,7 +139,7 @@ namespace Senga
                     txtRacion.Text = row["Racion"].ToString();
                     servido = long.Parse(row["Realidad"].ToString());
                     txtPlanIni.Text = row["Planeado"].ToString();
-                    long planeado = long.Parse(row["Planeado"].ToString()) - servido;
+                    planeado = long.Parse(row["Planeado"].ToString()) - servido;
                     txtPlan.Text = planeado.ToString();
                     txtServir.Text = "0";
                     txtCabezas.Text = row["Cabezas"].ToString();
@@ -174,6 +189,11 @@ namespace Senga
                 //}          
 
                 minvariacion = minimaVariacion();
+
+                txtToleranciaIni.Text = (planeado - minvariacion).ToString();
+                txtToleranciaFin.Text = (planeado + minvariacion).ToString();
+
+
 
                 txtBasculaIni.Text = "0";
                 txtServirFin.Text = "0";
@@ -251,10 +271,19 @@ namespace Senga
                         txtEscalaIni.Text = row["Cargado"].ToString();
                         txtServirIni.Text = Comun.cadenaCero(row["Carga"].ToString());
                         //-----------------
-                        txtBasculaIni.Text = Comun.cadenaCero(row["Bascula"].ToString());
-                        //-----------------
 
-                        calcularEscala();
+						switch (vcantBasculas)
+						{
+							case 1:
+                                    txtBasculaIni.Text = Comun.cadenaCero(row["Bascula"].ToString());
+								break;
+							case 2:
+							
+								break;
+						}
+						//-----------------
+
+						calcularEscala();
                         //barra2();
 
                     }
@@ -263,13 +292,20 @@ namespace Senga
                 string dator = "";
 
 
+
                 ////iniciaPesoOpc1();
                 //iniciaPesoOpc2();
 
             }
 
+            //panelBarra.Visible = true;
+            //panelPlaneado2.Visible = true;
 
             //InitializeSound();
+            if (vplanta=="1")
+            {
+                picCerrar.Visible = false;
+            }
 
         }
 
@@ -277,9 +313,9 @@ namespace Senga
         {
 
             manejoDePrincipal(true);
-
             manejoTimerDePrincipal2(false);
             manejoTimerDePrincipal(true);
+
             manejoTimerDeServidas(true);
 
             //cerrarPuerto();
@@ -294,38 +330,51 @@ namespace Senga
 
         }
 
-        private void iniciaPesoOpc1()
-        {
+        //private void iniciaPesoOpc1()
+        //{
 
-            comm.p_comm = puertoConfig();
-            comm.p_baudrate = baudConfig();
-            comm.p_databits = dataConfig();
-            comm.p_parity = parityConfig();
-            comm.p_stopbits = stopConfig();
-            comm.p_sp = serialPort1;
+        //    comm.p_comm = puertoConfig("Puerto");
+        //    comm.p_baudrate = baudConfig("BaudRate");
+        //    comm.p_databits = dataConfig("DataBits");
+        //    comm.p_parity = parityConfig("Parity");
+        //    comm.p_stopbits = stopConfig("StopBits");
+        //    comm.p_sp = serialPort1;
 
-            if (!comm.abrirPuerto())
-            {
-                Close();
-                MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
-            else
-            {
-                timerS.Enabled = true;
-            }
+        //    if (!comm.abrirPuerto())
+        //    {
+        //        Close();
+        //        MessageBox.Show(comm.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //    }
+        //    else
+        //    {
+        //        timerS.Enabled = true;
+        //    }
 
-        }
+        //}
 
         private void iniciaPesoOpc2()
         {
 
             try
             {
-                serialPort1.PortName = puertoConfig();
-                serialPort1.BaudRate = baudConfig();
-                serialPort1.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig(), true);
-                serialPort1.DataBits = dataConfig();
-                serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig(), true);
+                switch (vbascula)
+                {
+                    case 1:
+                            serialPort1.PortName = puertoConfig("Puerto");
+                            serialPort1.BaudRate = baudConfig("BaudRate");
+                            serialPort1.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig("Parity"), true);
+                            serialPort1.DataBits = dataConfig("DataBits");
+                            serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig("StopBits"), true);
+                        break;
+					case 2:
+						    serialPort1.PortName = puertoConfig("Puerto2");
+						    serialPort1.BaudRate = baudConfig("BaudRate2");
+						    serialPort1.Parity = (Parity)Enum.Parse(typeof(Parity), parityConfig("Parity2"), true);
+						    serialPort1.DataBits = dataConfig("DataBits2");
+						    serialPort1.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopConfig("StopBits2"), true);
+						break;
+				}
+
                 //serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived);
                 serialPort1.DataReceived += new SerialDataReceivedEventHandler(SerialPort_DataReceived2);
                 serialPort1.ReadTimeout = 500;
@@ -344,10 +393,9 @@ namespace Senga
                 //ErrorLogging(err);
             }
 
-
         }
 
-        private string puertoConfig()
+        private string puertoConfig(string column)
         {
 
             Datos datos = new Datos();
@@ -365,7 +413,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    portname = row["Puerto"].ToString();
+                    portname = row[column].ToString();
                 }
             }
 
@@ -373,7 +421,7 @@ namespace Senga
 
         }
 
-        private int baudConfig()
+        private int baudConfig(string column)
         {
 
             Datos datos = new Datos();
@@ -391,7 +439,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    baudrate = Convert.ToInt32(row["BaudRate"]);
+                    baudrate = Convert.ToInt32(row[column]);
                 }
             }
 
@@ -399,7 +447,7 @@ namespace Senga
 
         }
 
-        private int dataConfig()
+        private int dataConfig(string column)
         {
 
             Datos datos = new Datos();
@@ -417,13 +465,14 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    databits = Convert.ToInt32(row["DataBits"]);
+                    databits = Convert.ToInt32(row[column]);
                 }
             }
 
             return databits;
 
         }
+
         //private void Servir_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         //{
 
@@ -449,7 +498,6 @@ namespace Senga
         //    txtServir.Invoke(this.myDelegate, new Object[] { s });
 
         //}
-
 
 
         //private string cadenaPeso(string peso)
@@ -602,7 +650,6 @@ namespace Senga
         //    }
         //    pbServido2.Value = valor;
 
-
         //}
 
 
@@ -612,7 +659,6 @@ namespace Senga
 
             if (porc <= 0)
             {
-
                 pic1.BackColor = Color.Gray;
                 pic2.BackColor = Color.Gray;
                 pic3.BackColor = Color.Gray;
@@ -623,17 +669,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-
-                //pic1.Visible = false;
-                //pic2.Visible = false;
-                //pic3.Visible = false;
-                //pic4.Visible = false;
-                //pic5.Visible = false;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc > 0 && porc < 20)
@@ -648,22 +686,13 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-
-                //pic1.Visible = true;
-                //pic2.Visible = false;
-                //pic3.Visible = false;
-                //pic4.Visible = false;
-                //pic5.Visible = false;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 20 && porc < 30)
             {
-
                 pic1.BackColor = Color.Lime;
                 pic2.BackColor = Color.Lime;
                 pic3.BackColor = Color.Gray;
@@ -674,17 +703,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = false;
-                //pic4.Visible = false;
-                //pic5.Visible = false;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 30 && porc < 40)
@@ -699,17 +720,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = false;
-                //pic5.Visible = false;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 40 && porc < 50)
@@ -724,17 +737,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = false;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 50 && porc < 60)
@@ -749,16 +754,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = false;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 60 && porc < 70)
@@ -773,16 +771,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = true;
-                //pic7.Visible = false;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 70 && porc < 80)
@@ -797,16 +788,9 @@ namespace Senga
                 pic8.BackColor = Color.Gray;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = true;
-                //pic7.Visible = true;
-                //pic8.Visible = false;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 80 && porc < 90)
@@ -821,16 +805,9 @@ namespace Senga
                 pic8.BackColor = Color.Lime;
                 pic9.BackColor = Color.Gray;
                 pic10.BackColor = Color.Gray;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = true;
-                //pic7.Visible = true;
-                //pic8.Visible = true;
-                //pic9.Visible = false;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
             if (porc >= 90 && porc < 100)
@@ -845,19 +822,12 @@ namespace Senga
                 pic8.BackColor = Color.Lime;
                 pic9.BackColor = Color.Lime;
                 pic10.BackColor = Color.Gray;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = true;
-                //pic7.Visible = true;
-                //pic8.Visible = true;
-                //pic9.Visible = true;
-                //pic10.Visible = false;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
 
-            if (porc >= 100)
+            if (porc >= 100 && porc < 101)
             {
                 pic1.BackColor = Color.Lime;
                 pic2.BackColor = Color.Lime;
@@ -869,17 +839,91 @@ namespace Senga
                 pic8.BackColor = Color.Lime;
                 pic9.BackColor = Color.Lime;
                 pic10.BackColor = Color.Lime;
-                //pic1.Visible = true;
-                //pic2.Visible = true;
-                //pic3.Visible = true;
-                //pic4.Visible = true;
-                //pic5.Visible = true;
-                //pic6.Visible = true;
-                //pic7.Visible = true;
-                //pic8.Visible = true;
-                //pic9.Visible = true;
-                //pic10.Visible = true;
+                pic11.BackColor = Color.Gray;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
             }
+
+            if (porc<101)
+            {
+                panelServido1.Height = panelPlaneado1.Height * porc / 100;
+                panelServido2.Height = panelPlaneado2.Height * porc / 100;
+
+
+
+            }
+            else
+            {
+                panelServido1.Height = panelPlaneado1.Height - panelInd1.Height;
+                panelServido2.Height = panelPlaneado2.Height - panelInd2.Height;
+            }
+
+            //////////////////////
+            Color colorB = txtVariacionV.ForeColor;
+            if (porc < 0) { colorB = Color.Yellow; }
+            if (porc >= 0 && porc <= 100) { colorB = Color.Aqua; }
+
+            Comun.graficoRosca(picProgreso01, true, colorB, Color.Black, 20, porc, 100, "%", "Sirviendo");            
+
+            /////////////////////
+
+            //-----------------------------------------------
+
+
+            if (porc >= 101 && porc < 102)
+            {
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Lime;
+                pic10.BackColor = Color.Lime;
+                pic11.BackColor = Color.Orange;
+                pic12.BackColor = Color.Gray;
+                pic13.BackColor = Color.Gray;
+            }
+
+            if (porc >= 102 && porc < 103)
+            {
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Lime;
+                pic10.BackColor = Color.Lime;
+                pic11.BackColor = Color.Orange;
+                pic12.BackColor = Color.Orange;
+                pic13.BackColor = Color.Gray;
+            }
+
+            if (porc >= 103 && porc < 104)
+            {
+                pic1.BackColor = Color.Lime;
+                pic2.BackColor = Color.Lime;
+                pic3.BackColor = Color.Lime;
+                pic4.BackColor = Color.Lime;
+                pic5.BackColor = Color.Lime;
+                pic6.BackColor = Color.Lime;
+                pic7.BackColor = Color.Lime;
+                pic8.BackColor = Color.Lime;
+                pic9.BackColor = Color.Lime;
+                pic10.BackColor = Color.Lime;
+                pic11.BackColor = Color.Orange;
+                pic12.BackColor = Color.Orange;
+                pic13.BackColor = Color.Orange;
+            }
+
+
+
+
 
         }
 
@@ -970,6 +1014,11 @@ namespace Senga
 
         //}
         private void btnHecho_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void picHecho_Click(object sender, EventArgs e)
         {
             //true - individual
             //false - fast
@@ -1086,20 +1135,95 @@ namespace Senga
 
                 double variacion = Convert.ToDouble(Comun.cadenaCero(txtVariacion.Text));
 
-                if (Math.Abs(Convert.ToDouble(Comun.cadenaCero(txtVariacion.Text))) > minvariacion) 
+                if (Math.Abs(variacion) > minvariacion) 
                 {
 
                     timerBeep.Enabled = false;
                     RecibirPeso = false;
 
-                    string mensaje = "¿ Confirma Hecho ?";
-                    if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
+
+
+                    if ((vToleranciaMin && variacion < minvariacion) || (vToleranciaMax && variacion > minvariacion))
                     {
+                        string mensaje = "Kilos Fuera del Rango Tolerado de " + minvariacion.ToString() + " kg";
+                        Comun.mensajeVer(mensaje, Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
                         guardar = false;
+
                         timerBeep.Enabled = true;
                         RecibirPeso = true;
                     }
+                    else
+                    {
+                        string mensaje = "¿ Confirma Hecho ?";
+                        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
+                        {
 
+                            guardar = false;
+
+                            timerBeep.Enabled = true;
+                            RecibirPeso = true;
+
+                        }
+                    }
+
+
+
+                    //if (variacion > minvariacion)
+                    //{
+
+                    //    if (vToleranciaMax) 
+                    //    {
+
+
+
+                    //    }
+                    //    else
+                    //    {
+
+
+                    //    }
+
+                    //}
+                    //else if (variacion < minvariacion)
+                    //{
+
+
+                    //    if (vToleranciaMin)
+                    //    {
+
+                    //        string mensaje = "Kilos Fuera del Rango Tolerado de " + minvariacion.ToString() + " kg";
+                    //        Comun.mensajeVer(mensaje, Constants.MSG_BOTON_OK, Constants.MSG_IMG_WARNING);
+
+                    //        guardar = false;
+
+                    //        timerBeep.Enabled = true;
+                    //        RecibirPeso = true;
+
+                    //    }
+                    //    else
+                    //    {
+
+                    //        string mensaje = "¿ Confirma Hecho ?";
+                    //        if (Comun.mensajeVer(mensaje, Constants.MSG_BOTON_SINO_P, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_NO)
+                    //        {
+
+                    //            guardar = false;
+
+                    //            timerBeep.Enabled = true;
+                    //            RecibirPeso = true;
+
+                    //        }
+
+                    //    }
+
+
+                    //}
+
+
+
+
+                     
                 }
 
                 //-------------------------------------------------------------------------------------------------
@@ -1215,7 +1339,18 @@ namespace Senga
                     //--------------------------------------------------------------------------------
 
                     long carga = long.Parse(txtServirIni.Text) - long.Parse(txtServir.Text);// long.Parse(servido.ToString());
-                    txtCarga.Text = carga.ToString();
+
+					switch (vcantBasculas)
+					{
+						case 1:
+
+							break;
+						case 2:
+                                carga = 0;
+							break;
+					}
+
+					txtCarga.Text = carga.ToString();
 
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", cargado = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
                     //datos.p_sql = "UPDATE raciones SET falta = " + falta.ToString() + ", servido = '" + servidot.ToString() + "', hechoc = " + cantidadt.ToString() + ", carga = " + txtServirFin.Text + " WHERE racion = '" + txtRacion.Text + "' and num = " + txtServida.Text + " and id = " + vjornada; //" and  ( day(fecha) = " + DateTime.Now.ToString("dd") + " and  month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) ";
@@ -1588,11 +1723,26 @@ namespace Senga
             cantPesos++;
 
             //if (txtServirIni.Text == "" || txtServirIni.Text == "0")
-            if (txtBasculaIni.Text == "" || txtBasculaIni.Text == "0")
+            if (txtBasculaIni.Text == "" || 
+                txtBasculaIni.Text == "0" ||
+
+        		(txtBasculaIni.Text.Length != txtServirFin.Text.Length)                
+                
+                )
             {
-                //txtServirIni.Text = txtServirFin.Text; //comm.p_dato;
-                //-----------------
-                //txtBasculaIni.Text = txtServirFin.Text;
+		
+
+				//txtServirIni.Text = txtServirFin.Text; //comm.p_dato;
+				//-----------------
+				switch (vcantBasculas)
+                {
+                    case 1:
+                        
+                        break;
+					case 2:
+                            txtBasculaIni.Text = txtServirFin.Text;
+						break;
+				}
                 //-----------------
             }
 
@@ -1651,17 +1801,17 @@ namespace Senga
                 
                 //-------------------------------------------------------------------
 
-                tomaCoordenada(resultado, false);
-
-                if (resultado > 90 /*porcent*/ && Int32.Parse(txtPlan.Text) < 95 /*kilos*/)
-                {
-                    tomaCoordenada(0, true);
-                }
-
-                //if (vcamion == "4" || vcamion == "3" || vcamion == "12" || vcamion == "8" || vcamion == "5")
+                //tomaCoordenada(resultado, false);
+                
+                //if (resultado > 90 /*porcent*/ && Int32.Parse(txtPlan.Text) < 95 /*kilos*/)
                 //{
-                    enviarUbic(resultado, Int32.Parse(txtPlan.Text));
+                //    tomaCoordenada(0, true);
                 //}
+
+                ////if (vcamion == "4" || vcamion == "3" || vcamion == "12" || vcamion == "8" || vcamion == "5")
+                ////{
+                //    enviarUbic(resultado, Int32.Parse(txtPlan.Text));
+                ////}
 
 
                 //-------------------------------------------------------------------
@@ -1671,12 +1821,12 @@ namespace Senga
                 //    porc1 = 100 - porc1;
                 //}
 
-                txtPorc.Text = Math.Round(porc1, 0).ToString(); //+ " %";                                
+                txtPorc.Text = Math.Round(porc1, 0).ToString()+ " %";                                
            
             }
             else
             {
-                txtPorc.Text = "0"; //"0 %";
+                txtPorc.Text = "0 %";
             }
 
             fomatoCampos();
@@ -1725,7 +1875,7 @@ namespace Senga
             if ((porc >= 40 && porc < 70) || tome)
             {
 
-                if ((vlat == 0 && vlng == 0) || (vlat != 0 && vlng != 0 && vcontLeerGps < 3))
+                if ((vlat == 0 && vlng == 0 && vcontLeerGps < 15) || (vlat != 0 && vlng != 0 && vcontLeerGps < 3))
                 {
                     //Principal.instance.limpaGPS();
                     Principal.instance.leerGPS();
@@ -1758,7 +1908,11 @@ namespace Senga
                     }
 
                 }
-                
+
+            }
+            else if(porc < 40)
+            {
+                vcontLeerGps = 0;
             }
 
         }
@@ -1799,12 +1953,16 @@ namespace Senga
         {
             
             long variacion = Convert.ToInt32(txtServir.Text) - Convert.ToInt32(txtPlan.Text);
+            long servido = Convert.ToInt32(txtServir.Text);
             txtVariacion.Text = variacion.ToString();
 
             double varcab = Convert.ToDouble(txtVariacion.Text) / Convert.ToDouble(txtCabezas.Text);
             txtVarCab.Text = Math.Round(varcab, 1).ToString();
 
             //colorCampo(1);
+
+            //rangoTolerado();
+
 
             if (variacion > 0)
             {
@@ -1814,6 +1972,20 @@ namespace Senga
             {
                 txtVariacionV.ForeColor = Color.Lime;
             }
+
+            if (servido < 0)
+            {
+                txtVariacionV.ForeColor = Color.Yellow;
+            }
+
+            if(variacion > minvariacion)
+            {
+                txtVariacionV.ForeColor = Color.Red;
+            }
+
+
+         
+
 
         }
 
@@ -1872,7 +2044,7 @@ namespace Senga
 
         }
                      
-        private string stopConfig()
+        private string stopConfig(string column)
         {
 
             Datos datos = new Datos();
@@ -1890,7 +2062,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    stopbits = row["StopBits"].ToString();
+                    stopbits = row[column].ToString();
                 }
             }
 
@@ -1898,7 +2070,7 @@ namespace Senga
 
         }
 
-        private string parityConfig()
+        private string parityConfig(string column)
         {
 
             Datos datos = new Datos();
@@ -1916,7 +2088,7 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    paritybits = row["Parity"].ToString();
+                    paritybits = row[column].ToString();
                 }
             }
 
@@ -1949,6 +2121,51 @@ namespace Senga
             return camion;
 
         }
+
+        private void obtieneConfig()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "SELECT TOP 1 * FROM configuracion";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    vToleranciaMax = (row["ToleranciaMax"].ToString() == "S");
+                    vToleranciaMin = (row["ToleranciaMin"].ToString() == "S");
+                }
+            }
+
+        }
+
+        //private void obtienePlanta()
+        //{
+
+        //    Datos datos = new Datos();
+        //    DataTable dt = new DataTable();
+
+        //    datos.p_sql = "SELECT TOP 1 * FROM operacion";
+
+        //    if (!datos.consultaSQL(ref dt, true))
+        //    {
+        //        MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+        //    }
+        //    else
+        //    {
+        //        foreach (DataRow row in dt.Rows)
+        //        {
+        //            vPlanta = row["Planta"].ToString();
+        //        }
+        //    }
+
+        //}
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -2046,11 +2263,16 @@ namespace Senga
 
         private void btnCerrar_Click(object sender, EventArgs e)
         {
+
+
+        }
+
+        private void picCerrar_Click(object sender, EventArgs e)
+        {
             if (Comun.mensajeVer("¿ Desea Cerrar ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_WARNING) == Constants.MSG_BOTON_SI)
             {
                 Close();
             }
-
         }
 
         private void SerialPort_DataReceived2(object sender, SerialDataReceivedEventArgs e)
@@ -2481,15 +2703,56 @@ namespace Senga
         //    }
         //}
 
+        void barraPeso()
+        {
+            int x = 8;
+            int y = 285;
+            int pos = 20;
+
+            int ancho = 10; //120;
+            int pancho = 10;
+            
+            pic1.Location = new Point(x, y); y -= pos; pic1.Width = ancho; ancho += pancho;
+            pic2.Location = new Point(x, y); y -= pos; pic2.Width = ancho; ancho += pancho;
+            pic3.Location = new Point(x, y); y -= pos; pic3.Width = ancho; ancho += pancho;
+            pic4.Location = new Point(x, y); y -= pos; pic4.Width = ancho; ancho += pancho;
+            pic5.Location = new Point(x, y); y -= pos; pic5.Width = ancho; ancho += pancho;
+            pic6.Location = new Point(x, y); y -= pos; pic6.Width = ancho; ancho += pancho;
+            pic7.Location = new Point(x, y); y -= pos; pic7.Width = ancho; ancho += pancho;
+            pic8.Location = new Point(x, y); y -= pos; pic8.Width = ancho; ancho += pancho;
+            pic9.Location = new Point(x, y); y -= pos; pic9.Width = ancho; ancho += pancho;
+            pic10.Location = new Point(x, y); y -= pos; pic10.Width = ancho; ancho += pancho;
+            
+            pic11.Location = new Point(x, y); y -= pos; pic11.Width = 30; // ancho; ancho += pancho;
+            pic12.Location = new Point(x, y); y -= pos; pic12.Width = 30; // ancho; ancho += pancho;
+            pic13.Location = new Point(x, y); y -= pos; pic13.Width = 30; // ancho; ancho += pancho;
+
+
+
+
+        }
+
         private void colorPantalla() 
         {
 
             Color colorFondo = Color.Black;
-            Color colorFondoW = Color.White;
-            Color colorFondoP = Color.Blue;
+            Color colorFondoW = Color.FromArgb(28, 28, 28);  //Color.White;
+
+			Color colorFondoP = Color.Blue;
+
+			switch (vbascula)
+            {
+                case 1:
+                        colorFondoP = Color.Green;                    
+                    break;
+				case 2:
+					    colorFondoP = Color.Blue;
+					break;
+			}
+            
             Color colorLetra = Color.Lime;
             Color colorLetraH = Color.Yellow;
-            Color colorLetraT = Color.White;
+            Color colorLetraT = Color.Silver;// White;
 
             this.BackColor = colorFondoW;
 
@@ -2524,8 +2787,8 @@ namespace Senga
             txtServirFinV.BackColor = colorFondo;
             txtServirFinV.ForeColor = colorLetra;
 
-            txtPorc.BackColor = colorFondo;
-            txtPorc.ForeColor = colorLetra;
+            //txtPorc.BackColor = colorFondo;
+            //txtPorc.ForeColor = colorLetra;
 
             txtBasculaIniV.BackColor = colorFondo;
             txtBasculaIniV.ForeColor = colorLetra;
@@ -2538,10 +2801,7 @@ namespace Senga
 
             panelBarra.BackColor = colorFondo;
 
-            panelCorral.BackColor = colorFondoP;
-            panelCorralGps.BackColor = colorFondoP;
-            panelRacion.BackColor = colorFondoP;
-            panelNumCarga.BackColor = colorFondoP;
+
 
             panelPlan.BackColor = colorFondoP;
             panelVarCab.BackColor = colorFondoP;
@@ -2556,7 +2816,6 @@ namespace Senga
             lblCorral.ForeColor = colorLetraT;
             lblCorralGpsNombre.ForeColor = colorLetraT;
             lblRacion.ForeColor = colorLetraT;
-            lblNumCarga.ForeColor = colorLetraT;
 
             lblPlan.ForeColor = colorLetraT;
             lblVarCab.ForeColor = colorLetraT;
@@ -2578,6 +2837,12 @@ namespace Senga
 
         private void btnAjustar_Click(object sender, EventArgs e)
         {
+        
+        }
+
+        private void picAjustar_Click(object sender, EventArgs e)
+        {
+                        
             funcionAjustar(1,false);
 
             if (Int32.Parse(Comun.cadenaCero(txtServir.Text)) < 25)
@@ -2588,8 +2853,6 @@ namespace Senga
             {
                 funcionAjustar(2, true);
             }
-
-
 
             Console.Beep(1400, 25);
 
@@ -2645,6 +2908,24 @@ namespace Senga
         {
             Principal.instance.enviarLocaliza();
         }
+
+
+        void rangoTolerado()
+        {
+            
+            lblMensaje.Text = "";
+            double variacion = Convert.ToDouble(Comun.cadenaCero(txtVariacion.Text));
+
+            if (Math.Abs(variacion) > minvariacion)
+            {
+
+                if ((vToleranciaMin && variacion < minvariacion) || (vToleranciaMax && variacion > minvariacion))
+                {
+                    lblMensaje.Text = "Kilos Fuera del Rango Tolerado de " + minvariacion.ToString() + " kg";
+                }
+            }       
+        }
+
     }
 
 }

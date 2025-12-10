@@ -1,21 +1,29 @@
+using Microsoft.Office.Interop.Access.Dao;
+using NativeWifi;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-using System.IO.Ports;
 using System.Diagnostics;
-using System.Net;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
-using System.Threading;
-using System.Net.NetworkInformation;
-using System.Management;
-using System.ServiceProcess;
+using System.IO.Ports;
 using System.Linq;
-using NativeWifi;
+using System.Management;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.ServiceProcess;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+
+
 
 namespace Senga
 {
@@ -33,8 +41,9 @@ namespace Senga
         private string nameappnom = "\\senga";
         private string vrutared;
 
-        public string gServida = "";
-        public string gRacion = "";
+        //public string gServida = "";
+        //public string gRacion = "";
+        public string gPlanta = "";
         //string ip = "";
         string recibidos = "";
 
@@ -45,11 +54,15 @@ namespace Senga
         string gTodo = "TODO";
 
         DateTime ultError = new DateTime();
-        DataTable dtCamiontmp;
+        DataTable dtRaciontmp;
+        DataTable dtRacionestmp;
+         DataTable dtCamiontmp;
         DataTable dtRepartotmp;
 
         ConnectedWs connectar;
 
+        String puerto = "";
+        String puertogps = "";
         String usuario = "";
         String contrasena = "";
         String numcamion = "";
@@ -64,6 +77,9 @@ namespace Senga
 
         long lngBytesSend = 0;
         long lngBtyesReceived = 0;
+        string vcamion = "";
+
+        string vCadenaGps = "";
 
         //public void Start()
         //{
@@ -76,7 +92,13 @@ namespace Senga
         //}
 
         public static Principal instance = null;
-        
+
+
+        //Graphics H;
+        //Pen hora1, min, seg;
+        //Brush E;
+
+
         public Principal()
         {
             //existeApp();
@@ -90,9 +112,7 @@ namespace Senga
             InitializeComponent();
             
             //t.Abort();
-
-         
-
+            
         }
 
         public void StartForm()
@@ -102,6 +122,19 @@ namespace Senga
       
         private void Principal_Load(object sender, EventArgs e)
         {
+
+
+
+            panelCristal2.BackColor = Color.Lime;//FromArgb(100, 88, 104, 105);
+            panelCristal2.Dock = DockStyle.Top;
+            panelCristal2.Height = 1;
+
+            panelCristal.BackColor = Color.Lime;//FromArgb(100, 88, 104, 105);
+            panelCristal.Dock = DockStyle.Bottom;
+            panelCristal.Height = 1;
+
+
+
 
             //Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
@@ -118,22 +151,27 @@ namespace Senga
 
             //this.toolStrip2.Padding = new Padding((int)(this.Size.Width - 300), 0, 0, 0);
 
+            lblIniciandoApp.Top = this.Height/4 * 3;
+            lblIniciandoApp.Left = this.Width/2 - lblIniciandoApp.Width/2;
+
+            mostrarBotones(false);
+            panelNombre.Visible = true;
 
             this.Text = "v" + Application.ProductVersion + " - " + File.GetLastWriteTime(Application.ExecutablePath) + " - " + bitModo();
 
             versionAct = Application.ProductVersion;
+            lblNomMaq.Text = Environment.MachineName.ToString();
 
-            lblVersion.Text = "v" + versionAct + " - " + bitModo();
-
-        
+            lblVersion.Text = "v" + versionAct; //+ " - " + bitModo();
+                    
             //cambiosSQL(versionAct);
-
 
             string texto ="";
 
-            panelInicial();
+            //panelInicial();
 
             posicionBotones();
+       
             btnPlanes.Focus();
 
             this.Refresh();
@@ -145,6 +183,18 @@ namespace Senga
             }
             else
             {
+                //////////////////////////////////////////////////
+
+                //consultasSql("alter table Configuracion add column NumCamionFis long;");
+                //consultasSql("update Configuracion set NumCamionFis = NumCamion where NumCamionFis is null; ");
+       
+
+
+
+
+
+
+                /////////////////////////////////////////////////
 
                 //iniciaPesoOpc2();
 
@@ -156,13 +206,17 @@ namespace Senga
                     contrasena = row["Contrasena"].ToString();
                     numcamion = row["numcamion"].ToString();
 
-                    wsactivo = row["ws"].ToString().Equals("S"); 
-                    
+                    wsactivo = row["ws"].ToString().Equals("S");
+                    puerto = row["Puerto"].ToString();
+                    puertogps = row["PuertoGps"].ToString();
+
                 }
 
                 carpeta_existe_local();
 
                 tablaCamionTemp();
+                tablaRacionTemp();
+                tablaRacionesTemp();
                 tablaRepartoTemp();
 
                 inicializa();
@@ -191,31 +245,165 @@ namespace Senga
                 luzStatus(false);
 
                 //operacionGPS();
-                iniciaGps();
+                //iniciaGps();
 
                 ShowPowerStatus();
 
-                statusTimer(true);
-                    
+                statusTimer(true);                    
 
-                //ejecutaAppGPS(); 
-
+                //ejecutaAppGPS();
 
                 //ServicioGPS servicioGPS = new ServicioGPS();
                 //servicioGPS.InitializeLifetimeService();
 
-
                 txtError.Visible = true;
                 btnPlanes.Enabled = true;
-                panelInicio.Visible = false;
+                picPlanes.Enabled = true;
+
+                //lblIniciandoApp.Visible = false;
+                //mostrarBotones(true);
+                //etiquetasBotones();
+                
+                this.Refresh();
+
                 btnPlanes.Focus();
 
+                vcamion = camionConfig();
+
+
+                lblCamion.Text = "CAM\n\r"+vcamion;
+                lblNumCamion.Text = ""+vcamion;
+
+
+
+
+                ///////////////////////////////////
+                lblPortGPS3.Text = 
+                    Comun.ExtraerEntreParentesis(Comun.fportDescripcion("nmea port")); //interno
+
+                lblPortGPS.Text = 
+                    Comun.ExtraerEntreParentesis(Comun.fportDescripcion("usb serial port")); //externo
+
+                lblPortGPS2.Text = puertogps; //actual
+
+                //gps ext
+                lblMsgGPS.Visible = 
+                    (lblPortGPS2.Text.Length>0 &&
+                    lblPortGPS.Text.Length>0 &&
+                    lblPortGPS2.Text != lblPortGPS.Text);
+                  
+                //gps int
+                if (lblPortGPS3.Text.Length > 0 &&
+                    lblPortGPS2.Text.Length > 0 &&
+                    lblPortGPS3.Text == lblPortGPS2.Text)
+                {
+                    lblMsgGPS.Visible = false;
+                }
+
+                //lblMsgGPS.Visible = true;
+
+
+                if (! lblMsgGPS.Visible) //inicia si no esta boton
+                {
+                    iniciaGps();
+                }
+                /////////////////////////////////
+
+
+
+                lblPuerto.Text = puerto;
+                lblPuertoGps.Text = puertogps;
+
+                verConfigServ();
+                datosOperacion();
+
             }
+
+            //Greloj.Visible = true;
+            //toolStrip1.Visible = true;
+
+            //lblSenal.Text = fNet();
+
+
+            lblIniciandoApp.Visible = false;
+            mostrarBotones(true);
+            etiquetasBotones();
+
+
+            Cursor = Cursors.Default;
+
+        }
+
+        void mostrarBotones(bool valor)
+        {
+
+            picPlanes.Visible = valor;
+            picSalir.Visible = valor;
+
+            //panelNombre.Visible = valor;
+            //panelBaterial.Visible = valor;
+            //panelHoral.Visible = valor;
+            panelUbic.Visible = valor;
+            //panelSenal.Visible = valor;
+
+            picConfigurar.Visible = valor;
+            picPuertos.Visible = valor;
+
+            picNumero.Visible = valor;
+            picPlanta.Visible = valor;
+            picConfigurarT.Visible = valor;
+            picRecorrido.Visible = valor;
+            //picOpciones.Visible = valor;
+
+            picIniGps.Visible = valor;
+            picConectGps.Visible = valor;
             
         }
 
-        public String fNet()
-        {            
+        public String fNetFiltar(string nombre)
+        {
+
+            var process = new Process
+            {
+                StartInfo =
+                    {
+                    FileName = "netsh.exe",
+                    Arguments = "wlan add filter permission=block ssid=" + nombre + " networktype=infrastructure",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    Verb = "runas" // Ejecutar como administrador
+                    }
+            };
+            process.Start();
+
+            return process.StandardOutput.ReadToEnd();
+
+        }
+
+        public String fNetQuitarFiltro(string nombre)
+        {
+
+            var process = new Process
+            {
+                StartInfo =
+                    {
+                    FileName = "netsh.exe",
+                    Arguments = "wlan delete filter permission=block ssid=" + nombre + " networktype=infrastructure",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    Verb = "runas" // Ejecutar como administrador
+                    }
+            };
+            process.Start();
+
+            return process.StandardOutput.ReadToEnd();
+
+        }
+
+        public String fNetV()
+        {
 
             var process = new Process
             {
@@ -230,25 +418,58 @@ namespace Senga
             };
             process.Start();
 
-            var output = process.StandardOutput.ReadToEnd();
-            var line = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("SSID") && !l.Contains("BSSID"));
-            var line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Signal")); 
-            if (line2 == null)
-            {
-                line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Se¤al")); 
-            }
-            if (line == null)
-            {
-                return "Red";
-            }
-            var ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+            return process.StandardOutput.ReadToEnd(); 
 
-            if (line2 == null)
+        }
+
+        public String fNetLista()
+        {
+            var resultado = "";
+            var wifiNetworks = GetSavedWifiNetworks();
+            foreach (var (ssid, password) in wifiNetworks)
             {
-                return "Red";
+                resultado += $"{ssid} . ";
+                Console.WriteLine($"Red: {ssid}, Contraseña: {password}");
             }
-            var signal = line2.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
-            return ssid + " " + signal;
+
+            return resultado;
+        }
+
+
+        public String fNet()
+        {
+
+            var resultado = fNetLista().Trim();
+
+            if (resultado != "")
+            {
+                return resultado;
+            }
+            else
+            {
+                var output = fNetV();
+                var line = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("SSID") && !l.Contains("BSSID"));
+                var line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Signal"));
+
+                if (line2 == null)
+                {
+                    line2 = output.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault(l => l.Contains("Se¤al") || l.Contains("SeÃ±al") || l.Contains("Señal") || (l.TrimStart().StartsWith("Se") && l.TrimEnd().EndsWith("al")));
+                }
+
+                if (line == null)
+                {
+                    return "Red";
+                }
+                var ssid = line.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+
+                if (line2 == null)
+                {
+                    return "Red";
+                }
+                var signal = line2.Split(new[] { ":" }, StringSplitOptions.RemoveEmptyEntries)[1].TrimStart();
+
+                return ssid + " " + signal;
+            }
 
         }
 
@@ -281,7 +502,299 @@ namespace Senga
 
             return valor;
         }
-        
+
+        public string GetCurrentWiFiName()
+        {
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "netsh",
+                    Arguments = "wlan show interfaces",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    StandardOutputEncoding = System.Text.Encoding.UTF8
+                };
+
+                using (Process process = Process.Start(psi))
+                {
+                    process.WaitForExit();
+                    string output = process.StandardOutput.ReadToEnd();
+
+                    // Buscar la línea que contiene el SSID
+                    var match = Regex.Match(output, @"SSID\s+:\s+(.+)", RegexOptions.IgnoreCase);
+
+                    if (match.Success)
+                    {
+                        return match.Groups[1].Value.Trim();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+
+            return "No conectado a WiFi";
+        }
+
+        public void RemoveAllWifiExcept(string keepProfileName)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            if (string.IsNullOrWhiteSpace(keepProfileName))
+            {
+                Console.WriteLine("Debes indicar el nombre del perfil WiFi a conservar.");
+                return;
+            }
+
+            try
+            {
+                // Ejecuta "netsh wlan show profiles" y captura salida
+                var psiShow = new ProcessStartInfo("netsh", "wlan show profiles")
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    StandardOutputEncoding = Encoding.UTF8
+                };
+
+                var profilesOutput = "";
+                using (var p = Process.Start(psiShow))
+                {
+                    profilesOutput = p.StandardOutput.ReadToEnd();
+                    p.WaitForExit();
+                }
+
+                if (string.IsNullOrWhiteSpace(profilesOutput))
+                {
+                    Console.WriteLine("No se pudo obtener la lista de perfiles (¿ejecutaste con permisos suficientes?).");
+                    return;
+                }
+
+                // Extraer nombres de perfil. netsh puede mostrar líneas como:
+                // "All User Profile     : NOMBRE" (inglés) o "Perfiles de todos los usuarios    : NOMBRE" (español)
+                var profiles = new System.Collections.Generic.List<string>();
+                var lines = profilesOutput.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var rawLine in lines)
+                {
+                    var line = rawLine.Trim();
+                    var lower = line.ToLowerInvariant();
+                    if (lower.Contains("profile") || lower.Contains("perfil"))
+                    {
+                        // Buscar texto después de ':' (si existe)
+                        var idx = line.IndexOf(':');
+                        if (idx >= 0 && idx + 1 < line.Length)
+                        {
+                            var name = line.Substring(idx + 1).Trim();
+                            // Algunas salidas incluyen comillas; limpiarlas
+                            name = name.Trim('\"').Trim();
+                            if (!string.IsNullOrEmpty(name))
+                                profiles.Add(name);
+                        }
+                        else
+                        {
+                            // Si no hay ':', intentar extraer con regex (fallback)
+                            var m = Regex.Match(line, @"[:\-]\s*(.+)$");
+                            if (m.Success)
+                            {
+                                var name = m.Groups[1].Value.Trim().Trim('\"');
+                                if (!string.IsNullOrEmpty(name))
+                                    profiles.Add(name);
+                            }
+                        }
+                    }
+                }
+
+                if (profiles.Count == 0)
+                {
+                    Console.WriteLine("No se encontraron perfiles WiFi en el sistema.");
+                    return;
+                }
+
+                // Eliminar cada perfil que NO coincida con keepProfileName (case-insensitive)
+                var keepLower = keepProfileName.Trim().ToLowerInvariant();
+                foreach (var profile in profiles)
+                {
+                    if (string.Equals(profile.Trim(), keepProfileName.Trim(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        Console.WriteLine($"Conservando perfil: {profile}");
+                        continue;
+                    }
+
+                    Console.WriteLine($"Eliminando perfil: {profile} ...");
+
+                    // netsh wlan delete profile name="ProfileName"
+                    // Escapar comillas internas si las hubiera
+                    var safeProfile = profile.Replace("\"", "\\\"");
+                    var args = $"wlan delete profile name=\"{safeProfile}\"";
+
+                    var psiDel = new ProcessStartInfo("netsh", args)
+                    {
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        StandardOutputEncoding = Encoding.UTF8,
+                        StandardErrorEncoding = Encoding.UTF8
+                    };
+
+                    using (var pDel = Process.Start(psiDel))
+                    {
+                        string outDel = pDel.StandardOutput.ReadToEnd();
+                        string errDel = pDel.StandardError.ReadToEnd();
+                        pDel.WaitForExit();
+                        if (!string.IsNullOrWhiteSpace(outDel))
+                            Console.WriteLine(outDel.Trim());
+                        if (!string.IsNullOrWhiteSpace(errDel))
+                            Console.WriteLine("ERROR: " + errDel.Trim());
+                    }
+                }
+
+                Console.WriteLine("Proceso terminado.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ocurrió un error: " + ex.Message);
+            }
+            this.Cursor = Cursors.Default;
+        }
+
+        public void ConnectToWiFi(string profileName)
+        {
+
+            this.Cursor = Cursors.WaitCursor;
+            try
+            {
+                ProcessStartInfo psi = new ProcessStartInfo
+                {
+                    FileName = "netsh",
+                    Arguments = $"wlan connect name=\"{profileName}\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using (Process process = Process.Start(psi))
+                {
+                    process.WaitForExit();
+                    string output = process.StandardOutput.ReadToEnd();
+                    string error = process.StandardError.ReadToEnd();
+
+                    if (process.ExitCode == 0)
+                    {
+                        Console.WriteLine($"Conectado a: {profileName}");
+                        Console.WriteLine(output);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Error: {error}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Excepción: {ex.Message}");
+            }
+            Cursor = Cursors.Default;
+
+
+        }
+
+        /// <summary>
+        /// /////////////////////////////
+        /// </summary>
+        /// 
+
+        int RunNetsh(string arguments, out string output)
+        {
+            var psi = new ProcessStartInfo("netsh", arguments)
+            {
+                CreateNoWindow = true,
+                UseShellExecute = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                Verb = "runas" // solicita elevación (Administrador)
+            };
+
+            using (var p = Process.Start(psi))
+            {
+                output = p.StandardOutput.ReadToEnd() + p.StandardError.ReadToEnd();
+                p.WaitForExit();
+                return p.ExitCode;
+            }
+        }
+
+        int RunNetshElevatedWithFile(string arguments, out string output)
+        {
+            string temp = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + ".txt");
+            // Ejecuta cmd.exe que redirige salida al archivo
+            string cmdArgs = $"/c netsh {arguments} > \"{temp}\" 2>&1";
+
+            var psi = new ProcessStartInfo("cmd.exe", cmdArgs)
+            {
+                UseShellExecute = true,    // necesario para Verb = runas
+                Verb = "runas",
+                CreateNoWindow = true
+            };
+
+            try
+            {
+                var p = Process.Start(psi);
+                p.WaitForExit(); // espera a que termine el proceso elevado
+                output = File.ReadAllText(temp);
+                File.Delete(temp);
+                return p.ExitCode;
+            }
+            catch (System.ComponentModel.Win32Exception ex)
+            {
+                // El usuario canceló UAC o no tiene permisos
+                output = ex.Message;
+                return -1;
+            }
+        }
+
+
+        public bool BlockSsid(string ssid, out string result)
+        {
+            // Bloquea (deny) un SSID específico
+            string args = $"wlan add filter permission=block ssid=\"{ssid}\" networktype=infrastructure";
+            int code = RunNetshElevatedWithFile(args, out result);
+            return code == 0;
+        }
+
+        public bool AllowOnlySsid(string ssid, out string result)
+        {
+            // Permite solo un SSID: primero permitimos el que queremos, luego denegamos todo lo demás
+            string args1 = $"wlan add filter permission=allow ssid=\"{ssid}\" networktype=infrastructure";
+            string tmp;
+            if (RunNetshElevatedWithFile(args1, out tmp) != 0) { result = tmp; /*return false;*/ }
+
+            string args2 = $"wlan add filter permission=denyall networktype=infrastructure";
+            int code = RunNetshElevatedWithFile(args2, out result);
+            result = tmp + Environment.NewLine + result;
+            return code == 0;
+        }
+
+        public bool RemoveBlockSsid(string ssid, out string result)
+        {
+            string args = $"wlan delete filter permission=block ssid=\"{ssid}\" networktype=infrastructure";
+            int code = RunNetshElevatedWithFile(args, out result);
+            return code == 0;
+        }
+
+        public bool RemoveAllFilters(out string result)
+        {
+            string args = $"wlan delete filter permission=denyall networktype=infrastructure";
+            int code = RunNetshElevatedWithFile(args, out result);
+            return code == 0;
+        }
+
+        /// <summary>
+        /// /////////////////////////////
+        /// </summary>
+
         private void velocidadRed()
         {
 
@@ -358,18 +871,21 @@ namespace Senga
             }
         }
 
-        private void panelInicial() 
-        {
+        //private void panelInicial() 
+        //{
 
-            panelInicio.Visible = true;
+        //    panelInicio.Visible = true;
 
-            panelInicio.Top = (this.Height / 2) - (panelInicio.Height/2);
-            panelInicio.Left = (this.Width / 2) - (panelInicio.Width / 2);
+        //    panelInicio.Top = (this.Height / 2) - (panelInicio.Height/2);
+        //    panelInicio.Left = (this.Width / 2) - (panelInicio.Width / 2);
 
-        }
+        //}
         
         private void posicionBotones()
         {
+            int padBtn = 25;
+            int sepBtn = 50;
+
             //btnRaciones.Left = this.Width / 2 - btnRaciones.Width / 2;
 
             //btnServidas.Left = this.Width / 2 - btnServidas.Width / 2;
@@ -382,35 +898,162 @@ namespace Senga
             //btnGPS.Top = this.Height - btnGPS.Height - 100;
             //btnGPS.Left = 50;
 
+
+            picPlanes.Height = picSalir.Height;
+            picPlanes.Width = picSalir.Width;
+
+            //picConfigurar.Height = picSalir.Height;
+            //picConfigurar.Width = picSalir.Width;
+
+            //picRecorrido.Height = picSalir.Height;
+            //picRecorrido.Width = picSalir.Width;
+
+
             btnActualizar.Top = 0;
-            
-            btnSalir.Top = 0;
-            btnPlanes.Top = 0;
-            
+
+            picSalir.Top = 0 + padBtn; //btnSalir.Top = 0;
+            picPlanes.Top = 0 + padBtn; //btnPlanes.Top = 0;
+
             btnJornadas.Top = 0;
-            btnConfigurar.Top = 0;
-            btnRecorrido.Top = 0;
+
+            picOpciones.Top = this.Height - picOpciones.Height - padBtn; //btnConfigurar.Top = 0;
+            picOpciones.Left = padBtn; //btnConfigurar.Top = 0;
+
+
+
+
+
+            picConfigurar.Top = this.Height - picConfigurar.Height - padBtn; //btnConfigurar.Top = 0;
+            picConfigurar.Left = this.Width - picConfigurar.Width - padBtn; //btnConfigurar.Top = 0;
+
+            picPlanta.Top = picConfigurar.Top;
+            picPlanta.Left = picConfigurar.Left - picPlanta.Width - sepBtn;
+
+            picPuertos.Top = picPlanta.Top;
+            picPuertos.Left = picPlanta.Left - picPuertos.Width - sepBtn;
+
+            picNumero.Top = picPuertos.Top;
+            picNumero.Left = picPuertos.Left - picNumero.Width - sepBtn;
+
+            //picNumero.Top = picNumeroFis.Top;
+            //picNumero.Left = picNumeroFis.Left - picNumero.Width - sepBtn;
+
+            //picRecorrido.Top = this.Height - picRecorrido.Height - padBtn;
+            //picRecorrido.Left = padBtn; 
+
+            //picConfigurarT.Top = picRecorrido.Top;
+            //picConfigurarT.Left = picRecorrido.Left + picConfigurarT.Width + sepBtn;
+
+            picConfigurarT.Top = this.Height - picConfigurarT.Height - padBtn;
+            picConfigurarT.Left = padBtn;
+
+            picRecorrido.Top = picConfigurarT.Top;
+            picRecorrido.Left = picConfigurarT.Left + picRecorrido.Width + sepBtn;
+
+
+            picIniGps.Top = picRecorrido.Top;
+            picIniGps.Left = picRecorrido.Left + picIniGps.Width + sepBtn;
+
+            picConectGps.Top = picIniGps.Top;
+            picConectGps.Left = picIniGps.Left + picConectGps.Width + sepBtn;
+
+
+            //picRecorrido.Top = 0; //btnRecorrido.Top = 0;
             btnReparto.Top = 0;
 
             btnReparto.Width = 0;
             btnActualizar.Width = 0;
             btnJornadas.Width = 0;
 
-            btnSalir.Left = this.Width - btnSalir.Width;
-            btnPlanes.Left = btnSalir.Left - btnPlanes.Width;
-            
-            btnConfigurar.Left = btnPlanes.Left - btnConfigurar.Width;
-            btnRecorrido.Left = btnConfigurar.Left - btnRecorrido.Width;
+            picSalir.Left = this.Width - picSalir.Width - padBtn; //btnSalir.Left = this.Width - btnSalir.Width;
+            picPlanes.Left = picSalir.Left - picPlanes.Width - sepBtn; //btnPlanes.Left = btnSalir.Left - btnPlanes.Width;
+
+            //picConfigurar.Left = picPlanes.Left - picConfigurar.Width; //btnConfigurar.Left = btnPlanes.Left - btnConfigurar.Width;
+
+            //picRecorrido.Left = picPlanes.Left - picRecorrido.Width; //btnRecorrido.Left = btnConfigurar.Left - btnRecorrido.Width;
+
+
+
 
             btnReparto.Left = btnRecorrido.Left - btnReparto.Width;
             btnActualizar.Left = btnReparto.Left - btnActualizar.Width;
 
             btnJornadas.Left = btnActualizar.Left - btnJornadas.Width;
 
-            listBoxRecorridos.Top = btnRecorrido.Top + btnRecorrido.Height;
-            listBoxRecorridos.Left = btnRecorrido.Left;
+            listBoxRecorridos.Top = picRecorrido.Top - listBoxRecorridos.Height - 50; //listBoxRecorridos.Top = btnRecorrido.Top + btnRecorrido.Height;
+            listBoxRecorridos.Left = picRecorrido.Left; //listBoxRecorridos.Left = btnRecorrido.Left;
 
 
+            panelNombre.Top = 0;
+            panelNombre.Left = 0;
+
+            panelHoral.Top = this.Height - panelHoral.Height - toolStrip1.Height - 10;
+            panelHoral.Left = this.Width / 2 - panelHoral.Width / 2;
+
+            //panelBaterial.Top = this.Height - panelBaterial.Height - toolStrip1.Height - 10;
+            //panelBaterial.Left = 10;
+
+            //panelSenal.Top = this.Height - panelSenal.Height - toolStrip1.Height - 10;
+            //panelSenal.Left = this.Width - panelSenal.Width - 10;
+
+
+            //panelUbic.Top = this.Height - panelUbic.Height - toolStrip1.Height - 10;
+            //panelUbic.Left = panelHoral.Left + panelHoral.Width + 10;
+
+
+			//etiquetaBoton("Inicio", picPlanes);
+            //etiquetaBoton("Salir", picSalir);
+
+
+
+
+
+            panelGPS2.Top = 50;
+            panelGPS2.Width = 400;
+            panelGPS2.Left = this.Width / 2 - panelGPS2.Width / 2; 
+
+
+
+            lblNumCamion.Top = this.Height / 4;
+            lblNumCamion.Left = this.Width / 2 - lblNumCamion.Width / 2;
+
+
+            lblNombre.Top = 10;
+            lblNombre.Left = this.Width / 2 - lblNombre.Width / 2;
+
+            lblVersion.Top = this.Height - lblVersion.Height - 10;
+            lblVersion.Left = this.Width / 2 - lblVersion.Width / 2;
+
+
+            //lblAdvertencia.Text =
+            //    "\r\n" +
+            //    "Esta pantalla esta siendo monitoreada\r\n\r\n\r\n" //+
+            //    //"Advertencia:\r\n\r\n" +
+            //    //"- Prohibido modificar Red Wifi\r\n\r\n" +
+            //    //"- Prohibido No tener conectado GPS\r\n\r\n"
+            //    ;
+
+            //lblAdvertencia.Width = 700;
+            //lblAdvertencia.Height = 350;
+            //lblAdvertencia.Left = this.Width / 2 - lblAdvertencia.Width / 2;
+            //lblAdvertencia.Top = this.Height / 2 - lblAdvertencia.Height / 2;
+
+        }
+
+        void etiquetasBotones()
+        {
+            etiquetaBoton("Iniciar", picPlanes, false);
+            etiquetaBoton("Salir", picSalir, false);
+            etiquetaBoton("Config", picConfigurarT, true);
+            etiquetaBoton("Recorr", picRecorrido, true);
+            
+            etiquetaBoton("IniGPS", picIniGps, true);
+            etiquetaBoton("ConGPS", picConectGps, true);
+
+            etiquetaBoton("Paramt", picConfigurar, true);
+            etiquetaBoton("Puerto", picPuertos, true);
+            etiquetaBoton("CamRuta", picNumero, true);
+            etiquetaBoton("Planta", picPlanta, true);
         }
 
         private String bitModo()
@@ -446,6 +1089,63 @@ namespace Senga
             dtCamiontmp.Columns.Add("red");
             dtCamiontmp.Columns.Add("velocidad");
             dtCamiontmp.Columns.Add("idd");
+
+            dtCamiontmp.Columns.Add("jornada");
+            dtCamiontmp.Columns.Add("total_corral");
+            dtCamiontmp.Columns.Add("faltan_serv");
+            dtCamiontmp.Columns.Add("carga_actual");
+
+        }
+
+        private void tablaRacionTemp()
+        {
+
+            dtRaciontmp = new DataTable();
+
+            dtRaciontmp.Columns.Add("id"); 
+            dtRaciontmp.Columns.Add("num"); 
+            dtRaciontmp.Columns.Add("racion"); 
+            dtRaciontmp.Columns.Add("cantidad"); 
+            dtRaciontmp.Columns.Add("planeado"); 
+            dtRaciontmp.Columns.Add("cargado"); 
+            dtRaciontmp.Columns.Add("servido"); 
+            dtRaciontmp.Columns.Add("falta"); 
+            dtRaciontmp.Columns.Add("fecha"); 
+            dtRaciontmp.Columns.Add("hora"); 
+            dtRaciontmp.Columns.Add("hecho"); 
+            dtRaciontmp.Columns.Add("hechoc"); 
+            dtRaciontmp.Columns.Add("guardar"); 
+            dtRaciontmp.Columns.Add("idd"); 
+            dtRaciontmp.Columns.Add("numcarga"); 
+            dtRaciontmp.Columns.Add("carga"); 
+            dtRaciontmp.Columns.Add("bascula"); 
+
+        
+        }
+
+        private void tablaRacionesTemp()
+        {
+
+            dtRacionestmp = new DataTable();
+
+            dtRacionestmp.Columns.Add("id");
+            dtRacionestmp.Columns.Add("num");
+            dtRacionestmp.Columns.Add("racion");
+            dtRacionestmp.Columns.Add("cantidad");
+            dtRacionestmp.Columns.Add("planeado");
+            dtRacionestmp.Columns.Add("cargado");
+            dtRacionestmp.Columns.Add("servido");
+            dtRacionestmp.Columns.Add("falta");
+            dtRacionestmp.Columns.Add("fecha");
+            dtRacionestmp.Columns.Add("hora");
+            dtRacionestmp.Columns.Add("hecho");
+            dtRacionestmp.Columns.Add("hechoc");
+            dtRacionestmp.Columns.Add("guardar");
+            dtRacionestmp.Columns.Add("idd");
+            dtRacionestmp.Columns.Add("numcarga");
+            dtRacionestmp.Columns.Add("carga");
+            dtRacionestmp.Columns.Add("bascula");
+
 
         }
 
@@ -584,6 +1284,7 @@ namespace Senga
 
         private void iniciaGps()
         {
+            var vONGps = false;
 
             Cursor = Cursors.WaitCursor;
 
@@ -595,8 +1296,10 @@ namespace Senga
             //else
             //{
 
-                btnIniciaGps.Visible = false;
+                //btnIniciaGps.Visible = false;
                 txtError.Text = "";
+                lblMsgGpsError.Text = "";
+
                 try
                 {
 
@@ -610,22 +1313,58 @@ namespace Senga
                     serialPortGps.ReadTimeout = 500;
                     serialPortGps.WriteTimeout = 500;
                     serialPortGps.Open();
-
-
+                    btnIniciaGps.Visible = false;
                     timerGps.Start();
+                    lblMsgGpsError.Text = "";
+                    Cursor = Cursors.Default;
+                    vONGps = true;
 
-
-                }
-                catch (Exception err)
+            }
+                catch (UnauthorizedAccessException ex)
                 {
-                    //MessageBox.Show(err.Message);
-                    //ErrorLogging(err);
-                    txtError.Text = "GPS "+err.ToString();
+                    txtError.Text = "GPS " + ex.ToString();
                     btnIniciaGps.Visible = true;
                     Cursor = Cursors.Default;
+                    lblMsgGpsError.Text = "Acceso no autorizado al puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (System.IO.IOException ex)
+                {
+                    txtError.Text = "GPS " + ex.ToString();
+                    btnIniciaGps.Visible = true;
+                    Cursor = Cursors.Default;
+                    lblMsgGpsError.Text = "Error de E/S al acceder al puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    txtError.Text = "GPS " + ex.ToString();
+                    btnIniciaGps.Visible = true;
+                    Cursor = Cursors.Default;
+                    lblMsgGpsError.Text = "El puerto ya está en uso o no puede abrirse: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (Exception ex)
+                {
+                    txtError.Text = "GPS " + ex.ToString();
+                    btnIniciaGps.Visible = true;
+                    Cursor = Cursors.Default;
+                    lblMsgGpsError.Text = "Ocurrió un error al abrir el puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
                 }
 
             //}
+
+
+            if (vONGps)
+            {
+                picIniGps.Width = 0;
+                picConectGps.Width = 67;
+            }
+            else 
+            {
+                picConectGps.Width = 0;
+            }
 
             Cursor = Cursors.Default;
 
@@ -942,20 +1681,58 @@ namespace Senga
 
         }
 
+        void compact()
+        {
+
+            Datos datos = new Datos();
+
+            if (!datos.compact())
+            {
+                MessageBox.Show(datos.p_error, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+            else
+            {
+            }
+
+        }
+
         private void btnConfigurar_Click(object sender, EventArgs e)
         {
 
-            Captura frm2 = new Captura(0, 6);
-            frm2.ShowDialog();
+            //verConfigurar(0, true, 0);
 
-            if (frm2.result == 1234)
+        }
+
+        void verConfigurar(int opciones, bool clave, int cong_clave)
+        {
+            
+            listBoxRecorridos.Visible = false;
+            panelHoral.Visible = false;
+
+            if (clave)
             {
-                Senga.Configurar frm = new Senga.Configurar();
-                frm.Show();
+                Captura frm2 = new Captura(0, 6);
+                frm2.ShowDialog();
+            
+                if (frm2.result != 0)
+                {
+
+                    if (frm2.result == cong_clave) //Constants.CONGF_CLAVE)
+                    {
+                        Senga.Configurar frm = new Senga.Configurar(opciones);
+                        frm.Show();
+                    }
+                    else
+                    {
+                        Comun.mensajeVer("Contraseña incorrecta", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                    }
+            
+                }
             }
-            else 
+            else
             {
-                Comun.mensajeVer("Contraseña incorrecta", Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                Senga.Configurar frm = new Senga.Configurar(opciones);
+                frm.Show();
             }
 
         }
@@ -1019,7 +1796,42 @@ namespace Senga
 
         public void enviarWsdlLocaliza() 
         {
+            
+
+            consultaRacionCamion(dtRaciontmp);
+            consultaRacionesCamion(dtRacionestmp);
             consultaLocalizaCamion(dtCamiontmp);
+
+
+            if (dtRaciontmp.Rows.Count > 0 && dtCamiontmp.Rows.Count > 0)
+            {
+                DataRow row = dtRaciontmp.Rows[0];
+
+
+                double sumCantidad = 0;
+                double sumHechoc = 0;
+                foreach (DataRow racRow in dtRacionestmp.Rows)
+                {
+                    if (racRow["cantidad"] != DBNull.Value)
+                    {
+                        sumCantidad += Convert.ToDouble(racRow["cantidad"]);
+                    }
+                    if (racRow["hechoc"] != DBNull.Value)
+                    {
+                        sumHechoc += Convert.ToDouble(racRow["hechoc"]);
+                    }
+                }
+
+                dtCamiontmp.Rows[0]["total_corral"] = sumCantidad +"-"+ row["cantidad"];
+                var vValor = Convert.ToDouble(row["cantidad"].ToString()) - Convert.ToDouble(row["hechoc"].ToString());
+                dtCamiontmp.Rows[0]["faltan_serv"] = (sumCantidad - sumHechoc).ToString() + "-" + vValor;
+
+
+                dtCamiontmp.Rows[0]["carga_actual"] = row["bascula"];
+            }
+
+
+
             enviarWsdlLocalizaCamion(dtCamiontmp);
         }
 
@@ -1042,7 +1854,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT * FROM operacion WHERE latitud > 0";
+            datos.p_sql = "SELECT * FROM operacion"; //WHERE latitud > 0";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1081,6 +1893,113 @@ namespace Senga
                     newRow["red"] = lblRed.Text;
                     newRow["velocidad"] = lblVelocidad.Text;
 
+                    newRow["jornada"] = row["jornada"];
+
+                    dtsalida.Rows.Add(newRow);
+
+                }
+
+            }
+
+        }
+
+        private void consultaRacionCamion(DataTable dtsalida)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+
+            datos.p_sql = "SELECT * FROM raciones WHERE id = (SELECT jornada FROM operacion) " +
+                          " AND num = (SELECT servida FROM operacion) " + 
+                          " AND racion = (SELECT racion FROM operacion) "; 
+
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                txtError.Text = datos.p_error;
+            }
+            else
+            {
+
+                dtsalida.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    DataRow newRow = dtsalida.NewRow();
+
+                    newRow["id"] = row["id"];
+                    newRow["num"] = row["num"];
+                    newRow["racion"] = row["racion"];
+                    newRow["cantidad"] = row["cantidad"];
+                    newRow["planeado"] = row["planeado"];
+                    newRow["cargado"] = row["cargado"];
+                    newRow["servido"] = row["servido"];
+                    newRow["falta"] = row["falta"];
+                    newRow["fecha"] = row["fecha"];
+                    newRow["hora"] = row["hora"];
+                    newRow["hecho"] = row["hecho"];
+                    newRow["hechoc"] = row["hechoc"];
+                    newRow["guardar"] = row["guardar"];
+                    newRow["idd"] = row["idd"];
+                    newRow["numcarga"] = row["numcarga"];
+                    newRow["carga"] = row["carga"];
+                    newRow["bascula"] = row["bascula"];
+
+
+                    dtsalida.Rows.Add(newRow);
+
+                }
+
+            }
+
+        }
+
+        private void consultaRacionesCamion(DataTable dtsalida)
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+
+            datos.p_sql = "SELECT * FROM raciones WHERE id = (SELECT jornada FROM operacion) " +
+                          " AND num = (SELECT servida FROM operacion) ";
+
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                txtError.Text = datos.p_error;
+            }
+            else
+            {
+
+                dtsalida.Clear();
+
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    DataRow newRow = dtsalida.NewRow();
+
+                    newRow["id"] = row["id"];
+                    newRow["num"] = row["num"];
+                    newRow["racion"] = row["racion"];
+                    newRow["cantidad"] = row["cantidad"];
+                    newRow["planeado"] = row["planeado"];
+                    newRow["cargado"] = row["cargado"];
+                    newRow["servido"] = row["servido"];
+                    newRow["falta"] = row["falta"];
+                    newRow["fecha"] = row["fecha"];
+                    newRow["hora"] = row["hora"];
+                    newRow["hecho"] = row["hecho"];
+                    newRow["hechoc"] = row["hechoc"];
+                    newRow["guardar"] = row["guardar"];
+                    newRow["idd"] = row["idd"];
+                    newRow["numcarga"] = row["numcarga"];
+                    newRow["carga"] = row["carga"];
+                    newRow["bascula"] = row["bascula"];
+
+
                     dtsalida.Rows.Add(newRow);
 
                 }
@@ -1095,7 +2014,7 @@ namespace Senga
             Datos datos = new Datos();
             DataTable dt = new DataTable();
 
-            datos.p_sql = "SELECT TOP 5000 * FROM recorrido WHERE envio = 'N'";
+            datos.p_sql = "SELECT TOP 5000 * FROM recorrido WHERE envio = 'N' ORDER BY fecha DESC";
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1146,6 +2065,13 @@ namespace Senga
             }
 
             datos.p_sql = "SELECT * FROM servidas WHERE realidad > 0 AND (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) AND Num = (SELECT TOP 1 servida FROM operacion) ORDER BY corral, fecha, idd";
+
+            ////////////////////////////
+            //if (vcamion == "4" || vcamion == "3" || vcamion == "12" || vcamion == "8" || vcamion == "5")
+            //{
+            //    datos.p_sql = "SELECT TOP 1 * FROM servidas WHERE realidad > 0 AND (day(fecha) = " + DateTime.Now.ToString("dd") + " and month(fecha) = " + DateTime.Now.ToString("MM") + " and year(fecha) = " + DateTime.Now.ToString("yyyy") + " ) AND Num = (SELECT TOP 1 servida FROM operacion) ORDER BY hora DESC";
+            //}
+            ////////////////////////////7
 
             if (!datos.consultaSQL(ref dt, true))
             {
@@ -1200,6 +2126,9 @@ namespace Senga
             if (dt.Rows.Count != 0)
             {
 
+                vCadenaGps = vCadenaGps.Replace("\r\n", " ");
+
+
                 try
                 {
 
@@ -1226,7 +2155,17 @@ namespace Senga
                             row["racion"].ToString() + "|" +
                             row["pila"].ToString() + "|" +
                             row["red"].ToString() + "|" +
-                            row["velocidad"].ToString()
+                            row["velocidad"].ToString() + "|" +
+
+                            row["total_corral"].ToString() + "|" +//TOTAL_CORRAL
+                            row["faltan_serv"].ToString() + "|" +//FALTAN_SERV
+                            row["carga_actual"].ToString() + "|" +//CARGA_ACTUAL
+                            lblNomMaq.Text + "|" +//VARIOS01
+                            vCadenaGps + "|" +//VARIOS02
+                            ""//VARIOS03
+                            
+
+                            
 
                         );
 
@@ -1401,6 +2340,8 @@ namespace Senga
 
                 lblMandante.Text = lurl[9].Trim();
 
+                //lblServ.Text = lblServer.Text + "\n\r" + lblMandante.Text;
+
                 //Cursor = Cursors.Default;
 
                 if (!errormsg.Equals(""))
@@ -1491,7 +2432,6 @@ namespace Senga
                             row["corralgps"].ToString() + "|" +
                             row["latitudi"].ToString() + "|" +
                             row["longitudi"].ToString()
-
 
                         );
 
@@ -2282,8 +3222,9 @@ namespace Senga
             {
                 foreach (DataRow row in dt.Rows)
                 {
-                    gServida = row["Servida"].ToString();
-                    gRacion = row["Racion"].ToString();
+                    //gServida = row["Servida"].ToString();
+                    //gRacion = row["Racion"].ToString();
+                    gPlanta = row["Planta"].ToString();
                 }
             }
 
@@ -2316,6 +3257,8 @@ namespace Senga
             return numcamion;
 
         }
+
+
 
         //private string latenciaConfig()
         //{
@@ -2387,7 +3330,7 @@ namespace Senga
 
         //}
 
-        private void cerrarpuertoGps()
+        public void cerrarpuertoGps()
         {
 
             serialPortGps.Close();
@@ -2530,7 +3473,9 @@ namespace Senga
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            //lblHora.Text = DateTime.Now.ToString("hh:mm:ss tt");
+            lblHora.Text = DateTime.Now.ToString("HH:mm:ss");
+            lblHoral.Text = DateTime.Now.ToString("hh:mm tt");
 
             //lblContWs.Text = System.Diagnostics.Process.GetCurrentProcess().Threads.Count.ToString();
 
@@ -2576,8 +3521,35 @@ namespace Senga
                 toolStripLabel1.ForeColor = Color.Black;
                 toolStripLabel2.ForeColor = Color.Black;
             }
-            
 
+
+            if (lblBateriaTiempo.Text != "~")
+            {
+                if (lblLatitud.ForeColor == Color.Black)
+                {
+                    lblBateriaTiempo.ForeColor = Color.Red;
+                    lblBateria.ForeColor = Color.Red;
+                    //toolStripLabel1.ForeColor = Color.Red;
+                    //toolStripLabel2.ForeColor = Color.Red;
+                }
+                else
+                {
+                    lblBateriaTiempo.ForeColor = Color.Black;
+                    lblBateria.ForeColor = Color.Black;
+                    //toolStripLabel1.ForeColor = Color.Black;
+                    //toolStripLabel2.ForeColor = Color.Black;
+                }
+            }
+            else
+            {
+                lblBateriaTiempo.ForeColor = Color.Black;
+                lblBateria.ForeColor = Color.Black;
+                //toolStripLabel1.ForeColor = Color.Black;
+                //toolStripLabel2.ForeColor = Color.Black;
+
+			}
+
+            Greloj.Invalidate();
 
 
         }
@@ -2766,7 +3738,11 @@ namespace Senga
                 lblLatitud.Text = gLatitudgps.ToString();
                 lblLongitud.Text = gLongitudgps.ToString();
 
-                gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+                lblLat.Text = lblLatitud.Text;
+                lblLong.Text = lblLongitud.Text;
+
+
+				gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
                 ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
                 txtLectura.Text = inData;
@@ -2808,8 +3784,14 @@ namespace Senga
 
         private void btnRecorrido_Click(object sender, EventArgs e)
         {
-             
-            
+
+            verRecorrido();
+
+        }
+
+        void verRecorrido()
+        {
+
             listBoxRecorridos.Visible = !listBoxRecorridos.Visible;
              
 
@@ -2878,7 +3860,6 @@ namespace Senga
             //    Cursor = Cursors.Default;
 
             //}
-
 
 
         }
@@ -3057,7 +4038,7 @@ namespace Senga
         //    ErrorLogging((e.ExceptionObject as Exception));
         //}
 
-        private void btnIniciaGps_Click(object sender, EventArgs e)
+        public void btnIniciaGps_Click(object sender, EventArgs e)
         {            
             iniciaGps();       
         }
@@ -3112,9 +4093,8 @@ namespace Senga
                             if (Comun.mensajeVer("¿ Desea actualizar nueva version " + vsourcePath + " ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
                             {
 
-                                pictureBox1.Visible = false;
+                                pictureBox1.Visible = false;                    
                                 this.Refresh();
-
                                 
 
                                 File.Copy(sourcePath, targetPath, true);
@@ -3249,7 +4229,13 @@ namespace Senga
             porc *= 100;
             pbBateria.Value = Convert.ToInt32(porc);
             lblBateria.Text = pbBateria.Value.ToString() + " %";
-            
+            lblBateriaPorc.Text = pbBateria.Value.ToString() + " %";
+
+
+
+            pbBaterial.Maximum = pbBateria.Maximum;
+            pbBaterial.Value = pbBateria.Value;
+
             Console.WriteLine("Pila " + lblBateria.Text + "% " + DateTime.Now.ToString());
 
             //horas
@@ -3257,13 +4243,15 @@ namespace Senga
             {
                 txtLifeRemaining.Text = "Unknown";
                 lblBateriaTiempo.Text = "";
+                lblBateriaHoras.Text = "";
             }
             else
             {
                 txtLifeRemaining.Text = status.BatteryLifeRemaining.ToString();
                 int tsegundos = Convert.ToInt32(txtLifeRemaining.Text);
-                lblBateriaTiempo.Text = CalcularTiempo(tsegundos);            
-            }
+                lblBateriaTiempo.Text = CalcularTiempo(tsegundos);
+				lblBateriaHoras.Text = CalcularTiempo(tsegundos); 
+			}
 
 
             //status cable
@@ -3272,12 +4260,14 @@ namespace Senga
             if (status.PowerLineStatus.ToString().ToLower().Equals("offline"))
             {
                 lblBateriaActivoF.Value = 0;
-            }
+				picConectadoLuz.Visible = false;
+			}
             else if (status.PowerLineStatus.ToString().ToLower().Equals("online"))
             {
                 lblBateriaActivoF.Value = 1;
                 lblBateriaTiempo.Text = "~";
-            }
+				picConectadoLuz.Visible = true;
+			}
 
         }
 
@@ -3604,7 +4594,10 @@ namespace Senga
             lblLatitud.Text = gLatitudgps.ToString();
             lblLongitud.Text = gLongitudgps.ToString();
 
-            gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+			lblLat.Text = lblLatitud.Text;
+			lblLong.Text = lblLongitud.Text;
+
+			gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
             ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
         }
@@ -3621,18 +4614,60 @@ namespace Senga
             //serialPortGps.DataReceived -= new SerialDataReceivedEventHandler(SerialPortGps_DataReceived);
         }
 
-        private void btnConecta_Click(object sender, EventArgs e)
+        public void btnConecta_Click(object sender, EventArgs e)
         {
-            if (!serialPortGps.IsOpen)
-                serialPortGps.Open();
-        
+
+            try
+            {
+                if (!serialPortGps.IsOpen)
+                    serialPortGps.Open();
+
+                lblMsgGpsError.Text = "";
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                lblMsgGpsError.Text = "Acceso no autorizado al puerto serial: " + ex.Message;
+            }
+            catch (System.IO.IOException ex)
+            {
+                lblMsgGpsError.Text = "Error de E/S al acceder al puerto serial: " + ex.Message;
+            }
+            catch (InvalidOperationException ex)
+            {
+                lblMsgGpsError.Text = "El puerto ya está en uso o no puede abrirse: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                lblMsgGpsError.Text = "Ocurrió un error al abrir el puerto serial: " + ex.Message;
+            }
+
         }
 
-        private void btnDesconecta_Click(object sender, EventArgs e)
+        public void btnDesconecta_Click(object sender, EventArgs e)
         {
+            try 
+            { 
+                if (serialPortGps.IsOpen)
+                    serialPortGps.Close();
 
-            if (serialPortGps.IsOpen)
-                serialPortGps.Close();
+                lblMsgGpsError.Text = "";
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                lblMsgGpsError.Text = "Acceso no autorizado al puerto serial: " + ex.Message;
+            }
+            catch (System.IO.IOException ex)
+            {
+                lblMsgGpsError.Text = "Error de E/S al acceder al puerto serial: " + ex.Message;
+            }
+            catch (InvalidOperationException ex)
+            {
+                lblMsgGpsError.Text = "El puerto ya está en uso o no puede abrirse: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                lblMsgGpsError.Text = "Ocurrió un error al abrir el puerto serial: " + ex.Message;
+            }
         
         }
 
@@ -3645,8 +4680,7 @@ namespace Senga
                 new ServicioGPS()//,
                 //new Service2()
             };
-            ServiceBase.Run(servicesToRun);
-          
+            ServiceBase.Run(servicesToRun);          
 
         }
 
@@ -3666,6 +4700,8 @@ namespace Senga
 
         public void leerGPS() 
         {
+
+            //vCadenaGps = "";
 
             if (serialPortGps != null)
             {
@@ -3705,8 +4741,12 @@ namespace Senga
                             
                             string[] line_array = stringTemp.Split(',');
 
+
                             if (line_array.Length >= 7)
                             {
+
+                            //txtLectura.Text = string.Join(",", string_array[i]).ToString().Replace("\r\n","");
+                      
 
                                 if (line_array[0] == "GPRMC") 
                                 //if(line_array[0] == "GPGGA" )
@@ -3740,7 +4780,16 @@ namespace Senga
                                         //    colLng = 4;
                                         //}
 
-                                            txtLectura.Text = inData;
+                                            vCadenaGps = "E" + inData;
+                                            vCadenaGps = Regex.Replace(vCadenaGps, "GPRMC,", "");
+                                            vCadenaGps = Regex.Replace(vCadenaGps, @"[^a-zA-Z0-9,*.]", "");
+                                            vCadenaGps = vCadenaGps.Length > 40 ? vCadenaGps.Substring(0, 40) : vCadenaGps;
+
+
+
+                                            txtLectura.Text = inData + " " + DateTime.Now.ToString("HH:mm:ss.fff");
+
+
 
                                             gLatitudgps = separaNMEA(inData, validos, colLat);
                                             gLongitudgps = separaNMEA(inData, validos, colLng);
@@ -3752,7 +4801,10 @@ namespace Senga
                                                 lblLatitud.Text = gLatitudgps.ToString();
                                                 lblLongitud.Text = gLongitudgps.ToString();
 
-                                                gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
+											    lblLat.Text = lblLatitud.Text;
+											    lblLong.Text = lblLongitud.Text;
+
+											    gfechagps = DateTime.Now.ToString("dd-MM-yyyy");
                                                 ghoragps = DateTime.Now.ToString("HH:mm:ss");
 
                                                 //---------------------------------
@@ -3795,8 +4847,12 @@ namespace Senga
                                                 lblLatitud.Text = gLatitudgps.ToString();
                                                 lblLongitud.Text = gLongitudgps.ToString();
                                                 lblVelocidad.Text = "0";
-                                                //txtLectura.Text = "";
-                                            }
+											    //txtLectura.Text = "";
+
+											    lblLat.Text = lblLatitud.Text;
+											    lblLong.Text = lblLongitud.Text;
+
+										}
 
                                         
                                             Console.WriteLine("GPS " + gLatitudgps + "-" + gLongitudgps);
@@ -3819,16 +4875,36 @@ namespace Senga
                         lblLatitud.Text = gLatitudgps.ToString();
                         lblLongitud.Text = gLongitudgps.ToString();
                         lblVelocidad.Text = "0";
-                        txtLectura.Text = "";
-                    }
+                        txtLectura.Text = "No recive \r\n" + " " + DateTime.Now.ToString("HH:mm:ss.fff");
+                        vCadenaGps = txtLectura.Text;
 
+                        lblLat.Text = lblLatitud.Text;
+						lblLong.Text = lblLongitud.Text;
+					}
+                    
+                    lblMsgGpsError.Text = "";
 
                 }
-                catch (Exception err)
+                catch (UnauthorizedAccessException ex)
+                {
+                    lblMsgGpsError.Text = "Acceso no autorizado al puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (System.IO.IOException ex)
+                {
+                    lblMsgGpsError.Text = "Error de E/S al acceder al puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    lblMsgGpsError.Text = "El puerto ya está en uso o no puede abrirse: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message;
+                }
+                catch (Exception ex)
                 {
 
                     //Console.WriteLine("GPS " + err.Message + DateTime.Now.ToString());
-                    txtError.Text = err.Message;
+                    txtError.Text = ex.Message;
                     btnConectarGps.Visible = true;
 
                     gLatitudgps = 0;
@@ -3836,17 +4912,21 @@ namespace Senga
                     lblLatitud.Text = gLatitudgps.ToString();
                     lblLongitud.Text = gLongitudgps.ToString();
                     lblVelocidad.Text = "0";
-                    txtLectura.Text = "";
+                    txtLectura.Text = "No recive \r\n" + " " + DateTime.Now.ToString("HH:mm:ss.fff");
+
+					lblLat.Text = lblLatitud.Text;
+					lblLong.Text = lblLongitud.Text;
+                    lblMsgGpsError.Text = "Ocurrió un error al abrir el puerto serial: " + ex.Message;
+                    vCadenaGps = ex.Message.Length > 40 ? ex.Message.Substring(0, 40) : ex.Message; 
 
                 }
-            
+
             }       
         
         }
 
-        private void btnConectar_Click(object sender, EventArgs e)
+        void conetargps()
         {
-
 
             try {
 
@@ -3856,17 +4936,38 @@ namespace Senga
                     serialPortGps.Open();
 
                 btnConectarGps.Visible = false;
+                //picConectGps.Visible = false;
                 txtError.Text = "Puerto GPS OK";
 
+                lblMsgGpsError.Text = "";
 
             }
-            catch (Exception err)
+            catch (UnauthorizedAccessException ex)
             {
-                txtError.Text = err.Message;
+                lblMsgGpsError.Text = "Acceso no autorizado al puerto serial: " + ex.Message;
+            }
+            catch (System.IO.IOException ex)
+            {
+                lblMsgGpsError.Text = "Error de E/S al acceder al puerto serial: " + ex.Message;
+            }
+            catch (InvalidOperationException ex)
+            {
+                lblMsgGpsError.Text = "El puerto ya está en uso o no puede abrirse: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                txtError.Text = ex.Message;
                 Cursor = Cursors.Default;
+                lblMsgGpsError.Text = "Ocurrió un error al abrir el puerto serial: " + ex.Message;
             }
 
-            Cursor = Cursors .Default;
+            Cursor = Cursors.Default;
+
+        }
+
+        private void btnConectar_Click(object sender, EventArgs e)
+        {
+            conetargps();
 
         }
 
@@ -3874,6 +4975,8 @@ namespace Senga
         {
             //panelGps.Visible = !panelGps.Visible;
             tabControl1.Visible = !tabControl1.Visible;
+
+            //lblMsgGPS2.Visible = tabControl1.Visible;
         }
 
         private void btnRed_Click(object sender, EventArgs e)
@@ -3888,6 +4991,14 @@ namespace Senga
 
         private void btnPlanes_Click(object sender, EventArgs e)
         {
+            verPlanes();
+        }
+
+        void verPlanes()
+        {
+
+            listBoxRecorridos.Visible = false;
+            panelHoral.Visible = false;
 
             Datos datos = new Datos();
             DataTable dt = new DataTable();
@@ -3968,12 +5079,12 @@ namespace Senga
 
         private void btnNet_Click(object sender, EventArgs e)
         {
-            lblNet.Text = fNet();
+            lblNet.Text = fNetLista(); //fNet();
         }
 
         private void lblRed_Click(object sender, EventArgs e)
         {
-            lblRed.Text = fNet();
+            lblRed.Text = fNetLista(); // fNet(); 
             //lblRed.Text = fNet2();
         }
 
@@ -4006,9 +5117,399 @@ namespace Senga
             }
 
         }
-   
-    
-    
+
+        //private void mostrarReloj1(object sender, PaintEventArgs e)
+        //{
+
+            
+        //    H = Greloj.CreateGraphics();
+        //    hora1 = new Pen(Color.Black, 7);
+        //    min = new Pen(Color.Black, 5);
+        //    seg = new Pen(Color.Red, 3);
+        //    E = new SolidBrush(Color.Black);
+
+
+        //    int tamano = Greloj.Width / 2; //200;
+
+        //    double xH, yH, xM, yM, xS, yS;
+        //    double anguloH, anguloM, anguloS;
+        //    //int magnitudH = 110, magnitudM = 165, magnitudS = 175;
+        //    int magnitudH = Greloj.Width / 4, magnitudM = Greloj.Width / 3, magnitudS = Greloj.Width / 3;
+        //    int hora, minuto, segundo, XH, YH, XM, YM, XS, YS;
+
+        //    string Thora = DateTime.Now.ToString("hh");
+
+        //    //AJUSTES DE HORA
+        //    int.TryParse(Thora, out hora);
+
+        //    anguloH = hora * 30;
+        //    anguloH = (anguloH - 90);
+        //    anguloH = (anguloH * Math.PI) / 180;
+
+        //    xH = magnitudH * Math.Cos(anguloH);
+        //    yH = magnitudH * Math.Sin(anguloH);
+
+        //    XH = Convert.ToInt32(xH);
+        //    YH = Convert.ToInt32(yH);
+
+        //    H.DrawLine(hora1, tamano, tamano, (XH + tamano), (YH + tamano));
+
+
+        //    string Tmin = DateTime.Now.ToString("mm");
+
+        //    //AJUSTES DE MIN
+        //    int.TryParse(Tmin, out minuto);
+
+        //    anguloM = minuto * 6;
+        //    anguloM = (anguloM - 90);
+        //    anguloM = (anguloM * Math.PI) / 180;
+
+        //    xM = magnitudM * Math.Cos(anguloM);
+        //    yM = magnitudM * Math.Sin(anguloM);
+
+        //    XM = Convert.ToInt32(xM);
+        //    YM = Convert.ToInt32(yM);
+
+        //    H.DrawLine(min, tamano, tamano, (XM + tamano), (YM + tamano));
+
+
+        //    string Tseg = DateTime.Now.ToString("ss");
+
+        //    //AJUSTES DE SEG
+        //    int.TryParse(Tseg, out segundo);
+
+        //    anguloS = segundo * 6;
+        //    anguloS = (anguloS - 90);
+        //    anguloS = (anguloS * Math.PI) / 180;
+
+        //    xS = magnitudS * Math.Cos(anguloS);
+        //    yS = magnitudS * Math.Sin(anguloS);
+
+        //    XS = Convert.ToInt32(xS);
+        //    YS = Convert.ToInt32(yS);
+
+        //    H.DrawLine(seg, tamano, tamano, (XS + tamano), (YS + tamano));
+
+
+        //    H.FillEllipse(E, tamano - 10, tamano - 10, 30 / 2, 30 / 2);
+                        
+
+        //}
+
+
+        private void Greloj_Paint(object sender, PaintEventArgs e)
+        {
+
+
+            Comun.mostrarReloj2(Greloj, sender, e);
+
+           // mostrarReloj1(sender, e);
+
+        }
+
+
+        private void verConfigServ()
+        {
+
+            try
+            {
+
+                Senga.Properties.Settings setting = Senga.Properties.Settings.Default;
+
+                string[] cadena = setting.Senga_getSAPData_zwsdl_gps.Split('/');
+                string[] cadena2 = cadena[2].ToString().Split('.');
+
+
+                lblServ.Text = cadena2[0].ToString().Replace("TAMGGSAP", "") + "\n\r" + cadena[9].ToString();
+
+                //Properties.Settings.Default.Save();
+                //Properties.Settings.Default.Reload();
+            }
+            catch { }
+
+        }
+
+        private void picSalir_Click(object sender, EventArgs e)
+        {
+
+            if (Comun.mensajeVer("¿ Desea salir de la aplicacion ?", Constants.MSG_BOTON_SINO, Constants.MSG_IMG_QUESTION) == Constants.MSG_BOTON_SI)
+            {
+                lblIniciandoApp.Text = "Cerrando...";
+                lblIniciandoApp.Visible = true;
+                lblIniciandoApp.Refresh();
+
+                //salirActualizar();
+                Application.Exit();
+
+            }
+        }
+
+        void salirActualizar()
+        {
+
+            Comun.actualizarApp(false, Constants.OPC_SALIR);
+            //Application.Exit();
+
+        }
+
+        private void picPlanes_Click(object sender, EventArgs e)
+        {
+
+            tabControl1.Visible = false;
+
+            if (lblMsgGPS.Visible)
+            {
+                fBotonGpsExt();
+            }
+
+            verPlanes();
+
+        }
+
+        private void picConfigurar_Click(object sender, EventArgs e)
+        {
+            verConfigurar(3, true, clavePlanta(gPlanta)); 
+        }
+
+        private void picRecorrido_Click(object sender, EventArgs e)
+        {
+            verRecorrido();
+        }
+
+        private void picWifi_Click(object sender, EventArgs e)
+        {
+            lblSenal.Text = fNet();
+        }
+
+        private void picPuertos_Click(object sender, EventArgs e)
+        {
+            verConfigurar(1, false, 0);
+        }
+
+        void etiquetaBoton(string texto, PictureBox pic, Boolean arriba)
+        {
+            Label lbl = new Label();
+            this.Controls.Add(lbl);
+            lbl.Name = "lbl" + pic.Name;
+         
+            lbl.Text = texto;
+            lbl.TextAlign = ContentAlignment.MiddleCenter;
+            lbl.Font = new Font("Arial", 10);
+            lbl.ForeColor = Color.Silver;
+            lbl.AutoSize = false;
+
+            if(arriba)
+                lbl.Top = pic.Top - lbl.Height;
+            else
+                lbl.Top = pic.Top + pic.Height;
+            
+            lbl.Left = pic.Left;
+            lbl.Width = pic.Width;
+            lbl.BringToFront();
+        }
+
+        private void picOpciones_Click(object sender, EventArgs e)
+        {
+            panelHoral.Visible = !panelHoral.Visible;
+        }
+
+        public void lblMsgGPS_Click(object sender, EventArgs e)
+        {
+            fBotonGpsExt();
+        }
+
+        public void fBotonGpsExt()
+        {
+
+            Datos datos = new Datos();
+            DataTable dt = new DataTable();
+
+            datos.p_sql = "UPDATE configuracion SET "
+                + "puertogps = '" + lblPortGPS.Text
+                + "'";
+
+            if (!datos.consultaSQL(ref dt, true))
+            {
+                Comun.mensajeVer(datos.p_error, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+            }
+            else
+            {
+                lblPortGPS2.Text = lblPortGPS.Text;
+
+                lblMsgGPS.Visible = false; 
+                serialPortGps.Close();
+                iniciaGps();
+                //Comun.mensajeVer("Listo, configuro GPS, se reiniciara la aplicacion.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                //Application.Restart();
+            }
+
+        }
+
+        public void lblMsgGPS2_Click(object sender, EventArgs e)
+        {
+
+            string vPortGPS2 =
+                Comun.ExtraerEntreParentesis(Comun.fportDescripcion("nmea port"));
+
+            if (vPortGPS2 != "")
+            {
+
+                Datos datos = new Datos();
+                DataTable dt = new DataTable();
+
+                datos.p_sql = "UPDATE configuracion SET "
+                    + "puertogps = '" + vPortGPS2
+                    + "'";
+
+                if (!datos.consultaSQL(ref dt, true))
+                {
+                    Comun.mensajeVer(datos.p_error, Constants.MSG_BOTON_OK, Constants.MSG_IMG_STOP);
+                }
+                else
+                {
+                    
+                    lblPortGPS2.Text = vPortGPS2;
+
+                    lblMsgGPS2.Visible = false;
+                    serialPortGps.Close();
+                    iniciaGps();
+                    //Comun.mensajeVer("Listo, configuro GPS, se reiniciara la aplicacion.", Constants.MSG_BOTON_OK, Constants.MSG_IMG_OK);
+                    //Application.Restart();
+                }
+            
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            lblMsgGPS2_Click(sender, e);  
+        }
+
+        private void Principal_Click(object sender, EventArgs e)
+        {
+            verPlanes();
+        }
+
+        private void picNumero_Click(object sender, EventArgs e)
+        {
+            verConfigurar(2, false, 0);
+        }
+
+        private void picConfigurarT_Click(object sender, EventArgs e)
+        {
+            verConfigurar(0, true, Constants.CONGF_CLAVE_ADM);
+        }
+
+        private void picNumero_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picNumero, e, "C"+lblNumCamion.Text);
+        }
+
+        private void picPlanta_Click(object sender, EventArgs e)
+        {
+            verConfigurar(4, true, clavePlanta(gPlanta));
+        }
+
+        private int clavePlanta(string pPlanta)
+        {
+
+            var resultado = 0;
+
+            switch (pPlanta)
+            {
+
+                case "1":
+                    resultado = Constants.CONGF_CLAVE_P1;
+                    break;
+                case "2":
+                    resultado = Constants.CONGF_CLAVE_P2;
+                    break;
+
+            }
+
+            return resultado;
+
+        }
+
+        private void picPlanta_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picPlanta, e, "P"+gPlanta);
+        }
+
+        private void picNumeroFis_Click(object sender, EventArgs e)
+        {
+            verConfigurar(2, false, 0);
+        }
+
+        public static List<(string SSID, string Password)> GetSavedWifiNetworks()
+        {
+            var networks = new List<(string, string)>();
+            try
+            {
+                var profilesProcess = Process.Start(new ProcessStartInfo("netsh", "wlan show profiles")
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                });
+
+                var profilesOutput = profilesProcess.StandardOutput.ReadToEnd();
+                profilesProcess.WaitForExit();
+
+                //MessageBox.Show(profilesOutput);
+
+                var matches1 = Regex.Matches(profilesOutput, @"All User Profile\s+:\s(.+)");
+                var matches2 = Regex.Matches(profilesOutput, @"Perfil de todos los usuarios\s+:\s(.+)");
+                var matches = matches1.Count > 0 ? matches1 : matches2;
+
+                foreach (Match match in matches)
+                {
+                    var ssid = match.Groups[1].Value.Trim();
+                    var keyProcess = Process.Start(new ProcessStartInfo("netsh", $"wlan show profile \"{ssid}\" key=clear")
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    });
+
+                    var keyOutput = keyProcess.StandardOutput.ReadToEnd();
+                    keyProcess.WaitForExit();
+
+                    var passwordMatch = Regex.Match(keyOutput, @"Contenido de la clave\s+:\s(.+)");
+                    var password = passwordMatch.Success ? passwordMatch.Groups[1].Value.Trim() : "";
+
+                    //if (!string.IsNullOrEmpty(password))
+                        networks.Add((ssid, password));
+                }
+            }
+            catch { }
+
+            return networks;
+        }
+
+        public void picIniGps_Click(object sender, EventArgs e)
+        {
+            iniciaGps();
+        }
+
+        public void picConectGps_Click(object sender, EventArgs e)
+        {
+            conetargps();
+        }
+
+        private void picIniGps_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picIniGps, e, "INI");
+        }
+
+        private void picConectGps_Paint(object sender, PaintEventArgs e)
+        {
+            Comun.valorBoton(picIniGps, e, "CONN");
+        }
+
+
+
     }
 
 }
